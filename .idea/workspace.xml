@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fddf8c45-36e0-4ba4-822c-bfa6504a398b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trydjango/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/trydjango/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +35,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trydjango/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2266">
-              <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+            <state relative-caret-position="198">
+              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -231,7 +241,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/trydjango/.env&#10;true" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -344,7 +354,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1266" height="1344" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49492672" visible="true" weight="0.26552287" />
       <window_info id="Structure" order="1" sideWeight="0.5050733" side_tool="true" weight="0.2009804" />
@@ -387,7 +396,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/media/2-1372-1304.jpg" />
     <entry file="file://$PROJECT_DIR$/media/profile_pics/Cat_Line_Drawing.jpg" />
     <entry file="file://$PROJECT_DIR$/media/profile_pics/images-4.jpeg" />
     <entry file="file://$PROJECT_DIR$/media/320x320_rect_8826931.jpg" />
@@ -586,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/staticfiles/admin/css/base.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-13159" />
@@ -702,8 +703,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trydjango/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2266">
-          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+        <state relative-caret-position="198">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Django_dev/lib/python3.7/importlib/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
