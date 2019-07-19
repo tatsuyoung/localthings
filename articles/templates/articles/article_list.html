@@ -1,0 +1,82 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="title" id="clouds">
+    <div class="cloud top"></div>
+    <div class="cloud mid_1"></div>
+    <div class="cloud mid_2"></div>
+    <div class="cloud mid_3"></div>
+    <div class="cloud bottom"></div>
+
+    <div class="balloon-back">
+        <div class="balloon">
+            <p>nice</p>
+        </div>
+    </div>
+
+    <h1 id="list_title"><span class="a">Oita Loc</span><span class="b">al things</span></h1>
+      <div class="sub_title">
+         住んでいる人にとって「何気ないもの」...<br>
+          「何気ないもの」は誰かにとっては「何気なくないもの」かもしれない。<br>
+            何気なくないものに恋して、<br>
+            何気ないものに逢いにゆく。
+      </div>
+</div>
+
+    <div class="articles">
+        {% for article in articles %}
+        <div class="article">
+
+            <p class="author">{{ article.author.username }}</p>
+            <p><small>{{ article.date | date:"y/n/j"}}</small></p>
+            <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
+                {{ article.title }}
+            </a>
+            </h3>
+            <p>{{ article.snippet }}<small>Read more</small></p>
+            <div class="in-pict">
+                <a href="{% url 'articles:detail' detail_id=article.id %}">
+                    <img src="{{ article.thumb.url }}"/>
+                </a>
+            </div>
+            <div class="article_list_user_img">
+                <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover">
+            </div>
+
+            <hr class="hr_list_border">
+            <div class="icons">
+                <div class="list_article_icon">
+                    <p class="add_comments">
+                        <i class="far fa-comment-alt"></i>
+                        {{ article.comments.count }}
+                    </p>
+                </div>
+                 <div class="list_article_icon">
+                     <p class="like_hearts">
+                        <i class="fa fa-heart"></i>
+                        {{ article.total_likes }}
+                    </p>
+                 </div>
+                <div class="list_article_icon">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=
+                            {{ request.scheme }}://{{ request.get_host }}
+                            {% url 'articles:detail'  detail_id=article.id %}"
+                            target="_blank" rel="nofollow" class="fb">
+                            <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                <div class="list_article_icon">
+                    <a href="https://twitter.com/share?url=
+                            {{ request.scheme }}://{{ request.get_host }}
+                            {% url 'articles:detail' detail_id=article.id %}
+                            &text={{ article.title }}"
+                            target="_blank" rel="nofollow" class="tw">
+                        <i class="fab fa-twitter-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}

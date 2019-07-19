@@ -1,0 +1,25 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <div class="users_detail">
+        <div>
+            <h2>Comments author</h2>
+        </div>
+            <div class="users_detail_box">
+                {% for comment in article.comments.all %}
+                 <div class="users_comment_user_img">
+                    <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover">
+                </div>
+
+                <div>
+                    <p>{{ comment.author }}<small>さん</small><br>
+                    <span>
+                        <small>{{ comment.created_date|timesince }}{{ sometime }} 前</small>
+                    </span>
+                </p>
+                </div>
+                <hr class="hr_border">
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}

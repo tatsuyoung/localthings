@@ -1,0 +1,119 @@
+{% load static from staticfiles %}
+
+<html lang="ja">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <meta name="description" content="Local Thingsは、Localに恋するSite。
+     Localからは、Place、Food、Culture。
+     Travellerからは、Experience。
+     LocalとTravellerの為の投稿site" />
+
+
+     <link href="/static/favicon.ico" rel="icon">
+     <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+
+     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Italianno&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Sacramento&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+     <link rel="stylesheet" href="{% static 'styles.css' %}">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <title>Local Things</title>
+ </head>
+    <body>
+         <header class="wrapper">
+             <div class="wrapper_logo">
+                 <div class="wrapper_circle">
+                    <a href="{% url 'home' %}">
+                        <h1>oita  <br>L<span><i class="fas fa-map-marker-alt"></i></span><span>cal things</span></h1>
+                        <small><span class="logo_under">Local</span> に恋する<span class="logo_under"> site</span></small>
+                    </a>
+                 </div>
+             </div>
+              <section class="wrapper_about">
+                <ul>
+                    <li><a href="{% url 'about' %}" id="about">about  <i class="far fa-clipboard"></i></a></li>
+                    <li><a href="{% url 'accounts:contact' %}" id="contact">contact  <i class="fas fa-paper-plane"></i></a></li>
+                </ul>
+              </section>
+                <nav class="wrapper_nav">
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+                                {% csrf_token %}
+                            <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                        <li><a href="{% url 'articles:create' %}" class="highlight">
+                            <span>New Articles</span>
+                            </a>
+                        </li>
+                        <li class="wrapper_user">Hello<a href="{% url 'articles:users_detail' user.pk %}">
+                            <strong>{{ request.user }}</strong>
+                            <small><i class="far fa-id-badge"></i></small></a>
+                        </li>
+                        {% else %}
+                        <li><a href="{% url 'accounts:login' %}" id="nav_login">Login</a></li>
+                        <li><a href="{% url 'accounts:signup' %}" id="nav_signup">Signup</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+         </header>
+
+        <div class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <footer>
+            <div class="wrapper">
+            <div id="button"></div>
+                <div id="container">
+                    <div class="item_fb">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=
+                                {{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
+                                target="_blank" rel="nofollow" class="fb">
+                                <i class="fab fa-facebook-f fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="item_search">
+                        <form class="search_footer" method="GET" action="{% url 'articles:list' %}">
+                            <input class="search_footer" type="text" name="q"
+                                   placeholder="Search..." value="{{ request.GET.q }}" required/>
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="item_tw">
+                        <a href="https://twitter.com/share?url=
+                                {{ request.scheme }}://{{ request.get_host }}{% url 'home' %}
+                                &text= Local Things"
+                                target="_blank" rel="nofollow" class="tw">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="item_copyright">
+                        <p><i class="far fa-copyright"></i><small> 2019 - Local Things</small></p>
+                        <div class="item_privacy-polisy">
+                        <p>
+                            <a href="{% url 'privacy-policy' %}" id="privacy-policy">
+                                <i class="fas fa-user-shield"></i><small> privacy policy</small></a>
+                        </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>
