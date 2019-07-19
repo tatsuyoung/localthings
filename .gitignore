@@ -1,9 +1,9 @@
 
 
 
-# Django stuff
+# mac
 
-
+.DS_Store
 
 # Backup files #
 *.bak
@@ -75,7 +75,7 @@ celerybeat-schedule.*
 *.sage.py
 
 # Environments
-.env
+trydjango/.env
 .venv
 env/
 venv/
