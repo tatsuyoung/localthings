@@ -1,6 +1,8 @@
 
 staticfiles
 
+db.sqlite3
+
 # mac
 
 .DS_Store
