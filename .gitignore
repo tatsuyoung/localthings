@@ -3,6 +3,12 @@ staticfiles
 
 db.sqlite3
 
+media/profile_pics
+
+media/article_pics
+
+.idea
+
 # mac
 
 .DS_Store
