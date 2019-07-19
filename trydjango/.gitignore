@@ -1,0 +1,37 @@
+
+
+
+# Django stuff
+
+.env
+
+db.sqlite3
+
+article_pics
+
+prifile_pics
+
+staticfiles
+
+venv
+
+*.log
+
+*.jpg
+
+
+*.swp
+
+
+# Mac
+
+.DS_Store
+
+
+# Byte-compiled / optimized / DLL files
+
+*.py[co]$
+
+*$py.class
+
+__pycache__/

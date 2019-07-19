@@ -1,0 +1,116 @@
+{% extends 'base_layout.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="article-detail">
+
+    <div class="article-two">
+        <img src="{{ article.thumb.url }}"/>
+        {% if request.user == article.author %}
+        <form method="POST" action="{% url 'articles:delete' article.pk %}">{% csrf_token %}
+            <button class="article_delete" type="submit"
+                    onclick='return confirm("Are you sure you want to delete this article ？");'>
+                <i class="far fa-trash-alt"></i>
+                <span><small>Article</small></span>
+            </button>
+        </form>
+        {% endif %}
+
+        <p>{{ article.total_likes }} <small>Likes</small></p>
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.body }}</p>
+        <p><small>{{ article.date | date:"y/n/j" }}</small></p>
+    </div>
+
+    <div class="like_box">
+        <button type="button" class="btn-like" id="like" name="{{ article.slug }}">
+        <i class="fa fa-heart"></i>
+        <span>Like</span>
+        </button>
+    </div>
+
+    <div class="comments">
+
+        <span class="comment_top">Comments
+             <small><i class="far fa-comment-alt" onclick="clickBtn2()"></i></small>
+            <small>{{ article.comments.count }}</small>
+        </span>
+
+            <form method="POST" action="{% url 'articles:comment' article.pk %}">
+            {% csrf_token %}
+            <button type="submit" id="read">
+                <span>Read</span>
+                <i class="fas fa-glasses"></i>
+            </button>
+            </form>
+
+            {% for comment in comments %}
+            <div class="comment_user_img">
+                <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover">
+            </div>
+            <div>
+                <p>{{ comment.text|linebreaks }}</p>
+                <span><small>by</small> {{ comment.author }} |
+                    <small>{{ comment.created_date|timesince }}{{ sometime }} 前</small></span>
+            </div>
+
+            {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
+            <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
+                {% csrf_token %}
+                <button type="submit" id="comment_delete"
+                        onclick="return confirm('Do you want to delete this comment ?');">
+                    <i class="far fa-trash-alt fa-lg"></i>
+                </button>
+            </form>
+            {% endif %}
+            <hr class="hr_comment_border">
+            {% endfor %}
+         <form method="POST" action="." id="comment_form">
+             {% csrf_token %}
+             {{ form.as_p }}
+            <button type="submit" id="comment" name="{{ comment.pk }}">
+                <span>Comment</span>
+                <i class="far fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+    $('#like').click(function(){
+        $.ajax({
+               type: "POST",
+               url: "{% url 'articles:like_button' article.pk %}",
+               data: {'slug': $(this).attr('name'),'csrfmiddlewaretoken':'{{ csrf_token }}'},
+               dataType: "json",
+               success: function(response) {
+                    alert(response.message);
+                    alert('Article likes is now ' + response.likes_count + ' like');
+               },
+               error: function(data) {
+                    alert("Please Login or Signup");
+            }
+        });
+    })
+</script>
+<script>
+    $(document).on('submit', '#comment_form', function(e){
+                e.preventDefault();
+        $.ajax({
+               type: "POST",
+               url: "{% url 'articles:comment' article.pk %}",
+               data: $("#comment_form").serializeArray(),
+               success: function(data) {
+                        console.log('SUCCESS!!!');
+                        $("#comment_form" + " textarea ").val(' ');
+                        $("#comment_form" + " input ").val(' ');
+                        alert('Thank you for your message. it has been sent.' );
+               },
+               error: function(data) {
+                    alert("Error!!");
+            }
+        });
+    })
+</script>
+<script src="/static/comment.js"></script>
+<script src="/static/liked.js"></script>
+{% endblock %}

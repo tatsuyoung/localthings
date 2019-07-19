@@ -1,0 +1,25 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="users_detail">
+    <div>
+        <h2>Add Like author</h2>
+    </div>
+    <div class="users_detail_box">
+        {% for article in articles %}
+        {% for like in article.like.all %}
+
+        <div class="users_comment_user_img">
+            <img src="{{ like.profile.image.url }}" alt="Avatar" class="img-cover">
+        </div>
+
+        <div>
+            <p>{{ like }}<small>さん</small></p>
+        </div>
+        <hr class="hr_border">
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
