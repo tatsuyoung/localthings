@@ -5,15 +5,17 @@
 
 .env
 
-db.sqlite3
+.idea/
 
-article_pics
+/db.sqlite3
 
-prifile_pics
+/article_pics
+
+/prifile_pics
 
 staticfiles
 
-venv
+/venv
 
 *.log
 
