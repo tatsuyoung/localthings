@@ -9,6 +9,14 @@ media/article_pics
 
 .idea
 
+*.log
+
+*.pot
+
+*.pyc
+
+__pycache__/
+
 # mac
 
 .DS_Store
@@ -17,9 +25,9 @@ media/article_pics
 *.bak
 
 # If you are using PyCharm #
-.idea/**/workspace.xml
+#.idea/**/workspace.xml
 .idea/**/tasks.xml
-.idea/dictionaries
+#.idea/dictionaries
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.xml
@@ -32,7 +40,7 @@ media/article_pics
 *.iws /out/
 
 # Python #
-*.py[cod]
+#*.py[cod]
 *$py.class
 
 # Distribution / packaging
@@ -42,7 +50,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/

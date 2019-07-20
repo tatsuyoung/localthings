@@ -1,3 +1,4 @@
+from decouple import config
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
@@ -91,7 +92,7 @@ def Contact(request):
                 'New contact form Localthings',
                 content,
                 'Local things' + '',
-                ['Localthings.gogo@gmail.com'],
+                [config('EMAIL_HOST_USER')],
                 headers={'Reply To': contact_email}
             )
 
