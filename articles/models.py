@@ -10,7 +10,7 @@ class Article(models.Model):
     body = models.TextField(blank=False)
     date = models.DateTimeField(default=timezone.now)
     thumb = models.ImageField(default='no-image.png', blank=True, upload_to='article_pics')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
 
     def __str__(self):
