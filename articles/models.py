@@ -10,7 +10,7 @@ class Article(models.Model):
     body = models.TextField(blank=False)
     date = models.DateTimeField(default=timezone.now)
     thumb = models.ImageField(default='No-image.png', blank=True, upload_to='article_pics')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=200)
     text = models.TextField(help_text='コメントを送信する場合は、Comments横のIconをTapして下さい')
     created_date = models.DateTimeField(default=timezone.now)
