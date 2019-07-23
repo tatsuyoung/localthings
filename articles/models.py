@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     slug = models.SlugField()
     body = models.TextField(blank=False)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     thumb = models.ImageField(default='no-image.png', blank=True, upload_to='article_pics')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
@@ -33,7 +34,7 @@ class Comment(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     text = models.TextField(help_text='コメントを送信する場合は、Comments横のIconをTapして下さい')
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ['-created_date']
