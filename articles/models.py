@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from PIL import Image as Img
+from PIL import ExifTags
+from io import BytesIO
+from django.core.files import File
 
 
 class Article(models.Model):
@@ -25,8 +29,38 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Article, self).save(*args, **kwargs)
+        if not self.id:
+            self.set_image()
+        else:
+            this = Article.objects.get(id=self.id)
+            if this.image != self.thumb:
+                self.set_image()
+        return super(Article, self).save(*args, **kwargs)
+
+    def set_image(self):
+        try:
+            if self.thumb:
+                pilImage = Img.open(BytesIO(self.thumb.read()))
+                for orientation in ExifTags.TAGS.keys():
+                    if ExifTags.TAGS[orientation] == 'Orientation':
+                        break
+                exif = dict(pilImage._getexif().items())
+                #print(exif)
+
+                if exif[orientation] == 3:
+                    pilImage = pilImage.rotate(180, expand=True)
+                elif exif[orientation] == 6:
+                    pilImage = pilImage.rotate(270, expand=True)
+                elif exif[orientation] == 8:
+                    pilImage = pilImage.rotate(90, expand=True)
+
+                output = BytesIO()
+                pilImage.save(output, format='JPEG', quality=75)
+                output.seek(0)
+                self.thumb = File(output, self.thumb.name)
+                self.slug = slugify(self.title)
+        except(AttributeError, KeyError, IndexError):
+            pass
 
 
 class Comment(models.Model):
