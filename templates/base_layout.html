@@ -30,7 +30,7 @@
      <title>Local Things</title>
  </head>
     <body>
-         <header class="wrapper">
+         <header class="wrapper" ontouchstart="">
              <div class="wrapper_logo">
                  <div class="wrapper_circle">
                     <a href="{% url 'home' %}">
@@ -70,14 +70,14 @@
                 </nav>
          </header>
 
-        <div class="wrapper">
+        <div class="wrapper" ontouchstart="">
             {% block content %}
             {% endblock %}
         </div>
 
         <footer>
-            <div class="wrapper">
-            <div id="button"></div>
+            <div class="wrapper" ontouchstart="">
+            <div id="button" ontouchstart=""></div>
                 <div id="container">
                     <div class="item_fb">
                         <a href="https://www.facebook.com/sharer/sharer.php?u=
