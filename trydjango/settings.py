@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'accounts.apps.AccountsConfig',
     'articles',
     'django_cleanup',
@@ -151,6 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'login'
+
+SITE_ID = 1
 
 # page移動だけ
 #EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
