@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+from PIL import Image, ImageOps
 from PIL import Image as Img
 from PIL import ExifTags
 from io import BytesIO
@@ -54,8 +54,15 @@ class Profile(models.Model):
                     pilImage = pilImage.rotate(90, expand=True)
 
                 output = BytesIO()
-                pilImage.save(output, format='JPEG', quality=75)
-                output.seek(0)
-                self.image = File(output, self.image.name)
+                if pilImage.height > 300 or pilImage.width > 300:
+                    size = (300, 300)
+                    pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                    pilImage_fit.save(output, format='JPEG', quality=90)
+                    output.seek(0)
+                    self.image = File(output, self.image.name)
+                else:
+                    pilImage.save(output, format='JPEG', quality=90)
+                    output.seek(0)
+                    self.image = File(output, self.image.name)
         except(AttributeError, KeyError, IndexError):
             pass

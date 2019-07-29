@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from PIL import ImageOps
 from PIL import Image as Img
 from PIL import ExifTags
 from io import BytesIO
@@ -9,9 +10,9 @@ from django.core.files import File
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=30)
     slug = models.SlugField()
-    body = models.TextField(blank=False)
+    body = models.TextField(blank=False, help_text='Titleまたは、Articleに地域名等を入れると検索し易くなります。')
     date = models.DateTimeField(default=timezone.now)
     thumb = models.ImageField(default='No-image.png', blank=True, upload_to='article_pics')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -55,10 +56,19 @@ class Article(models.Model):
                     pilImage = pilImage.rotate(90, expand=True)
 
                 output = BytesIO()
-                pilImage.save(output, format='JPEG', quality=75)
-                output.seek(0)
-                self.thumb = File(output, self.thumb.name)
-                self.slug = slugify(self.title)
+                if pilImage.height > 960 or pilImage.width > 960:
+                    size = (960, 960)
+                    pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                    #print('format'*3, pilImage_fit)
+                    pilImage_fit.save(output, format='JPEG', quality=99)
+                    output.seek(0)
+                    self.thumb = File(output, self.thumb.name)
+                    self.slug = slugify(self.title)
+                else:
+                    pilImage.save(output, format='JPEG', quality=75)
+                    output.seek(0)
+                    self.thumb = File(output, self.thumb.name)
+                    self.slug = slugify(self.title)
         except(AttributeError, KeyError, IndexError):
             pass
 
