@@ -34,7 +34,7 @@ class Article(models.Model):
             self.set_image()
         else:
             this = Article.objects.get(id=self.id)
-            if this.image != self.thumb:
+            if this.thumb != self.thumb:
                 self.set_image()
         return super(Article, self).save(*args, **kwargs)
 
@@ -46,7 +46,6 @@ class Article(models.Model):
                     if ExifTags.TAGS[orientation] == 'Orientation':
                         break
                 exif = dict(pilImage._getexif().items())
-                #print(exif)
 
                 if exif[orientation] == 3:
                     pilImage = pilImage.rotate(180, expand=True)
@@ -59,7 +58,6 @@ class Article(models.Model):
                 if pilImage.height > 960 or pilImage.width > 960:
                     size = (960, 960)
                     pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                    #print('format'*3, pilImage_fit)
                     pilImage_fit.save(output, format='JPEG', quality=99)
                     output.seek(0)
                     self.thumb = File(output, self.thumb.name)
