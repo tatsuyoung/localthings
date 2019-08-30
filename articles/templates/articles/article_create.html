@@ -9,7 +9,7 @@
         <div class="form_group">
             <div class="column_1">
                 <label>Title</label>
-                <input type="text" name="title" maxlength="150" required="" id="id_title">
+                <input type="text" name="title" maxlength="30" required="" id="id_title">
                 <p class="helptext">{{ form.title.help_text }}</p>
                 {% for error in form.title.errors %}
                 <span>{{ error }}</span>
