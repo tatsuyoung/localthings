@@ -511,6 +511,32 @@ nav button{
     }
 
 
+/* user_detail_edit_icon */
+
+.article_edit{
+    background:               tomato;
+    height:                     50px;
+    width:                      50px;
+    border-radius:               50%;
+    display:            inline-block;
+    text-align:               center;
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.99);
+    }
+
+.fa-edit{
+    position:               relative;
+    top:                        15px;
+    }
+
+.edit_box{
+    display:                    flex;
+    justify-content:        flex-end;
+    position:               relative;
+    bottom:                     20px;
+    right:                      15px;
+    }
+
+
 /* list articles */
 
 .articles{
@@ -934,6 +960,19 @@ input[type="file"]{
 .filename{
     font-size:         16px;
     }
+
+.site-form a{
+    color:          #383838;
+    }
+
+#thumb-clear_id{
+    display:          none;
+    }
+
+.site-form p:nth-of-type(3) label:nth-of-type(2){
+    display:         none;
+    }
+
 
 /* author */
 

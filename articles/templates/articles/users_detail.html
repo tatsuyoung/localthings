@@ -12,17 +12,17 @@
 
     <div class="user_detail_user_custom">
         <a href="{% url 'accounts:profile' %}">Profile <i class="fas fa-user-cog"></i></a></div>
-
 </div>
 
 <div class="articles">
     {% for article in my_article %}
         <div class="article">
+
             <p class="author">{{ article.author.username }}</p>
             <p><small>{{ article.date | date:"y/n/j H:i"}}</small></p>
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
                 {{ article.title }}
-                </a>
+            </a>
             </h3>
             <p>{{ article.snippet }}</p>
             <div class="in-pict">
@@ -33,30 +33,38 @@
             <div class="article_list_user_img">
                 <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover">
             </div>
-          <hr>
-            <div class="list_article_icon">
-                <p class="add_comments"><a href="{% url 'articles:users_detail_comments' article.pk %}">
-                    <i class="far fa-comment-alt"></i></a>
-                    {{ article.comments.count }}
-                </p>
+            <div class="edit_box">
+                 <div class="article_edit">
+                    <a href="{% url 'articles:edit' pk=article.pk %}">
+                        <i class="far fa-edit"></i></a>
+                </div>
             </div>
-            <div class="list_article_icon">
-                 <p class="like_hearts"><a href="{% url 'articles:users_detail_like' article.pk %}">
-                    <i class="fa fa-heart"></i></a>
-                    {{ article.total_likes }}
-                 </p>
-            </div>
-            <div class="list_article_icon">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}"
-                        target="_blank" rel="nofollow" class="fb">
-                        <i class="fab fa-facebook"></i>
-                </a>
-            </div>
-            <div class="list_article_icon">
-                <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
-                        target="_blank" rel="nofollow" class="tw">
-                    <i class="fab fa-twitter-square"></i>
-                </a>
+            <hr class="hr_list_border">
+            <div class="icons">
+                <div class="list_article_icon">
+                    <p class="add_comments"><a href="{% url 'articles:users_detail_comments' article.pk %}">
+                        <i class="far fa-comment-alt"></i></a>
+                        {{ article.comments.count }}
+                    </p>
+                </div>
+                <div class="list_article_icon">
+                     <p class="like_hearts"><a href="{% url 'articles:users_detail_like' article.pk %}">
+                        <i class="fa fa-heart"></i></a>
+                        {{ article.total_likes }}
+                     </p>
+                </div>
+                <div class="list_article_icon">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}"
+                            target="_blank" rel="nofollow" class="fb">
+                            <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                <div class="list_article_icon">
+                    <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
+                            target="_blank" rel="nofollow" class="tw">
+                        <i class="fab fa-twitter-square"></i>
+                    </a>
+                </div>
             </div>
         </div>
     {% endfor %}

@@ -122,3 +122,18 @@ def users_detail_liked(request, pk):
                 'articles': articles
                 }
     return render(request, 'articles/users_detail_like.html', context)
+
+
+def article_edit(request, pk):
+    post = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        form = forms.CreateArticle(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('articles:list')
+    else:
+        form = forms.CreateArticle(instance=post)
+    context = {'form': form}
+    return render(request, 'articles/article_edit.html', context)

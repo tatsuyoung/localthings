@@ -1,0 +1,11 @@
+
+{% extends 'base_layout.html' %}
+{% block content %}
+    <h1>Article Edit</h1>
+    <form method="POST" class="site-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+    <script src="/static/slugify.js"></script>
+{% endblock %}
