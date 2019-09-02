@@ -6,6 +6,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Update">
+        <p>Slugには、Titleが日本語のみの場合「半角英数字入力で”-"（ハイフン）」を入力して下さい。</p>
     </form>
     <script src="/static/slugify.js"></script>
 {% endblock %}
