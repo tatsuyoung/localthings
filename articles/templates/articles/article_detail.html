@@ -18,7 +18,7 @@
 
         <p>{{ article.total_likes }} <small>Likes</small></p>
         <h2>{{ article.title }}</h2>
-        <p>{{ article.body | linebreaksbr }}</p>
+        <p>{{ article.body | urlize | linebreaksbr }}</p>
         <p><small>{{ article.date | date:"y/n/j" }}</small></p>
     </div>
 

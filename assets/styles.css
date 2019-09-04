@@ -514,7 +514,7 @@ nav button{
 /* user_detail_edit_icon */
 
 .article_edit{
-    background:               tomato;
+    background:              #A8DBA8;
     height:                     50px;
     width:                      50px;
     border-radius:               50%;
@@ -733,6 +733,10 @@ nav button{
     max-height:           60vh;
     max-width:            100%;
     object-fit:          cover;
+    }
+
+.article-two a{
+    color:             #6495ED;
     }
 
 .btn{
