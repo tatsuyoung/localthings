@@ -1,7 +1,7 @@
 
 {% extends 'base_layout.html' %}
 {% block content %}
-    <h1>Article Edit</h1>
+    <h1>Edit an Article</h1>
     <form method="POST" class="site-form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
