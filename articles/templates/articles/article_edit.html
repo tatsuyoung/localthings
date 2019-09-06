@@ -2,11 +2,13 @@
 {% extends 'base_layout.html' %}
 {% block content %}
     <h1>Edit an Article</h1>
+    {% if request.user == article.author or request.user.is_superuser %}
     <form method="POST" class="site-form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Update">
         <p>Slugには、Titleが日本語のみの場合「半角英数字入力で”-"（ハイフン）」を入力して下さい。</p>
     </form>
+    {% endif %}
     <script src="/static/slugify.js"></script>
 {% endblock %}
