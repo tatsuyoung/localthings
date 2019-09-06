@@ -1,7 +1,7 @@
 import json
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -124,10 +124,17 @@ def users_detail_liked(request, pk):
     return render(request, 'articles/users_detail_like.html', context)
 
 
+@login_required(login_url="/accounts/login/")
 def article_edit(request, pk):
-    post = get_object_or_404(Article, pk=pk)
+    if id:
+        post = get_object_or_404(Article, pk=pk)
+        if post.author != request.user:
+            return HttpResponseForbidden()
+    else:
+        post = Article(author=request.user)
+
+    form = forms.CreateArticle(request.POST, request.FILES, instance=post)
     if request.method == 'POST':
-        form = forms.CreateArticle(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
