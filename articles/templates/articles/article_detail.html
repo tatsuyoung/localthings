@@ -5,7 +5,7 @@
 <div class="article-detail">
 
     <div class="article-two">
-        <img src="{{ article.thumb.url }}"/>
+        <img src="{{ article.thumb.url }}" loading="lazy"/>
         {% if request.user == article.author or request.user.is_superuser %}
         <form method="POST" action="{% url 'articles:delete' article.pk %}">{% csrf_token %}
             <button class="article_delete" type="submit"

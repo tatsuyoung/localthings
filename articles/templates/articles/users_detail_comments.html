@@ -8,7 +8,7 @@
             <div class="users_detail_box">
                 {% for comment in article.comments.all %}
                  <div class="users_comment_user_img">
-                    <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover">
+                    <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </div>
 
                 <div>

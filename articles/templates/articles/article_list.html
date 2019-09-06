@@ -37,11 +37,11 @@
             <p>{{ article.snippet }}<small>Read more</small></p>
             <div class="in-pict">
                 <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <img src="{{ article.thumb.url }}"/>
+                    <img src="{{ article.thumb.url }}" loading="lazy"/>
                 </a>
             </div>
             <div class="article_list_user_img">
-                <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover">
+                <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
             </div>
 
             <hr class="hr_list_border">

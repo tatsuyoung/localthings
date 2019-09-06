@@ -11,7 +11,7 @@
         {% for like in article.like.all %}
 
         <div class="users_comment_user_img">
-            <img src="{{ like.profile.image.url }}" alt="Avatar" class="img-cover">
+            <img src="{{ like.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
         </div>
 
         <div>

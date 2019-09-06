@@ -6,7 +6,7 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width,initial-scale=1">
      <meta name="description" content="Oita Local Thingsは、Localに恋するSite。
-     あなたの知っている大分Localを投稿しよう。
+     あなたの知っている大分Localを投稿して、大分の地域を好きになってくれる人を増やそう。
      あなたの「もしかしたら」で、あなたの周りの世界は少しだけ変わるかも" />
 
 
@@ -80,8 +80,7 @@
             <div id="button" ontouchstart=""></div>
                 <div id="container">
                     <div class="item_fb">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=
-                                {{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
                                 target="_blank" rel="nofollow" class="fb">
                                 <i class="fab fa-facebook-f fa-2x"></i>
                         </a>
@@ -94,9 +93,7 @@
                         </form>
                     </div>
                     <div class="item_tw">
-                        <a href="https://twitter.com/share?url=
-                                {{ request.scheme }}://{{ request.get_host }}{% url 'home' %}
-                                &text= Local Things"
+                        <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'home' %}&text= Local Things"
                                 target="_blank" rel="nofollow" class="tw">
                             <i class="fab fa-twitter fa-2x"></i>
                         </a>
