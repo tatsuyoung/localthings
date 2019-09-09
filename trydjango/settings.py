@@ -179,4 +179,27 @@ AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+# Security
+
+# security.W004
+#SECURE_HSTS_SECONDS = 86400
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# security.W006
+SECURE_CONTENT_TYPE_NOSNIFF =True
+
+# security.W007
+#SECURE_BROWSER_XSS_FILTER = True
+
+# security.W008
+#SECURE_SSL_REDIRECT = True
+
+# security.W012
+#SESSION_COOKIE_SECURE = True
+
+# security.W016、security.W017
+CSRF_COOKIE_HTTPONLY = True
+
+CSRF_COOKIE_SECURE = True
+
 django_heroku.settings(locals())
