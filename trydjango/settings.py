@@ -189,17 +189,20 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 SECURE_CONTENT_TYPE_NOSNIFF =True
 
 # security.W007
-#SECURE_BROWSER_XSS_FILTER = True
+SECURE_BROWSER_XSS_FILTER = True
 
 # security.W008
 #SECURE_SSL_REDIRECT = True
 
 # security.W012
-#SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # security.W016、security.W017
 CSRF_COOKIE_HTTPONLY = True
 
 CSRF_COOKIE_SECURE = True
+
+# security.W019
+X_FRAME_OPTIONS = 'DENY'
 
 django_heroku.settings(locals())
