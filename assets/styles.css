@@ -1644,5 +1644,129 @@ footer:hover {
 
 .producer{
     font-family:       'Sacramento', cursive;
-    text-align:             center;
+    text-align:                       center;
     }
+
+
+/* pagination */
+
+ul{
+    padding:                  0;
+    list-style-type:       none;
+    }
+
+.pager{
+    position:          relative;
+    top:                   30px;
+    padding:               30px;
+    }
+
+.pager .pagination {
+  text-align:            center;
+    }
+
+.pager .pagination li {
+  display:               inline;
+  margin:                 0 2px;
+  padding:                    0;
+  display:         inline-block;
+  width:                   50px;
+  height:                  50px;
+  text-align:            center;
+  position:            relative;
+  border-radius:           50px;
+  border:        1px solid #fff;
+    }
+
+.pager .pagination li.pre,
+.pager .pagination li.next{
+  background:            #a3e4e4;
+  color:                    #fff;
+    }
+
+.pager .pagination li a{
+  vertical-align:            middle;
+  position:                absolute;
+  top:                            0;
+  left:                           0;
+  width:                       100%;
+  height:                      100%;
+  text-align:                center;
+  display:                    table;
+  text-decoration:             none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition:    all 0.3s ease;
+  -o-transition:      all 0.3s ease;
+  transition:        all  0.3s ease;
+    }
+
+.pager .pagination li.pre a,
+.pager .pagination li.next a{
+  color:                       #fff;
+    }
+
+.pager .pagination li a span{
+  display:               table-cell;
+  vertical-align:            middle;
+    }
+
+.pager .pagination li a:hover,
+.pager .pagination li a.active{
+  color:                                #fff;
+  background:                        #f7d4d7;
+  border-radius:                        10px;
+  border-radius:                        50px;
+  animation:         animScale 0.4s ease-out;
+  transform-origin:                  50% 50%;
+  -webkit-animation: animScale 0.4s ease-out;
+  -webkit-transform-origin:          50% 50%;
+  -moz-animation: animScale    0.4s ease-out;
+  -moz-transform-origin:             50% 50%;
+    }
+
+@keyframes animScale {
+  0% { transform: scale(0.8, 0.8); }
+  40% { transform: scale(1.2, 1.2); }
+  60% { transform: scale(1, 1); }
+  80% { transform: scale(1.1, 1.1); }
+  100% { transform: scale(1, 1); }
+    }
+
+@-webkit-keyframes animScale {
+  0% { -webkit-transform: scale(0.8, 0.8); }
+  40% { -webkit-transform: scale(1.2, 1.2); }
+  60% { -webkit-transform: scale(1, 1); }
+  80% { -webkit-transform: scale(1.1, 1.1); }
+  100% { -webkit-transform: scale(1, 1); }
+    }
+
+@-moz-keyframes animScale {
+  0% { -moz-transform: scale(0.8, 0.8); }
+  40% { -moz-transform: scale(1.2, 1.2); }
+  60% { -moz-transform: scale(1, 1); }
+  80% { -moz-transform: scale(1.1, 1.1); }
+  100% { -moz-transform: scale(1, 1); }
+    }
+
+
+@media only screen and (max-width: 767px){
+  .pager .pagination li{
+    display:                     none;
+  }
+
+  .pager .pagination li.pre,
+  .pager .pagination li.next{
+    display:            inline-block;
+    width:                      42px;
+    height:                     42px;
+    text-align:               center;
+    margin:                   0 auto;
+  }
+
+  .pager .pagination li.pre a,
+  .pager .pagination li.next a{
+    width:                      100%;
+    text-align:               center;
+  }
+}
+

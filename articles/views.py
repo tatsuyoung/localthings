@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
@@ -10,10 +11,14 @@ from. import forms
 
 
 def article_list(request):
-    articles = Article.objects.all().order_by('-date')
+    articles_list = Article.objects.all().order_by('-date')
+    paginator = Paginator(articles_list, 24)
+    page = request.GET.get('page')
+    articles = paginator.get_page(page)
+
     query = request.GET.get("q")
     if query:
-        articles = articles.filter(
+        articles = articles_list.filter(
             Q(title__icontains=query) |
             Q(body__icontains=query)
             ).distinct()
@@ -97,6 +102,10 @@ def like_button(request, like_id):
 def users_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
     my_article = user.article_set.all().order_by('-date')
+    paginator = Paginator(my_article, 24)
+    page = request.GET.get('page')
+    my_article = paginator.get_page(page)
+
     context = {
                 'user': user,
                 'my_article': my_article
