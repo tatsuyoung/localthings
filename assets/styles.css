@@ -171,14 +171,12 @@ div.wrapper h1{
     }
 
 header{
-    /*background-color:         white;*/
     display:                   grid;
     grid-template-columns:      1fr 1fr 1fr 1fr;
     grid-template-rows:        50px 50px 50px 50px;
     }
 
 .wrapper_logo{
-    /*background-color:           red;*/
     grid-column:                1/2;
     grid-row:                   1/4;
     display:                   flex;
@@ -187,7 +185,6 @@ header{
     }
 
 .wrapper_about{
-    /*background-color:        yellow;*/
     grid-column:                4/5;
     grid-row:                   1/4;
     display:                   flex;
@@ -203,7 +200,6 @@ header{
     width:                    100%;
     text-align:             center;
     list-style:               none;
-    /*background:             tomato;*/
     }
 
 .wrapper_about a{
@@ -754,7 +750,6 @@ nav button{
     margin-top:           60px;
     border:                2px solid  #77AF9C;
     padding:              20px;
-    /*text-align:         center;*/
     }
 
 .site-form input, .site-form textarea{
@@ -775,7 +770,6 @@ nav button{
     -webkit-transition: all .3s;
     transition:         all .3s;
     outline:               none;
-    /*display:       inline-block;*/
     }
 
 .site-form input:focus{
@@ -1125,10 +1119,7 @@ blockquote span{
     }
 
 .comment_top{
-    /*font-family:  'Cormorant Unicase', serif;*/
     font-family:   'Italianno', cursive;
-    /*position:      relative;
-    top:             -0.5px;*/
     font-size:        1.8em;
     margin:               0;
     padding:              0;
@@ -1335,7 +1326,6 @@ footer:hover {
     }
 
 .item_fb{
-    /*background-color:          red;*/
     grid-row:                  1/4;
     grid-column:               1/2;
     display:                  flex;
@@ -1345,7 +1335,6 @@ footer:hover {
 
 
 .item_search{
-    /*background-color:       yellow;*/
     grid-row:                  1/4;
     grid-column:               2/4;
     display:                  flex;
@@ -1354,7 +1343,6 @@ footer:hover {
     }
 
 .item_tw{
-    /*background-color:         blue;*/
     grid-row:                  1/4;
     grid-column:               4/5;
     display:                  flex;
@@ -1477,11 +1465,9 @@ footer:hover {
     position:                         absolute;
     top:                                 -15px;
     left:                                 10px;
-
     border-radius:                       100px;
     -moz-border-radius:                  100px;
     -webkit-border-radius:               100px;
-
     transform:                   rotate(30deg);
     -webkit-transform:           rotate(30deg);
     -moz-transform:              rotate(30deg);
@@ -1499,7 +1485,6 @@ footer:hover {
     -webkit-animation: moveclouds 15s linear infinite;
     -moz-animation:    moveclouds 15s linear infinite;
     -o-animation:      moveclouds 15s linear infinite;
-    /*background:        red;*/
     }
 
 
@@ -1513,7 +1498,6 @@ footer:hover {
     -webkit-animation: moveclouds 25s linear infinite;
     -moz-animation:    moveclouds 25s linear infinite;
     -o-animation:      moveclouds 25s linear infinite;
-    /*background:        green;*/
     }
 
 .mid_2 {
@@ -1528,7 +1512,6 @@ footer:hover {
     -webkit-animation: moveclouds 20s linear infinite;
     -moz-animation:    moveclouds 20s linear infinite;
     -o-animation:      moveclouds 20s linear infinite;
-    /*background:        burlywood;*/
     }
 
 .mid_3 {
@@ -1542,7 +1525,6 @@ footer:hover {
     -webkit-animation: moveclouds 18s linear infinite;
     -moz-animation:    moveclouds 18s linear infinite;
     -o-animation:      moveclouds 18s linear infinite;
-    /*background:        blue;*/
     }
 
 .bottom {
@@ -1556,7 +1538,6 @@ footer:hover {
     -webkit-animation: moveclouds 20s linear infinite;
     -moz-animation:    moveclouds 20s linear infinite;
     -o-animation:      moveclouds 20s linear infinite;
-    /*background:        grey;*/
     }
 
 @-webkit-keyframes moveclouds {
@@ -1613,32 +1594,15 @@ footer:hover {
     }
 
 .about{
-    /*background:            tomato;*/
     margin:              50px auto;
-    padding:                  30px;
+    padding:                  15px;
     text-align:             center;
     }
 
 .about p{
-    /*background:             green;*/
-    margin:              50px auto;
+    margin:              10px auto;
     font-size:               1.2em;
     line-height:               1.5;
-    letter-spacing:         0.05em;
-    }
-
-.concept{
-    /*background:            yellow;*/
-    margin:              50px auto;
-    padding:                  30px;
-    text-align:             center;
-    }
-
-.concept p{
-    /*background:         burlywood;*/
-    margin:              50px auto;
-    font-size:               1.2em;
-    line-height:               1.7;
     letter-spacing:         0.05em;
     }
 
