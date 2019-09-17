@@ -1,6 +1,6 @@
 from django.urls import path
 from articles import views
-
+from .views import UserPostListView
 
 app_name = 'articles'
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/user_detail_comments', views.users_detail_comments, name='users_detail_comments'),
     path('<int:pk>/user_detail_like', views.users_detail_liked, name='users_detail_like'),
     path('<int:pk>/edit/', views.article_edit, name='edit'),
+    path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
 ]

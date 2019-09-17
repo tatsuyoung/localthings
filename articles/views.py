@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.views.generic import ListView
+
 from .models import Article, Comment
 from. import forms
 
@@ -153,3 +155,14 @@ def article_edit(request, pk):
         form = forms.CreateArticle(instance=post)
     context = {'form': form}
     return render(request, 'articles/article_edit.html', context)
+
+
+class UserPostListView(ListView):
+    model = Article
+    template_name = 'articles/users_list.html'
+    context_object_name = 'articles'
+    #paginate_by = 24
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Article.objects.filter(author=user).order_by('-date')

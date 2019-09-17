@@ -28,8 +28,9 @@
         {% for article in articles %}
         <div class="article">
 
-            <p class="author">{{ article.author.username }}</p>
+            <a href="{% url 'articles:user-posts' article.author.username %}"><p class="author">{{ article.author.username }}</p>
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
+            </a>
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
             {% block title %}{{ article.title }}{% endblock %}
             </a>
