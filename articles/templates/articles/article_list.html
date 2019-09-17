@@ -28,9 +28,12 @@
         {% for article in articles %}
         <div class="article">
 
-            <a href="{% url 'articles:user-posts' article.author.username %}"><p class="author">{{ article.author.username }}</p>
-            <p><small>{{ article.date | date:"y/n/j"}}</small></p>
+            <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
+            {{ article.author.username }}
             </a>
+            </p>
+            <p><small>{{ article.date | date:"y/n/j"}}</small></p>
+
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
             {% block title %}{{ article.title }}{% endblock %}
             </a>
