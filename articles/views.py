@@ -159,9 +159,9 @@ def article_edit(request, pk):
 
 class UserPostListView(ListView):
     model = Article
-    template_name = 'articles/users_list.html'
+    template_name = 'articles/user_post_list.html'
     context_object_name = 'articles'
-    #paginate_by = 24
+    paginate_by = 9
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
