@@ -1,6 +1,6 @@
 from django.urls import path
 from articles import views
-from .views import UserPostListView
+from .views import UserPostListView, AuthorProfileView
 
 app_name = 'articles'
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path('<int:pk>/user_detail_like', views.users_detail_liked, name='users_detail_like'),
     path('<int:pk>/edit/', views.article_edit, name='edit'),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
+    path('author/<str:username>', AuthorProfileView.as_view(), name='author-view'),
 ]

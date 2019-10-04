@@ -46,6 +46,26 @@
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
+                <div class="form_group">
+                    <div class="column_2">
+                    <label>Bio</label>
+                        {{ p_form.bio | attr:"autocomplete:off" }}
+                    <p class="helptext">{{ p_form.bio.help_text }}</p>
+                    {% for error in p_form.bio.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="column_1">
+                    <label>Website</label>
+                        {{ p_form.website | attr:"autocomplete:off" }}
+                    <p class="helptext">{{ p_form.website.help_text }}</p>
+                    {% for error in p_form.website.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                </div>
             </div>
             <div class="submit_btn">
                 <input type="submit" value="Update">

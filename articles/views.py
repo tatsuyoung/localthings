@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
+from accounts.models import Profile
 from .models import Article, Comment
 from. import forms
 
@@ -166,3 +167,14 @@ class UserPostListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Article.objects.filter(author=user).order_by('-date')
+
+
+class AuthorProfileView(ListView):
+    model = Profile
+    template_name = 'articles/author_profile_view.html'
+    context_object_name = 'profiles'
+    allow_empty = False
+
+    def get_queryset(self):
+        return User.objects.filter(username=self.kwargs['username'])
+

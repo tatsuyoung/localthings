@@ -367,6 +367,7 @@ nav button{
 .user_detail_user_box{
     margin:               0;
     padding:              0;
+    text-align: center;
     }
 
 .user_detail_user_img{
@@ -506,6 +507,22 @@ nav button{
     padding:         1px;
     }
 
+.profile_bio{
+    margin:            10px 0;
+    padding:           10px 0;
+    line-heigh           1.75;
+    letter-spacing:    0.05em;
+    color:            #0f121f;
+    position:        relative;
+    top:                 20px;
+    }
+
+.profile_website{
+    margin:            10px 0;
+    padding:           10px 0;
+    position:        relative;
+    top:                 20px;
+    }
 
 /* user_detail_edit_icon */
 

@@ -194,7 +194,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # security.W008 DEBUG True off
 SECURE_SSL_REDIRECT = True
 
-# security.W012
+# security.W012 DEBUG = True off
 SESSION_COOKIE_SECURE = True
 
 # security.W016、security.W017

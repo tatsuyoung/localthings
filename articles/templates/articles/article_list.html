@@ -45,7 +45,9 @@
                 </a>
             </div>
             <div class="article_list_user_img">
+                <a href="{% url 'articles:author-view' article.author.username %}">
                 <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                </a>
             </div>
 
             <hr class="hr_list_border">

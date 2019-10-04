@@ -18,7 +18,7 @@
 
         <p>{{ article.total_likes }} <small>Likes</small></p>
         <h2>{{ article.title }}</h2>
-        <p>{{ article.body | urlize | linebreaksbr }}</p>
+        <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr }}</p>
         <p><small>{{ article.date | date:"y/n/j" }}</small></p>
     </div>
 
@@ -46,7 +46,9 @@
 
             {% for comment in comments %}
             <div class="comment_user_img">
+                <a href="{% url 'articles:author-view' comment.author.username %}">
                 <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover">
+                </a>
             </div>
             <div>
                 <p>{{ comment.text|linebreaks }}</p>
