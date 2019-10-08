@@ -41,7 +41,7 @@
             <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
             <div class="in-pict">
                 <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <img src="{{ article.thumb.url }}" loading="lazy"/>
+                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
                 </a>
             </div>
             <div class="article_list_user_img">
