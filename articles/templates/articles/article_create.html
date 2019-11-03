@@ -4,7 +4,7 @@
 {% block content %}
 <div class="create-article">
     <h2>Create an Awesome New Article</h2>
-    <form class="site-form" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data">
+    <form class="site-form" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data" id="form">
         {% csrf_token %}
         <div class="form_group">
             <div class="column_1">
@@ -54,7 +54,17 @@
                    onclick="return confirm('Are you sure with the content of this article?');">
         </div>
     </form>
+    <div class="container">
+        <div class="progress">
+            <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+             style="width: 0%;">
+            0%
+            </div>
+        </div>
+    </div>
+
 </div>
 <script src="/static/slugify.js"></script>
 <script src="/static/thumb.js"></script>
+<script src="/static/progress.js"></script>
 {% endblock %}
