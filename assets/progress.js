@@ -26,7 +26,7 @@
               success : function(data){
                   alert('Uploaded successful!!!');
 //                  location.href = 'http://127.0.0.1:8000';
-                    location.href = 'https://localthings.herokuapp.com'
+                  location.href = 'https://localthings.herokuapp.com'
               }
           });
           return false;
