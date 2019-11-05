@@ -1755,9 +1755,9 @@ ul{
 
 /* progress bar */
 
-.container {
+.p_container {
   width:         100%;
-  padding-top:   20px;
+  padding-top:    0px;
   padding-right: 20px;
   padding-left:   0px;
   margin-right:  auto;
@@ -1765,43 +1765,43 @@ ul{
  }
 
 @media (min-width: 280px) {
-  .container {
+  .p_container {
     max-width: 260px;
   }
 }
 
 @media (min-width: 380px) {
-  .container {
+  .p_container {
     max-width: 360px;
   }
 }
 
 @media (min-width: 480px) {
-  .container {
+  .p_container {
     max-width: 460px;
   }
 }
 
 @media (min-width: 576px) {
-  .container {
+  .p_container {
     max-width: 540px;
   }
 }
 
 @media (min-width: 768px) {
-  .container {
+  .p_container {
     max-width: 720px;
   }
 }
 
 @media (min-width: 992px) {
-  .container {
+  .p_container {
     max-width: 960px;
   }
 }
 
 @media (min-width: 1200px) {
-  .container {
+  .p_container {
     max-width: 1140px;
   }
 }
