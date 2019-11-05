@@ -937,6 +937,7 @@ a.highlight .fas{
     font-size:            1.2em;
     border-radius:          4px;
     margin:              10px 0;
+    -webkit-appearance:    none;
     }
 
 @media screen and (max-width: 600px) {
