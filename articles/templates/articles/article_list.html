@@ -11,7 +11,9 @@
 
     <div class="balloon-back">
         <div class="balloon">
-            <p>nice</p>
+            <p><a href="{% url 'articles:gallery' %}">
+                  nice <i class="fab fa-envira fa-flip-horizontal" style="color:rgb(194, 229, 156)" ></i></a>
+            </p>
         </div>
     </div>
 
@@ -60,7 +62,7 @@
                 </div>
                  <div class="list_article_icon">
                      <p class="like_hearts">
-                        <i class="fa fa-heart"></i>
+                        <i class="far fa-heart"></i>
                         {{ article.total_likes }}
                     </p>
                  </div>

@@ -178,3 +178,11 @@ class AuthorProfileView(ListView):
     def get_queryset(self):
         return User.objects.filter(username=self.kwargs['username'])
 
+
+class Gallery(ListView):
+    model = Article
+    template_name = 'articles/article_photo_gallery.html'
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        return Article.objects.all().order_by('-date')
