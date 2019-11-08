@@ -18,7 +18,7 @@
 
         <p>{{ article.total_likes }}<small>Likes</small></p>
         <h2>{% block title %}{{ article.title }}{% endblock %}</h2>
-        <p style="word-break: break-all;">{% block description %}{{ article.body | urlize | linebreaksbr | safe }}{% endblock %}</p>
+        <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr | safe }}</p>
         <p><small>{{ article.date | date:"y/n/j" }}</small></p>
     </div>
 
