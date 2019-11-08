@@ -55,15 +55,15 @@ class Article(models.Model):
                     pilImage = pilImage.rotate(90, expand=True)
 
                 output = BytesIO()
-                if pilImage.height > 960 or pilImage.width > 960:
-                    size = (960, 960)
+                if pilImage.height > 728 or pilImage.width > 728:
+                    size = (728, 728)
                     pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                    pilImage_fit.save(output, format='JPEG', quality=99)
+                    pilImage_fit.save(output, format='JPEG', quality=70)
                     output.seek(0)
                     self.thumb = File(output, self.thumb.name)
                     self.slug = slugify(self.title)
                 else:
-                    pilImage.save(output, format='JPEG', quality=75)
+                    pilImage.save(output, format='JPEG', quality=66)
                     output.seek(0)
                     self.thumb = File(output, self.thumb.name)
                     self.slug = slugify(self.title)
