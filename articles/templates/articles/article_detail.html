@@ -16,9 +16,9 @@
         </form>
         {% endif %}
 
-        <p>{{ article.total_likes }} <small>Likes</small></p>
-        <h2>{{ article.title }}</h2>
-        <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr }}</p>
+        <p>{{ article.total_likes }}<small>Likes</small></p>
+        <h2>{% block title %}{{ article.title }}{% endblock %}</h2>
+        <p style="word-break: break-all;">{% block description %}{{ article.body | urlize | linebreaksbr }}{% endblock %}</p>
         <p><small>{{ article.date | date:"y/n/j" }}</small></p>
     </div>
 

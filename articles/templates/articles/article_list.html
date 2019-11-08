@@ -37,10 +37,10 @@
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
 
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-            {% block title %}{{ article.title }}{% endblock %}
+                {{ article.title }}
             </a>
             </h3>
-            <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
+            <p>{{ article.snippet }}<small>Read more</small></p>
             <div class="in-pict">
                 <a href="{% url 'articles:detail' detail_id=article.id %}">
                     <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
