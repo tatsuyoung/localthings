@@ -723,7 +723,7 @@ nav button{
     line-height:         1.7;
     letter-spacing:   0.02em;
     text-align:         left;
-    font-size:         0.8em;
+    font-size:         0.7em;
     margin:           0 auto;
     width:               90%;
     box-sizing:   border-box;
@@ -760,6 +760,59 @@ nav button{
     font-size:             1em;
     margin-right:        800px;
     }
+
+.article_detail_author_container{
+    margin:                  0;
+    padding:              16px;
+    }
+
+.article_detail_author_img{
+    background:       #eeeeee;
+    width:               60px;
+    height:              60px;
+    overflow:          hidden;
+    border-radius:        50%;
+    border: 2px solid #eeeeee;
+    position:        relative;
+    top:                  0px;
+    z-index:                1;
+    }
+
+.article_detail_author_username{
+    margin:                 0;
+    position:        relative;
+    float:               left;
+    padding-left:        70px;
+    bottom:              40px;
+    }
+
+.article_detail_author_username span{
+    font-family:            'lato';
+    font-size:                16px;
+    }
+
+.article_detail_snippet{
+    margin:                 0;
+    padding:                0;
+    position:        relative;
+    }
+
+.article_detail_snippet p{
+    visibility:        hidden;
+    }
+
+.article_detail_container{
+    position:        relative;
+    bottom:              70px;
+    margin:                 0;
+    padding:                0;
+    }
+
+.article_detail_delete{
+    margin:                 0;
+    padding:                0;
+    }
+
 
 /* site-form */
 
@@ -1238,8 +1291,8 @@ blockquote span{
 .article_delete{
     display:               block;
     position:           relative;
-    width:                  50px;
-    height:                 50px;
+    width:                  57px;
+    height:                 57px;
     text-decoration:        none;
     color:                  rgb(142, 218, 229);
     background:          #eeeeee;
@@ -1247,6 +1300,7 @@ blockquote span{
     border:                  1px solid rgb(142, 218, 229);
     font-size:              16px;
     float:                 right;
+    top:                    16px;
     }
 
 .article_delete:hover{

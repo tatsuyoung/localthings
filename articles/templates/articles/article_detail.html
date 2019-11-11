@@ -5,21 +5,42 @@
 <div class="article-detail">
 
     <div class="article-two">
-        <img src="{{ article.thumb.url }}" loading="lazy"/>
-        {% if request.user == article.author or request.user.is_superuser %}
-        <form method="POST" action="{% url 'articles:delete' article.pk %}">{% csrf_token %}
-            <button class="article_delete" type="submit"
-                    onclick='return confirm("Are you sure you want to delete this article ？");'>
-                <i class="far fa-trash-alt"></i>
+        <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
 
-            </button>
-        </form>
+        {% if request.user == article.author or request.user.is_superuser %}
+        <div class="article_detail_delete">
+            <form method="POST" action="{% url 'articles:delete' article.pk %}">{% csrf_token %}
+                <button class="article_delete" type="submit"
+                        onclick='return confirm("Are you sure you want to delete this article ？");'>
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </form>
+        </div>
         {% endif %}
 
-        <p>{{ article.total_likes }}<small>Likes</small></p>
-        <h2>{% block title %}{{ article.title }}{% endblock %}</h2>
-        <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr | safe }}</p>
-        <p><small>{{ article.date | date:"y/n/j" }}</small></p>
+        <div class="article_detail_author_container">
+            <div class="article_detail_author_img">
+                <a href="{% url 'articles:author-view' article.author.username %}">
+                    <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                </a>
+            </div>
+            <div class="article_detail_author_username">
+                <a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
+                    <span>{{ article.author.username }}</span>
+                </a>
+            </div>
+            <div class="article_detail_snippet">
+                <p>{% block description %}{{ article.snippet }}{% endblock %}</p>
+            </div>
+        </div>
+
+        <div class="article_detail_container">
+            <p>{{ article.total_likes }}<small>Likes</small></p>
+            <h2>{% block title %}{{ article.title }}{% endblock %}</h2>
+            <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr | safe }}</p>
+            <p><small>{{ article.date | date:"y/n/j" }}</small></p>
+        </div>
+
     </div>
 
     <div class="like_box">
