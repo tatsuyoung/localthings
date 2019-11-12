@@ -1,7 +1,10 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-
+    <h1>{{ view.kwargs.username }} post list</h1>
+    <div class="user_post_list_post_counts">
+        <P>{{ articles | length }} Post</P>
+    </div>
     <div class="articles">
     {% for article in articles %}
         <div class="article">

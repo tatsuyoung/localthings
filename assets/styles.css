@@ -670,6 +670,12 @@ nav button{
     letter-spacing:     3px;
     }
 
+.user_post_list_post_counts{
+    margin:0;
+    padding:0;
+    text-align: center;
+    }
+
 /*.like_hearts i{
     color:          #383838;
 }*/
