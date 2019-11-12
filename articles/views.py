@@ -168,6 +168,11 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Article.objects.filter(author=user).order_by('-date')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        context['count'] = self.get_queryset().count()
+        return context
+
 
 class AuthorProfileView(ListView):
     model = Profile

@@ -28,6 +28,10 @@ class Article(models.Model):
     def total_likes(self):
         return self.like.count()
 
+    @property
+    def get_counter(self):
+        return Article.objects.count()
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
         if not self.id:
