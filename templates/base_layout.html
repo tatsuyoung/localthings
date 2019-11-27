@@ -1,5 +1,4 @@
 {% load static from staticfiles %}
-
 <html lang="ja">
  <head>
      <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -20,11 +19,14 @@
      Oita Localが好きな人と、興味がある人達とで地域を盛り上げていく地域密着型Web app{% endblock %}"/>
 
      <link href="/static/favicon.ico" rel="icon">
-
+     <!-- pwa -->
      <meta name="apple-mobile-web-app-capable" content="yes">
      <meta name="apple-mobile-web-app-status-bar-style" content="black">
      <meta name="apple-mobile-web-app-title" content="Local Things">
      <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+
+     <link rel="manifest" href="{% static 'manifest.json' %}">
+
 
      <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
@@ -127,6 +129,6 @@
                 </div>
             </div>
         </footer>
-
+         <script src="/static/app.js"></script>
     </body>
 </html>

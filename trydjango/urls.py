@@ -1,6 +1,7 @@
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
 
 from articles import views as article_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -47,6 +48,8 @@ urlpatterns = [
              template_name='accounts/password_reset_complete.html'
          ),
          name='password_reset_complete'),
+    path('sw.js', (TemplateView.as_view(template_name="sw.js",
+                                        content_type='application/javascript',)), name='sw.js'),
     ]
 
 if settings.DEBUG:
