@@ -45,14 +45,14 @@ class Profile(models.Model):
                     pilImage = pilImage.rotate(90, expand=True)
 
                 output = BytesIO()
-                if pilImage.height > 300 or pilImage.width > 300:
-                    size = (300, 300)
+                if pilImage.height > 192 or pilImage.width > 192:
+                    size = (192, 192)
                     pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
                     pilImage_fit.save(output, format='JPEG', quality=90)
                     output.seek(0)
                     self.image = File(output, self.image.name)
                 else:
-                    pilImage.save(output, format='JPEG', quality=90)
+                    pilImage.save(output, format='JPEG', quality=66)
                     output.seek(0)
                     self.image = File(output, self.image.name)
         except(AttributeError, KeyError, IndexError):
