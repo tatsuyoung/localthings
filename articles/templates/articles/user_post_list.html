@@ -46,13 +46,13 @@
                 <div class="list_article_icon">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  detail_id=article.id %}"
                             target="_blank" rel="nofollow" class="fb">
-                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-facebook-f faa-shake animated-hover"></i>
                     </a>
                 </div>
                 <div class="list_article_icon">
                     <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
                             target="_blank" rel="nofollow" class="tw">
-                        <i class="fab fa-twitter-square"></i>
+                        <i class="fab fa-twitter faa-wrench animated-hover"></i>
                     </a>
                 </div>
             </div>
