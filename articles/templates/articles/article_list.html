@@ -57,13 +57,18 @@
                 <div class="list_article_icon">
                     <p class="add_comments">
                         <i class="far fa-comment-alt faa-tada animated-hover"></i>
+                        {% if article.comments.count %}
                         {{ article.comments.count }}
+                        {% endif %}
                     </p>
                 </div>
                  <div class="list_article_icon">
                      <p class="like_hearts">
                         <i class="far fa-heart faa-pulse animated-hover"></i>
+                        {% if article.total_likes %}
                         {{ article.total_likes }}
+                        {% endif %}
+
                     </p>
                  </div>
                 <div class="list_article_icon">
@@ -83,34 +88,35 @@
         {% endfor %}
     </div>
 
-    <div class="pager">
-        <ul class="pagination">
-        {% if articles.has_previous %}
-            <li class="pre"><a class="active" href="?page=1"><span>
-                <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
-            </a></li>
-            <li class="pre"><a class="active" href="?page={{ articles.previous_page_number }}"><span>
-                <i class="fa fa-angle-left" aria-hidden="true"></i></span>
-            </a></li>
-        {% endif %}
-
-        {% for num in articles.paginator.page_range %}
-            {% if articles.number == num %}
-                <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-            {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
-            <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
+    {% if is_paginated %}
+        <div class="pager">
+            <ul class="pagination">
+            {% if articles.has_previous %}
+                <li class="pre"><a class="active" href="?page=1"><span>
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+                </a></li>
+                <li class="pre"><a class="active" href="?page={{ articles.previous_page_number }}"><span>
+                    <i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                </a></li>
             {% endif %}
-        {% endfor %}
 
-        {% if articles.has_next %}
-            <li class="next"><a href="?page={{ articles.next_page_number }}"><span>
-                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
-            </a></li>
-            <li class="next"><a href="?page={{ articles.paginator.num_pages }}"><span>
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
-            </a></li>
-        {% endif %}
-        </ul>
-    </div>
+            {% for num in articles.paginator.page_range %}
+                {% if articles.number == num %}
+                    <li><a class="active" href="#"><span>{{ num }}</span></a></li>
+                {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+                <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
+                {% endif %}
+            {% endfor %}
 
+            {% if articles.has_next %}
+                <li class="next"><a href="?page={{ articles.next_page_number }}"><span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                </a></li>
+                <li class="next"><a href="?page={{ articles.paginator.num_pages }}"><span>
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                </a></li>
+            {% endif %}
+            </ul>
+        </div>
+    {% endif %}
     {% endblock %}

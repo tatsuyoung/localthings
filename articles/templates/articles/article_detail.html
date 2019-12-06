@@ -35,7 +35,12 @@
         </div>
 
         <div class="article_detail_container">
-            <p>{{ article.total_likes }}<small>Likes</small></p>
+            <p>
+            {% if article.total_likes %}
+            {{ article.total_likes }}
+            {% endif %}
+            <small>Likes</small>
+            </p>
             <h2>{% block title %}{{ article.title }}{% endblock %}</h2>
             <p style="word-break: break-all;">{{ article.body | urlize | linebreaksbr | safe }}</p>
             <p><small>{{ article.date | date:"y/n/j" }}</small></p>
@@ -54,7 +59,9 @@
 
         <span class="comment_top">Comments
              <small><i class="far fa-comment-alt" onclick="clickBtn2()"></i></small>
+            {% if article.comments.count %}
             <small>{{ article.comments.count }}</small>
+            {% endif %}
         </span>
 
             <form method="POST" action="{% url 'articles:comment' article.pk %}">
