@@ -28,7 +28,7 @@
 
         <a href="{% url 'accounts:unsubscribe' %}">
         <button class="article_delete" type="submit"
-                onclick='return confirm("本当に退会しますか？ あなたに関する全てのデータが消去されます。");'>
+                onclick='return confirm("本当に退会しますか？ {{ user.username }}さんに関する全てのデータが消去されます。");'>
                 <i class="fas fa-user-times"></i>
         </button>
         </a>
