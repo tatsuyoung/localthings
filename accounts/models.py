@@ -57,3 +57,7 @@ class Profile(models.Model):
                     self.image = File(output, self.image.name)
         except(AttributeError, KeyError, IndexError):
             pass
+
+    def delete(self, using=None, keep_parents=False, *args, **kwargs):
+        self.user.delete()
+        return super(self.__class__, self).delete(*args, **kwargs)

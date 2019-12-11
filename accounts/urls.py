@@ -11,4 +11,5 @@ urlpatterns = [
     path('contact/', views.Contact, name="contact"),
     path('success/', views.Success, name="success"),
     path('profile', views.profile, name="profile"),
+    path('unsubscribe', views.Delete_user, name="unsubscribe"),
     ]

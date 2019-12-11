@@ -99,3 +99,8 @@ def Contact(request):
             email.send()
             return redirect('accounts:success')
     return render(request, 'accounts/contact.html', {'form': Contact_Form})
+
+
+def Delete_user(self):
+    self.user.delete()
+    return redirect('articles:list')

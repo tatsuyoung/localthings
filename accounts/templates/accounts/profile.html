@@ -26,6 +26,13 @@
             {% endif %}
         </div>
 
+        <a href="{% url 'accounts:unsubscribe' %}">
+        <button class="article_delete" type="submit"
+                onclick='return confirm("本当に退会しますか？ あなたに関する全てのデータが消去されます。");'>
+                <i class="fas fa-user-times"></i>
+        </button>
+        </a>
+
         <form class="site-form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h3>Profile Info</h3>
