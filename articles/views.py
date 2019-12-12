@@ -1,7 +1,7 @@
 import json
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -191,3 +191,13 @@ class Gallery(ListView):
 
     def get_queryset(self):
         return Article.objects.all().order_by('-date')
+
+
+class ArticleOrderedByLikes(ListView):
+    model = Article
+    template_name = 'articles/article_ordered_by_likes.html'
+    context_object_name = 'articles'
+    paginate_by = 9
+
+    def get_queryset(self):
+        return Article.objects.annotate(like_count=Count('like')).order_by('-like_count')

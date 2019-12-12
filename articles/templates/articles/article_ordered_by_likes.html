@@ -1,39 +1,9 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-
-<div class="title" id="clouds">
-    <div class="cloud top"></div>
-    <div class="cloud mid_1"></div>
-    <div class="cloud mid_2"></div>
-    <div class="cloud mid_3"></div>
-    <div class="cloud bottom"></div>
-
-    <div class="balloon-back">
-        <div class="balloon">
-            <p><a href="{% url 'articles:gallery' %}">
-                  nice <i class="fas fa-search fa-flip-horizontal faa-shake animated-hover"></i></a>
-            </p>
-        </div>
-    </div>
-
-    <h1 id="list_title"><span class="a">Oita Loc</span><span class="b">al things</span></h1>
-      <div class="sub_title">
-         住んでいる人にとって「何気ないもの」...<br>
-          「何気ないもの」は誰かにとっては「何気なくないもの」かもしれない。<br>
-            何気なくないものに恋して、<br>
-            何気ないものに逢いにゆく。
-      </div>
-
-    <a href="{% url 'articles:ordered_by_likes' %}">
-        <button class="ordered" type="submit">
-                <i class="fas fa-chart-line"></i>
-        </button>
-    </a>
-</div>
-
+    <h1>Ordered by Likes</h1>
     <div class="articles">
-        {% for article in articles %}
+    {% for article in articles %}
         <div class="article">
 
             <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
@@ -43,26 +13,24 @@
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
 
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-                {{ article.title }}
+            {% block title %}{{ article.title }}{% endblock %}
             </a>
             </h3>
-            <p>{{ article.snippet }}<small>Read more</small></p>
+            <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
             <div class="in-pict">
                 <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
+                    <img src="{{ article.thumb.url }}" loading="lazy"/>
                 </a>
             </div>
             <div class="article_list_user_img">
-                <a href="{% url 'articles:author-view' article.author.username %}">
                 <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-                </a>
             </div>
 
 <!--            <hr class="hr_list_border">-->
             <div class="icons">
                 <div class="list_article_icon">
                     <p class="add_comments">
-                        <i class="far fa-comment-alt faa-tada animated-hover"></i>
+                        <i class="far fa-comment-alt"></i>
                         {% if article.comments.count %}
                         {{ article.comments.count }}
                         {% endif %}
@@ -70,11 +38,10 @@
                 </div>
                  <div class="list_article_icon">
                      <p class="like_hearts">
-                        <i class="far fa-heart faa-pulse animated-hover"></i>
+                        <i class="far fa-heart"></i>
                         {% if article.total_likes %}
                         {{ article.total_likes }}
                         {% endif %}
-
                     </p>
                  </div>
                 <div class="list_article_icon">
@@ -91,38 +58,38 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+    {% endfor %}
     </div>
 
     {% if is_paginated %}
         <div class="pager">
             <ul class="pagination">
-            {% if articles.has_previous %}
+            {% if page_obj.has_previous %}
                 <li class="pre"><a class="active" href="?page=1"><span>
                     <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
                 </a></li>
-                <li class="pre"><a class="active" href="?page={{ articles.previous_page_number }}"><span>
+                <li class="pre"><a class="active" href="?page={{ page_obj.previous_page_number }}"><span>
                     <i class="fa fa-angle-left" aria-hidden="true"></i></span>
                 </a></li>
             {% endif %}
 
-            {% for num in articles.paginator.page_range %}
-                {% if articles.number == num %}
+            {% for num in paginator.page_range %}
+                {% if page_obj.number == num %}
                     <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-                {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                 <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
                 {% endif %}
             {% endfor %}
 
-            {% if articles.has_next %}
-                <li class="next"><a href="?page={{ articles.next_page_number }}"><span>
+            {% if page_obj.has_next %}
+                <li class="next"><a href="?page={{page_obj.next_page_number }}"><span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </a></li>
-                <li class="next"><a href="?page={{ articles.paginator.num_pages }}"><span>
+                <li class="next"><a href="?page={{ page_obj.paginator.num_pages }}"><span>
                     <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
                 </a></li>
             {% endif %}
             </ul>
         </div>
-    {% endif %}
-    {% endblock %}
+   {% endif %}
+{% endblock %}

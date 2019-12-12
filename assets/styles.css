@@ -1349,6 +1349,23 @@ blockquote span{
        }
   }
 
+.ordered{
+    display:               block;
+    position:           relative;
+    width:                  30px;
+    height:                 30px;
+    text-decoration:        none;
+    color:                  rgb(142, 218, 229);
+    background:             rgba(236, 236, 236, 0.14);
+    border-radius:          50%;
+    border:                  1px solid rgb(142, 218, 229);
+    font-size:              16px;
+    float:                 right;
+    top:                    16px;
+    right:                   3px;
+    cursor:              pointer;
+    }
+
 /* footer */
 
 footer #button{
