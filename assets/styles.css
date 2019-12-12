@@ -1349,6 +1349,7 @@ blockquote span{
        }
   }
 
+
 .ordered{
     width:                  35px;
     height:                 35px;
@@ -1363,8 +1364,14 @@ blockquote span{
     justify-content:      center;
     cursor:              pointer;
     float:                 right;
+    position:           relative;
+    top:                    12px;
+    right:                   8px;
     }
 
+.ordered:hover{
+    color:                #EB8686;
+    }
 
 /* footer */
 
