@@ -24,12 +24,13 @@
             何気なくないものに恋して、<br>
             何気ないものに逢いにゆく。
       </div>
-
-    <a href="{% url 'articles:ordered_by_likes' %}">
-        <button class="ordered" type="submit">
-                <i class="fas fa-chart-line"></i>
-        </button>
-    </a>
+        <div class="article_detail_delete">
+            <a href="{% url 'articles:ordered_by_likes' %}">
+                <button class="ordered" type="submit">
+                        <i class="fas fa-chart-line"></i>
+                </button>
+            </a>
+        </div>
 </div>
 
     <div class="articles">
