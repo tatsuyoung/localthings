@@ -47,6 +47,10 @@ a, a:hover, a:visited{
 
 /*  header */
 
+.wrapper_logo{
+    text-align:              center;
+    }
+
 .wrapper_circle{
     height:                   130px;
     width:                    130px;
@@ -60,13 +64,16 @@ a, a:hover, a:visited{
     font-size:          2em;
     color:          #1C75BC;
     position:      relative;
-    left:              43px;
+    left:              20px;
     z-index:              2;
-    filter:     drop-shadow(2px 2px 3px rgba(195, 117, 83, 0.6));
+    filter:     drop-shadow(2px 2px 3px rgba(233, 161, 132, 0.6));
+    letter-spacing: 0.8px;
     }
 
-.wrapper_logo h1 i{
+.wrapper_logo h1 i {
     color:         #E67A7A;
+    position:     relative;
+    top:               8px;
     }
 
 .wrapper_logo small{
@@ -1672,8 +1679,8 @@ footer:hover {
   font-size:                      0.8em;
   text-align:                    center;
   position:                    relative;
-  top:                              50%;
-  left:                             50%;
+  top:                            -70px; /* center 50% */
+  left:                             34%; /* center 50% */
   margin-top:                     -20px;
   margin-left:                    -10px;
   width:                           15px;
