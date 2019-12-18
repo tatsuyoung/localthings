@@ -1671,9 +1671,9 @@ footer:hover {
 /* 期間限定 */
 /*  Copyright (c) 2019 by Marco Barría (https://codepen.io/fixcl/pen/KhAqa) */
 .bird{
-  background:                     black;
+  background:                   #f8f8f8; /* black */
   border-radius:        50% 50% 20% 20%;
-  color:                           #fff;
+  color:                          black; /* #fff */
   line-height:                     20px;
   letter-spacing:                   2px;
   font-size:                      0.8em;
@@ -1702,7 +1702,7 @@ footer:hover {
 
 .bird:after{
   border-radius:          100% 100% 0 0;
-  box-shadow:     inset 0px 5px 0 black;
+  box-shadow:     inset 0px 5px 0 rgb(244, 244, 244); /* black */
   width:                          100px;
   height:                         100px;
   margin-top:                      -7px;
