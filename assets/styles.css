@@ -1688,7 +1688,7 @@ footer:hover {
   -o-animation:        bird 0.8s linear infinite;
   -webkit-animation:   bird 0.8s linear infinite;
   -moz-animation:      bird 0.8s linear infinite;
-  z-index:                          999;
+  z-index:                            8;
  }
 
 .bird:after, .bird:before{
@@ -2087,3 +2087,133 @@ ul{
     bottom:                     18px;
     right:                       2px;
     }
+
+
+/* styling the hamburger button */
+
+.menu_btn{
+    position:           fixed;
+    width:               50px;
+    height:              50px;
+    background-color: #b4df85;
+    border-radius:        50%;
+    bottom:              20px;
+    right:               10px;
+    z-index:               11;
+    border:                 0;
+    padding:                0;
+    cursor:           pointer;
+    trasition:transform   .4s;
+    outline:             none;
+    }
+
+.menu_btn span{
+    position:        absolute;
+    top:                  54%;
+    left:                 50%;
+    display:            block;
+    width:               27px;
+    height:             1.5px;
+    margin-left:        -13px;
+    margin-top:          -1px;
+    background:          #fff;
+    transition: transform .4s;
+    border-radius:        5px;
+}
+
+/* position the white lines inside the button */
+
+.menu_btn span:nth-child(1) {
+    transform: translateY(-5px);
+}
+
+.menu_btn span:nth-chile(2) {
+    transform: translateY(5px);
+}
+
+/* Animate the lines on hover */
+
+.menu_btn:hover span:nth-child(1) {
+    transform: translateY(-9px);
+}
+
+.menu_btn:hover span:nth-child(2) {
+    transform: translateY(9px);
+}
+
+/* animate on click using Javascript */
+/* This will apply once we write the Js code */
+
+.menu_btn.open span:nth-child(1){
+    transform: rotate(45deg);
+}
+
+.menu_btn.open span:nth-child(2){
+    transform: rotate(-45deg);
+}
+
+/* Styling fixedNav / Hamburger menu */
+
+.sub_ui, .sub_ui li{
+    display:        list-item;
+    list-style:          none;
+    }
+
+.sub_ui a, .sub_nav a{
+    color:               gray;
+    }
+
+#fixedNav{
+    position:           fixed;
+    top:                    0;
+    background:       #eeeeee;
+    left:                100%;
+    width:               100%;
+    height:              100%;
+    display:             flex;
+    justify-content:   center;
+    align-items:       center;
+    transition:        all 1s;
+    overflow:          hidden;
+    z-index:                9;
+    }
+
+#fixedNav ui li {
+    display:             flex;
+    justify-content:   center;
+    align-items:       center;
+    padding:           10px 0;
+    }
+
+#fixedNav ui li a{
+    font-family:       'lato';
+    font-size:           28px;
+    font-weight:          550;
+    }
+
+#fixedNav ui li a:hover{
+    color:               #b4df85;
+    cursor:                 grab;
+    }
+
+#fixedNav .logo-menu{
+    font-family:          'lato';
+    position:           absolute;
+    left:                   20px;
+    top:                    20px;
+    font-size:              25px;
+    color:               #b4df85;
+    font-weight:             550;
+    }
+
+/* Toggle with Js */
+/* changing positon */
+
+#fixedNav.active{
+    transform:            all .5s;
+    left:                      0;
+    }
+
+@media only screen and (min-width: 576px){
+  .menu_btn{display:none;}
+  }

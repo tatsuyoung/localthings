@@ -94,6 +94,42 @@
         {% endfor %}
     </div>
 
+    <div class="menu_btn" onclick="toggleSideBar()">
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="sub_nav" id="fixedNav">
+        <a href="{% url 'home' %}" class="logo-menu">
+            Local Things
+        </a>
+        <ui class="sub_ui">
+            {% if user.is_authenticated %}
+            <li>
+                <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                <button type="submit">Logout</button>
+                </form>
+            </li>
+            <li><a href="{% url 'articles:users_detail' user.pk %}">
+                <span>{{ request.user }}</span>
+                </a>
+            </li>
+            <li><a href="{% url 'articles:create' %}">
+                <span>New Articles</span>
+                </a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+            {% endif %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'privacy-policy' %}">privacy policy</a></li>
+            <li><a href="{% url 'accounts:contact' %}">contact</a></li>
+            <li><a href="{% url 'articles:gallery' %}">gallery</a></li>
+            <li><a href="{% url 'articles:ordered_by_likes' %}">ordered by likes</a></li>
+        </ui>
+    </nav>
     {% if is_paginated %}
         <div class="pager">
             <ul class="pagination">
@@ -125,4 +161,5 @@
             </ul>
         </div>
     {% endif %}
+    <script src="/static/menu_btn.js"></script>
     {% endblock %}
