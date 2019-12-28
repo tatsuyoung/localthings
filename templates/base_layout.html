@@ -56,8 +56,18 @@
      <meta property="og:title" content="{{ article.title }}" />
      <meta property="og:description" content="{{ article.snippet }}" />
      <meta property="og:image" content="{{ article.thumb.url }}" />
+
+     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script type="text/javascript">
+         $(window).on('load', function(){
+            $('.preloader').addClass('complete')
+         })
+     </script>
  </head>
     <body>
+        <div class="preloader">
+            <div class="loader"></div>
+        </div>
          <header class="wrapper" ontouchstart="">
              <div class="wrapper_logo">
                 <div class="wrapper_circle">
