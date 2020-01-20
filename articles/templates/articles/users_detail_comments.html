@@ -8,7 +8,7 @@
             <div class="users_detail_box">
                 {% for comment in article.comments.all %}
                  <div class="users_comment_user_img">
-                  <a href="{% url 'articles:author-view' comment.author.username %}">
+                  <a href="{% url 'accounts:profile_detail' comment.author.username %}">
                     <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                   </a>
                 </div>

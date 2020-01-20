@@ -3,9 +3,10 @@ from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 
+from accounts.views import ProfileFollowToggle
 from articles import views as article_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.contrib import admin, sitemaps
+from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from django.contrib.auth import views as auth_views
@@ -50,6 +51,7 @@ urlpatterns = [
          name='password_reset_complete'),
     path('sw.js', (TemplateView.as_view(template_name="sw.js",
                                         content_type='application/javascript',)), name='sw.js'),
+    path('profile-follow/', ProfileFollowToggle.as_view(), name='follow'),
     ]
 
 if settings.DEBUG:

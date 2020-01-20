@@ -20,7 +20,7 @@
 
         <div class="article_detail_author_container">
             <div class="article_detail_author_img">
-                <a href="{% url 'articles:author-view' article.author.username %}">
+                <a href="{% url 'accounts:profile_detail' article.author.username %}">
                     <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </a>
             </div>
@@ -74,7 +74,7 @@
 
             {% for comment in comments %}
             <div class="comment_user_img">
-                <a href="{% url 'articles:author-view' comment.author.username %}">
+                <a href="{% url 'accounts:profile_detail' comment.author.username %}">
                 <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover">
                 </a>
             </div>

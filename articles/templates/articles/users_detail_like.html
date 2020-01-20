@@ -11,7 +11,7 @@
         {% for like in article.like.all %}
 
         <div class="users_comment_user_img">
-         <a href="{% url 'articles:author-view' like %}">
+         <a href="{% url 'accounts:profile_detail' like %}">
             <img src="{{ like.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
          </a>
         </div>

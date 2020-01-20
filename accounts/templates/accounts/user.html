@@ -1,0 +1,64 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<div class="user_profile_card">
+    <img src="{{ user.profile.image.url }}" alt="Avatar" style="width:100%"/>
+    <h1>{{ user.username }}</h1>
+    <p class="user_profile_bio">
+        {% if user.profile.bio != None %}
+        {{ user.profile.bio | urlize | linebreaksbr }}
+        {% endif %}
+    </p>
+    <p class="user_profile_website">
+        {% if user.profile.website != None %}
+        <a href="{{ user.profile.website }}" style="word-break: break-all; color:#6495ED;"><i class="fas fa-link">{{ user.profile.website }}</i></a>
+        {% endif %}
+    </p>
+    <p>
+    {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
+    </p>
+</div>
+
+ <div class="menu_btn" onclick="toggleSideBar()">
+        <span></span>
+        <span></span>
+</div>
+<nav class="sub_nav" id="fixedNav">
+    <a href="{% url 'home' %}" class="logo-menu">
+        Local Things
+    </a>
+    <ui class="sub_ui">
+        {% if user.is_authenticated %}
+        <li>
+            <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+            <button type="submit">Logout</button>
+            </form>
+        </li>
+        <li><a href="{% url 'articles:users_detail' user.pk %}">
+            <span>{{ request.user }}</span>
+            </a>
+        </li>
+        <li><a href="{% url 'articles:create' %}">
+            <span>New Articles</span>
+            </a>
+        </li>
+        <li><a href="{% url 'accounts:user_following' %}">
+            <span>Follow Feed</span>
+            </a>
+        </li>
+        {% else %}
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+        {% endif %}
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'privacy-policy' %}">privacy policy</a></li>
+        <li><a href="{% url 'accounts:contact' %}">contact</a></li>
+        <li><a href="{% url 'articles:gallery' %}">gallery</a></li>
+        <li><a href="{% url 'articles:ordered_by_likes' %}">ordered by likes</a></li>
+    </ui>
+</nav>
+<script src="/static/menu_btn.js"></script>
+{% endblock %}

@@ -547,6 +547,22 @@ nav button{
     bottom:               60px;
     }
 
+.user_detail_following_feed {
+	font-family:    'Roboto', sans-serif;
+    text-align:                   center;
+    padding:                        10px;
+    position:                   relative;
+    bottom:                         16px;
+    }
+
+.user_detail_following_feed a{
+    color:                          gray;
+    }
+
+.user_detail_following_feed a:hover{
+    color:                       #b4df85;
+    }
+
 .article_list_user_img{
     background:       #eeeeee;
     width:              100px;
@@ -637,7 +653,7 @@ nav button{
     padding:         1px;
     }
 
-.profile_bio{
+/*.profile_bio{
     margin:            10px 0;
     padding:           10px 0;
     line-heigh           1.75;
@@ -645,7 +661,7 @@ nav button{
     color:            #0f121f;
     position:        relative;
     top:                 20px;
-    }
+    }*/
 
 .profile_website{
     margin:            10px 0;
@@ -806,9 +822,6 @@ nav button{
     text-align: center;
     }
 
-/*.like_hearts i{
-    color:          #383838;
-}*/
 
 /* article-detail */
 
@@ -1567,6 +1580,7 @@ footer:hover {
     display:                  flex;
     align-items:            center;
     justify-content:        center;
+    padding:                  10px;
     }
 
 
@@ -1584,6 +1598,7 @@ footer:hover {
     display:                  flex;
     align-items:            center;
     justify-content:        center;
+    padding:                  10px;
     }
 
 .item_copyright{
@@ -2228,6 +2243,12 @@ ul{
     cursor:           pointer;
     trasition:transform   .4s;
     outline:             none;
+    box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
+    0 6.7px 5.3px rgba(0,0,0,.028),
+    0 12.5px 10px rgba(0,0,0,.035),
+    0 22.3px 17.9px rgba(0,0,0,.042),
+    0 41.8px 33.4px rgba(0,0,0,.05),
+    0 100px 80px rgba(0,0,0,.07);
     }
 
 .menu_btn span{
@@ -2242,7 +2263,7 @@ ul{
     background:          #fff;
     transition: transform .4s;
     border-radius:        5px;
-}
+    }
 
 /* position the white lines inside the button */
 
@@ -2305,7 +2326,7 @@ ul{
     display:             flex;
     justify-content:   center;
     align-items:       center;
-    padding:           10px 0;
+    padding:            5px 0;
     }
 
 #fixedNav ui li a{
@@ -2340,3 +2361,70 @@ ul{
 @media only screen and (min-width: 576px){
   .menu_btn{display:none;}
   }
+
+/* profile card */
+
+.user_profile_card {
+  box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
+    0 6.7px 5.3px rgba(0,0,0,.028),
+    0 12.5px 10px rgba(0,0,0,.035),
+    0 22.3px 17.9px rgba(0,0,0,.042),
+    0 41.8px 33.4px rgba(0,0,0,.05),
+    0 100px 80px rgba(0,0,0,.07);
+  max-width:                           300px;
+  margin:                               auto;
+  margin-bottom:                       180px;
+  text-align:                         center;
+  position:                         relative;
+  top:                                  80px;
+  word-wrap:                      break-word;
+    }
+
+.user_profile_bio {
+  color:                        grey;
+  font-size:                    16px;
+  line-height:                  1.75;
+  letter-spacing:             0.05em;
+    }
+
+.user_profile_btn {
+  font-family:    'lato';
+  border:           none;
+  outline:             0;
+  display:  inline-block;
+  padding:           8px;
+  color:           white;
+  background-color: #000;
+  text-align:     center;
+  cursor:        pointer;
+  width:            100%;
+  font-size:        18px;
+    }
+
+.user_profile_btn_unfollow {
+  font-family:    'lato';
+  border:           none;
+  outline:             0;
+  display:  inline-block;
+  padding:           8px;
+  color:           white;
+  background-color: tomato;
+  text-align:     center;
+  cursor:        pointer;
+  width:            100%;
+  font-size:        18px;
+    }
+
+.user_profile_website a {
+  text-decoration: none;
+  font-size:       12px;
+  color:          black;
+    }
+
+.user_profile_btn:hover {
+  opacity:         0.7;
+  }
+
+.user_profile_btn_unfollow:hover{
+  opacity:         0.7;
+    }

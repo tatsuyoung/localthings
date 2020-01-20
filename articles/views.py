@@ -174,16 +174,6 @@ class UserPostListView(ListView):
         return context
 
 
-class AuthorProfileView(ListView):
-    model = Profile
-    template_name = 'articles/author_profile_view.html'
-    context_object_name = 'profiles'
-    allow_empty = False
-
-    def get_queryset(self):
-        return User.objects.filter(username=self.kwargs['username'])
-
-
 class Gallery(ListView):
     model = Article
     template_name = 'articles/article_photo_gallery.html'

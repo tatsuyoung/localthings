@@ -7,6 +7,19 @@ from io import BytesIO
 from django.core.files import File
 
 
+class ProfileManager(models.Manager):
+    def toggle_follow(self, request_user, username_to_toggle):
+        profile_ = Profile.objects.get(user__username__iexact=username_to_toggle)
+        user = request_user
+        is_following = False
+        if user in profile_.followers.all():
+            profile_.followers.remove(user)
+        else:
+            profile_.followers.add(user)
+            is_following = True
+        return profile_, is_following
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png',
@@ -14,6 +27,8 @@ class Profile(models.Model):
                               help_text='著作権があるものはiconにはできません。')
     bio = models.TextField(max_length=160, blank=True, null=True)
     website = models.URLField(max_length=250, blank=True, null=True)
+    followers = models.ManyToManyField(User, related_name='is_following', blank=True)
+    objects = ProfileManager()
 
     def __str__(self):
         return f'{self.user.username} Profile'

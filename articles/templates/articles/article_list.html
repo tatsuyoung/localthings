@@ -53,7 +53,7 @@
                 </a>
             </div>
             <div class="article_list_user_img">
-                <a href="{% url 'articles:author-view' article.author.username %}">
+                <a href="{% url 'accounts:profile_detail' article.author.profile.user.username %}">
                 <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </a>
             </div>
@@ -116,6 +116,10 @@
             </li>
             <li><a href="{% url 'articles:create' %}">
                 <span>New Articles</span>
+                </a>
+            </li>
+            <li><a href="{% url 'accounts:user_following' %}">
+                <span>Follow Feed</span>
                 </a>
             </li>
             {% else %}

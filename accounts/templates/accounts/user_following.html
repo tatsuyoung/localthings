@@ -1,9 +1,14 @@
 {% extends 'base_layout.html' %}
-
 {% block content %}
-    <h1>Ordered by Likes</h1>
-    <div class="articles">
-    {% for article in articles %}
+
+<h1>User Following Feed</h1>
+
+<div class="user_post_list_post_counts">
+    <p>{{ user.is_following.all.count }} Following</p>
+</div>
+
+<div class="articles">
+        {% for article in articles %}
         <div class="article">
 
             <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
@@ -13,13 +18,13 @@
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
 
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-            {% block title %}{{ article.title }}{% endblock %}
+                {{ article.title }}
             </a>
             </h3>
-            <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
+            <p>{{ article.snippet }}<small>Read more</small></p>
             <div class="in-pict">
                 <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <img src="{{ article.thumb.url }}" loading="lazy"/>
+                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
                 </a>
             </div>
             <div class="article_list_user_img">
@@ -32,7 +37,7 @@
             <div class="icons">
                 <div class="list_article_icon">
                     <p class="add_comments">
-                        <i class="far fa-comment-alt"></i>
+                        <i class="far fa-comment-alt faa-tada animated-hover"></i>
                         {% if article.comments.count %}
                         {{ article.comments.count }}
                         {% endif %}
@@ -40,10 +45,11 @@
                 </div>
                  <div class="list_article_icon">
                      <p class="like_hearts">
-                        <i class="far fa-heart"></i>
+                        <i class="far fa-heart faa-pulse animated-hover"></i>
                         {% if article.total_likes %}
                         {{ article.total_likes }}
                         {% endif %}
+
                     </p>
                  </div>
                 <div class="list_article_icon">
@@ -60,38 +66,39 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 
     {% if is_paginated %}
         <div class="pager">
             <ul class="pagination">
-            {% if page_obj.has_previous %}
+            {% if articles.has_previous %}
                 <li class="pre"><a class="active" href="?page=1"><span>
                     <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
                 </a></li>
-                <li class="pre"><a class="active" href="?page={{ page_obj.previous_page_number }}"><span>
+                <li class="pre"><a class="active" href="?page={{ articles.previous_page_number }}"><span>
                     <i class="fa fa-angle-left" aria-hidden="true"></i></span>
                 </a></li>
             {% endif %}
 
-            {% for num in paginator.page_range %}
-                {% if page_obj.number == num %}
+            {% for num in articles.paginator.page_range %}
+                {% if articles.number == num %}
                     <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
                 <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}
-                <li class="next"><a href="?page={{page_obj.next_page_number }}"><span>
+            {% if articles.has_next %}
+                <li class="next"><a href="?page={{ articles.next_page_number }}"><span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </a></li>
-                <li class="next"><a href="?page={{ page_obj.paginator.num_pages }}"><span>
+                <li class="next"><a href="?page={{ articles.paginator.num_pages }}"><span>
                     <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
                 </a></li>
             {% endif %}
             </ul>
         </div>
-   {% endif %}
-{% endblock %}
+    {% endif %}
+    <script src="/static/menu_btn.js"></script>
+    {% endblock %}

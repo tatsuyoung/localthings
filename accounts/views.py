@@ -1,11 +1,20 @@
 from decouple import config
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from django.http import Http404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.template.loader import get_template
+from django.views.generic import DetailView
+from django.views.generic.base import View
+
+from accounts.models import Profile
+from articles.models import Article
 from .forms import UserCreationForms, ContactForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -104,3 +113,50 @@ def Contact(request):
 def Delete_user(self):
     self.user.delete()
     return redirect('articles:list')
+
+
+class ProfileFollowToggle(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def post(self, request, *args, **kwargs):
+        username_to_toggle = request.POST.get("username")
+        profile_, is_following = Profile.objects.toggle_follow(request.user, username_to_toggle)
+        return redirect(f"/accounts/{profile_.user.username}")
+
+
+class ProfileDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/accounts/login/'
+    template_name = 'accounts/user.html'
+
+    def get_object(self, queryset=None):
+        username = self.kwargs.get('username')
+        if username is None:
+            raise Http404
+        return get_object_or_404(User, username__iexact=username)
+
+    def get_context_data(self, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            raise Http404
+        else:
+            context = super(ProfileDetailView, self).get_context_data(*args, **kwargs)
+            user = context['user']
+            is_following = False
+            if user.profile in self.request.user.is_following.all():
+                is_following = True
+            context['is_following'] = is_following
+            return context
+
+
+class UserFollowingFeedView(View):
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return render(request, 'articles/article_list.html', {})
+
+        user = request.user
+        is_following_user_ids = [x.user.id for x in user.is_following.all()]
+        qs = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
+        paginator = Paginator(qs, 9)
+        page = request.GET.get('page')
+        articles = paginator.get_page(page)
+        return render(request, 'accounts/user_following.html', {'articles': articles})
