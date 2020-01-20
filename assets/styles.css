@@ -2326,7 +2326,7 @@ ul{
     display:             flex;
     justify-content:   center;
     align-items:       center;
-    padding:            5px 0;
+    padding:           10px 0;
     }
 
 #fixedNav ui li a{
@@ -2351,7 +2351,7 @@ ul{
     }
 
 /* Toggle with Js */
-/* changing positon */
+/* changing position */
 
 #fixedNav.active{
     transform:            all .5s;

@@ -7,8 +7,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-
-from accounts.models import Profile
 from .models import Article, Comment
 from. import forms
 
@@ -105,7 +103,7 @@ def like_button(request, like_id):
 def users_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
     my_article = user.article_set.all().order_by('-date')
-    paginator = Paginator(my_article, 24)
+    paginator = Paginator(my_article, 9)
     page = request.GET.get('page')
     my_article = paginator.get_page(page)
 
