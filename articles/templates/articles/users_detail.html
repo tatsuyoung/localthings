@@ -56,7 +56,7 @@
             </div>
             <div class="list_article_icon">
                  <p class="like_hearts"><a href="{% url 'articles:users_detail_like' article.pk %}">
-                    <i class="far fa-heart faa-pulse animated-hover" style="color:#383838"></i></a>
+                    <i class="far fa-heart faa-pulse animated-hover"></i></a>
                     {% if article.total_likes %}
                     {{ article.total_likes }}
                     {% endif %}

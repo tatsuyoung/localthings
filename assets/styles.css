@@ -779,6 +779,18 @@ nav button{
     color:           #383838;
     }
 
+.list_article_icon .fa-heart{
+    color:              gray;
+    }
+
+.list_article_icon .fa-comment-alt{
+    color:              gray;
+    }
+
+.list_article_icon p:nth-of-type(1){
+    color:              gray;
+    }
+
 .list_article_icon .fb{
     color:           #3b5998;
     }
@@ -2385,6 +2397,8 @@ ul{
   font-size:                    16px;
   line-height:                  1.75;
   letter-spacing:             0.05em;
+  text-align:                   left;
+  margin-left:                   6px;
     }
 
 .user_profile_btn {
