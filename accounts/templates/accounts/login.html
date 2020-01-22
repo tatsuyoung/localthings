@@ -1,17 +1,35 @@
 {% extends 'base_layout.html' %}
-
+{% load widget_tweaks %}
 
 {% block content %}
-    <h1>Log in</h1>
-    <form class="site-form" action="/accounts/login/" method="POST">
+<div class="form-wrapper">
+    <h1>Login</h1>
+    <form class="site-form-new" action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}
-        {{ form }}
+        <div class="form-item">
+            <label for="id_username"></label>
+            <input type="text" name="username" placeholder="Username" required="required" id="id_username">
+            {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_password"></label>
+            <input type="password" name="password" placeholder="Password" required="required" id="id_password">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
         {% if request.POST.next %}
         <input type="hidden" name="next" value="{{request.POST.next}}">
         {% endif %}
-        <input type="submit" value="Login">
-        <small>
-            <a href="{% url 'password_reset' %}" style="color:tomato">Forgot password ?</a>
-        </small>
+        <div class="button-panel">
+            <input type="submit" class="button-new" title="Login" value="Login">
+        </div>
     </form>
+    <div class="form-footer">
+        <p><a href="{% url 'accounts:signup' %}">Create an account</a></p>
+        <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+    </div>
+</div>
 {% endblock %}

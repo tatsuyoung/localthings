@@ -1,11 +1,49 @@
 {% extends 'base_layout.html' %}
-
+{% load widget_tweaks %}
 
 {% block content %}
-    <h1>Signup</h1>
-    <form class="site-form" action="/accounts/signup/" method="POST">
+<div class="form-wrapper">
+    <h1>Sign Up</h1>
+    <form class="site-form-new" action="{% url 'accounts:signup' %}" method="POST">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Signup">
+        <div class="form-item">
+            <label for="id_username"></label>
+            <input type="text" name="username" maxlength="150" placeholder="Username" required="required" id="id_username">
+            <small><p class="helptext">{{ form.username.help_text }}</p></small>
+            {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_email"></label>
+            <input type="email" name="email" placeholder="Email" required="required" id="id_email">
+            <small><p class="helptext">{{ form.email.help_text }}</p></small>
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_password1"></label>
+            <input type="password" name="password1" placeholder="Password" required="required" id="id_password1">
+            <small><ul class="helptext">{{ form.password1.help_text }}</ul></small>
+            {% for error in form.password1.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_password2"></label>
+            <input type="password" name="password2" placeholder="Repeat Password" required="required" id="id_password2">
+            <small><p class="helptext">{{ form.password2.help_text }}</p></small>
+            {% for error in form.password2.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="button-panel">
+            <input type="submit" class="button-new" title="Signup" value="Signup">
+        </div>
+        <div class="form-footer">
+
+        </div>
     </form>
+</div>
 {% endblock %}
