@@ -1281,7 +1281,7 @@ input[type="file"]{
     background:                     #ee3e52;
     }
 /* ios button  reset */
-.button-panel[type=submit]{
+.site-form-new input[type=submit]{
     -webkit-appearance:none;
     border-radius:        0;
     }
