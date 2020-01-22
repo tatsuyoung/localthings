@@ -6,7 +6,7 @@ from .models import Profile
 
 class UserCreationForms(UserCreationForm):
     email = forms.EmailField(required=True, label='Email',
-                             help_text='pass wordを忘れた際に必要になります。\n'
+                             help_text='Passwordを忘れた際に必要になります。\n'
                                        'その他に使用する事はありません。')
 
     class Meta:

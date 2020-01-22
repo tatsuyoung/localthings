@@ -74,7 +74,6 @@
                     {% if article.total_likes %}
                     {{ article.total_likes }}
                     {% endif %}
-
                 </p>
              </div>
             <div class="list_article_icon">
@@ -150,7 +149,7 @@
             </a>
         </li>
         <li><a href="{% url 'accounts:user_following' %}">
-            <span>Follow Feed</span>
+            <span>Following Feed</span>
             </a>
         </li>
         {% else %}

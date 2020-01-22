@@ -780,15 +780,15 @@ nav button{
     }
 
 .list_article_icon .fa-heart{
-    color:              gray;
+    color:              #8c8c8c;
     }
 
 .list_article_icon .fa-comment-alt{
-    color:              gray;
+    color:              #8c8c8c;
     }
 
 .list_article_icon p:nth-of-type(1){
-    color:              gray;
+    color:              #8c8c8c;
     }
 
 .list_article_icon .fb{
@@ -2122,7 +2122,7 @@ ul{
 .pager .pagination li a:hover,
 .pager .pagination li a.active{
   color:                                #fff;
-  background:                        #f7d4d7;
+  background:                        #BFE9DB;
   border-radius:                        10px;
   border-radius:                        50px;
   animation:         animScale 0.4s ease-out;
