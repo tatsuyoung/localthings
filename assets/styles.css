@@ -1280,6 +1280,11 @@ input[type="file"]{
 .button-panel .button-new:hover{
     background:                     #ee3e52;
     }
+/* ios button  reset */
+.button-panel[type=submit]{
+    -webkit-appearance:none;
+    border-radius:        0;
+    }
 
 .form-footer {
   font-size:                    1em;
