@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -10,6 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.template.loader import get_template
+from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.base import View
 
@@ -115,13 +118,24 @@ def Delete_user(self):
     return redirect('articles:list')
 
 
-class ProfileFollowToggle(LoginRequiredMixin, View):
-    login_url = '/accounts/login/'
+class PasswordReset(PasswordResetView):
+    subject_template_name = 'accounts/mail_template/reset/subject.txt'
+    email_template_name = 'accounts/mail_template/reset/message.txt'
+    template_name = 'accounts/password_reset.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
 
-    def post(self, request, *args, **kwargs):
-        username_to_toggle = request.POST.get("username")
-        profile_, is_following = Profile.objects.toggle_follow(request.user, username_to_toggle)
-        return redirect(f"/accounts/{profile_.user.username}")
+
+class PasswordResetDone(PasswordResetDoneView):
+    template_name = 'accounts/password_reset_done.html'
+
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    success_url = reverse_lazy('accounts:password_reset_complete')
+    template_name = 'accounts/password_reset_confirm.html'
+
+
+class PasswordResetComplete(PasswordResetCompleteView):
+    template_name = 'accounts/password_reset_complete.html'
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
@@ -145,6 +159,15 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
                 is_following = True
             context['is_following'] = is_following
             return context
+
+
+class ProfileFollowToggle(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def post(self, request, *args, **kwargs):
+        username_to_toggle = request.POST.get("username")
+        profile_, is_following = Profile.objects.toggle_follow(request.user, username_to_toggle)
+        return redirect(f"/accounts/{profile_.user.username}")
 
 
 class UserFollowingFeedView(View):
