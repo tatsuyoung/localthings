@@ -1257,6 +1257,25 @@ input[type="file"]{
     outline:                       none;
     }
 
+.form-item textarea{
+    background:                 #fafafa;
+    border:                        none;
+    border-bottom:    2px solid #e9e9e9;
+    color:                         #666;
+    font-family: 'Open Sans' sans-serif;
+    font-size:                      1em;
+    height:                        250px;
+    transition:       border-color 0.3s;
+    width:                         100%;
+    appearance:                    none;
+    -webkit-appearance:            none;
+    -moz-appearance:               none;
+    }
+.form-item textarea:focus{
+    border-bottom:    2px solid #c0c0c0;
+    outline:                       none;
+    }
+
 .button-panel{
     margin:                     2em 0 0;
     width:                         100%;

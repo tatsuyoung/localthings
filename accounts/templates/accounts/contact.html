@@ -1,12 +1,38 @@
 {% extends 'base_layout.html' %}
-
+{% load widget_tweaks %}
 
 {% block content %}
-    <h1>Contact</h1>
-    <form class="site-form" action="" method="POST">
+<div class="form-wrapper">
+    <h1>Contact Us</h1>
+    <form class="site-form-new" action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Send Email"
-               onclick="return confirm('Do you want to send?');">
+        <div class="form-item">
+            <label for="id_contact_name"></label>
+            <input type="text" name="contact_name" maxlength="20" placeholder="Contact Name" required="required" id="id_contact_name">
+            {% for error in form.contact_name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_contact_email"></label>
+            <input type="email" name="contact_email" maxlength="40" placeholder="Contact Email" required="required" id="id_contact_email">
+            {% for error in form.contact_email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-item">
+            <label for="id_message"></label>
+            <textarea name="message" cols="40" rows="10" maxlength="200" placeholder="Massage" required="required" id="id_message"></textarea>
+            {% for error in form.contact_name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="button-panel">
+            <input type="submit" class="button-new" value="Send Email" onclick="return confirm('Do you want to send?');">
+        </div>
     </form>
+    <div class="form-footer">
+        <p><a href="{% url 'home' %}">Home</a></p>
+    </div>
+</div>
 {% endblock %}
