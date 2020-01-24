@@ -1284,12 +1284,7 @@ a.highlight .fas{
     }
 
 /* ios button  reset */
-.site-form-new input[type=submit]{
-    -webkit-appearance:none;
-    border-radius:        0;
-    }
-
-.site-form-new-color input[type=submit]{
+.site-form-new .site-form input[type=submit]{
     -webkit-appearance:none;
     border-radius:        0;
     }
