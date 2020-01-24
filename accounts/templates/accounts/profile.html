@@ -2,81 +2,82 @@
 {% load widget_tweaks %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-    <h1>{{ user.username }} Profile</h1>
+<h1>{{ user.username }} Profile</h1>
+<div>
+    <div class="profile">
+      <div class="profile-circle">
+        <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover">
+      </div>
+      <div>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
 
-    <div>
-        <div class="profile">
-          <div class="profile-circle">
-            <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover">
-          </div>
-          <div>
-            <p>{{ user.email }}</p>
-          </div>
-        </div>
+    <div class="prof-messages">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">
+                {{ message|safe }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 
-        <div class="prof-messages">
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li class="{{ message.tags }}">
-                    {{ message|safe }}
-                </li>
+    <div class="site-form">
+        <h3>Profile Info</h3>
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ u_form.as_p }}
+        <div class="form_group">
+            <label>My icon</label>
+            <div class="column_3" id="input-group">
+                <input type="file" name="image" accept="image/*" id="id_image"/>
+                <label for="id_image" id="input-label">UpLoad
+                    <i class="fas fa-user-cog"></i>
+                </label>
+                <div class="icon_helptext">
+                    <p class="helptext">{{ p_form.image.help_text }}</p>
+                </div>
+                {% for error in p_form.errors %}
+                <span class="helptext">{{ error }}</span>
                 {% endfor %}
-            </ul>
-            {% endif %}
+            </div>
         </div>
-
-        <a href="{% url 'accounts:unsubscribe' %}">
-        <button class="article_delete" type="submit"
-                onclick='return confirm("本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消せません。");'>
-                <i class="fas fa-user-times"></i>
-        </button>
-        </a>
-
-        <form class="site-form" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h3>Profile Info</h3>
-
-            {{ u_form.as_p }}
-
-            <div class="form_group">
-                <label>My icon</label>
-                <div class="column_3" id="input-group">
-                    <input type="file" name="image" accept="image/*" id="id_image"/>
-                    <label for="id_image" id="input-label">UpLoad
-                        <i class="fas fa-user-cog"></i>
-                    </label>
-                    <div class="icon_helptext">
-                        <p class="helptext">{{ p_form.image.help_text }}</p>
-                    </div>
-                    {% for error in p_form.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                <div class="form_group">
-                    <div class="column_2">
-                    <label>Bio</label>
-                        {{ p_form.bio | attr:"autocomplete:off" }}
-                    <p class="helptext">{{ p_form.bio.help_text }}</p>
-                    {% for error in p_form.bio.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                </div>
-                <div class="form_group">
-                    <div class="column_1">
-                    <label>Website</label>
-                        {{ p_form.website | attr:"autocomplete:off" }}
-                    <p class="helptext">{{ p_form.website.help_text }}</p>
-                    {% for error in p_form.website.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                </div>
+        <div class="form_group">
+            <div class="column_2">
+            <label>Bio</label>
+            {{ p_form.bio | attr:"autocomplete:off" }}
+            <p class="helptext">{{ p_form.bio.help_text }}</p>
+            {% for error in p_form.bio.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
             </div>
-            <div class="submit_btn">
-                <input type="submit" value="Update">
+        </div>
+        <div class="form_group">
+            <div class="column_1">
+            <label>Website</label>
+                {{ p_form.website | attr:"autocomplete:off" }}
+            <p class="helptext">{{ p_form.website.help_text }}</p>
+            {% for error in p_form.website.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
             </div>
+        </div>
+        <div class="button-panel">
+            <input type="submit" class="button-new-color" value="Update">
+        </div>
         </form>
-     </div>
+        <div class="form-footer">
+            <p><a href="{% url 'home' %}">Home</a></p>
+            <a href="{% url 'accounts:unsubscribe' %}">
+            <button class="article_delete" type="submit"
+            onclick='return confirm("本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消せません。");'>
+            <i class="fas fa-user-times"></i>
+            </button>
+             </a>
+        </div>
+    </div>
+ </div>
 {% endblock %}
