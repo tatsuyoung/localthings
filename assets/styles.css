@@ -1289,7 +1289,7 @@ a.highlight .fas{
     border-radius:        0;
     }
 
-site-form input[type=submit]{
+.site-form input[type=submit]{
     -webkit-appearance:none;
     border-radius:        0;
     }
