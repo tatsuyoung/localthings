@@ -1072,6 +1072,7 @@ a.highlight .fas{
 .site-form label{
     font-family:            'lato';
     color:                 #383838;
+    cursor:                pointer;
     }
 
 .form_group label{
@@ -1288,6 +1289,12 @@ a.highlight .fas{
     border-radius:        0;
     }
 
+.site-form-new-color input[type=submit]{
+    -webkit-appearance:none;
+    border-radius:        0;
+    }
+
+/* form footer */
 .form-footer {
   font-size:                    1em;
   padding:                    2em 0;
