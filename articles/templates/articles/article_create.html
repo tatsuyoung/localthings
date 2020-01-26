@@ -46,7 +46,7 @@
             <input type="submit" value="Create" class="button-new-color" onclick="return confirm('Are you sure with the content of this article?');">
         </div>
     </form>
-    <div class="form-footer">
+    <div class="site-form-new">
         <div class="p_container">
             <div class="progress">
                 <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
@@ -55,6 +55,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="form-footer">
+         <p><a href="{% url 'home' %}">Home</a></p>
     </div>
 </div>
 <script src="/static/slugify.js"></script>
