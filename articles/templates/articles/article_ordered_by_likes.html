@@ -1,5 +1,5 @@
 {% extends 'base_layout.html' %}
-
+{% block title %}Ordered by Likes{% endblock %}
 {% block content %}
     <h1>Ordered by Likes</h1>
     <div class="articles">
@@ -13,7 +13,7 @@
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
 
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-            {% block title %}{{ article.title }}{% endblock %}
+            {{ article.title }}
             </a>
             </h3>
             <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>

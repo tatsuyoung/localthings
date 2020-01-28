@@ -1,5 +1,5 @@
 {% extends 'base_layout.html' %}
-
+{% block title %}{{ user.username }}'s home{% endblock %}
 {% block content %}
 
 <div class="user_detail_user_box">
@@ -9,20 +9,30 @@
     <div class="user_detail_user_name">
         <h2>{{ user.username }}'s home</h2>
     </div>
+    <ul>
+        <li>
+            {{ user.is_following.all.count }} <small>Following</small>
+        </li>
+        <li>
+            {{ user.profile.followers.all.count }} <small>Followers</small>
+        </li>
+    </ul>
 
     <div class="user_detail_user_custom">
         <a href="{% url 'accounts:profile' %}">Profile <i class="fas fa-user-cog"></i></a>
     </div>
+    <div class="user_detail_following_feed">
+        <a href="{% url 'accounts:user_following' %}">User Following Feed</a>
+    </div>
 </div>
 
-<div class="user_detail_following_feed">
-    <a href="{% url 'accounts:user_following' %}">User Following Feed</a>
-</div>
+
+
+
 
 <div class="articles">
     {% for article in my_article %}
     <div class="article">
-
         <p class="author">{{ article.author.username }}</p>
         <p><small>{{ article.date | date:"y/n/j H:i"}}</small></p>
         <h3><a href="{% url 'articles:detail' detail_id=article.id %}">

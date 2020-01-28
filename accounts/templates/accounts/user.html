@@ -1,10 +1,19 @@
 {% extends 'base_layout.html' %}
-
+{% block title %}{{ user.username }}'s Profile Card{% endblock %}
 {% block content %}
+
 
 <div class="user_profile_card">
     <img src="{{ user.profile.image.url }}" alt="Avatar" style="width:100%"/>
-    <h1>{{ user.username }}</h1>
+    <ul>
+        <li>
+            {{ user.is_following.all.count }} <small>Following</small>
+        </li>
+        <li>
+            {{ user.profile.followers.all.count }} <small>Followers</small>
+        </li>
+    </ul>
+    <h3>{{ user.username }}</h3>
     <p class="user_profile_bio">
         {% if user.profile.bio != None %}
         {{ user.profile.bio | urlize | linebreaksbr }}

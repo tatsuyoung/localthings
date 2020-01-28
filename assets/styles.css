@@ -495,9 +495,12 @@ nav button{
 /* profile */
 
 .user_detail_user_box{
-    margin:               0;
-    padding:              0;
+    margin:               60px auto;
     text-align: center;
+    border: 2px solid white;
+    border-radius:     10px;
+    box-shadow:  0px 0px 0px 1px rgba(6, 11, 5, 0.14);
+    Width:100%;
     }
 
 .user_detail_user_img{
@@ -510,41 +513,60 @@ nav button{
     text-align:        center;
     margin:            0 auto;
     position:        relative;
-    top:                 50px;
+    top:                 -60px;
     z-index:                1;
     }
 
 .user_detail_user_name {
-    margin:          0 auto;
-    border: 2px solid white;
-    padding:           20px;
     width:             100%;
-    border-radius:     10px;
-    padding:           40px;
-    padding-bottom:    90px;
     box-sizing:  border-box;
-    box-shadow:  0px 0px 0px 1px rgba(6, 11, 5, 0.14);
+    position: relative ;
+    bottom: 80px;
+
     }
 
 .user_detail_user_name h2{
-    font-size:       2.3em;
-    position:     relative;
-    top:              10px;
+    font-size:       2em;
     word-wrap:  break-word;
+    font-weight: 300;
     }
+
+.user_detail_user_box ul{
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    position: relative ;
+    bottom: 40px;
+}
+
+.user_detail_user_box li{
+    display: inline-block ;
+    font-size: 16px;
+    width: 13%;
+    letter-spacing: 0.8px;
+    color: gray ;
+}
+/* responsive */
+@media (max-width: 960px) and (min-width: 501px) {
+    .user_detail_user_box li { width: 50%; } /* Show 2 logos per row on medium devices (tablets, phones in landscape) */
+}
+
+@media (max-width: 500px) {
+    .user_detail_user_box li { width: 100%; } /* On small screens, show one logo per row */
+}
+/*  */
 
 .user_detail_user_custom{
     font-family:    'Roboto', sans-serif;
     text-align:      center;
-    padding:           20px;
+    position: relative ;
+    bottom: 20px;
     }
 
 .user_detail_user_custom a{
     color: rgba(142, 218, 229);
     display:      inline-block;
-    border-radius:         4px;
-    position:         relative;
-    bottom:               60px;
+    padding: 8px;
     }
 
 .user_detail_following_feed {
@@ -552,7 +574,7 @@ nav button{
     text-align:                   center;
     padding:                        10px;
     position:                   relative;
-    bottom:                         16px;
+    bottom:                         12px;
     }
 
 .user_detail_following_feed a{
@@ -562,6 +584,10 @@ nav button{
 .user_detail_following_feed a:hover{
     color:                       #b4df85;
     }
+
+
+
+/* image box */
 
 .article_list_user_img{
     background:       #eeeeee;
@@ -2554,6 +2580,26 @@ ul{
   position:                         relative;
   top:                                  80px;
   word-wrap:                      break-word;
+    }
+
+.user_profile_card h3{
+    font-family:                'Cinzel', serif;
+    font-size:                            2.3em;
+    }
+
+.user_profile_card ul{
+    font-size:               0;
+    margin:               10px;
+    }
+
+.user_profile_card li{
+    display:        inline-block;
+    padding:                   0;
+    margin:                    0;
+    color:                  gray;
+    font-family:          'lato';
+    font-size:              12px;
+    width:                   25%;
     }
 
 .user_profile_bio {
