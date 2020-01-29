@@ -101,22 +101,24 @@ def like_button(request, like_id):
 
 
 def users_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
+    current_user = request.user
+    user = get_object_or_404(User, pk=current_user.pk)
     my_article = user.article_set.all().order_by('-date')
     paginator = Paginator(my_article, 9)
     page = request.GET.get('page')
     my_article = paginator.get_page(page)
-
+    count = user.article_set.all().count()
     context = {
                 'user': user,
-                'my_article': my_article
+                'my_article': my_article,
+                'count': count
                 }
     return render(request, 'articles/users_detail.html', context)
 
 
 def users_detail_comments(request, pk):
     article_com = Article.objects.get(id=pk)
-    comments = Comment.objects.filter(post=article_com)
+    comments = Comment.objects.filter(post=article_com).order_by('-date')
 
     context = {
                 'article': article_com,
