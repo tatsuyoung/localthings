@@ -24,7 +24,7 @@
         {% endfor %}
     </div>
 </div>
-
+{% if comments.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
     {% if comments.has_previous %}
@@ -54,4 +54,5 @@
     {% endif %}
     </ul>
 </div>
+{% endif %}
 {% endblock %}

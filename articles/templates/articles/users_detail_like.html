@@ -20,7 +20,7 @@
         {% endfor %}
     </div>
 </div>
-
+{% if liked_users.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
     {% if liked_users.has_previous %}
@@ -50,4 +50,5 @@
     {% endif %}
     </ul>
 </div>
+{% endif %}
 {% endblock %}

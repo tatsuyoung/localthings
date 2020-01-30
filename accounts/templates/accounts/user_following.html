@@ -68,7 +68,7 @@
         </div>
     {% endfor %}
 </div>
-
+{% if articles.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
     {% if articles.has_previous %}
@@ -98,5 +98,6 @@
     {% endif %}
     </ul>
 </div>
+{% endif %}
 <script src="/static/menu_btn.js"></script>
 {% endblock %}
