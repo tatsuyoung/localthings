@@ -13,7 +13,11 @@
             {{ user.profile.followers.all.count }} <small>Followers</small>
         </li>
     </ul>
-    <h3>{{ user.username }}</h3>
+    <h3>
+        <a href="{% url 'articles:user-posts' user.username %}" style="color:#0f121f">
+        {{ user.username }}
+        </a>
+    </h3>
     <p class="user_profile_bio">
         {% if user.profile.bio != None %}
         {{ user.profile.bio | urlize | linebreaksbr }}

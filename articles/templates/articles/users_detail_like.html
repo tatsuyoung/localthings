@@ -1,20 +1,20 @@
 {% extends 'base_layout.html' %}
-{% block title %}Add Like Author{% endblock %}
+{% block title %}Liked Users{% endblock %}
 {% block content %}
 
 <div class="users_detail">
     <div>
-        <h2>Add Like author</h2>
+        <h2>Liked Users</h2>
     </div>
     <div class="users_detail_box">
-        {% for like_user in add_likes_user %}
+        {% for liked_user in liked_users %}
         <div class="users_comment_user_img">
-            <a href="{% url 'accounts:profile_detail' like_user %}">
-            <img src="{{ like_user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+            <a href="{% url 'accounts:profile_detail' liked_user %}">
+            <img src="{{ liked_user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
             </a>
         </div>
         <div>
-            <p>{{ like_user }}<small>さん</small></p>
+            <p>{{ liked_user }}<small>さん</small></p>
         </div>
         <hr class="hr_border">
         {% endfor %}
@@ -23,28 +23,28 @@
 
 <div class="pager">
     <ul class="pagination">
-    {% if add_likes_user.has_previous %}
+    {% if liked_users.has_previous %}
         <li class="pre"><a class="active" href="?page=1"><span>
             <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
         </a></li>
-        <li class="pre"><a class="active" href="?page={{ add_likes_user.previous_page_number }}"><span>
+        <li class="pre"><a class="active" href="?page={{ liked_users.previous_page_number }}"><span>
             <i class="fa fa-angle-left" aria-hidden="true"></i></span>
         </a></li>
     {% endif %}
 
-    {% for num in add_likes_user.paginator.page_range %}
-        {% if add_likes_user.number == num %}
+    {% for num in liked_users.paginator.page_range %}
+        {% if liked_users.number == num %}
             <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-        {% elif num > add_likes_user.number|add:'-3' and num < add_likes_user.number|add:'3' %}
+        {% elif num > liked_users.number|add:'-3' and num < liked_users.number|add:'3' %}
         <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
         {% endif %}
     {% endfor %}
 
-    {% if add_likes_user.has_next %}
-        <li class="next"><a href="?page={{ add_likes_user.next_page_number }}"><span>
+    {% if liked_users.has_next %}
+        <li class="next"><a href="?page={{ liked_users.next_page_number }}"><span>
             <i class="fa fa-angle-right" aria-hidden="true"></i></span>
         </a></li>
-        <li class="next"><a href="?page={{ add_likes_user.paginator.num_pages }}"><span>
+        <li class="next"><a href="?page={{ liked_users.paginator.num_pages }}"><span>
             <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
         </a></li>
     {% endif %}

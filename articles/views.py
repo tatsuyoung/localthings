@@ -134,12 +134,12 @@ def users_detail_comments(request, pk):
 
 def users_detail_liked(request, pk):
     article_title = Article.objects.get(id=pk)
-    add_likes_user = article_title.like.all()
-    paginator = Paginator(add_likes_user, 10)
+    liked_users = article_title.like.all()
+    paginator = Paginator(liked_users, 10)
     page = request.GET.get('page')
-    add_likes_user = paginator.get_page(page)
+    liked_users = paginator.get_page(page)
     context = {
-                'add_likes_user': add_likes_user
+                'liked_users': liked_users
                 }
     return render(request, 'articles/users_detail_like.html', context)
 
