@@ -122,13 +122,11 @@ def users_detail(request, pk):
 
 def users_detail_comments(request, pk):
     article_com = Article.objects.get(id=pk)
-    comments = Comment.objects.filter(post=article_com).order_by('-date')
-    # paginator = Paginator(comments, 10)
-    # page = request.GET.get('page')
-    # comments = paginator.get_page(page)
-
+    comments = Comment.objects.filter(post=article_com).order_by('-created_date')
+    paginator = Paginator(comments, 10)
+    page = request.GET.get('page')
+    comments = paginator.get_page(page)
     context = {
-                'article': article_com,
                 'comments': comments
                }
     return render(request, 'articles/users_detail_comments.html', context)
@@ -136,9 +134,12 @@ def users_detail_comments(request, pk):
 
 def users_detail_liked(request, pk):
     article_title = Article.objects.get(id=pk)
-    articles = Article.objects.filter(title=article_title)
+    add_likes_user = article_title.like.all()
+    paginator = Paginator(add_likes_user, 10)
+    page = request.GET.get('page')
+    add_likes_user = paginator.get_page(page)
     context = {
-                'articles': articles
+                'add_likes_user': add_likes_user
                 }
     return render(request, 'articles/users_detail_like.html', context)
 

@@ -1423,6 +1423,7 @@ input[type="file"]{
     border-width: 1px 0 0 0;
     border-style:     solid;
     border-color:   #43a047;
+    padding:          20px;
     }
 
 .hr_list_border{
