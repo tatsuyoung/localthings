@@ -108,10 +108,14 @@ def users_detail(request, pk):
     page = request.GET.get('page')
     my_article = paginator.get_page(page)
     count = user.article_set.all().count()
+    following = user.is_following.all().count()
+    followers = user.profile.followers.all().count()
     context = {
                 'user': user,
                 'my_article': my_article,
-                'count': count
+                'count': count,
+                'following': following,
+                'followers': followers
                 }
     return render(request, 'articles/users_detail.html', context)
 
@@ -119,6 +123,9 @@ def users_detail(request, pk):
 def users_detail_comments(request, pk):
     article_com = Article.objects.get(id=pk)
     comments = Comment.objects.filter(post=article_com).order_by('-date')
+    # paginator = Paginator(comments, 10)
+    # page = request.GET.get('page')
+    # comments = paginator.get_page(page)
 
     context = {
                 'article': article_com,
