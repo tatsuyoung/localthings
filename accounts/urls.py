@@ -20,4 +20,6 @@ urlpatterns = [
     path('unsubscribe', views.Delete_user, name="unsubscribe"),
     path('<str:username>', ProfileDetailView.as_view(), name='profile_detail'),
     path('user_following/', UserFollowingFeedView.as_view(), name='user_following'),
+    path('<str:username>/is_following', views.user_is_following, name='is_following'),
+    path('<str:username>/followers', views.user_followers, name='followers'),
     ]

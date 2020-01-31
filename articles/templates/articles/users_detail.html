@@ -14,10 +14,14 @@
             {{ count }} <small>Posts</small>
         </li>
         <li>
+            <a href="{% url 'accounts:is_following' user.username%}" style="color:gray">
             {{ following }} <small>Following</small>
+            </a>
         </li>
         <li>
+            <a href="{% url 'accounts:followers' user.username%}" style="color:gray">
             {{ followers }} <small>Followers</small>
+            </a>
         </li>
     </ul>
 

@@ -121,6 +121,34 @@ def Delete_user(self):
     return redirect('articles:list')
 
 
+@login_required
+def user_is_following(request, username):
+    current_user = request.user
+    user = get_object_or_404(User, username=current_user)
+    is_following = user.is_following.all()
+    paginator = Paginator(is_following, 10)
+    page = request.GET.get('page')
+    is_following = paginator.get_page(page)
+    context = {
+               'is_following': is_following
+                }
+    return render(request, 'accounts/is_following.html', context)
+
+
+@login_required
+def user_followers(request, username):
+    current_user = request.user
+    user = get_object_or_404(User, username=current_user)
+    followers = user.profile.followers.all()
+    paginator = Paginator(followers, 10)
+    page = request.GET.get('page')
+    followers = paginator.get_page(page)
+    context = {
+               'followers': followers
+                }
+    return render(request, 'accounts/followers.html', context)
+
+
 class PasswordReset(PasswordResetView):
     subject_template_name = 'accounts/mail_template/reset/subject.txt'
     email_template_name = 'accounts/mail_template/reset/message.txt'
