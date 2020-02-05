@@ -500,6 +500,7 @@ nav button{
     text-align:                  center;
     max-Width:                     100%;
     height:                        auto;
+    border: 1px solid              #eee;
     }
 
 .user_detail_user_img{
