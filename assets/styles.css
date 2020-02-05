@@ -5,6 +5,7 @@ body{
     background-color:        #eeeeee;
     background-repeat:      repeat-y;
     color:                   #4d4d4d;
+    overflow-x:               hidden;
     }
 
 body*{
@@ -586,8 +587,8 @@ a.user_detail_btn:active{
     }
 @media all and (max-width: 30em){
     a.user_detail_btn{
-        display: block ;
-        margin: 0.4em auto ;
+        display:                 block;
+        margin:             0.4em auto;
     }
 }
 
