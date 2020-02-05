@@ -500,7 +500,6 @@ nav button{
     text-align:                  center;
     max-Width:                     100%;
     height:                        auto;
-    border: 1px solid              #eee;
     }
 
 .user_detail_user_img{
@@ -560,18 +559,17 @@ nav button{
 /* user_detail button */
 
 .user_detail_link{
-   	max-width:                    100%;
-    height:                       auto;
+   	width:                        100%;
     box-sizing:             border-box;
     position:                 relative;
     bottom:                       16px;
+    display:              inline-block;
     }
 
 a.user_detail_btn{
-    display:              inline-block;
-    padding:                 0.5em 3em;
+    padding:                  8px 48px;
     border:             1px solid #fff;
-    margin:                  0 0.3em 0;
+    margin:                    0 4px 0;
     text-decoration:              none;
     text-transform:          uppercase;
     font-family:   'Robot', sans-serif;
@@ -591,10 +589,11 @@ a.user_detail_btn:active{
     color:                        #fff;
     border-color:                 #fff;
     }
-@media all and (max-width: 30em){
+@media all and (max-width: 500px){
     a.user_detail_btn{
         display:                 block;
-        margin:             0.4em auto;
+        margin:               8px auto;
+        overflow:               hidden;
     }
 }
 
