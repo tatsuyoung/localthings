@@ -559,14 +559,14 @@ nav button{
 /* user_detail button */
 
 .user_detail_link{
-   	width:                        100%;
-    box-sizing:             border-box;
+    width:                        100%;
     position:                 relative;
     bottom:                       16px;
     display:              inline-block;
     }
 
 a.user_detail_btn{
+    box-sizing:             border-box;
     padding:                  8px 48px;
     border:             1px solid #fff;
     margin:                    0 4px 0;
@@ -593,6 +593,7 @@ a.user_detail_btn:active{
     a.user_detail_btn{
         display:                 block;
         margin:               8px auto;
+        width:                    100%;
         overflow:               hidden;
     }
 }
