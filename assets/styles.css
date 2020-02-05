@@ -15,13 +15,7 @@ body*{
                  'MS PGothic',sans-serif;
     }
 
-@media screen and (max-width: 480px){
-    body{
-    overflow-x:                hidden;
-    overflow-y:                scroll;
-    -webkit-overflow-scrolling: touch;
-    }
-}
+
 /* loading animation */
 
 .preloader{
