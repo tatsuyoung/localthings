@@ -495,9 +495,10 @@ nav button{
 /* profile */
 
 .user_detail_user_box{
-    margin:               60px auto;
-    text-align:              center;
-    Width:                     100%;
+    margin:                   60px auto;
+    text-align:                  center;
+    max-Width:                     100%;
+    height:                        auto;
     }
 
 .user_detail_user_img{
