@@ -497,9 +497,6 @@ nav button{
 .user_detail_user_box{
     margin:               60px auto;
     text-align:              center;
-    border:         2px solid white;
-    border-radius:             10px;
-    box-shadow:  0px 0px 0px 1px rgba(6, 11, 5, 0.14);
     Width:                     100%;
     }
 
@@ -556,37 +553,42 @@ nav button{
 @media (max-width: 500px) {
     .user_detail_user_box li { width: 100%; } /* On small screens, show one logo per row */
 }
-/*  */
 
-.user_detail_user_custom{
-    font-family:    'Roboto', sans-serif;
-    text-align:                   center;
-    position:                   relative;
-    bottom:                         20px;
+/* user_detail button */
+
+a.user_detail_btn{
+    display:              inline-block;
+    padding:                 0.5em 3em;
+    border:             1px solid #fff;
+    margin:                  0 0.3em 0;
+    box-sizing:             border-box;
+    text-decoration:              none;
+    text-transform:          uppercase;
+    font-family:   'Robot', sans-serif;
+    font-weight:                   400;
+    color:   rgba(255, 255, 255, 0.97);
+    text-align:                 center;
+    transform:               all 0.15s;
+    position:                 relative;
+    bottom:                       16px;
+    background:                #79A1D4;
     }
 
-.user_detail_user_custom a{
-    color:           rgba(142, 218, 229);
-    display:                inline-block;
-    padding:                         8px;
+a.user_detail_btn:hover{
+    color:                        #fff;
+    border-color:                 #fff;
+    background:                #FF9800;
     }
-
-.user_detail_following_feed {
-	font-family:    'Roboto', sans-serif;
-    text-align:                   center;
-    padding:                        10px;
-    position:                   relative;
-    bottom:                         12px;
+a.user_detail_btn:active{
+    color:                        #fff;
+    border-color:                 #fff;
     }
-
-.user_detail_following_feed a{
-    color:                          gray;
+@media all and (max-width: 30em){
+    a.user_detail_btn{
+        display: block ;
+        margin: 0.4em auto ;
     }
-
-.user_detail_following_feed a:hover{
-    color:                       #b4df85;
-    }
-
+}
 
 
 /* image box */
@@ -2608,7 +2610,7 @@ ul{
 
 .user_profile_bio {
   color:                        grey;
-  font-size:                    16px;
+  font-size:                    14px;
   line-height:                  1.75;
   letter-spacing:             0.05em;
   text-align:                   left;
