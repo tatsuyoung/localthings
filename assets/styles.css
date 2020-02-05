@@ -559,12 +559,19 @@ nav button{
 
 /* user_detail button */
 
+.user_detail_link{
+   	max-width:                    100%;
+    height:                       auto;
+    box-sizing:             border-box;
+    position:                 relative;
+    bottom:                       16px;
+    }
+
 a.user_detail_btn{
     display:              inline-block;
     padding:                 0.5em 3em;
     border:             1px solid #fff;
     margin:                  0 0.3em 0;
-    box-sizing:             border-box;
     text-decoration:              none;
     text-transform:          uppercase;
     font-family:   'Robot', sans-serif;
@@ -572,8 +579,6 @@ a.user_detail_btn{
     color:   rgba(255, 255, 255, 0.97);
     text-align:                 center;
     transform:               all 0.15s;
-    position:                 relative;
-    bottom:                       16px;
     background:                #79A1D4;
     }
 

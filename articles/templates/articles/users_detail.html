@@ -24,8 +24,10 @@
             </a>
         </li>
     </ul>
-    <a href="{% url 'accounts:profile' %}" class="user_detail_btn">Profile <i class="fas fa-user-cog"></i></a>
-    <a href="{% url 'accounts:user_following' %}" class="user_detail_btn">User Following Feed</a>
+    <div class="user_detail_link">
+        <a href="{% url 'accounts:profile' %}" class="user_detail_btn">Profile <i class="fas fa-user-cog"></i></a>
+        <a href="{% url 'accounts:user_following' %}" class="user_detail_btn">User Following Feed</a>
+    </div>
 </div>
 
 
