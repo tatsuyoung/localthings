@@ -1716,12 +1716,12 @@ blockquote span{
     box-sizing:  border-box;
     }
 
-.comment-section{
+/*.comment-section{
     list-style:        none;
     width:             100%;
     margin:       50px auto;
     padding:           10px;
-    }
+    }*/
 
 .comment{
     display:           flex;
