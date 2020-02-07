@@ -56,7 +56,8 @@ def article_delete(request, article_id):
 @require_POST
 def article_comment(request, pk):
     article_com = Article.objects.get(id=pk)
-    comments = Comment.objects.filter(post=article_com)
+    comments = Comment.objects.filter(post=article_com).order_by('created_date')
+    current_user = request.user
     if request.method == "POST":
         form = forms.CommentForm(request.POST)
         if form.is_valid():
@@ -66,10 +67,11 @@ def article_comment(request, pk):
             comment.save()
     else:
         form = forms.CommentForm()
-
-    context = {'article': article_com,
-               'form': form,
-               'comments': comments
+    context = {
+                'article': article_com,
+                'form': form,
+                'comments': comments,
+                'current_user': current_user
                }
     return render(request, 'articles/article_detail.html', context)
 
