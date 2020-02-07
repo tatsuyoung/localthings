@@ -55,7 +55,7 @@
     </div>
 
     <span class="comment_top">Comments
-         <small><i class="far fa-comment-alt"></i></small>
+         <small><i class="far fa-comment-alt" onclick="clickBtn2()"></i></small>
         {% if article.comments.count %}
         <small>{{ article.comments.count }}</small>
         {% endif %}
@@ -125,8 +125,8 @@
             <li class="write-new">
                 <form method="POST" action="." id="comment_form">
                     {% csrf_token %}
+                    {{ form.as_p }}
                     {% for comment in comments|slice:":1" %}
-                    <textarea name="text" cols="10" rows="6" required="" placeholder="Write your comment here" onclick="clickBtn2()"></textarea>
                     <div>
                         <img src="{{ current_user.profile.image.url }}" alt="Profile Avatar" >
                     </div>
