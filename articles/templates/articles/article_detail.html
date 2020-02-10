@@ -60,14 +60,14 @@
         <small>{{ article.comments.count }}</small>
         {% endif %}
     </span>
-
+    <div class="comment-read">
     <form method="POST" action="{% url 'articles:comment' article.pk %}">
         {% csrf_token %}
         <button type="submit" id="read">
-            <span>Read</span>
-            <i class="fas fa-glasses"></i>
+            <i class="fas fa-plus"></i>
         </button>
     </form>
+    </div>
     <div class="comment-footer"></div>
 
     <div class="comment_wrapper">
