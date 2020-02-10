@@ -558,12 +558,12 @@ nav button{
 
 /* user_detail button */
 
-.user_detail_link{
+/*.user_detail_link{
     width:                        100%;
     position:                 relative;
     bottom:                       16px;
     display:              inline-block;
-    }
+    }*/
 
 a.user_detail_btn{
     box-sizing:             border-box;
