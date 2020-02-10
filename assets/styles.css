@@ -158,6 +158,7 @@ a, a:hover, a:visited{
 .wrapper{
     max-width:      960px;
     margin:        0 auto;
+    overflow:      hidden;
     }
 
 .wrapper h2{

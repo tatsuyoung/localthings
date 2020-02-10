@@ -2,6 +2,7 @@
 {% block title %}{{ user.username }}'s home{% endblock %}
 {% block content %}
 
+
 <div class="user_detail_user_box">
     <div class="user_detail_user_img">
         <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover"/>
@@ -24,15 +25,11 @@
             </a>
         </li>
     </ul>
-    <div class="user_detail_link">
+<!--    <div class="user_detail_link">-->
         <a href="{% url 'accounts:profile' %}" class="user_detail_btn">Profile <i class="fas fa-user-cog"></i></a>
         <a href="{% url 'accounts:user_following' %}" class="user_detail_btn">User Following Feed</a>
-    </div>
+<!--    </div>-->
 </div>
-
-
-
-
 
 <div class="articles">
     {% for article in my_article %}
