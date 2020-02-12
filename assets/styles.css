@@ -295,10 +295,12 @@ a, a:hover, a:visited{
     }
 
 div.wrapper h1{
-    text-align:         center;
-    margin:          40px auto;
-    font-size:           2.5em;
     font-family:       'Cinzel', serif;
+    text-align:                 center;
+    margin:                  40px auto;
+    font-size:                   2.2em;
+    overflow-wrap:          break-word;
+    word-wrap:              break-word;
     }
 
 header{
@@ -849,7 +851,7 @@ a.user_detail_btn:active{
     }
 
 .article .author:hover{
-    letter-spacing:     3px;
+    letter-spacing:     2px;
     }
 
 .user_post_list_post_counts{
