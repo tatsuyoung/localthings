@@ -125,7 +125,7 @@ def Delete_user(self):
 def user_is_following(request, username):
     current_user = request.user
     user = get_object_or_404(User, username=current_user)
-    is_following = user.is_following.all()
+    is_following = user.is_following.all().order_by('id')
     paginator = Paginator(is_following, 10)
     page = request.GET.get('page')
     is_following = paginator.get_page(page)
@@ -139,7 +139,7 @@ def user_is_following(request, username):
 def user_followers(request, username):
     current_user = request.user
     user = get_object_or_404(User, username=current_user)
-    followers = user.profile.followers.all()
+    followers = user.profile.followers.all().order_by('id')
     paginator = Paginator(followers, 10)
     page = request.GET.get('page')
     followers = paginator.get_page(page)
