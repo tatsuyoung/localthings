@@ -336,9 +336,8 @@ header{
     }
 
 .wrapper_about a{
-    font-family:            'lato';
-    color:                 #383838;
-    font-size:                 1em;
+    color:                 #b8b1ab;
+    font-size:               1.8em;
     line-height:              1.75;
     letter-spacing:         0.05em;
     display:            table-cell;
@@ -346,8 +345,14 @@ header{
     line-height:            normal;
     padding:                  10px;
     position:             relative;
-    right:                     7px;
     }
+
+@media (max-width: 600px){
+    .wrapper_about a{
+        position:relative;
+        top:         12px;
+    }
+}
 
 .wrapper_nav{
     grid-column:                2/4;
@@ -359,27 +364,31 @@ header{
     }
 
 .logout-link{
-    width:                      70px;
-    text-decoration:            none;
-    padding:                 6px 5px;
+    width:                      100px;
+    text-decoration:             none;
     }
 
-.wrapper_user{
+/*.wrapper_user{
     font-family:              'lato';
     width:                     120px;
     text-decoration:            none;
     padding:                 6px 5px;
-    }
+    color:                      gray;
+    }*/
 
 .wrapper_user a{
-    color:                    #454C50;
-    font-family: 'Amatic SC', cursive;
-    font-size:                  1.5em;
+    color:                       gray;
+    font-family:               'lato';
+    font-size:                    1em;
+    margin-left:                 20px;
+    text-transform:uppercase;
     }
 
 .wrapper_nav ul{
-    margin:               0 0 0 1em;
+    margin:                       0;
     padding:                      0;
+    position:              relative;
+    top:                        4px;
     }
 
 .wrapper_nav li{
@@ -488,12 +497,14 @@ nav li:hover{
     }
 
 nav button{
-    background:     none;
-    color:       #8edae5;
-    border:            0;
-    font-size:       1em;
+    font-family:      'lato';
+    background:         none;
+    color:           #6088C6;
+    border:                0;
+    font-size:           1em;
+    font-weight:        bold;
+    text-transform:uppercase;
     }
-
 
 /* profile */
 
@@ -1008,14 +1019,17 @@ a.user_detail_btn:active{
 
 a.highlight{
     display:            inline-block;
-    width:                     150px;
+    width:                      80px;
     text-align:               center;
     color:                   #77AF9C;
     text-decoration:            none;
     position:               relative;
-    border:       2px solid  #c2e59c;
-    padding:                 6px 5px;
+    border:       1px solid  #c2e59c;
+    padding:                 3px 3px;
     transition:                  .3s;
+    font-size:                  18px;
+    font-weight:                bold;
+    text-transform:        uppercase;
     }
 
 a.highlight:hover{
@@ -1050,12 +1064,6 @@ a.highlight:after{
 
 a.highlight:hover:after,a.highlight:hover:before{
                   transform: scale(1);
-    }
-
-a.highlight .fas{
-    color:                    #757575;
-    position:                relative;
-    left:                         7px;
     }
 
 
@@ -2308,9 +2316,9 @@ footer:hover {
 /* 期間限定 */
 /*  Copyright (c) 2019 by Marco Barría (https://codepen.io/fixcl/pen/KhAqa) */
 .bird{
-  background:                   #f8f8f8; /* black */
+  background:                     black; /* black */ /* #f8f8f8 */
   border-radius:        50% 50% 20% 20%;
-  color:                          black; /* #fff */
+  color:                           #fff; /* #fff */ /* black */
   line-height:                     20px;
   letter-spacing:                   2px;
   font-size:                      0.8em;
@@ -2339,7 +2347,7 @@ footer:hover {
 
 .bird:after{
   border-radius:          100% 100% 0 0;
-  box-shadow:     inset 0px 5px 0 rgb(244, 244, 244); /* black */
+  box-shadow:     inset 0px 5px 0 black; /* black */ /* inset 0px 5px 0 rgb(244, 244, 244) */
   width:                          100px;
   height:                         100px;
   margin-top:                      -7px;
@@ -2953,4 +2961,173 @@ ul{
 
 .user_profile_btn_unfollow:hover{
   opacity:           0.7;
+    }
+
+
+/* notification */
+/* notification bell number */
+
+.number{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    height:               18px;
+    width:                18px;
+    background-color:  #db5565;
+    border-radius:         50%;
+    color:                #fff;
+    text-align:         center;
+    position:         absolute;
+    bottom:               22px;
+    left:                 23px;
+    padding:               3px;
+    border:     1px solid #eee;
+    border-width:          2px;
+    font-size:            12px;
+    font-weight:          bold;
+    z-index:                 1;
+    }
+
+.number small{
+    position: relative;
+    left:          1px;
+    top:           4px;
+    }
+
+
+/* notification box */
+
+.notification_wrapper_all{
+    margin:                             0;
+    padding:                            0;
+    box-sizing:                border-box;
+    font-family: 'Montserrat', sans-serif;
+    }
+
+.notification_wrapper{
+    max-width:                      500px;
+    margin:                  120px auto 0;
+    }
+
+.notification_wrapper .notification_icon{
+    position:      relative;
+    width:             50px;
+    height:            50px;
+    font-size:         32px;
+    margin:          0 auto;
+    text-align:      center;
+    color:          #605dff;
+    }
+
+.notification_wrapper .drop-down{
+   box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
+    0 6.7px 5.3px rgba(0,0,0,.028),
+    0 12.5px 10px rgba(0,0,0,.035),
+    0 22.3px 17.9px rgba(0,0,0,.042),
+    0 41.8px 33.4px rgba(0,0,0,.05),
+    0 100px 80px rgba(0,0,0,.07);
+    background:          #fafafa;
+    margin:             3em auto;
+    padding:               0 1em;
+    max-width:             370px;
+    position:           relative;
+    }
+
+.notification_wrapper .drop-down .notify_item{
+    display:                    flex;
+    align-items:              center;
+    padding:                  10px 0;
+    border-bottom: 1px solid #dbdaff;
+    }
+
+
+.notification_wrapper .drop-down .notify_item:last-child{
+    border-bottom: 0px;
+    }
+
+.notification_wrapper .drop-down .notify_item .notify_img{
+    margin-right: 15px;
+    }
+
+.notification_wrapper .drop-down .notify_item .read{
+    width:  70%;
+    color: #bbb;
+    }
+
+.notification_wrapper .drop-down .notify_item .read .notify_time{
+    font-size: 12px;
+    }
+
+.notification_wrapper .drop-down .notify_item .read a{
+    color: #bbb;
+    }
+
+
+.notification_wrapper .drop-down .notify_item .unread{
+    width: 70%;
+    }
+
+.notification_wrapper .drop-down .notify_item .unread a{
+    color: #605dff;
+    }
+
+.notification_wrapper .drop-down .notify_item .unread .notify_time{
+    color:  #c5c5a6;
+    font-size: 12px;
+    }
+
+
+/* notification speech bubble */
+
+.notification_wrapper .drop-down:before{
+    content:                 "";
+    position:          absolute;
+    top:                  -30px;
+    left:                   50%;
+    transform: translateX(-50%);
+    border:          15px solid;
+    border-color: transparent transparent #fafafa transparent
+    }
+
+/* notification button */
+
+.notification_wrapper .drop-down button{
+    padding:          10px;
+    width:             49%;
+    box-sizing: border-box;
+    border:           none;
+    font-size:        16px;
+    font-weight:      bold;
+    margin-top:       20px;
+    cursor:        pointer;
+    }
+
+.notification_wrapper .drop-down button a{
+    text-decoration: none;
+    color:           #fff;
+    }
+
+.notification_wrapper .drop-down button:nth-child(1){
+    background: #F17816;
+    }
+
+.notification_wrapper .drop-down button:nth-child(2){
+    background: #16c4fd;
+    }
+
+.notification_wrapper .drop-down button:hover{
+    background: #605dff;
+    }
+
+.notification_wrapper .drop-down button .fas{
+    font-size:     20px;
+    font-weight:   bold;
+    }
+
+/* notification message */
+
+.notification_wrapper .drop-down h4{
+    padding:              16px;
+    text-align:         center;
+    color:                gray;
+    line-height:           1.7;
+    letter-spacing:     0.05em;
     }

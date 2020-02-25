@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'widget_tweaks',
     'storages',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -205,5 +206,10 @@ CSRF_COOKIE_SECURE = True
 
 # security.W019
 X_FRAME_OPTIONS = 'DENY'
+
+
+# Django-notifications-hq
+DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
+
 
 django_heroku.settings(locals())

@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load notifications_tags %}
 <html lang="ja">
  <head>
      <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,11 +29,10 @@
      <meta name="theme-color" content="black">
      <link rel="manifest" href="{% static 'manifest.json' %}">
 
-
+    <!-- google fonts -->
      <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
      <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" rel="stylesheet"/>
@@ -40,10 +40,13 @@
      <link href="https://fonts.googleapis.com/css?family=Sacramento&display=swap" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase&display=swap" rel="stylesheet">
      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-
+     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!--  -->
      <link rel="stylesheet" href="{% static 'styles.css' %}">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+     <!-- notifications live -->
+<!--     <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>-->
+     <!-- notifications -->
      <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
      <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 
@@ -56,7 +59,7 @@
      <meta property="og:title" content="{{ article.title }}" />
      <meta property="og:description" content="{{ article.snippet }}" />
      <meta property="og:image" content="{{ article.thumb.url }}" />
-
+    <!-- loader -->
      <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
      <script type="text/javascript">
          $(window).on('load', function(){
@@ -80,8 +83,21 @@
 
               <section class="wrapper_about">
                 <ul>
-                    <li><a href="{% url 'about' %}" id="about">About  <i class="far fa-clipboard"></i></a></li>
-                    <li><a href="{% url 'accounts:contact' %}" id="contact">Contact  <i class="fas fa-paper-plane"></i></a></li>
+                    <li><a href="{% url 'about' %}" id="about"><i class="fas fa-info-circle faa-bounce animated-hover"></i></a></li>
+                    <li><a href="{% url 'accounts:contact' %}" id="contact"><i class="fas fa-paper-plane faa-float animated-hover"></i></a></li>
+                    {% if user.is_authenticated %}
+                    {% notifications_unread as unread_count %}
+                    <li><a href="{% url 'my_notifications' %}">
+                            <i class="fa fa-bell">
+                                {% if unread_count %}
+                                <div class="number">
+                                    <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
+                                </div>
+                                {% endif %}
+                            </i>
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
               </section>
                 <nav class="wrapper_nav">
@@ -89,17 +105,18 @@
                         {% if user.is_authenticated %}
                         <li>
                             <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
-                                {% csrf_token %}
+                            {% csrf_token %}
                             <button type="submit">Logout</button>
                             </form>
                         </li>
                         <li><a href="{% url 'articles:create' %}" class="highlight">
-                            <span>New Articles</span>
+                            <span>Create</span>
                             </a>
                         </li>
-                        <li class="wrapper_user">Hello<a href="{% url 'articles:users_detail' user.pk %}">
-                            <strong>{{ request.user }}</strong>
-                            <small><i class="far fa-id-badge"></i></small></a>
+                        <li class="wrapper_user">
+                            <a href="{% url 'articles:users_detail' user.pk %}">
+                                <strong>{{ request.user }}</strong>
+                            </a>
                         </li>
                         {% else %}
                         <li><a href="{% url 'accounts:login' %}" id="nav_login">Login</a></li>
@@ -151,5 +168,7 @@
             </div>
         </footer>
          <script src="/static/app.js"></script>
+<!--        <script src="/static/notification.js"></script>-->
+<!--        {% register_notify_callbacks callbacks='my_special_notification_callback' %}-->
     </body>
 </html>

@@ -1,0 +1,34 @@
+{% extends 'base_layout.html' %}
+{% block title %} My Notification {% endblock %}
+{% block content %}
+<div class="notification_wrapper_all">
+    <div class="notification_wrapper">
+        <div class="notification_icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="drop-down">
+            {% if request.user.notifications.all %}
+                <button type="button"><a class="btn-notify-1" href="{% url 'notifications:mark_all_as_read' %}?next={% url 'my_notifications' %}"><i class="fas fa-check"></i> All Read</a></button>
+                <button type="button"><a class="btn-notify-2" href="{% url 'delete_my_read_notifications' %}"><i class="fas fa-trash-alt"></i> All Delete</a></button>
+            {% endif %}
+
+            <ul>
+            {% for notification in request.user.notifications.all %}
+            <div class="notify_item">
+                    <div class="notify_img article_detail_author_img">
+                        <img src="{{ notification.actor.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                    </div>
+                    <div class="{% if not notification.unread %}read{% else %}unread{% endif %}">
+                        <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
+                        <span class="notify_time">{{ notification.timesince }} ago</span>
+                    </div>
+            </div>
+            {% empty %}
+                <h4>There is no notification...</h4>
+            {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

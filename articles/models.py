@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils import timezone
 from PIL import ImageOps
 from PIL import Image as Img
@@ -23,6 +24,12 @@ class Article(models.Model):
 
     def snippet(self):
         return self.body[:50] + '...'
+
+    def get_user(self):
+        return self.author
+
+    def get_url(self):
+        return reverse('articles:detail', kwargs={'detail_id': self.id})
 
     @property
     def total_likes(self):

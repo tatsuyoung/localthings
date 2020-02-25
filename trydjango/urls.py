@@ -31,6 +31,10 @@ urlpatterns = [
     path('sw.js', (TemplateView.as_view(template_name="sw.js",
                                         content_type='application/javascript',)), name='sw.js'),
     path('profile-follow/', ProfileFollowToggle.as_view(), name='follow'),
+    path('notifications/', include('notifications.urls', namespace='notifications')),
+    path('my_notifications/', views.my_notifications, name='my_notifications'),
+    path('my_notification/<int:my_notification_pk>', views.my_notification, name='my_notification'),
+    path('delete_my_read_notifications/', views.delete_my_read_notifications, name='delete_my_read_notifications'),
     ]
 
 if settings.DEBUG:
