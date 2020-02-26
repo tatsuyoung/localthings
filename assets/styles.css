@@ -825,6 +825,10 @@ a.user_detail_btn:active{
     color:              #8c8c8c;
     }
 
+.list_article_icon .fa-comment{
+    color:              #8c8c8c;
+    }
+
 .list_article_icon p:nth-of-type(1){
     color:              #8c8c8c;
     }
