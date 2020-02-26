@@ -16,7 +16,9 @@
             {% for notification in request.user.notifications.all %}
             <div class="notify_item">
                     <div class="notify_img article_detail_author_img">
-                        <img src="{{ notification.actor.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                        <a href="{% url 'accounts:profile_detail' notification.actor.username %}" class="avatar">
+                            <img src="{{ notification.actor.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                        </a>
                     </div>
                     <div class="{% if not notification.unread %}read{% else %}unread{% endif %}">
                         <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
