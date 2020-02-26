@@ -831,6 +831,7 @@ a.user_detail_btn:active{
 
 .list_article_icon p:nth-of-type(1){
     color:              #8c8c8c;
+    font-family: 'Montserrat', sans-serif;
     }
 
 .list_article_icon .fb{
