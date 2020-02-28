@@ -236,6 +236,14 @@ a, a:hover, a:visited{
         position: relative;
         left:         82px;
     }
+    .logo_main_2{
+        position: relative;
+        top:          71px;
+    }
+    .wrapper_about ul{
+        position: relative;
+        top:          12px;
+    }
 }
 
 /* hero title */
