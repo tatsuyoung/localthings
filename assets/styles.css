@@ -768,7 +768,7 @@ a.user_detail_btn:active{
     }
 
 .articles p:nth-of-type(2){
-    color:                        #248;
+    color:                     #7e8993;
     position:                 relative;
     float:                       right;
     bottom:                       52px;
@@ -782,7 +782,7 @@ a.user_detail_btn:active{
     position:                 relative;
     bottom:                       30px;
     height:                       70px;
-    left:                         10px;
+    left:                          8px;
     width:                        100%;
     text-align:                   left;
     }
