@@ -171,49 +171,54 @@ a, a:hover, a:visited{
 
 /*  header */
 
-.wrapper_logo{
-    text-align:              center;
-    }
-
 .wrapper_circle{
-    height:                   130px;
-    width:                    130px;
+    height:                    70px;
+    width:                     70px;
     border-radius:              50%;
-    border:1px solid         tomato;
     z-index:                      1;
+    border:        double 10px #fff;
+    position:              relative;
+    background:               black;
     }
 
-.wrapper_logo h1{
-    font-family: 'Alegreya Sans SC', sans-serif;
-    font-size:          2em;
-    color:          #1C75BC;
-    position:      relative;
-    left:              20px;
-    z-index:              2;
-    filter:     drop-shadow(2px 2px 3px rgba(233, 161, 132, 0.6));
-    letter-spacing: 0.8px;
+.logo_1{
+    position:              absolute;
+    top:                       -3px;
+    left:                      14px;
+    font-size:                 40px;
     }
 
-.wrapper_logo h1 i {
-    color:         #E67A7A;
-    position:     relative;
-    top:               8px;
+.logo_2{
+    position:              absolute;
+    top:                       16px;
+    left:                      37px;
+    font-size:                 40px;
     }
 
-.wrapper_logo small{
-    color:        #204495;
-    position:    relative;
-    left:            52px;
-    bottom:          10px;
-    z-index:            3;
+.logo_sub{
+    position:              relative;
+    bottom:                    22px;
     }
 
-.logo_under{
-    font-family:     'Italianno', cursive;
-    font-size:           1.5em;
-    line-height:           1.7;
-    letter-spacing:     0.05em;
+.logo_main_1, .logo_main_2{
+    font-family:       'Cinzel', serif;
+    font-weight:                   300;
+    position:                 relative;
+    right:                        30px;
     }
+
+.logo_main_1{
+    font-size:                    23px;
+    }
+
+.logo_main_2{
+    position:                 relative;
+    top:                           2px;
+    }
+
+
+
+/* hero title */
 
 .title{
     margin:   10px auto;
@@ -369,14 +374,6 @@ header{
     text-decoration:             none;
     }
 
-/*.wrapper_user{
-    font-family:              'lato';
-    width:                     120px;
-    text-decoration:            none;
-    padding:                 6px 5px;
-    color:                      gray;
-    }*/
-
 .wrapper_user a{
     color:                       gray;
     font-family:               'lato';
@@ -509,11 +506,6 @@ nav button{
 
 /* profile */
 
-/*.user_detail_wrapper{
-    max-width:      960px;
-    margin:        0 auto;
-    }*/
-
 .user_detail_user_box{
     margin:                   60px auto;
     text-align:                  center;
@@ -576,13 +568,6 @@ nav button{
 }
 
 /* user_detail button */
-
-/*.user_detail_link{
-    width:                        100%;
-    position:                 relative;
-    bottom:                       16px;
-    display:              inline-block;
-    }*/
 
 a.user_detail_btn{
     box-sizing:             border-box;
@@ -1616,32 +1601,6 @@ blockquote span{
 
 
 
-/*#comment_delete{
-    display:        inline-block;
-    padding:             3px 3px;
-    text-decoration:        none;
-    background-color:       rgba(135, 190, 253, 0.5);
-    width:                  30px;
-    height:                 30px;
-    border-radius:           50%;
-    text-align:           center;
-    overflow:             hidden;
-    color:                  #fff;
-    font-size:              10px;
-    font-weight:            bold;
-    box-shadow:              0px 0px 0px 1px #87befd;
-    border:       solid 1px #fff;
-    float:                 right;
-    position:           relative;
-    top:                   -43px;
-    margin:                 auto;
-    }
-
-
-#comment_delete:active{
-    box-shadow:             inset 0 0 2px #666;
-    transform:              translateY(2px);
-    }*/
 
 .comment-delete-btn{
  padding-left:             10px;
