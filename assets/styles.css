@@ -171,6 +171,10 @@ a, a:hover, a:visited{
 
 /*  header */
 
+.wrapper_logo{
+    text-align:              center;
+    }
+
 .wrapper_circle{
     height:                    70px;
     width:                     70px;
@@ -183,14 +187,14 @@ a, a:hover, a:visited{
 
 .logo_1{
     position:              absolute;
-    top:                       -3px;
+    top:                       -2px;
     left:                      14px;
     font-size:                 40px;
     }
 
 .logo_2{
     position:              absolute;
-    top:                       16px;
+    top:                       15px;
     left:                      34px;
     font-size:                 40px;
     }
@@ -205,6 +209,7 @@ a, a:hover, a:visited{
     font-weight:                   300;
     position:                 relative;
     right:                        30px;
+    top:                           2px;
     }
 
 .logo_main_1{
@@ -213,10 +218,25 @@ a, a:hover, a:visited{
 
 .logo_main_2{
     position:                 relative;
-    top:                           2px;
+    top:                           4px;
     }
 
-
+@media (max-width: 600px){
+    .logo_main_1, .logo_main_2{
+        position: relative;
+        top:          70px;
+        right:        50px;
+    }
+    .logo_sub{
+        position: relative;
+        top:          46px;
+        right:        20px;
+    }
+    .wrapper_circle{
+        position: relative;
+        left:         82px;
+    }
+}
 
 /* hero title */
 
