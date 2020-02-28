@@ -182,7 +182,7 @@ a, a:hover, a:visited{
     z-index:                      1;
     border:        double 10px #fff;
     position:              relative;
-    background:               black;
+    background:             #555d66;
     }
 
 .logo_1{
@@ -202,6 +202,7 @@ a, a:hover, a:visited{
 .logo_sub{
     position:              relative;
     bottom:                    22px;
+    color:                  #40464d;
     }
 
 .logo_main_1, .logo_main_2{
@@ -210,15 +211,18 @@ a, a:hover, a:visited{
     position:                 relative;
     right:                        30px;
     top:                           2px;
+    color:                     #555d66;
     }
 
 .logo_main_1{
     font-size:                    23px;
+    color:                     #23282d;
     }
 
 .logo_main_2{
     position:                 relative;
     top:                           4px;
+    color:                     #555d66;
     }
 
 @media (max-width: 600px){
@@ -771,7 +775,7 @@ a.user_detail_btn:active{
     }
 
 .articles p:nth-of-type(3){
-    color:                     #383838;
+    color:                     #40464d;
     font-size:                    16px;
     float:                       right;
     margin:                        5px;

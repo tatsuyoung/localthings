@@ -36,7 +36,7 @@
     {% for article in articles %}
     <div class="article">
 
-        <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
+        <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#40464d">
         {{ article.author.username }}
         </a>
         </p>
@@ -58,7 +58,6 @@
             </a>
         </div>
 
-<!--            <hr class="hr_list_border">-->
         <div class="icons">
             <div class="list_article_icon">
                 <p class="add_comments">
