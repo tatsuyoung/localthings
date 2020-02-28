@@ -782,6 +782,7 @@ a.user_detail_btn:active{
     position:                 relative;
     bottom:                       30px;
     height:                       70px;
+    left:                         10px;
     width:                        100%;
     text-align:                   left;
     }
