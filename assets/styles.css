@@ -1013,16 +1013,6 @@ a.user_detail_btn:active{
     font-size:                16px;
     }
 
-.article_detail_snippet{
-    margin:                 0;
-    padding:                0;
-    position:        relative;
-    }
-
-.article_detail_snippet p{
-    visibility:        hidden;
-    }
-
 .article_detail_container{
     position:        relative;
     bottom:              70px;
