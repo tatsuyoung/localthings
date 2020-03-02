@@ -286,7 +286,7 @@ a, a:hover, a:visited{
     text-align:            center;
     position:            relative;
     bottom:                  40px;
-    font-size:              0.7em;
+    font-size:               12px;
     line-height:                2;
     letter-spacing:        0.05em;
     font-feature-settings: "palt";
@@ -294,7 +294,7 @@ a, a:hover, a:visited{
 
 @media (max-width: 600px){
     .sub_title{
-        font-size:8px;
+        font-size:9px;
     }
     .title_wrapper{
         top:     28px;
@@ -901,10 +901,6 @@ a.user_detail_btn:active{
     color:             #fff;
     transition:         .3s;
     font-size:        1.2em;
-    }
-
-.article .author:hover{
-    letter-spacing:     2px;
     }
 
 .user_post_list_post_counts{
@@ -2028,7 +2024,8 @@ blockquote span{
     }
 
 .ordered:hover{
-    color:                #EB8686;
+    color:                #b4df85;
+    border:     1px solid #b4df85;
     }
 
 /* footer */
