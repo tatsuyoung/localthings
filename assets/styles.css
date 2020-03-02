@@ -252,6 +252,15 @@ a, a:hover, a:visited{
 
 /* hero title */
 
+.title_wrapper{
+    margin:           0;
+    padding:          0;
+    position:  relative;
+    top:           28px;
+    text-align:  center;
+    }
+
+
 .title{
     margin:   10px auto;
     padding:       10px;
@@ -282,6 +291,15 @@ a, a:hover, a:visited{
     letter-spacing:        0.05em;
     font-feature-settings: "palt";
     }
+
+@media (max-width: 600px){
+    .sub_title{
+        font-size:8px;
+    }
+    .title_wrapper{
+        top:     28px;
+    }
+}
 
 .balloon-back{
     margin:                     0;
