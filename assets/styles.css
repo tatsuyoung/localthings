@@ -1034,6 +1034,11 @@ a.user_detail_btn:active{
     padding:                0;
     }
 
+.article_detail_container p:first-of-type{
+    position: relative;
+    bottom:       50px;
+    }
+
 .article_detail_delete{
     margin:                 0;
     padding:                0;
