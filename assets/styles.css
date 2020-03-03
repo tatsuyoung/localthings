@@ -1027,16 +1027,16 @@ a.user_detail_btn:active{
     font-size:                16px;
     }
 
-.article_detail_container{
+/*.article_detail_container{
     position:        relative;
-    bottom:              70px;
+    bottom:               0px;
     margin:                 0;
     padding:                0;
-    }
+    }*/
 
 .article_detail_container p:first-of-type{
-    position: relative;
-    bottom:       50px;
+    position:  relative;
+    bottom:       110px;
     }
 
 .article_detail_delete{
