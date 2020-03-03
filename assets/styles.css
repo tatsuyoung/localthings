@@ -1027,6 +1027,16 @@ a.user_detail_btn:active{
     font-size:                16px;
     }
 
+@media (max-width: 600px){
+    .article_detail_author_username{
+        top:       1px;
+        right:    64px;
+    }
+    .article_detail_author_username span{
+       font-size: 12px;
+    }
+}
+
 /*.article_detail_container{
     position:        relative;
     bottom:               0px;
@@ -1036,7 +1046,7 @@ a.user_detail_btn:active{
 
 .article_detail_container p:first-of-type{
     position:  relative;
-    bottom:       110px;
+    bottom:       100px;
     }
 
 .article_detail_delete{
