@@ -1459,9 +1459,13 @@ input[type="file"]{
     border-width: 1px 0 0 0;
     border-style:     solid;
     border-color:   #43a047;
-    padding:          20px;
+    padding:           20px;
+    width:              50%;
     }
 
+.hr_border:last-child{
+    border:            none;
+    }
 
 /* buttons */
 
