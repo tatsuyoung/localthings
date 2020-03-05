@@ -12,7 +12,7 @@ body*{
                  '游ゴシック体', 'Yu Gothic Medium', YuGothic,
                  'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN',
                  'メイリオ', Meiryo, 'ＭＳ Ｐゴシック',
-                 'MS PGothic',sans-serif;
+                 'MS PGothic', sans-serif;
     }
 
 
@@ -1973,7 +1973,7 @@ blockquote span{
     border:                  1px solid rgb(142, 218, 229);
     font-size:              16px;
     float:                 right;
-    top:                    22px;
+    top:                    21px;
     right:                   6px;
     z-index:                  11;
     }
