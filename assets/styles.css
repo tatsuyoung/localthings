@@ -216,7 +216,7 @@ a, a:hover, a:visited{
 
 .logo_main_1{
     font-size:                    23px;
-    color:                     #23282d;
+    color:                     #4d4d4d;
     }
 
 .logo_main_2{
@@ -234,7 +234,7 @@ a, a:hover, a:visited{
     .logo_sub{
         position: relative;
         top:          46px;
-        right:        28px;
+        right:        23px;
     }
     .wrapper_circle{
         position: relative;
@@ -242,7 +242,7 @@ a, a:hover, a:visited{
     }
     .logo_main_2{
         position: relative;
-        top:          71px;
+        top:        71.5px;
     }
     .wrapper_about ul{
         position: relative;
@@ -2027,8 +2027,8 @@ blockquote span{
     width:                  35px;
     height:                 35px;
     border-radius:           50%;
-    border:                  1px solid rgb(142, 218, 229);
-    color:                  rgb(142, 218, 229);
+    border:    1px solid #8e9eab;
+    color:               #8e9eab;
     background:             rgba(236, 236, 236, 0.14);
     font-size:              16px;
     text-decoration:        none;
