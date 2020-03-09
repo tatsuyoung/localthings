@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+{% block title %}Book Mark{% endblock %}
+{% block content %}
+<h1>My Book Mark</h1>
+<div class="swiper">
+
+    <div class="swiper-container">
+
+        <div class="swiper-wrapper">
+            {% for book_mark in my_book_mark %}
+            <div class="swiper-slide">
+
+                <div class="swiper-card">
+                    <div class="sliderText">
+                        <h3>{{ book_mark.title }}</h3>
+                    </div>
+                    <div class="sliderUsername">
+                         <p>{{ book_mark.author }}</p>
+                    </div>
+                    <div class="sliderContent">
+                        <p>{{ book_mark.snippet }}</p>
+                        <a href="{% url 'articles:detail' detail_id=book_mark.id %}">Favorite</a>
+                    </div>
+                </div>
+
+            </div>
+            {% empty %}
+                <h4>No Book Marks</h4>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="comment-footer"></div>
+
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="/static/swiper.js"></script>
+{% endblock %}

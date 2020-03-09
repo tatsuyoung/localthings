@@ -18,6 +18,7 @@ class Article(models.Model):
     thumb = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
+    book_mark = models.ManyToManyField(User, related_name='book_mark', blank=True)
 
     def __str__(self):
         return self.title

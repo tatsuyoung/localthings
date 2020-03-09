@@ -6,71 +6,74 @@
 
 Localが好きな皆さん達と面白い事をしたいと思っております。
 
-# 機能
+<h2>機能</h2>
 
-1 - Login Logout                                        (ログイン　ログアウト)
+1 - Login Logout                    (ログイン　ログアウト)
 
-2 - Signup                                              (新規登録をすると。　いいね。コメント。プロフィール作成及び変更。記事を書く編集する。自分の          記事にコメント、いいねをしてくれた人が分かる。以上のような事ができるようになります。)
+2 - Signup                          (新規登録をすると。　いいね。コメント。プロフィール作成及び変更。記事を書く編集する。自分の          記事にコメント、いいねをしてくれた人が分かる。以上のような事ができるようになります。)
 
-3 - Send Email . Password reset                         (パスワードを忘れたとこにメールで変更ができます。)
+3 - Send Email . Password reset     (パスワードを忘れたとこにメールで変更ができます。)
 
-4 - Article create                                      (記事を書ける)
+4 - Article create                  (記事を書ける)
 
-5 - Comments                                            (コメント)
+5 - Comments                        (コメント)
 
-6 - Article . Comments delate                           (記事、コメント削除)
+6 - Article . Comments delate       (記事、コメント削除)
 
-7 - Like . disLike                                      (いいね。いいね取り消し)
+7 - Like . disLike                  (いいね。いいね取り消し)
 
-8 - Profile Update                                      (プロフィールを更新)
+8 - Profile Update                  (プロフィールを更新)
 
-9 - User page                                           (あなたのマイページ　あなたのuser nameをタップ)
+9 - User page                       (あなたのマイページ　あなたのuser nameをタップ)
 
-10 - Twitter . Facebook links                           (リンクできます)
+10 - Twitter . Facebook links       (リンクできます)
 
-11 - Edit Article update                                (記事の編集)
+11 - Edit Article update            (記事の編集)
 
-12 - Search                                             (検索)
+12 - Search                         (検索)
 
-13 - contact page                                       (コンタクト)
+13 - contact page                   (コンタクト)
 
-14 - site map                                           (サイトマップ,googleロボットの巡回をよくします)
+14 - site map                       (サイトマップ,googleロボットの巡回をよくします)
 
-15 - image resize                                       (写真のサイズを自動で変更します)
+15 - image resize                   (写真のサイズを自動で変更します)
 
-16 - pagination                                         (ページ数が表示されます)
+16 - pagination                     (ページ数が表示されます)
 
-17 - author profile                                     (userのプロフィール欄)
+17 - author profile                 (userのプロフィール欄)
 
-18 - author profile update                              (userがプロフィールを更新できるようにしました)
+18 - author profile update          (userがプロフィールを更新できるようにしました)
 
-19 - site security                                      (セキュリティー対策しています)
+19 - site security                   (セキュリティー対策しています)
 
-20 - progress bar                                       (記事をアップロードする際どれだけ進んだのか分かります)
+20 - progress bar                    (記事をアップロードする際どれだけ進んだのか分かります)
 
-21 - gallery                                            (虫眼鏡のアイコンを押すと写真一覧)
+21 - gallery                         (虫眼鏡のアイコンを押すと写真一覧)
 
-22 - articles post count                                (userの投稿記事数を表示)
+22 - articles post count             (userの投稿記事数を表示)
 
-23 - PWA                                                (このサイトがネイティブアプリのようになります)
+23 - PWA                             (このサイトがネイティブアプリのようになります)
 
-24 - twitter card                                       (twitterのリンクがカードになります)
+24 - twitter card                    (twitterのリンクがカードになります)
 
-25 - unsubscribe                                        (退会 あなたの全てのデータが削除されます)
+25 - unsubscribe                     (退会 あなたの全てのデータが削除されます)
 
-26 - article ordered by likes                           (雲が流れている画面の右下のマークを押すと、いいねが多い順に記事を並べ替えます)
+26 - article ordered by likes        (雲が流れている画面の右下のマークを押すと、いいねが多い順に記事を並べ替えます)
 
-27 - burgar menu                                        (mobileのみ表示されます。)
+27 - burgar menu                     (mobileのみ表示されます。)
 
-28 - user following                                    （userをフォローする事ができます。フォローしたuserの記事は、自分のページのuser following feedをタップすると閲覧ができます。またフォローを外す事も簡単にできます）
+28 - user following                  (userをフォローする事ができます。フォローしたuserの記事は、自分のページのuser following feedをタップすると閲覧ができます。またフォローを外す事も簡単にできます）
 
-29 - user followers                                     (自分のフォロワーの数がわかります)
+29 - user followers                  (自分のフォロワーの数がわかります)
 
-30 - user following page                                (自分がフォローした人の一覧が表示されます。ご自身のhomeからfollowingをタップするとフォローした人の一覧が確認できます)
+30 - user following page             (自分がフォローした人の一覧が表示されます。ご自身のhomeからfollowingをタップするとフォローした人の一覧が確認できます)
 
-31 - user followers page                                (自分をフォローした人の一覧が表示されます。ご自身のhomeからfollowersをタップするとご自身がフォローされている人の一覧が確認できます)
+31 - user followers page             (自分をフォローした人の一覧が表示されます。ご自身のhomeからfollowersをタップするとご自身がフォローされている人の一覧が確認できます)
 
-32 - notification                                       (userが記事を書いた人にコメントを残すと、記事を書いた人にお知らせが行きます。右上のベルのアイコンにバッジが付きます。またそのアイコンをクリックするとどの記事にコメントが付いたのか、誰からコメントをもらったのかを確認できます。全て既読と全て削除もできます。)
+32 - notification                    (userが記事を書いた人にコメントを残すと、記事を書いた人にお知らせが行きます。右上のベルのアイコンにバッジが付きます。またそのアイコンをクリックするとどの記事にコメントが付いたのか、誰からコメントをもらったのかを確認できます。全て既読と全て削除もできます。)
+
+33 - book mark                       (記事をブックマークできます。もう一度タップするとブックマークから外せます。またmy pageからBook Markをタップするとお気に入りの記事リストを見る事ができます。)
+
 
 
 *言語
@@ -99,5 +102,5 @@ Heroku
 AWS S3
 
 
-# Twitter
+<h2>Twitter</h2>
 https://twitter.com/tatsuyoung55

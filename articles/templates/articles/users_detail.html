@@ -25,10 +25,14 @@
                 </a>
             </li>
         </ul>
-    <!--    <div class="user_detail_link">-->
-            <a href="{% url 'accounts:profile' %}" class="user_detail_btn">Profile <i class="fas fa-user-cog"></i></a>
-            <a href="{% url 'accounts:user_following' %}" class="user_detail_btn">User Following Feed</a>
-    <!--    </div>-->
+
+    <!-- user_detail_link -->
+        <div class="user_detail_link">
+            <a class="user_detail_btn" href="{% url 'accounts:profile' %}"><span>Edit Profile</span></a>
+            <a class="user_detail_btn" href="{% url 'accounts:user_following' %}"><span>Following</span></a>
+            <a class="user_detail_btn" href="{% url 'articles:book_mark_list' %}"><span>Book Mark</span></a>
+        </div>
+    <!-- -->
     </div>
 
     <div class="articles">

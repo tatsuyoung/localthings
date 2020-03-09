@@ -83,6 +83,34 @@ def delete_comment(request, comment_id):
     return redirect('articles:list')
 
 
+@login_required(login_url="/accounts/login/")
+def book_mark_list(request):
+    user = request.user
+    my_book_mark = user.book_mark.all().order_by('-date')
+    context = {
+        'my_book_mark': my_book_mark
+    }
+    return render(request, 'articles/article_book_mark.html', context)
+
+
+@require_POST
+def book_mark(request, book_mark_id):
+
+    if request.method == 'POST':
+        user = request.user
+        title = request.POST.get('title', None)
+        article = get_object_or_404(Article, title=title, id=book_mark_id)
+
+        if article.book_mark.filter(id=user.id).exists():
+            article.book_mark.remove(user)
+            message = 'Book Markから外しました。'
+        else:
+            article.book_mark.add(user)
+            message = 'Book Markしました。'
+    context = dict(message=message)
+    return HttpResponse(json.dumps(context), content_type='application/json')
+
+
 @require_POST
 def like_button(request, like_id):
 

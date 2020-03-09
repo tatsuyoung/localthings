@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:pk>/comment/', views.article_comment, name="comment"),
     path('<int:comment_id>/delete_comment', views.delete_comment, name="com_delete"),
     path('<int:like_id>/like/', views.like_button, name='like_button'),
+    path('<int:book_mark_id>/book_mark/', views.book_mark, name='book_mark'),
     path('<int:pk>/user_detail', views.users_detail, name='users_detail'),
     path('<int:pk>/user_detail_comments', views.users_detail_comments, name='users_detail_comments'),
     path('<int:pk>/user_detail_like', views.users_detail_liked, name='users_detail_like'),
@@ -19,4 +20,5 @@ urlpatterns = [
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     path('galley/', Gallery.as_view(), name='gallery'),
     path('ordered_by_likes/', ArticleOrderedByLikes.as_view(), name='ordered_by_likes'),
+    path('my_book_mark_list/', views.book_mark_list, name='book_mark_list'),
 ]

@@ -46,8 +46,8 @@
 
     <div class="like_box">
         <button type="button" class="btn-like" id="like" name="{{ article.slug }}">
-        <i class="fa fa-heart"></i>
-        <span>Like</span>
+            <i class="fa fa-heart"></i>
+            <span>Like</span>
         </button>
     </div>
 
@@ -58,12 +58,17 @@
         {% endif %}
     </span>
     <div class="comment-read">
-    <form method="POST" action="{% url 'articles:comment' article.pk %}">
-        {% csrf_token %}
-        <button type="submit" id="read">
-            <i class="fas fa-plus"></i>
+        <form method="POST" action="{% url 'articles:comment' article.pk %}">
+            {% csrf_token %}
+            <button type="submit" id="read">
+                <i class="fas fa-plus"></i>
+            </button>
+        </form>
+    </div>
+    <div class="comment-read book-mark">
+        <button type="button" class="btn-book_mark" id="book_mark" name="{{ article.title }}">
+            <i class="far fa-bookmark"></i>
         </button>
-    </form>
     </div>
     <div class="comment-footer"></div>
 
@@ -169,6 +174,22 @@
                },
                error: function(data) {
                     alert("Error!!");
+            }
+        });
+    })
+</script>
+<script>
+    $('#book_mark').click(function(){
+        $.ajax({
+               type: "POST",
+               url: "{% url 'articles:book_mark' article.pk %}",
+               data: {'title': $(this).attr('name'),'csrfmiddlewaretoken':'{{ csrf_token }}'},
+               dataType: "json",
+               success: function(response) {
+                    alert(response.message);
+               },
+               error: function(data) {
+                    alert("Please Login");
             }
         });
     })

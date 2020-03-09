@@ -619,40 +619,46 @@ nav button{
 
 /* user_detail button */
 
-a.user_detail_btn{
-    box-sizing:             border-box;
-    padding:                  8px 48px;
-    border:             1px solid #fff;
-    margin:                    0 4px 0;
-    text-decoration:              none;
-    text-transform:          uppercase;
-    font-family:   'Robot', sans-serif;
-    font-weight:                   400;
-    color:   rgba(255, 255, 255, 0.97);
-    text-align:                 center;
-    transform:               all 0.15s;
-    background:                #79A1D4;
+.user_detail_btn{
+    display:              inline-block;
+    width:                        90px;
+    height:                       90px;
+    background:                #C5E99B;
+    margin:                       10px;
+    border-radius:                 50%;
+    overflow:                   hidden;
+    position:                 relative;
+    vertical-align:             middle;
+    border:           double 10px #eee;
     }
 
-a.user_detail_btn:hover{
-    color:                        #fff;
-    border-color:                 #fff;
-    background:                #FF9800;
+.user_detail_btn span{
+    line-height:                 90px;
+    color:                       #fff;
+    font-size:                   15px;
+    font-weight:                  900;
     }
-a.user_detail_btn:active{
-    color:                        #fff;
-    border-color:                 #fff;
+
+.user_detail_btn:hover{
+    opacity:                      0.7;
     }
-@media all and (max-width: 500px){
-    a.user_detail_btn{
-        display:                 block;
-        margin:               8px auto;
-        width:                    100%;
+
+@media all and (max-width: 600px){
+    .user_detail_btn{
+        margin:                   6px;
+        width:                   60px;
+        height:                  60px;
+     	border:       double 6px #eee;
+    }
+    .user_detail_btn span{
+        line-height:             60px;
+        font-size:               10px;
     }
     .user_detail_wrapper{
-        overflow:               hidden;
+        overflow:              hidden;
     }
 }
+
 
 
 /* image box */
@@ -1054,6 +1060,7 @@ a.user_detail_btn:active{
     margin:                 0;
     padding:                0;
     }
+
 
 /* highlight */
 
@@ -1571,29 +1578,6 @@ blockquote span{
     font-size:        0.8em;
     }
 
-
-/*#read{
-    display:        inline-block;
-    max-width:             180px;
-    text-align:             left;
-    border:                  2px solid #9ec34b;
-    font-size:              16px;
-    color:                  rgba(158, 195, 75, 0.5);
-    text-decoration:        none;
-    font-weight:            bold;
-    padding:             5px 5px;
-    border-radius:           4px;
-    transition:              .4s;
-    background-color:       #FFF;
-    box-shadow:              2px 2px 3px 1px #666;
-    }
-
-#read:hover{
-    background-color:    #9ec34b;
-    border-color:        #cbe585;
-    color:                  #FFF;
-    }*/
-
 .comment-read button{
     background-color: transparent;
         border:              none;
@@ -1603,7 +1587,7 @@ blockquote span{
         appearance:          none;
     }
 
-#read{
+#read, #book_mark{
     position:               relative;
     height:                     70px;
     width:                      70px;
@@ -1620,11 +1604,11 @@ blockquote span{
     transition:                 0.2s;
     }
 
-#read:hover{
+#read:hover, #book_mark:hover{
     transform: scale(1.1);
     }
 
-#read::before{
+#read::before, #book_mark::before{
     content:                           "";
     position:                    absolute;
     height:                           80%;
@@ -1636,12 +1620,13 @@ blockquote span{
     transform:      translate(-50%, -50%);
     }
 
-#read:hover::before{
+#read:hover::before, #book_mark:hover::before{
     box-shadow: inset -7px -7px 20px 0 rgba(255, 255, 255, 1),
     inset 7px 7px 20px 0 rgba(0, 0, 0, 0.3);
     }
 
-#read i{
+
+#read i, #book_mark i{
     position:                   absolute;
     color:             rgb(73, 192, 192);
     font-size:                      35px;
@@ -1651,13 +1636,15 @@ blockquote span{
     transition:                     0.2s;
     }
 
-#read:hover i {
+#read:hover i , #book_mark:hover i{
     font-size:                      30px;
     }
 
-
-
-
+.book-mark{
+    position:                   relative;
+    float:                         right;
+    bottom:                        126px;
+    }
 
 .comment-delete-btn{
  padding-left:             10px;
@@ -1724,13 +1711,6 @@ blockquote span{
     padding:              0;
     box-sizing:  border-box;
     }
-
-/*.comment-section{
-    list-style:        none;
-    width:             100%;
-    margin:       50px auto;
-    padding:           10px;
-    }*/
 
 .comment{
     display:           flex;
@@ -3160,4 +3140,87 @@ ul{
     color:                gray;
     line-height:           1.7;
     letter-spacing:     0.05em;
+    }
+
+
+/* swiper */
+
+.swiper{
+    display:                       flex;
+    justify-content:             center;
+    align-items:                 center;
+    padding-top:                   60px;
+    }
+
+.swiper-card{
+    font-family:       'Poppons', sans-serif;
+    background:          #fafafa;
+    margin:               0 auto;
+    padding:                   0;
+    max-width:              100%;
+    position:           relative;
+    height:                463px;
+    }
+
+.swiper-card .sliderContent{
+    width:                  100%;
+    padding:                10px;
+    box-sizing:       border-box;
+    position:           relative;
+    bottom:                 20px;
+    text-align:             left;
+    margin-left:             6px;
+    }
+
+.swiper-card .sliderContent a{
+    display:        inline-block;
+    margin:             10px 0 0;
+    padding:           10px 20px;
+    text-decoration:        none;
+    border:    2px solid #32373c;
+    color:               #32373c;
+    font-weight:             600;
+    position:           relative;
+    top:                    20px;
+    }
+
+.sliderUsername{
+    color:                  #eee;
+    text-align:           center;
+    position:           relative;
+    bottom:                 50px;
+    font-weight:             400;
+    margin:                    0;
+    padding:                   0;
+    }
+
+.swiper-card .sliderText{
+    position:           relative;
+    width:                  100%;
+    height:                200px;
+    display:                flex;
+    justify-content:      center;
+    align-items:          center;
+    background:          #32373c;
+    }
+
+.swiper-card .sliderText h3{
+    color:                  #eee;
+    font-size:              28px;
+    text-align:           center;
+    }
+
+.swiper-slide{
+    width:                  100%;
+    background:             #eee;
+    }
+
+.swiper-container {
+    width:                  370px;
+    height:                 463px;
+    }
+
+.swiper-wrapper h4{
+    margin:                0 auto;
+    font-size:               20px;
     }
