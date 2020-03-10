@@ -1880,7 +1880,7 @@ blockquote span{
     font-size:      12px;
     }
 
-.comment-footer{
+.global-footer{
     margin:     100px auto;
     }
 
@@ -3206,7 +3206,7 @@ ul{
 
 .swiper-card .sliderText h3{
     color:                  #eee;
-    font-size:              28px;
+    font-size:              23px;
     text-align:           center;
     }
 
