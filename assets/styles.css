@@ -2461,7 +2461,7 @@ footer:hover {
     }
 
 .about_box{
-    background:                  #40464d;
+    background:      rgba(64,70,77, 0.8);
     padding:                        20px;
     display:                        grid;
     font-size:                      20px;
@@ -2472,7 +2472,7 @@ footer:hover {
     }
 
 .about_box:hover{
-    background:                  #79BD9A;
+    background: linear-gradient(45deg, #036eb7, #64eaff);
     }
 
 .about_box span{
