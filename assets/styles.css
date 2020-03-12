@@ -2441,8 +2441,7 @@ footer:hover {
     justify-content:  center;
     align-self:       center;
     min-height:        100vh;
-    background:         #222;
-    border-radius:       4px;
+    background:         #eee;
     margin-top:         20px;
     }
 
@@ -2457,8 +2456,12 @@ footer:hover {
     grid-gap:                       10px;
     }
 
+.about_content p{
+    text-align:                     left;
+    }
+
 .about_box{
-    background:                     #333;
+    background:                  #40464d;
     padding:                        20px;
     display:                        grid;
     font-size:                      20px;
@@ -2469,7 +2472,7 @@ footer:hover {
     }
 
 .about_box:hover{
-    background:                  #e91e63;
+    background:                  #79BD9A;
     }
 
 .about_box span{
