@@ -2458,6 +2458,8 @@ footer:hover {
 
 .about_content p{
     text-align:                     left;
+    line-height:                    1.75;
+    letter-spacing:               0.04em;
     }
 
 .about_box{
@@ -2472,7 +2474,7 @@ footer:hover {
     }
 
 .about_box:hover{
-    background: linear-gradient(45deg, #036eb7, #64eaff);
+    background:                  #4072B3;
     }
 
 .about_box span{
