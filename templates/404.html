@@ -1,0 +1,23 @@
+{% load static %}
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404 Page</title>
+    <link rel="stylesheet" href="{% static 'local.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div class="content">
+            <h2>404</h2>
+            <h4>Opps! Page not found</h4>
+            <p>The page you were looking for doesn't exist. You may have mistyped the
+            address or the page may have moved.</p>
+            <a href="{% url 'home' %}">Back To Home</a>
+        </div>
+    </div>
+    <script src="/static/page404.js"></script>
+</body>
+</html>
