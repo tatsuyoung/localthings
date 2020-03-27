@@ -8,7 +8,7 @@
     <title>500 Page</title>
     <link rel="stylesheet" href="{% static 'local.css' %}">
 </head>
-<body>
+<body ontouchstart="">
     <div class="spider">
         <div class="spiderweb"></div>
         <div class="body">
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="p_500">
-        <h2>Server Error</h2>
+        <h2>Server Error 500</h2>
         <p>サーバーエラーが発生しました。サーバーの問題でお探しのページを表示できません。
         再度時間を置いてアクセスして下さい。</p>
         <a href="{% url 'home' %}">Back To Home</a>
