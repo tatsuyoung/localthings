@@ -246,7 +246,7 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     padding: 20px;
-
+    z-index:-1;
 }
 
 .p_500 h2
@@ -266,4 +266,32 @@
     text-decoration: none ;
     color: #fff;
     padding: 20px;
+}
+
+
+/* special thanks */
+
+.special
+{
+     position: absolute ;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 20px;
+}
+
+.special li
+{
+   list-style: none ;
+    line-height: 1.7;
+}
+
+.special a
+{
+    text-decoration: none ;
+}
+
+.special a:hover
+{
+    color: tomato ;
 }
