@@ -1,0 +1,37 @@
+{% load static %}
+<html lang="ja" class="page500">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>500 Page</title>
+    <link rel="stylesheet" href="{% static 'local.css' %}">
+</head>
+<body>
+    <div class="spider">
+        <div class="spiderweb"></div>
+        <div class="body">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+        </div>
+
+        <div class="legs left">
+            <div class="leg"></div>
+            <div class="leg"></div>
+            <div class="leg"></div>
+        </div>
+        <div class="legs right">
+            <div class="leg"></div>
+            <div class="leg"></div>
+            <div class="leg"></div>
+        </div>
+    </div>
+    <div class="p_500">
+        <h2>Server Error</h2>
+        <p>サーバーエラーが発生しました。サーバーの問題でお探しのページを表示できません。
+        再度時間を置いてアクセスして下さい。</p>
+        <a href="{% url 'home' %}">Back To Home</a>
+    </div>
+</body>
+</html>

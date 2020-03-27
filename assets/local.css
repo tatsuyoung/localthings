@@ -7,7 +7,9 @@
     font-family: 'Poppins', sans-serif ;
 }
 
-body
+/* 404 page */
+
+.page404
 {
     background: linear-gradient(45deg, #8500ff, #5acaff);
     height: 100vh;
@@ -74,3 +76,175 @@ body
     border-bottom: 4px solid #d00d56;
 }
 
+
+
+/* 500page */
+
+
+.page500
+{
+    background: #ff785a;
+}
+
+.page500:hover .spider
+{
+    top: -120%;
+}
+
+.spiderweb
+{
+    background: #fff;
+    width: 2px;
+    height: 200px;
+    margin-left: 49px;
+    transition: 1s ease-in-out;
+}
+
+.spider
+{
+    position: absolute ;
+    display: inline-block ;
+    top: 0;
+    left: 30%;
+    animation: swing 2s infinite ;
+    transform-origin: top;
+}
+
+.spider .body
+{
+    width: 100px;
+    height: 80px;
+    background: #000;
+    position: relative ;
+    border-radius: 50%;
+}
+
+.spider .body .eye
+{
+    width: 33px;
+    height: 33px;
+    background: #fff;
+    position: absolute ;
+    bottom: 20px;
+    border-radius: 50%;
+}
+
+.spider .eye.right
+{
+    right: 15px;
+}
+
+.spider .eye.left
+{
+    left: 15px;
+}
+
+.spider .eye::after
+{
+    background: #000;
+    width: 7px;
+    height: 7px;
+    content: '';
+    display: block ;
+    margin: 55%;
+    border-radius: 50%;
+    animation: look 8s infinite ;
+}
+
+.spider .legs
+{
+    position: absolute ;
+    bottom: -10px;
+    z-index: -1;
+}
+
+.spider .legs .leg
+{
+    width: 80px;
+    height: 40px;
+    margin-top: -20px;
+    border: 5px solid  transparent ;
+    border-top-color: #000;
+    border-radius: 40px 40px 0 0;
+}
+
+.spider .legs.left
+{
+    left: -70%;
+}
+
+.spider .legs.right
+{
+    right: -60%;
+}
+
+.legs.left .leg:nth-child(1)
+{
+    transform: rotate(10deg);
+    margin-left: 10px;
+}
+
+.legs.right .leg:nth-child(1)
+{
+    transform: rotate(-10deg);
+    margin-left: -10px;
+}
+
+.legs.left .leg:nth-child(2)
+{
+    transform: rotate(-20deg);
+    margin-left: 20px;
+}
+
+.legs.right .leg:nth-child(2)
+{
+    transform: rotate(20deg);
+    margin-left: -20px;
+}
+
+.legs.left .leg:nth-child(3)
+{
+    transform: rotate(-50deg);
+    margin-left: 30px;
+}
+
+.legs.right .leg:nth-child(3)
+{
+    transform: rotate(50deg);
+    margin-left: -30px;
+}
+
+
+@keyframes look
+{
+    0%, 40%, 100%
+    {
+        transform: translateX(0);
+    }
+    45%, 95%
+    {
+        transform: translateX(-110%);
+    }
+}
+
+@keyframes swing
+{
+    0%, 100%
+    {
+        transform: translateY(0);
+    }
+    50%
+    {
+        transform: translateY(-20px);
+    }
+}
+
+.p_500
+{
+    position: absolute ;
+    top: 55%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 20px;
+
+}
