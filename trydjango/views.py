@@ -4,7 +4,7 @@ from notifications.models import Notification
 
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    return render(request, 'special_thanks.html')
 
 
 def about(request):

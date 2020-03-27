@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('about/', views.about, name="about"),
     path('', article_views.article_list, name="home"),
-    path('homepage/', views.homepage),
+    path('special_thanks/', views.homepage, name="special_thanks"),
     path('privacy-policy', views.privacy_policy, name="privacy-policy"),
     path('sw.js', (TemplateView.as_view(template_name="sw.js",
                                         content_type='application/javascript',)), name='sw.js'),
