@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseForbidden
@@ -174,12 +175,13 @@ def users_detail_liked(request, pk):
     return render(request, 'articles/users_detail_like.html', context)
 
 
-@login_required(login_url="/accounts/login/")
+#@login_required(login_url="/accounts/login/")
 def article_edit(request, pk):
     if id:
         post = get_object_or_404(Article, pk=pk)
         if post.author != request.user:
-            return HttpResponseForbidden()
+            #return HttpResponseForbidden() #default
+            raise PermissionDenied
     else:
         post = Article(author=request.user)
 
