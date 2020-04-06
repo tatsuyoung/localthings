@@ -90,8 +90,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_TWITTER_KEY = 'SOCIAL_AUTH_TWITTER_KEY' # Consumer Key
-SOCIAL_AUTH_TWITTER_SECRET = 'SOCIAL_AUTH_TWITTER_SECRET' # Consumer Secret
+SOCIAL_AUTH_TWITTER_KEY = config('SOCIAL_AUTH_TWITTER_KEY') # Consumer Key
+SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET') # Consumer Secret
 
 
 WSGI_APPLICATION = 'trydjango.wsgi.application'
