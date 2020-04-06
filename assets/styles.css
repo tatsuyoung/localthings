@@ -1421,11 +1421,11 @@ a.highlight:hover:after,a.highlight:hover:before{
     border-right: 1px solid #fcfcfc;
     }
 
-.twitter .fab, .twitter {
+.login-social .twitter .fab, .twitter {
     background:               #1da1f2;
     }
 
-.fa-twitter{
+.login-social .fa-twitter{
     background: #1da1f2;
     }
 
