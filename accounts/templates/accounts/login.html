@@ -26,6 +26,14 @@
         <div class="button-panel">
             <input type="submit" class="button-new" title="Login" value="Login">
         </div>
+        <div class="social-line">
+            <h4 class="social-line-text">or</h4>
+        </div>
+        <div class="login-social">
+            <a href="{% url 'social:begin' 'twitter' %}" class="social twitter"><i class="fab fa-twitter"></i>
+                <span class="social-text">Login with Twitter</span>
+            </a>
+        </div>
     </form>
     <div class="form-footer">
         <p><a href="{% url 'accounts:signup' %}">Create an account</a></p>
