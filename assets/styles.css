@@ -1425,8 +1425,8 @@ a.highlight:hover:after,a.highlight:hover:before{
     background:               #1da1f2;
     }
 
-.login-social .fa-twitter{
-    background: #1da1f2;
+.login-social .google .fab, .google{
+     background:              #dd4b39;
     }
 
 .login-social .social span.social-text {
