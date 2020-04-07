@@ -222,6 +222,10 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 
+# social login
+SESSION_COOKIE_SAMESITE = None
+
+
 # Django-notifications-hq
 DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
 
