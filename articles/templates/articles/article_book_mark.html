@@ -12,7 +12,7 @@
 
                 <div class="swiper-card">
                     <div class="sliderText">
-                        <h3>{{ book_mark.title }}</h3>
+                        <h3>{{ book_mark.title | truncatechars_html:20 }}</h3>
                     </div>
                     <div class="sliderUsername">
                          <p>{{ book_mark.author }}</p>

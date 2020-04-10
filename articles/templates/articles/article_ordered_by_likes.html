@@ -7,13 +7,13 @@
         <div class="article">
 
             <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
-            {{ article.author.username }}
+            {{ article.author.username | truncatechars_html:20 }}
             </a>
             </p>
             <p><small>{{ article.date | date:"y/n/j"}}</small></p>
 
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-            {{ article.title }}
+            {{ article.title | truncatechars_html:20 }}
             </a>
             </h3>
             <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>

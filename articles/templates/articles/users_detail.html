@@ -38,10 +38,10 @@
     <div class="articles">
         {% for article in my_article %}
         <div class="article">
-            <p class="author">{{ article.author.username }}</p>
+            <p class="author">{{ article.author.username | truncatechars_html:20 }}</p>
             <p><small>{{ article.date | date:"y/n/j H:i"}}</small></p>
             <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-                {{ article.title }}
+                {{ article.title | truncatechars_html:20 }}
             </a>
             </h3>
             <p>{{ article.snippet }}</p>
