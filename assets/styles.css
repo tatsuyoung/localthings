@@ -2245,6 +2245,7 @@ footer:hover {
         padding:                 0;
         line-height:          1.75;
         letter-spacing:     0.05em;
+        margin-left:          10px;
         }
 
 .search_footer input:focus{

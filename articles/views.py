@@ -218,6 +218,7 @@ class Gallery(ListView):
     model = Article
     template_name = 'articles/article_photo_gallery.html'
     context_object_name = 'articles'
+    paginate_by = 24
 
     def get_queryset(self):
         return Article.objects.all().order_by('-date')
