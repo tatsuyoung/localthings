@@ -1,0 +1,99 @@
+{% extends 'base_layout.html' %}
+{% block title %}Category | {{ category.category_name }} {% endblock %}
+{% block content %}
+<h1>{{ category.category_name }}</h1>
+<div class="articles">
+{% for article in articles %}
+    <div class="article">
+
+        <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
+        {{ article.author.username | truncatechars_html:20 }}
+        </a>
+        </p>
+        <p><small>{{ article.date | date:"y/n/j"}}</small></p>
+
+        <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
+        {{ article.title | truncatechars_html:20 }}
+        </a>
+        </h3>
+        <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
+        <div class="in-pict">
+            <a href="{% url 'articles:detail' detail_id=article.id %}">
+                <img src="{{ article.thumb.url }}" loading="lazy"/>
+            </a>
+        </div>
+        <div class="article_list_user_img">
+            <a href="{% url 'accounts:profile_detail' article.author.profile.user.username %}">
+                <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+            </a>
+        </div>
+
+        <div class="icons">
+            <div class="list_article_icon">
+                <p class="add_comments">
+                    <i class="far fa-comment-alt"></i>
+                    {% if article.comments.count %}
+                    {{ article.comments.count }}
+                    {% endif %}
+                </p>
+            </div>
+             <div class="list_article_icon">
+                 <p class="like_hearts">
+                    <i class="far fa-heart"></i>
+                    {% if article.total_likes %}
+                    {{ article.total_likes }}
+                    {% endif %}
+                </p>
+             </div>
+            <div class="list_article_icon">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  detail_id=article.id %}"
+                        target="_blank" rel="nofollow" class="fb">
+                        <i class="fab fa-facebook-f faa-shake animated-hover"></i>
+                </a>
+            </div>
+            <div class="list_article_icon">
+                <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
+                        target="_blank" rel="nofollow" class="tw">
+                    <i class="fab fa-twitter faa-wrench animated-hover"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h1>No Posts</h1>
+{% endfor %}
+</div>
+<div class="global-footer"></div>
+{% if articles.has_other_pages %}
+<div class="pager">
+        <ul class="pagination">
+        {% if articles.has_previous %}
+            <li class="pre"><a class="active" href="?page=1"><span>
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+            </a></li>
+            <li class="pre"><a class="active" href="?page={{ articles.previous_page_number }}"><span>
+                <i class="fa fa-angle-left" aria-hidden="true"></i></span>
+            </a></li>
+        {% endif %}
+
+        {% for num in articles.paginator.page_range %}
+            {% if articles.number == num %}
+                <li><a class="active" href="#"><span>{{ num }}</span></a></li>
+            {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+            <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if articles.has_next %}
+            <li class="next"><a href="?page={{ articles.next_page_number }}"><span>
+                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+            </a></li>
+            <li class="next"><a href="?page={{ articles.paginator.num_pages }}"><span>
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+            </a></li>
+        {% endif %}
+        </ul>
+    </div>
+{% endif %}
+{% include 'snippet/sub_nav.html' %}
+{% endblock %}

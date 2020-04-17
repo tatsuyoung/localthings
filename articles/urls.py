@@ -21,4 +21,5 @@ urlpatterns = [
     path('galley/', Gallery.as_view(), name='gallery'),
     path('ordered_by_likes/', ArticleOrderedByLikes.as_view(), name='ordered_by_likes'),
     path('my_book_mark_list/', views.book_mark_list, name='book_mark_list'),
+    path('<int:pk>/category', views.category_detail, name='category_detail'),
 ]

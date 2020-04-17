@@ -1,11 +1,13 @@
 from django import forms
 from . import models
+from .models import Category
 
 
 class CreateArticle(forms.ModelForm):
+
     class Meta:
         model = models.Article
-        fields = ['title', 'body', 'thumb', 'slug']
+        fields = ['title', 'body', 'thumb', 'category', 'slug']
 
 
 class CommentForm(forms.ModelForm):

@@ -23,6 +23,27 @@
                 <span>{{ error }}</span>
                 {% endfor %}
         </div>
+
+        <div class="form-item">
+           <div class="category_wrapper">
+                <select name="category" id="id_category"  class="category_form" required="">
+                    <option value="" hidden disabled selected></option>
+                    {% for id, category_name in form.category.field.choices %}
+                    <option value="{{ id }}">{{ category_name }}</option>
+                    {% endfor %}
+                </select>
+                <span class="category_highlight"></span>
+                <span class="category_select_bar"></span>
+                <label for="id_Category" class="category_select_label">Category</label>
+
+                </select>
+                <small><p class="helptext">{{ form.category.help_text }}</p></small>
+                {% for error in form.category.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+           </div>
+        </div>
+
         <div class="form_group">
                 <div id="input-group">
                     <input type="file" name="thumb" accept="image/*" id="01"/>

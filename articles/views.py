@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-from .models import Article, Comment
+from .models import Article, Comment, Category
 from. import forms
 
 
@@ -198,6 +198,19 @@ def article_edit(request, pk):
     return render(request, 'articles/article_edit.html', context)
 
 
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    articles_category = category.article_set.all().order_by('-date')
+    paginator = Paginator(articles_category, 24)
+    page = request.GET.get('page')
+    articles = paginator.get_page(page)
+    context = {
+        'category': category,
+        'articles': articles
+    }
+    return render(request, 'articles/category_detail.html', context)
+
+
 class UserPostListView(ListView):
     model = Article
     template_name = 'articles/user_post_list.html'
@@ -217,8 +230,18 @@ class UserPostListView(ListView):
 class Gallery(ListView):
     model = Article
     template_name = 'articles/article_photo_gallery.html'
-    context_object_name = 'articles'
     paginate_by = 24
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'category_list': Category.objects.order_by('category_name'),
+            'categories': Category.objects.annotate(
+                num_article=Count('article', filter=Q())
+            ),
+        })
+        articles = Article.objects.all().order_by('-date')
+        return context
 
     def get_queryset(self):
         return Article.objects.all().order_by('-date')

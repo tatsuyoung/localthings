@@ -19,6 +19,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
     book_mark = models.ManyToManyField(User, related_name='book_mark', blank=True)
+    category = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
@@ -81,6 +82,18 @@ class Article(models.Model):
                     self.slug = slugify(self.title)
         except(AttributeError, KeyError, IndexError):
             pass
+
+
+class Category(models.Model):
+    category_name = models.CharField(max_length=30)
+    description = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.category_name
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Comment(models.Model):

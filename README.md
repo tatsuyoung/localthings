@@ -78,6 +78,7 @@ Localが好きな皆さん達と面白い事をしたいと思っております
 
 35 - social login                    （Twitter または、Google アカウントでLogin出来るようになりました。）
 
+36 - categories                       (Categoryを記事作成時、または編集時に登録できるようになりました。Nice ThingsからCategory別に記事を閲覧できます。)
 
 *言語
 

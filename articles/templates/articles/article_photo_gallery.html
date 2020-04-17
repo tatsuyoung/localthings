@@ -1,53 +1,69 @@
 {% extends 'base_layout.html' %}
 {% block title %}Nice Things{% endblock %}
 {% block content %}
-<div class="photo_container">
-    <h1>Nice Things</h1>
-    <div id="gallery" class="container-fluid">
+<h1>Nice Things</h1>
+<div class="categories_wrapper">
 
-        {% for article in articles %}
+    <div class="services">
+        <h2>Categories</h2>
+        <div class="cen">
+            {% for category in categories %}
+            <a href="{% url 'articles:category_detail' pk=category.id %}">
+                <div class="service">
+                    <h4>{{ category.num_article }}</h4>
+                     <h5>{{ category }}</h5>
+                    <p>{{ category.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<div class="photo_container">
+    <div id="gallery" class="container-fluid">
+        {% for article in object_list %}
         <a href="{{ article.thumb.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
             <img class="card img-responsive" src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
         </a>
         <div class="link_box">
-                <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <i class="fas fa-link icon-size"></i>
-                </a>
+            <a href="{% url 'articles:detail' detail_id=article.id %}">
+                <i class="fas fa-link icon-size"></i>
+            </a>
         </div>
         {% endfor %}
-
     </div>
 </div>
 
 {% if is_paginated %}
-    <div class="pager">
-        <ul class="pagination">
+<div class="pager">
+    <ul class="pagination">
         {% if page_obj.has_previous %}
-            <li class="pre"><a class="active" href="?page=1"><span>
-                <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
-            </a></li>
-            <li class="pre"><a class="active" href="?page={{ page_obj.previous_page_number }}"><span>
-                <i class="fa fa-angle-left" aria-hidden="true"></i></span>
-            </a></li>
+        <li class="pre"><a class="active" href="?page=1"><span>
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+        </a></li>
+        <li class="pre"><a class="active" href="?page={{ page_obj.previous_page_number }}"><span>
+            <i class="fa fa-angle-left" aria-hidden="true"></i></span>
+        </a></li>
         {% endif %}
 
         {% for num in paginator.page_range %}
-            {% if page_obj.number == num %}
-                <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
-            {% endif %}
+        {% if page_obj.number == num %}
+            <li><a class="active" href="#"><span>{{ num }}</span></a></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
+        {% endif %}
         {% endfor %}
 
         {% if page_obj.has_next %}
-            <li class="next"><a href="?page={{page_obj.next_page_number }}"><span>
-                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
-            </a></li>
-            <li class="next"><a href="?page={{ page_obj.paginator.num_pages }}"><span>
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
-            </a></li>
+        <li class="next"><a href="?page={{page_obj.next_page_number }}"><span>
+            <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+        </a></li>
+        <li class="next"><a href="?page={{ page_obj.paginator.num_pages }}"><span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+        </a></li>
         {% endif %}
-        </ul>
-    </div>
+    </ul>
+</div>
 {% endif %}
 {% endblock %}
