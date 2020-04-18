@@ -1,9 +1,7 @@
 {% extends 'base_layout.html' %}
 {% block title %}Nice Things{% endblock %}
 {% block content %}
-<h1>Nice Things</h1>
 <div class="categories_wrapper">
-
     <div class="categories">
         <h2>Categories</h2>
         <div class="cen">
@@ -20,8 +18,8 @@
             {% endfor %}
         </div>
     </div>
-
 </div>
+<h1>Nice Things</h1>
 <div class="photo_container">
     <div id="gallery" class="container-fluid">
         {% for article in object_list %}
