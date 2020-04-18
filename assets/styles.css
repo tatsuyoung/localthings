@@ -2927,12 +2927,12 @@ ul{
     font-family:  "Ubuntu", sans-serif;
     }
 
-.services{
+.categories{
     background:                      #eee;
     text-align:                    center;
     }
 
-.services h2{
+.categories h2{
     font-family:      "Ubuntu", sans-serif;
     display:                  inline-block;
     text-transform:              uppercase;
@@ -2944,7 +2944,7 @@ ul{
     top:                               1px;
     }
 
-.services h4{
+.categories h4{
     display:                  inline-block;
     font-size:                        30px;
     color:                            #fff;
@@ -2961,7 +2961,7 @@ ul{
     padding:                         20px;
     }
 
-.service{
+.category{
     display:                 inline-block;
     width:                  calc(100% /7);
     margin:             1px -2px 1px -2px;
@@ -2974,11 +2974,11 @@ ul{
     margin-left:                     -1px;
     }
 
-.service:hover{
+.category:hover{
     background: linear-gradient(45deg, #f05a4f, #f4c030);
     }
 
-.service h5{
+.category h5{
     font-size:            18px;
     text-transform:  uppercase;
     font-weight:           500;
@@ -2986,20 +2986,27 @@ ul{
     margin:                  0;
     }
 
-.service p{
+.category_description{
+    display:   flex;
+    height:    30px;
+
+    }
+.category_description p{
     color:               #fff;
-    font-size:            8px;
+    font-size:           10px;
     font-weight:          500;
+    margin:            0 auto;
+    letter-spacing:       1.7;
     }
 
 @media screen and (max-width: 800px){
-    .service{
+    .category{
         width: 50%;
     }
 }
 
 @media screen and (max-width: 500px){
-    .service{
+    .category{
         width: 100%;
     }
 }
