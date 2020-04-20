@@ -16,10 +16,10 @@ class Article(models.Model):
     body = models.TextField('Article', blank=False, help_text='Titleまたは、Articleに地域名等を入れると検索し易くなります。')
     date = models.DateTimeField(default=timezone.now)
     thumb = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
+    category = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name="likes", blank=True)
     book_mark = models.ManyToManyField(User, related_name='book_mark', blank=True)
-    category = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
