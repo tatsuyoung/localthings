@@ -2997,6 +2997,7 @@ ul{
     font-weight:          500;
     margin:            0 auto;
     letter-spacing:       1.7;
+    word-break:      keep-all;
     }
 
 @media screen and (max-width: 800px){
