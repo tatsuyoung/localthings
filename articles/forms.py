@@ -9,6 +9,10 @@ class CreateArticle(forms.ModelForm):
         model = models.Article
         fields = ['title', 'body', 'thumb', 'category', 'slug']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].empty_label = 'No Category'
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
