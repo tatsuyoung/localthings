@@ -4,6 +4,7 @@ from .models import Article, Comment, Category
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date')
+    readonly_fields = ['date']
 
 
 class CommentAdmin(admin.ModelAdmin):
