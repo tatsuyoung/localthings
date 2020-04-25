@@ -930,6 +930,7 @@ nav button{
     width: 100%;
     margin: 2em auto ;
     font-family:"Ubuntu", sans-serif;
+    overflow:hidden;
 }
 
 .profile-new
@@ -990,6 +991,7 @@ nav button{
     max-width: 400px;
     margin-bottom: 5px;
     color:rgba(0, 0, 0, 0.67);
+    text-align: left ;
 }
 
 .profile-new-info-bottom a
@@ -1020,12 +1022,6 @@ nav button{
         position: relative ;
         bottom: 50px;
     }
-    .profile-new-info-top
-    {
-        margin: 0 auto ;
-        position: relative ;
-        bottom: 20px;
-    }
     .profile-new-info-center
     {
         margin: 0 auto ;
@@ -1049,7 +1045,7 @@ nav button{
     .profile-new-info-top
     {
         position: relative ;
-        bottom: 120px;
+        bottom: 130px;
         left: 20px;
     }
     .profile-new-info-center
@@ -1068,8 +1064,6 @@ nav button{
     {
         margin: 0;
         padding: 0;
-        position: relative ;
-        top: 40px
     }
 }
 
