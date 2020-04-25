@@ -985,6 +985,11 @@ nav button{
     margin-right: 10px;
 }
 
+.profile-new-info-bottom
+{
+    text-align:left;
+}
+
 .profile-new-info-bottom p
 {
     margin-top: 8px;
@@ -1045,20 +1050,25 @@ nav button{
     .profile-new-info-top
     {
         position: relative ;
-        bottom: 130px;
-        left: 20px;
+        bottom: 38px;
+        right: 80px;
+    }
+    .profile-new-info-top h3
+    {
+        font-size: 12px;
+        font-weight: 300;
     }
     .profile-new-info-center
     {
         position: relative ;
-        bottom: 120px;
-        left: 20px;
+        bottom: 130px;
+        left: 26px;
         font-size: 12px;
     }
     .profile-new-info-bottom
     {
         position: relative ;
-        bottom: 120px;
+        bottom: 100px;
     }
     .profile-container
     {
@@ -1066,6 +1076,7 @@ nav button{
         padding: 0;
     }
 }
+
 
 /* user post list user articles all post */
 
@@ -1130,7 +1141,6 @@ nav button{
     display:flex;
 }
 
-
 @media (max-width: 600px)
 {
     .listPost
@@ -1140,8 +1150,6 @@ nav button{
         bottom: 80px;
     }
 }
-
-
 
 /* article-detail */
 
