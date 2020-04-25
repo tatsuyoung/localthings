@@ -20,8 +20,12 @@
                 <span>Following <strong>{{ following }}</strong></span>
             </div>
             <div class="profile-new-info-bottom">
+                {% if bio %}
                 <p>{{ bio }}</p>
+                {% endif %}
+                {% if website %}
                 <a href="{{ website }}">{{ website }}</a>
+                {% endif %}
             </div>
         </div>
     </div>
