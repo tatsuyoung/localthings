@@ -215,16 +215,25 @@ class UserPostListView(ListView):
     model = Article
     template_name = 'articles/user_post_list.html'
     context_object_name = 'articles'
-    paginate_by = 9
+    paginate_by = 12
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'user': user,
+            'following': user.is_following.all().count(),
+            'followers': user.profile.followers.all().count(),
+            'bio': user.profile.bio,
+            'website': user.profile.website,
+            'count': user.article_set.all().count()
+        })
+        articles = Article.objects.filter(author=user).order_by('-date')
+        return context
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Article.objects.filter(author=user).order_by('-date')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserPostListView, self).get_context_data(**kwargs)
-        context['count'] = self.get_queryset().count()
-        return context
 
 
 class Gallery(ListView):

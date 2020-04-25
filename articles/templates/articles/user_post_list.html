@@ -1,70 +1,57 @@
 {% extends 'base_layout.html' %}
-{% block title %}{{ view.kwargs.username }}'s post list{% endblock %}
+{% block title %}{{ user }} post list{% endblock %}
 {% block content %}
-<h1>{{ view.kwargs.username }} post list</h1>
-<div class="user_post_list_post_counts">
-    <P>{{ count }} Post</P>
-</div>
 
-<div class="articles">
-{% for article in articles %}
-    <div class="article">
-
-        <p class="author"><a href="{% url 'articles:user-posts' article.author.username %}" style="color:#0f121f">
-        {{ article.author.username | truncatechars_html:20 }}
-        </a>
-        </p>
-        <p><small>{{ article.date | date:"y/n/j"}}</small></p>
-
-        <h3><a href="{% url 'articles:detail' detail_id=article.id %}">
-        {{ article.title | truncatechars_html:20 }}
-        </a>
-        </h3>
-        <p>{% block description %}{{ article.snippet }}{% endblock %}<small>Read more</small></p>
-        <div class="in-pict">
-            <a href="{% url 'articles:detail' detail_id=article.id %}">
-                <img src="{{ article.thumb.url }}" loading="lazy"/>
+<div class="profile-container">
+    <div class="profile-new">
+        <div class="profile-new-image">
+            <a href="{% url 'accounts:profile_detail' user %}">
+            <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover"/>
             </a>
         </div>
-        <div class="article_list_user_img">
 
-            <img src="{{ article.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-
-        </div>
-
-<!--            <hr class="hr_list_border">-->
-        <div class="icons">
-            <div class="list_article_icon">
-                <p class="add_comments">
-                    <i class="far fa-comment-alt"></i>
-                    {% if article.comments.count %}
-                    {{ article.comments.count }}
-                    {% endif %}
-                </p>
+        <div class="profile-new-info">
+            <div class="profile-new-info-top">
+                <h3>{{ user }}</h3>
             </div>
-             <div class="list_article_icon">
-                 <p class="like_hearts">
+            <div class="profile-new-info-center">
+                <span>Posts <strong>{{ count }}</strong></span>
+                <span>Followers <strong>{{ followers }}</strong></span>
+                <span>Following <strong>{{ following }}</strong></span>
+            </div>
+            <div class="profile-new-info-bottom">
+                <p>{{ bio }}</p>
+                <a href="{{ website }}">{{ website }}</a>
+            </div>
+        </div>
+    </div>
+ </div>
+
+ <div class="container-all-post">
+    <section class="listPost">
+        {% for article in articles %}
+        <a href="{% url 'articles:detail' detail_id=article.id %}" class="articles-post">
+            <div class="post-image">
+                <img src="{{ article.thumb.url }}" alt="{{ article.title }}" loading="lazy"/>
+            </div>
+            <div class="overlay">
+                <span>
                     <i class="far fa-heart"></i>
                     {% if article.total_likes %}
                     {{ article.total_likes }}
                     {% endif %}
-                </p>
-             </div>
-            <div class="list_article_icon">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  detail_id=article.id %}"
-                        target="_blank" rel="nofollow" class="fb">
-                        <i class="fab fa-facebook-f faa-shake animated-hover"></i>
-                </a>
+                </span>
+                <span>
+                    <i class="far fa-comment"></i>
+                    {% if article.comments.count %}
+                    {{ article.comments.count }}
+                    {% endif %}
+                </span>
             </div>
-            <div class="list_article_icon">
-                <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
-                        target="_blank" rel="nofollow" class="tw">
-                    <i class="fab fa-twitter faa-wrench animated-hover"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-{% endfor %}
+        </a>
+        {% endfor %}
+    </section>
+    <div class="global-footer"></div>
 </div>
 
 {% if is_paginated %}

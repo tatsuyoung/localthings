@@ -904,7 +904,6 @@ nav button{
     box-shadow:                    0px 0px 0px 1px #87befd;
     }
 
-
 .article .author{
     padding:           10px;
     position:      relative;
@@ -921,6 +920,233 @@ nav button{
     padding:0;
     text-align: center;
     }
+
+
+/* user post list profile-new */
+
+.profile-container
+{
+    max-width: 960px;
+    width: 100%;
+    margin: 2em auto ;
+    font-family:"Ubuntu", sans-serif;
+}
+
+.profile-new
+{
+    display: flex ;
+    justify-content: center ;
+    position: relative ;
+    right: 140px;
+}
+
+.profile-new-image
+{
+    margin: 3em;
+    position:relative;
+}
+
+.profile-new-image img
+{
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+}
+
+.profile-new-info
+{
+    margin-top: 40px;
+}
+
+.profile-new-info-top
+{
+    max-width: 300px;
+}
+
+.profile-new-info h3
+{
+    font-weight: 200;
+    font-size: 22px;
+}
+
+
+.profile-new-info-center
+{
+    display: flex ;
+    max-width: 400px;
+    justify-content: space-between ;
+    margin-top: 10px;
+    text-transform: uppercase ;
+}
+
+.profile-new-info-center span
+{
+    margin-right: 10px;
+}
+
+.profile-new-info-bottom p
+{
+    margin-top: 8px;
+    max-width: 400px;
+    margin-bottom: 5px;
+    color:rgba(0, 0, 0, 0.67);
+}
+
+.profile-new-info-bottom a
+{
+    color:#003569;
+    color:#205992;
+    text-decoration:none;
+}
+
+@media (max-width: 600px)
+{
+    .profile-container
+    {
+        position: relative ;
+        bottom: 30px;
+    }
+    .profile-new
+    {
+        flex-direction: column ;
+        text-align: center ;
+        font-size: 16px;
+        position: relative ;
+        left: 2px;
+    }
+    .profile-new-info
+    {
+        margin-top: 0 auto ;
+        position: relative ;
+        bottom: 50px;
+    }
+    .profile-new-info-top
+    {
+        margin: 0 auto ;
+        position: relative ;
+        bottom: 20px;
+    }
+    .profile-new-info-center
+    {
+        margin: 0 auto ;
+        flex-direction: column ;
+    }
+    .profile-new-info-bottom
+    {
+        margin: 1em auto ;
+    }
+     .profile-new-image img
+    {
+        width: 80px;
+        height: 80px;
+        position: relative ;
+        right: 90px;
+    }
+    .profile-new-info
+    {
+        font-size: 13px;
+    }
+    .profile-new-info-top
+    {
+        position: relative ;
+        bottom: 120px;
+        left: 20px;
+    }
+    .profile-new-info-center
+    {
+        position: relative ;
+        bottom: 120px;
+        left: 20px;
+        font-size: 12px;
+    }
+    .profile-new-info-bottom
+    {
+        position: relative ;
+        bottom: 120px;
+    }
+    .profile-container
+    {
+        margin: 0;
+        padding: 0;
+        position: relative ;
+        top: 40px
+    }
+}
+
+/* user post list user articles all post */
+
+.listPost
+{
+    max-width: 960px;
+    display: grid ;
+    grid-template-columns: repeat(3, minmax(100px, 290px)) ;
+    grid-gap: 30px;
+    justify-content: center ;
+    margin: 0 auto ;
+}
+
+.articles-post
+{
+    cursor: pointer ;
+    display: block ;
+    border: 1px solid rgba(0, 0, 0, 0.1) ;
+    display: flex ;
+    justify-content: center ;
+    align-items: center ;
+    overflow: hidden;
+    position:relative;
+    width: auto ;
+}
+
+.post-image
+{
+    margin: 0;
+}
+
+.post-image img
+{
+    width: 100%;
+    vertical-align: top ;
+}
+
+.overlay
+{
+    position: absolute ;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex ;
+    justify-content: center ;
+    align-items: center ;
+    color: white ;
+    display:none;
+    transition: all 0.5s;
+}
+
+.overlay span
+{
+    padding:0 10px;
+    margin:0 1px;
+}
+
+.articles-post:hover .overlay
+{
+    display:flex;
+}
+
+
+@media (max-width: 600px)
+{
+    .listPost
+    {
+        grid-gap: 3px;
+        position: relative ;
+        bottom: 80px;
+    }
+}
+
 
 
 /* article-detail */
@@ -2989,8 +3215,8 @@ ul{
 .category_description{
     display:   flex;
     height:    30px;
-
     }
+
 .category_description p{
     color:              white;
     font-size:           10px;
