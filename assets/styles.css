@@ -930,6 +930,7 @@ nav button{
     width: 100%;
     margin: 2em auto ;
     font-family:"Ubuntu", sans-serif;
+    overflow: hidden ;
 }
 
 .profile-new
