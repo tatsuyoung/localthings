@@ -24,6 +24,7 @@
 <div class="photo_container">
     <div id="gallery" class="container-fluid">
         {% for article in object_list %}
+        {% if article.thumb != 'No-image.png' %}
         <a href="{{ article.thumb.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
             <img class="card img-responsive" src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
         </a>
@@ -32,6 +33,7 @@
                 <i class="fas fa-link icon-size"></i>
             </a>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
