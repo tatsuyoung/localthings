@@ -34,6 +34,7 @@
  <div class="container-all-post">
     <section class="listPost">
         {% for article in articles %}
+        {% if article.thumb != 'No-image.png' %}
         <a href="{% url 'articles:detail' detail_id=article.id %}" class="articles-post">
             <div class="post-image">
                 <img src="{{ article.thumb.url }}" alt="{{ article.title }}" loading="lazy"/>
@@ -53,6 +54,7 @@
                 </span>
             </div>
         </a>
+        {% endif %}
         {% endfor %}
     </section>
 </div>
