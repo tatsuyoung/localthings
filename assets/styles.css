@@ -1360,7 +1360,7 @@ a.highlight:hover:after,a.highlight:hover:before{
     max-width:             370px;
     }
 
-.site-form input, .site-form textarea{
+.site-form input, .site-form textarea, .site-form select{
     display:              block;
     margin:          20px 0 0 0;
     padding:               10px;
@@ -1380,12 +1380,12 @@ a.highlight:hover:after,a.highlight:hover:before{
     outline:               none;
     }
 
-.site-form input:focus{
+/*.site-form input:focus{
     box-shadow: 0 0 4px  #AEC4E5;
     border:   1px solid  #AEC4E5;
-    }
+    }*/
 
-.site-form input:focus, .site-form textarea:focus{
+.site-form input:focus, .site-form textarea:focus, .site-form select:focus{
     box-shadow: 0 0 4px  #AEC4E5;
     border:   1px solid  #AEC4E5;
     }
@@ -1397,7 +1397,7 @@ a.highlight:hover:after,a.highlight:hover:before{
     cursor:                pointer;
     }
 
-.site-form select{
+/*.site-form select{
     font-family:            'lato';
     font-size:                30px;
     color:                    #666;
@@ -1405,7 +1405,14 @@ a.highlight:hover:after,a.highlight:hover:before{
     position:             relative;
     top:                      30px;
     right:                    72px;
+    }*/
+
+.site-form select{
+    -webkit-appearance:  none;
+    -moz-appearance:     none;
+    appearance:          none;
     }
+
 
 .form_group label{
     position:        relative;
