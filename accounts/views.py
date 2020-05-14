@@ -213,4 +213,8 @@ class UserFollowingFeedView(View):
         paginator = Paginator(qs, 9)
         page = request.GET.get('page')
         articles = paginator.get_page(page)
-        return render(request, 'accounts/user_following.html', {'articles': articles})
+        context = {
+            'articles': articles
+        }
+        return render(request, 'accounts/user_following.html', context)
+        #return render(request, 'accounts/user_new_following.html', context)

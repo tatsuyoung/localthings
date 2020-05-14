@@ -1,0 +1,46 @@
+{% load static %}
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>User Following Feed</title>
+        <!--  Font Awesome      -->
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <!--  BootstrapCDN      -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--  Google Fonts      -->
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+        <!--  Load CSS  -->
+        <link rel="stylesheet" href="{% static 'sub.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <ul>
+                    <li class="logo"><a href="#"><i class="fa fa-twitter logo"></i></a></li>
+                    <li><a href="{% url 'home' %}"> <i class="fa fa-home"></i><span class="icon-name">Home</span></a></li>
+                    <li><a href="#"> <i class="fas fa-hashtag"></i><span class="icon-name">Explore</span></a></li>
+                    <li><a href="#"> <i class="fa fa-bell-o"></i><span class="icon-name">Notifications</span></a></li>
+                    <li><a href="#"> <i class="far fa-envelope"></i><span class="icon-name">Messages</span></a></li>
+                    <li><a href="#"> <i class="far fa-bookmark"></i><span class="icon-name">Bookmarks</span></a></li>
+                    <li><a href="#"> <i class="far fa-list-alt"></i><span class="icon-name">Lists</span></a></li>
+                    <li>
+                        <a href="#" class="profile-link">
+                            <div class="profile-container">
+                                <img src="{{ user.profile.image.url }}" width="40px" height="40px" class="profile-pic">
+                            </div>
+                            <div>
+                                Profile
+                            </div>
+                        </a>
+                    </li>
+                    <li><a href="#"> <i class="fas fa-ellipsis-h"></i><span class="icon-name">More</span></a></li>
+                </ul>
+                <button class="create-btn">Create</button>
+            </div>
+            <div class="center"></div>
+            <div class="right"></div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,102 @@
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+body
+{
+    font-family: 'Baloo Paaji 2', cursive;
+}
+
+ul
+{
+    list-style: none ;
+}
+
+a
+{
+    text-decoration: none ;
+}
+
+.container
+{
+    width: 90%;
+    margin: auto ;
+}
+
+/* left style */
+
+.logo
+{
+    color:  #1da1f2;
+}
+
+.logo:hover
+{
+    background-color: unset!important;
+}
+
+.left
+{
+    float: left ;
+}
+
+.left ul li
+{
+    font-size: 24px;
+    padding: 8px;
+}
+
+.left ul li a
+{
+    color:#000;
+}
+.left ul li:hover
+{
+    color: #1da1f2;
+    background: rgba(29, 161, 242, 0.12);
+    border-radius: 60px;
+}
+
+.create-btn
+{
+    width: 100%;
+    background: #1da1f2;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    border: none ;
+    border-radius: 60px;
+}
+
+.create-btn:hover
+{
+    cursor: pointer ;
+}
+
+.profile-pic
+{
+    border-radius:50%;
+}
+
+.profile-link
+{
+    display: flex ;
+}
+
+.profile-container
+{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 2px inset;
+    position: relative ;
+    right: 8px;
+}
+
+.icon-name
+{
+    margin-left: 10px;
+}
+
+.left li:nth-child(6){
+    padding-left: 10px;
+}
