@@ -208,13 +208,15 @@ class UserFollowingFeedView(View):
             return render(request, 'articles/article_list.html', {})
 
         user = request.user
+        count = user.article_set.all().count()
         is_following_user_ids = [x.user.id for x in user.is_following.all()]
         qs = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
         paginator = Paginator(qs, 9)
         page = request.GET.get('page')
         articles = paginator.get_page(page)
         context = {
-            'articles': articles
+            'articles': articles,
+            'count':count
         }
         return render(request, 'accounts/user_following.html', context)
         #return render(request, 'accounts/user_new_following.html', context)

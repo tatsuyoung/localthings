@@ -104,7 +104,19 @@
                     </button>
                 </div>
             </div>
-            <div class="center"></div>
+            <div class="center">
+                <div class="center-header">
+                    <div class="header-return">
+                        <a href="{% url 'home' %}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                    <div class="header-name">
+                       <h2>{{ user.username }}</h2>
+                        <span>{{ count }} Post</span>
+                    </div>
+                </div>
+            </div>
             <div class="right"></div>
         </div>
     </body>

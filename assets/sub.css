@@ -1,3 +1,9 @@
+:root
+{
+    --main-color: 00acee;
+    --hover-color:rgba(29, 161, 242, 0.07);
+}
+
 *
 {
     padding: 0;
@@ -6,7 +12,14 @@
 
 body
 {
-    font-family: 'Baloo Paaji 2', cursive;
+    font-family: Arial, "ヒラギノ角ゴ Pro W3",
+                        "Hiragino Kaku Gothic Pro",
+                         Osaka,
+                         メイリオ,
+                         Meiryo,
+                         "ＭＳ Ｐゴシック",
+                          "MS PGothic",
+                          sans-serif;
 }
 
 ul
@@ -27,8 +40,15 @@ a
 
 /* left style */
 
+.left
+{
+    /* background: beige ;*/
+    width: 10%;
+}
+
 .wrapper_circle
 {
+    font-family: 'Baloo Paaji 2', cursive;
     height:50px;
     width:50px;
     border-radius:50%;
@@ -78,7 +98,7 @@ a
 
 .left ul li a
 {
-    color:#14171A;
+    color: var(--main-color);
 }
 
 .icon-circle
@@ -93,8 +113,8 @@ a
 
 .icon-circle:hover
 {
-    background: rgba(29, 161, 242, 0.07);
-    border-radius: 50px
+    background: var(--hover-color);
+    border-radius: 50px;
 }
 
 .icon-container:hover
@@ -172,7 +192,7 @@ a
 .fa-ellipsis-h
 {
     border-radius:50%;
-    border: 2px solid #14171A;
+    border: 2px solid var(--first-color);
     width:30px;
     height:30px;
     display: flex ;
@@ -184,3 +204,54 @@ a
 {
    border: 2px solid rgb(29, 161, 242) ;
 }
+
+
+/* center style */
+
+.center
+{
+    /*background: yellow ;*/
+    width: 70%;
+    float: left ;
+}
+
+.center-header
+{
+    display: flex ;
+    margin-top: 20px;
+}
+
+.header-return
+{
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.header-return a
+{
+    color: var(--main-color);
+
+}
+
+.header-name
+{
+    line-height: 20px;
+    margin-left: 20px;
+}
+
+
+/* right style */
+.right
+{
+    width: 20%;
+    background: tomato ;
+    float:
+}
+
+
+
+
+
+
+
+
