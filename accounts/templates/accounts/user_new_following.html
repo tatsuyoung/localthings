@@ -18,26 +18,91 @@
         <div class="container">
             <div class="left">
                 <ul>
-                    <li class="logo"><a href="#"><i class="fa fa-twitter logo"></i></a></li>
-                    <li><a href="{% url 'home' %}"> <i class="fa fa-home"></i><span class="icon-name">Home</span></a></li>
-                    <li><a href="#"> <i class="fas fa-hashtag"></i><span class="icon-name">Explore</span></a></li>
-                    <li><a href="#"> <i class="fa fa-bell-o"></i><span class="icon-name">Notifications</span></a></li>
-                    <li><a href="#"> <i class="far fa-envelope"></i><span class="icon-name">Messages</span></a></li>
-                    <li><a href="#"> <i class="far fa-bookmark"></i><span class="icon-name">Bookmarks</span></a></li>
-                    <li><a href="#"> <i class="far fa-list-alt"></i><span class="icon-name">Lists</span></a></li>
-                    <li>
-                        <a href="#" class="profile-link">
-                            <div class="profile-container">
-                                <img src="{{ user.profile.image.url }}" width="40px" height="40px" class="profile-pic">
-                            </div>
-                            <div>
-                                Profile
-                            </div>
-                        </a>
+                    <li class="logo">
+                        <div class="wrapper_circle">
+                            <a href="#">
+                                <h1 class="logo_1">L</h1><h1 class="logo_2">T</h1>
+                            </a>
+                        </div>
                     </li>
-                    <li><a href="#"> <i class="fas fa-ellipsis-h"></i><span class="icon-name">More</span></a></li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="{% url 'home' %}" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="fa fa-home"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="fas fa-hashtag"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="fa fa-bell-o"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="far fa-bookmark"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="far fa-list-alt"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="profile-link">
+                                <div class="profile-container">
+                                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="#" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
-                <button class="create-btn">Create</button>
+                <div class="create-btn-container">
+                    <button class="create-btn">
+                            <i class="fas fa-feather-alt"></i>
+                    </button>
+                </div>
             </div>
             <div class="center"></div>
             <div class="right"></div>

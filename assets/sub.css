@@ -27,9 +27,33 @@ a
 
 /* left style */
 
-.logo
+.wrapper_circle
 {
-    color:  #1da1f2;
+    height:50px;
+    width:50px;
+    border-radius:50%;
+    z-index:1;
+    border:double 10px #fff;
+    position:relative;
+    background:#555d66;
+    }
+
+.logo_1
+{
+    position:absolute;
+    top:-6px;
+    left:10px;
+    font-size:30px;
+    color: #fff;
+}
+
+.logo_2
+{
+    position:absolute;
+    top:10px;
+    left:24px;
+    font-size:30px;
+    color: #fff;
 }
 
 .logo:hover
@@ -37,66 +61,126 @@ a
     background-color: unset!important;
 }
 
+
 .left
 {
-    float: left ;
+    float: left;
 }
 
 .left ul li
 {
     font-size: 24px;
-    padding: 8px;
+    padding: 3px;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
 }
 
 .left ul li a
 {
-    color:#000;
+    color:#14171A;
 }
-.left ul li:hover
+
+.icon-circle
 {
-    color: #1da1f2;
-    background: rgba(29, 161, 242, 0.12);
-    border-radius: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+}
+
+.icon-circle:hover
+{
+    background: rgba(29, 161, 242, 0.07);
+    border-radius: 50px
+}
+
+.icon-container:hover
+{
+    color: rgb(29, 161, 242) ;
+}
+
+.create-btn-container
+{
+    display: inline-block ;
+    margin-top: 60px;
+    margin-left: 6px;
 }
 
 .create-btn
 {
-    width: 100%;
     background: #1da1f2;
     color: #fff;
-    font-size: 18px;
-    padding: 10px;
+    font-size: 23px;
     border: none ;
-    border-radius: 60px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
 }
+
 
 .create-btn:hover
 {
     cursor: pointer ;
+    background: rgba(0, 148, 255, 0.97);
 }
 
 .profile-pic
 {
     border-radius:50%;
+    width:40px;
+    height:40px;
 }
 
 .profile-link
 {
     display: flex ;
+    justify-content: center ;
+    justify-items: center ;
 }
 
 .profile-container
 {
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 2px inset;
-    position: relative ;
-    right: 8px;
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+    color: rgb(101,119,134)
 }
 
-.icon-name
+.icon-link
 {
-    margin-left: 10px;
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
 }
 
-.left li:nth-child(6){
-    padding-left: 10px;
+.icon-container
+{
+    display: flex ;
+    justify-content: center ;
+    align-items: center ;
+    color:rgb(101,119,134);
+    border-radius: 50%;
+}
+
+
+.fa-ellipsis-h
+{
+    border-radius:50%;
+    border: 2px solid #14171A;
+    width:30px;
+    height:30px;
+    display: flex ;
+    justify-content: center ;
+    align-items: center
+}
+
+.fa-ellipsis-h:hover
+{
+   border: 2px solid rgb(29, 161, 242) ;
 }
