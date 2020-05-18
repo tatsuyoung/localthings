@@ -104,6 +104,7 @@
                     </button>
                 </div>
             </div>
+
             <div class="center">
                 <div class="center-header">
                     <div class="header-return">
@@ -113,9 +114,105 @@
                     </div>
                     <div class="header-name">
                        <h2>{{ user.username }}</h2>
-                        <span>{{ count }} Post</span>
+                        <span>{{ count }} Create</span>
                     </div>
                 </div>
+                <div class="profile-bg">
+                    <div class="background-img">
+                        <img src="{% static 'icon-512x512.png' %}" alt="background-img">
+                    </div>
+                </div>
+                <div class="profile-description">
+                    <a href="{% url 'accounts:profile_detail' user %}">
+                        <img src="{{ user.profile.image.url }}" alt="avatar">
+                    </a>
+                    <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
+                    <div class="profile-name">
+                    {{ user.username }}
+                    </div>
+                    <div class="profile-bio">
+                    {{ user.profile.bio }}
+                    </div>
+                    <div class="profile-website">
+                        <i class="fas fa-link"></i>
+                        <a href="{{ user.profile.website }}">
+                            {{ user.profile.website }}
+                        </a>
+                    </div>
+                    <div class="info-wrapper">
+                        <ul class="info-box">
+                            <li class="following-info">
+                                <a href="{% url 'accounts:is_following' user.username%}">
+                                    <strong>{{ user.is_following.all.count }}</strong>
+                                    <span>フォロー中</span>
+                                </a>
+                            </li>
+                            <li class="followers-info">
+                                <a href="{% url 'accounts:followers' user.username%}">
+                                    <strong>{{ user.profile.followers.all.count }}</strong>
+                                    <span>フォロワー</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article-wrapper">
+
+                    <article class="following-feed">
+                        {% for article in articles %}
+                        <div class="following-feed-wrapper">
+                        <ul class="following-articles">
+                            <li class="articles-item">
+                                <a href="{% url 'accounts:profile_detail' article.author.username %}">
+                                    <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
+                                </a>
+                            </li>
+                            <li class="articles-item">
+                                <p>{{ article.author.username }}</p>
+                            </li>
+                            <li class="articles-item">
+                                <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
+                            </li>
+                        </ul>
+                        <div class="articles-thumb">
+                            {% if article.thumb != 'No-image.png' %}
+                            <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="articles-description">
+                            <h4>{{  article.title  }}</h4>
+                            <p>{{ article.snippet }}
+                                <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                <small>続きを読む</small>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="articles-icon">
+                            <ul class="articles-icon-box">
+                                <li class="icon-items">
+                                    <i class="far fa-comment"></i>
+                                    {% if article.comments.count %}
+                                    {{ article.comments.count }}
+                                    {% endif %}
+                                </li>
+                                <li class="icon-items">
+                                    <i class="far fa-heart faa-pulse"></i>
+                                    {% if article.total_likes %}
+                                    {{ article.total_likes }}
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                        {% endfor %}
+                    </article>
+
+                </div>
+
+
             </div>
             <div class="right"></div>
         </div>
