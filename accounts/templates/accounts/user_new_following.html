@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         <div class="icon-circle">
-                            <a href="#" class="icon-link">
+                            <a href="{% url 'my_notifications' %}" class="icon-link">
                                 <div class="icon-container">
                                     <i class="fa fa-bell-o"></i>
                                 </div>
@@ -63,7 +63,7 @@
                     </li>
                     <li>
                         <div class="icon-circle">
-                            <a href="#" class="icon-link">
+                            <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
                                 <div class="icon-container">
                                     <i class="far fa-bookmark"></i>
                                 </div>
@@ -72,7 +72,7 @@
                     </li>
                     <li>
                         <div class="icon-circle">
-                            <a href="#" class="icon-link">
+                            <a href="{% url 'articles:user-posts' user.username %}" class="icon-link">
                                 <div class="icon-container">
                                     <i class="far fa-list-alt"></i>
                                 </div>
@@ -90,7 +90,7 @@
                     </li>
                     <li>
                         <div class="icon-circle">
-                            <a href="#" class="icon-link">
+                            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
                                 <div class="icon-container">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
@@ -99,9 +99,11 @@
                     </li>
                 </ul>
                 <div class="create-btn-container">
-                    <button class="create-btn">
-                            <i class="fas fa-feather-alt"></i>
-                    </button>
+                    <a href="{% url 'articles:create' %}">
+                        <button class="create-btn">
+                                <i class="fas fa-feather-alt"></i>
+                        </button>
+                    </a>
                 </div>
             </div>
 
@@ -162,59 +164,113 @@
                     <article class="following-feed">
                         {% for article in articles %}
                         <div class="following-feed-wrapper">
-                        <ul class="following-articles">
-                            <li class="articles-item">
-                                <a href="{% url 'accounts:profile_detail' article.author.username %}">
-                                    <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
-                                </a>
-                            </li>
-                            <li class="articles-item">
-                                <p>{{ article.author.username }}</p>
-                            </li>
-                            <li class="articles-item">
-                                <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
-                            </li>
-                        </ul>
-                        <div class="articles-thumb">
-                            {% if article.thumb != 'No-image.png' %}
-                            <a href="{% url 'articles:detail' detail_id=article.id %}">
-                                <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                            </a>
-                            {% endif %}
-                        </div>
-                        <div class="articles-description">
-                            <h4>{{  article.title  }}</h4>
-                            <p>{{ article.snippet }}
-                                <a href="{% url 'articles:detail' detail_id=article.id %}">
-                                <small>続きを読む</small>
-                                </a>
-                            </p>
-                        </div>
-                        <div class="articles-icon">
-                            <ul class="articles-icon-box">
-                                <li class="icon-items">
-                                    <i class="far fa-comment"></i>
-                                    {% if article.comments.count %}
-                                    {{ article.comments.count }}
-                                    {% endif %}
+                            <ul class="following-articles">
+                                <li class="articles-item">
+                                    <a href="{% url 'accounts:profile_detail' article.author.username %}">
+                                        <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
+                                    </a>
                                 </li>
-                                <li class="icon-items">
-                                    <i class="far fa-heart faa-pulse"></i>
-                                    {% if article.total_likes %}
-                                    {{ article.total_likes }}
-                                    {% endif %}
+                                <li class="articles-item">
+                                    <p>{{ article.author.username }}</p>
+                                </li>
+                                <li class="articles-item">
+                                    <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
                                 </li>
                             </ul>
+                            <div class="articles-thumb">
+                                {% if article.thumb != 'No-image.png' %}
+                                <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="articles-description">
+                                <h4>{{  article.title  }}</h4>
+                                <p>{{ article.snippet }}
+                                    <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                    <small>続きを読む</small>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="articles-icon">
+                                <ul class="articles-icon-box">
+                                    <li class="icon-items">
+                                        <i class="far fa-comment"></i>
+                                        {% if article.comments.count %}
+                                        {{ article.comments.count }}
+                                        {% endif %}
+                                    </li>
+                                    <li class="icon-items">
+                                        <i class="far fa-heart faa-pulse"></i>
+                                        {% if article.total_likes %}
+                                        {{ article.total_likes }}
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        {% empty %}
+                        <div class="global-tag">
+                            <h3>フォローしていません。</h3>
                         </div>
                         {% endfor %}
                     </article>
+                </div>
+                {% include 'accounts/snippet/pagination.html' %}
+            </div>
 
+            <div class="right">
+                <div class="favorite-articles">
+                    <div class="favorite-title">
+                        <h3>おすすめアーティクル</h3>
+                    </div>
+                    {% for favorite in order_like_articles %}
+                    <div class="favorite-wrapper">
+                        <div class="favorite-items">
+                            {% if favorite.category != None %}
+                            <span class="favorite-category">
+                                {{ favorite.category }}
+                            </span>
+                            {% endif %}
+                            <a href="{% url 'articles:detail' detail_id=favorite.id %}">
+                                <span>{{ favorite.title | truncatechars_html:10 }}</span>
+                            </a>
+                        </div>
+                        <div class="favorite-thumb">
+                            <img src="{{ favorite.thumb.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="favorite-info">
+                        <a href="{% url 'articles:ordered_by_likes' %}">
+                            <h4>さらに見る</h4>
+                        </a>
+                    </div>
                 </div>
 
+                <div class="users">
+                    <div class="users-title">
+                        <h3>おすすめユーザー</h3>
+                    </div>
+                    {% for user in users %}
+                    {% if request.user != user.user %}
+                    <div class="users-wrapper">
+                        <ul class="users-box">
+                            <li class="users-items">
+                                <a href="{% url 'accounts:profile_detail' user.user %}">
+                                    <img src="{{ user.user.profile.image.url }}" alt="following-avatar">
+                                </a>
+                            </li>
+                            <li class="users-items">
+                                <span>{{ user.user }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
 
             </div>
-            <div class="right"></div>
         </div>
     </body>
 </html>

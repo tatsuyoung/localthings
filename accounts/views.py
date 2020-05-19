@@ -10,6 +10,7 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView)
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
+from django.db.models import Count
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
@@ -207,16 +208,21 @@ class UserFollowingFeedView(View):
         if not request.user.is_authenticated:
             return render(request, 'articles/article_list.html', {})
 
+        users = Profile.objects.all().order_by('?')[:4]
+        post_articles = Article.objects.all()
+        order_like_articles = post_articles.annotate(like_count=Count('like')).order_by('-like_count')[:5]
         user = request.user
         count = user.article_set.all().count()
         is_following_user_ids = [x.user.id for x in user.is_following.all()]
         qs = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
-        paginator = Paginator(qs, 9)
+        paginator = Paginator(qs, 24)
         page = request.GET.get('page')
         articles = paginator.get_page(page)
         context = {
             'articles': articles,
-            'count':count
+            'count': count,
+            'order_like_articles': order_like_articles,
+            'users': users
         }
         return render(request, 'accounts/user_following.html', context)
         #return render(request, 'accounts/user_new_following.html', context)
