@@ -224,5 +224,4 @@ class UserFollowingFeedView(View):
             'order_like_articles': order_like_articles,
             'users': users
         }
-        return render(request, 'accounts/user_following.html', context)
-        #return render(request, 'accounts/user_new_following.html', context)
+        return render(request, 'accounts/user_new_following.html', context)
