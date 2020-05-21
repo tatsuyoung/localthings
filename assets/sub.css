@@ -52,7 +52,7 @@ a
     /* background: beige ;*/
     float: left;
     width: 10%;
-    height:300%;
+    height:1600%;
 }
 
 .left ul
@@ -491,7 +491,7 @@ a
 {
     /*background: ghostwhite;*/
     width: 30%;
-    height: 300%;
+    height: 1600%;
     display: flex ;
     flex-direction: column ;
     float:right;
