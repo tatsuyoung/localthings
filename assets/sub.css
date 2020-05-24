@@ -484,6 +484,16 @@ a
     color: gray ;
 }
 
+.liked i
+{
+    color: rgba(255, 0, 8, 0.76);
+}
+
+.fa-heart
+{
+    color: rgba(187, 220, 226, 0.46);
+}
+
 
 /* right style */
 

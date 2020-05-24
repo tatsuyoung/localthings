@@ -38,6 +38,10 @@ class Article(models.Model):
         return self.like.count()
 
     @property
+    def get_liked_user(self):
+        return self.like.all()
+
+    @property
     def get_counter(self):
         return Article.objects.count()
 

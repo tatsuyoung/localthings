@@ -204,7 +204,7 @@ class ProfileFollowToggle(LoginRequiredMixin, View):
 
 class UserFollowingFeedView(View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs,):
         if not request.user.is_authenticated:
             return render(request, 'articles/article_list.html', {})
 
