@@ -209,7 +209,7 @@
                             <div class="articles-icon">
                                 <ul class="articles-icon-box">
                                     <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %} liked {% else %} like {% endif %}{% endfor %}">
-                                        <i class="fas fa-heart "></i>
+                                        <i class="far fa-heart"></i>
                                         {% if article.total_likes %}
                                         {{ article.total_likes }}
                                         {% endif %}
