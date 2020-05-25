@@ -484,9 +484,9 @@ a
     color: gray ;
 }
 
-.liked i
+.liked_heart
 {
-    color: rgba(255, 0, 8, 0.76);
+    color:rgb(253, 29, 29);
 }
 
 
