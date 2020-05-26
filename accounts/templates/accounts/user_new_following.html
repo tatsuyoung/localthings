@@ -208,20 +208,8 @@
                             </div>
                             <div class="articles-icon">
                                 <ul class="articles-icon-box">
-                                    <li class="icon-items">
-                                        {% for i in article.get_liked_user %}
-                                        {% if i == request.user %}
-                                        <i class="fas fa-heart liked_heart"></i>
-                                        {% endif %}
-                                        {% endfor %}
-
-                                        {% for i in article.get_liked_user %}
-                                        {% if i != request.user %}
-                                        <i class="far fa-heart unlike_heart"></i>
-                                        {% endif %}
-                                        {% empty %}
-                                        <i class="far fa-heart unlike_heart"></i>
-                                        {% endfor %}
+                                    <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                                        <i class="far fa-heart liked_heart"></i>
 
                                         {% if article.total_likes %}
                                         {{ article.total_likes }}

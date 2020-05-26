@@ -484,10 +484,11 @@ a
     color: gray ;
 }
 
-.liked_heart
+.liked .liked_heart
 {
     color:rgb(253, 29, 29);
 }
+
 
 
 /* right style */

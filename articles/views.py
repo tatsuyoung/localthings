@@ -165,7 +165,7 @@ def users_detail_comments(request, pk):
 
 def users_detail_liked(request, pk):
     article_title = Article.objects.get(id=pk)
-    liked_users = article_title.like.all()
+    liked_users = article_title.like.all().order_by('?')
     paginator = Paginator(liked_users, 10)
     page = request.GET.get('page')
     liked_users = paginator.get_page(page)
