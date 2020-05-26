@@ -489,6 +489,10 @@ a
     color:rgb(253, 29, 29);
 }
 
+.liked span
+{
+    color:rgb(253, 29, 29);
+}
 
 
 /* right style */
@@ -653,6 +657,30 @@ a
 .users-items span:hover
 {
     text-decoration: underline;
+}
+
+.web-info, .web-info a
+{
+    text-align: center ;
+    color: gray ;
+    margin-top: 10px;
+}
+
+.web-info span
+{
+    font-size: 15px;
+    padding-right: 10px;
+}
+
+.web-info span:hover
+{
+    text-decoration: underline;
+}
+
+.copyright p
+{
+    font-size: 14px;
+    margin-top: 6px;
 }
 
 /* pagination */
