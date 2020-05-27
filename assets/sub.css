@@ -515,23 +515,19 @@ a
 {
     width: 30px;
     height: 30px;
-    text-align: center ;
+    border-radius: 50%;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
     vertical-align: middle ;
     line-height: 10px;
     padding: 7px;
+    cursor: pointer;
 }
 
 .articles-hover:hover
 {
     background: var(--hover-color);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    text-align: center ;
-    vertical-align: middle ;
-    line-height: 10px;
-    padding: 7px;
-    cursor: pointer;
 }
 
 .heart-circle:hover
@@ -737,6 +733,54 @@ a
     margin-top: 6px;
 }
 
+
+/* mobile nav */
+
+.mobile-nav
+{
+    position: fixed ;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display: flex ;
+    overflow-x: auto ;
+}
+
+.mobile-nav-link
+{
+    display: flex ;
+    flex-direction: column ;
+    align-items: center ;
+    justify-content: center ;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden ;
+    white-space: nowrap ;
+    color: gray;
+    text-decoration: none ;
+    -webkit-tap-highlight-color:transparent ;
+    transition: background-color 0.1s ease-in-out ;
+}
+
+.mobile-nav-icon
+{
+    font-size: 23px;
+}
+
+.mobile-nav-icon:hover
+{
+    color: var(--main-color);
+}
+
+.mobile-nav-icon:active
+{
+    color: var(--main-color);
+}
+
+
+
 /* pagination */
 
 ul{
@@ -883,4 +927,11 @@ ul{
     }
 }
 
+@media (min-width: 600px)
+{
+    .mobile-nav
+    {
+        display:none;
+    }
+}
 
