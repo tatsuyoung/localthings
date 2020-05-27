@@ -908,6 +908,11 @@ ul{
   }
 }
 
+/* global footer */
+
+.global-footer{
+    margin:     100px auto;
+    }
 
 /* @media */
 
