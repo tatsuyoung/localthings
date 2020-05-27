@@ -766,7 +766,9 @@ a
 
 .mobile-nav-icon
 {
-    font-size: 23px;
+    font-size: 26px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 1px #fff;
 }
 
 .mobile-nav-icon:hover
@@ -779,6 +781,10 @@ a
     color: var(--main-color);
 }
 
+.mobile-nav .live_notify_badge
+{
+    font-size: 10px;
+}
 
 
 /* pagination */
