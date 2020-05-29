@@ -16,6 +16,30 @@
         <link rel="stylesheet" href="{% static 'sub.css' %}">
     </head>
     <body ontouchstart="">
+        <header id="nav" class="mobil-nav-wrapper">
+            <div class="mobile-nav-top-link">
+            <a href="#">
+                <div class="mobile-profile-container">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                </div>
+            </a>
+            </div>
+            <div class="mobile-nav-top-link">
+            <a href="{% url 'about' %}">
+                <div class="mobile-wrapper_circle">
+                    <h1 class="mobile-logo_1">L</h1><h1 class="mobile-logo_2">T</h1>
+                </div>
+            </a>
+            </div>
+            <div class="mobile-nav-top-link">
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
+            </div>
+        </header>
         <div class="container">
             <div class="left">
                 <ul>
@@ -347,5 +371,7 @@
                 <i class="far fa-bookmark mobile-nav-icon"></i>
             </a>
         </nav>
+
+        <script src="/static/js/scroll.js"></script>
     </body>
 </html>
