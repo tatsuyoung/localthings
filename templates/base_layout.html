@@ -73,7 +73,7 @@
 <!--        <div class="preloader">-->
 <!--            <div class="loader"></div>-->
 <!--        </div>-->
-         <header class="wrapper" ontouchstart="">
+         <header class="wrapper">
              <div class="wrapper_logo">
                 <div class="wrapper_circle">
                    <a href="{% url 'home' %}">
@@ -129,14 +129,14 @@
                 </nav>
          </header>
 
-        <div class="wrapper" ontouchstart="">
+        <div class="wrapper">
             {% block content %}
             {% endblock %}
         </div>
 
         <footer>
-            <div class="wrapper" ontouchstart="">
-            <div id="button" ontouchstart=""></div>
+            <div class="wrapper">
+            <div id="button"></div>
                 <div id="container">
                     <div class="item_fb">
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
@@ -170,7 +170,8 @@
                 </div>
             </div>
         </footer>
-         <script src="/static/js/app.js"></script>
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/mobile-hover.js"></script>
 <!--        <script src="/static/js/notification.js"></script>-->
 <!--        {% register_notify_callbacks callbacks='my_special_notification_callback' %}-->
     </body>
