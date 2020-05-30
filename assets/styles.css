@@ -2273,6 +2273,10 @@ blockquote span{
     letter-spacing:              0.05em;
     }
 
+.write-new textarea:focus{
+    outline:                       none;
+}
+
 .write-new img{
     border-radius:        50%;
     background:       #eeeeee;

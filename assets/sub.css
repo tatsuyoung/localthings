@@ -126,19 +126,22 @@ a
 .mobile-logo_1
 {
     position:absolute;
-    font-size:16px;
+    font-size:26px;
     color: #fff;
-    top: -3px;
-    left: 8px;
+    transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    top: -13px;
+
 }
 
 .mobile-logo_2
 {
     position:absolute;
-    font-size:16px;
+    font-size:26px;
     color: #fff;
-    top: 5px;
-    right: 6px;
+    transform: translateX(110%) ;
+    -webkit-transform: translateX(110%);
+    top: 1px;
 }
 
 
