@@ -69,6 +69,14 @@
             <input type="submit" class="button-new-color" value="Update">
         </div>
         </form>
+        <div class="form-logout-footer">
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                    <p>ログアウト</p>
+                </button>
+            </form>
+        </div>
         <div class="form-footer">
             <p><a href="{% url 'home' %}">Home</a></p>
             <a href="{% url 'accounts:unsubscribe' %}">

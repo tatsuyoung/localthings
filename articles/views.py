@@ -8,12 +8,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
+
+from accounts.models import Profile
 from .models import Article, Comment, Category
 from. import forms
 
 
 def article_list(request):
+    users = Profile.objects.all().order_by('?')[:4]
     articles_list = Article.objects.all().order_by('-date')
+    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
     paginator = Paginator(articles_list, 24)
     page = request.GET.get('page')
     articles = paginator.get_page(page)
@@ -24,7 +28,12 @@ def article_list(request):
             Q(title__icontains=query) |
             Q(body__icontains=query)
             ).distinct()
-    return render(request, 'articles/article_list.html', {'articles': articles})
+    return render(request, 'articles/article_list_new.html',
+                  {'articles': articles,
+                   'order_like_articles': order_like_articles,
+                   'users': users
+                   }
+                  )
 
 
 def article_detail(request, detail_id):

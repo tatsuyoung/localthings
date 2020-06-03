@@ -2,25 +2,60 @@
 {% load notifications_tags %}
 <html lang="ja">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150304073-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-150304073-1');
+        </script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>User Following Feed</title>
+        <title>{% block title %}Local Things{% endblock %}</title>
+        <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
+         ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
+         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
+        <!--  favicon  -->
+         <link href="/static/favicon.icon.png" rel="icon">
+         <!-- pwa -->
+         <meta name="apple-mobile-web-app-capable" content="yes">
+         <meta name="apple-mobile-web-app-status-bar-style" content="black">
+         <meta name="apple-mobile-web-app-title" content="Local Things">
+         <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+         <meta name="theme-color" content="white">
+         <link rel="manifest" href="{% static 'manifest.json' %}">
+        <!--  Google Search Console   -->
+        <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
+        <!--  twitter card   -->
+         <meta name="twitter:card" content="summary_large_image" />
+         <meta name="twitter:site" content="@{{ article.author.username }}" />
+         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+         <meta property="og:title" content="{{ article.title }}" />
+         <meta property="og:description" content="{{ article.snippet }}" />
+         <meta property="og:image" content="{{ article.thumb.url }}" />
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
         <!--  Load CSS  -->
-        <link rel="stylesheet" href="{% static 'sub.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
     </head>
     <body>
         <header id="nav" class="mobil-nav-wrapper">
             <div class="mobile-nav-top-link">
+            {% if user.is_authenticated %}
             <a href="#">
                 <div class="mobile-profile-container">
                     <img src="{{ user.profile.image.url }}" class="profile-pic">
                 </div>
             </a>
+            {% else %}
+                <div class="mobile-profile-container">
+                    <i class="far fa-user-circle"></i>
+                </div>
+            {% endif %}
             </div>
             <div class="mobile-nav-top-link">
             <a href="{% url 'about' %}">
@@ -30,12 +65,12 @@
             </a>
             </div>
             <div class="mobile-nav-top-link">
-            <form action="{% url 'accounts:logout' %}" method="POST">
+                <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
-            </form>
+                </form>
             </div>
         </header>
         <div class="container">
@@ -67,6 +102,7 @@
 <!--                        </div>-->
 <!--                    </li>-->
                     <li>
+                        {% if user.is_authenticated %}
                         <div class="icon-circle">
                             {% notifications_unread as unread_count %}
                             <a href="{% url 'my_notifications' %}" class="icon-link">
@@ -92,6 +128,7 @@
 <!--                            </a>-->
 <!--                        </div>-->
 <!--                    </li>-->
+                    {% else %}
                     <li>
                         <div class="icon-circle">
                             <a href="{% url 'articles:gallery' %}" class="icon-link">
@@ -101,6 +138,8 @@
                             </a>
                         </div>
                     </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
                     <li>
                         <div class="icon-circle">
                             <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
@@ -110,6 +149,7 @@
                             </a>
                         </div>
                     </li>
+
                     <li>
                         <div class="icon-circle">
                             <a href="{% url 'articles:user-posts' user.username %}" class="icon-link">
@@ -137,6 +177,7 @@
                             </a>
                         </div>
                     </li>
+
                     <div class="create-btn-container">
                         <a href="{% url 'articles:create' %}">
                             <button class="create-btn">
@@ -144,64 +185,58 @@
                             </button>
                         </a>
                     </div>
+
+                    {% else %}
+                    <li>
+                        <div class="icon-circle">
+                            <div class="icon-container">
+                               <i class="far fa-user-circle"></i>
+                            </div>
+                        </div>
+                    </li>
+
                 </ul>
+                {% endif %}
 
             </div>
 
             <div class="center" id="main">
                 <div class="center-header">
-                    <div class="header-return">
-                        <a href="{% url 'home' %}">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                    </div>
                     <div class="header-name">
-                       <h2>{{ user.username }}</h2>
-                        <span>{{ count }} Create</span>
+                       <h3>ホーム</h3>
+                    </div>
+                    <div class="header-icon-circle">
+                        <div class="header-icon">
+                            <a href="#">
+                                <i class="fas fa-star-and-crescent"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="profile-bg">
-                    <div class="background-img">
-<!--                        <img src="{% static 'icon-512x512.png' %}" alt="background-img">-->
+
+                <div class="hero" id="clouds">
+                    <div class="cloud top"></div>
+                    <div class="cloud mid_1"></div>
+                    <div class="cloud mid_2"></div>
+                    <div class="cloud mid_3"></div>
+                    <div class="cloud bottom"></div>
+                    <div class="bird">..</div>
+                    <div class="title_wrapper">
+                        <h1>Oita Local things</h1>
                     </div>
-                </div>
-                <div class="profile-description">
-                    <a href="{% url 'accounts:profile_detail' user %}">
-                        <img src="{{ user.profile.image.url }}" alt="avatar">
-                    </a>
-                    <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
-                    <div class="profile-name">
-                    {{ user.username }}
+                    <div class="sub_title">
+                        住んでいる人にとって「何気ないもの」...<br>
+                        「何気ないもの」は誰かにとっては<br>
+                        「何気なくないもの」かもしれない。
                     </div>
-                    <div class="profile-bio">
-                    {% if user.profile.bio %}
-                        {{ user.profile.bio }}
+                    {% if user.is_authenticated %}
+                    <div class="global-footer"></div>
+                    {% else %}
+                    <div class="hero-btn">
+                        <div class="hero-btn-word">さぁ、はじめよう</div>
+                        <a href="{% url 'accounts:login' %}">Login</a>
+                    </div>
                     {% endif %}
-                    </div>
-                    <div class="profile-website">
-                        <i class="fas fa-link"></i>
-                        {% if user.profile.website %}
-                        <a href="{{ user.profile.website }}">
-                            {{ user.profile.website }}
-                        </a>
-                        {% endif %}
-                    </div>
-                    <div class="info-wrapper">
-                        <ul class="info-box">
-                            <li class="following-info">
-                                <a href="{% url 'accounts:is_following' user.username%}">
-                                    <strong>{{ user.is_following.all.count }}</strong>
-                                    <span>フォロー中</span>
-                                </a>
-                            </li>
-                            <li class="followers-info">
-                                <a href="{% url 'accounts:followers' user.username%}">
-                                    <strong>{{ user.profile.followers.all.count }}</strong>
-                                    <span>フォロワー</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
                 <div class="article-wrapper">
@@ -271,7 +306,7 @@
                         </div>
                         {% empty %}
                         <div class="global-tag">
-                            <h3>フォローしていません。</h3>
+                            <h3>お探しの検索キーワードは見つかりませんでした。</h3>
                         </div>
                         {% endfor %}
                     </article>
@@ -283,6 +318,15 @@
 
             <div class="right">
                 <div class="right-wrapper">
+
+                    <div class="right-search">
+                        <form id="right-search" class="form-search" method="GET" action="{% url 'articles:list' %}">
+                            <i class="fas fa-search"></i>
+                            <input class="search-input" type="text" name="q"
+                                   placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
+                        </form>
+                    </div>
+
                     <div class="favorite-articles">
                         <div class="favorite-title">
                             <h3>おすすめアーティクル</h3>
@@ -310,7 +354,7 @@
                             </a>
                         </div>
                     </div>
-
+                    {% if user.is_authenticated %}
                     <div class="users">
                         <div class="users-title">
                             <h3>おすすめユーザー</h3>
@@ -332,6 +376,7 @@
                         {% endif %}
                         {% endfor %}
                     </div>
+                    {% endif %}
                     <div class="web-info">
                         <a href="{% url 'about' %}">
                             <span>利用規約</span>
@@ -348,13 +393,23 @@
                 </div>
             </div>
         </div>
+
+        {% if user.is_authenticated %}
+        <div id="mobile-create" class="mobile-create-circle">
+            <a href="{% url 'articles:create' %}">
+                <i class="fas fa-feather-alt"></i>
+            </a>
+        </div>
+        {% endif %}
+
         <nav class="mobile-nav">
-            <a href="{% url 'home' %}" class="mobile-nav-link">
+            <a href="#" class="mobile-nav-link" id="scroll-top">
                 <i class="fas fa-home mobile-nav-icon"></i>
             </a>
             <a href="{% url 'articles:gallery' %}" class="mobile-nav-link">
                 <i class="far fa-compass mobile-nav-icon"></i>
             </a>
+            {% if user.is_authenticated %}
             {% notifications_unread as unread_count %}
             <a href="{% url 'my_notifications' %}" class="mobile-nav-link">
                 <i class="far fa-bell mobile-nav-icon">
@@ -365,6 +420,7 @@
                     {% endif %}
                 </i>
             </a>
+            {% endif %}
             <a href="{% url 'articles:book_mark_list' %}" class="mobile-nav-link">
                 <i class="far fa-bookmark mobile-nav-icon"></i>
             </a>
@@ -372,5 +428,8 @@
 
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
+        <script src="/static/js/search-box.js"></script>
+        <script src="/static/js/scroll-top.js"></script>
+        <script src="/static/js/mobile-create.js"></script>
     </body>
 </html>
