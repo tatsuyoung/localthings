@@ -18,7 +18,7 @@
          ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
          大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
         <!--  favicon  -->
-         <link href="/static/favicon.icon.png" rel="icon">
+         <link rel="icon" href="{% static 'favicon.ico' %}">
          <!-- pwa -->
          <meta name="apple-mobile-web-app-capable" content="yes">
          <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -46,7 +46,7 @@
         <header id="nav" class="mobil-nav-wrapper">
             <div class="mobile-nav-top-link">
             {% if user.is_authenticated %}
-            <a href="#">
+            <a href="{% url 'articles:users_detail' user.pk %}">
                 <div class="mobile-profile-container">
                     <img src="{{ user.profile.image.url }}" class="profile-pic">
                 </div>
