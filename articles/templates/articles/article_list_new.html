@@ -19,7 +19,7 @@
          大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
         <!--  favicon  -->
          <link rel="icon" href="{% static 'favicon.ico' %}">
-         <!-- pwa -->
+         <!-- PWA -->
          <meta name="apple-mobile-web-app-capable" content="yes">
          <meta name="apple-mobile-web-app-status-bar-style" content="black">
          <meta name="apple-mobile-web-app-title" content="Local Things">
@@ -57,21 +57,25 @@
                 </div>
             {% endif %}
             </div>
+
             <div class="mobile-nav-top-link">
-            <a href="{% url 'about' %}">
+                <div class="mobile-nav-top-search">
+                   <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
+                        <i class="fas fa-search"></i>
+                        <input class="mobile-search-input" type="text" name="q"
+                               placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mobile-nav-top-link">
+            <a href="{% url 'home' %}">
                 <div class="mobile-wrapper_circle">
                     <h1 class="mobile-logo_1">L</h1><h1 class="mobile-logo_2">T</h1>
                 </div>
             </a>
             </div>
-            <div class="mobile-nav-top-link">
-                <form action="{% url 'accounts:logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-                </form>
-            </div>
+
         </header>
         <div class="container">
             <div class="left">
@@ -395,7 +399,7 @@
         </div>
 
         {% if user.is_authenticated %}
-        <div id="mobile-create" class="mobile-create-circle">
+        <div id="create" class="mobile-create-circle">
             <a href="{% url 'articles:create' %}">
                 <i class="fas fa-feather-alt"></i>
             </a>
@@ -403,7 +407,7 @@
         {% endif %}
 
         <nav class="mobile-nav">
-            <a href="#" class="mobile-nav-link" id="scroll-top">
+            <a href="#clouds" class="mobile-nav-link" id="scroll-top">
                 <i class="fas fa-home mobile-nav-icon"></i>
             </a>
             <a href="{% url 'articles:gallery' %}" class="mobile-nav-link">
@@ -427,9 +431,11 @@
         </nav>
 
         <script src="/static/js/scroll.js"></script>
-        <script src="/static/js/mobile-hover.js"></script>
         <script src="/static/js/search-box.js"></script>
-        <script src="/static/js/scroll-top.js"></script>
+        <script src="/static/js/mobile-hover.js"></script>
+        <script src="/static/js/mobile-search-box.js"></script>
         <script src="/static/js/mobile-create.js"></script>
+        <script src="/static/js/scroll-top.js"></script>
+
     </body>
 </html>
