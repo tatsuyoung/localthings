@@ -230,9 +230,9 @@ a
 
 /* mobile placeholder */
 
-.mobile-search-input::placeholder,
-.mobile-search-input::-webkit-input-placeholder,
-.mobile-search-input::-moz-placeholder
+input::placeholder,
+input::-webkit-input-placeholder,
+input::-moz-placeholder
 {
   line-height: normal !important;
   vertical-align: middle;
