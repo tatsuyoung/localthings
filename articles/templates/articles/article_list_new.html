@@ -62,7 +62,8 @@
                 <div class="mobile-nav-top-search">
                    <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
                         <i class="fas fa-search"></i>
-                        <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
+                        <input class="mobile-search-input" type="text" name="q"
+                               placeholder="キーワード検索" value="{{ request.GET.q }}" required/>
                     </form>
                 </div>
             </div>

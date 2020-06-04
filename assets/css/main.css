@@ -202,7 +202,6 @@ a
     margin-left: 3px;
 }
 
-
 .mobile-search i
 {
     font-size: 18px;
@@ -227,6 +226,16 @@ a
 .mobile-search.active i
 {
     color: var(--main-color);
+}
+
+/* mobile placeholder */
+
+.mobile-search-input::placeholder,
+.mobile-search-input::-webkit-input-placeholder,
+.mobile-search-input::-moz-placeholder
+{
+  line-height: normal !important;
+  vertical-align: middle;
 }
 
 /* left style */
