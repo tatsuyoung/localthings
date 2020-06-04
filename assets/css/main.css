@@ -206,17 +206,17 @@ a
 
 .mobile-search-input::placeholder
 {
-    padding-top: -0.1em;
+    padding-top: 0.1em;
 }
 
 .mobile-search-input::-webkit-input-placeholder
 {
-     padding-top: -0.1em;
+     padding-top: 0.1em;
 }
 
 .mobile-search-input::-ms-input-placeholder
 {
-     padding-top: -0.1em;
+     padding-top: 0.1em;
 }
 
 /* -------------- */
