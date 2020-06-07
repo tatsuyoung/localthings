@@ -1,0 +1,59 @@
+<div class="icons-box">
+    <ul class="articles-icon-box-items">
+        <li class="articles-icon-item-active {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+            <div class="articles-icon-items-wrapper">
+                <div class="articles-hover heart-circle">
+                    <a class="btn-like" id="like" name="{{ article.title }}">
+                        <i class="far fa-heart liked_heart"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="articles-icon-item-active">
+            <div class="articles-icon-items-wrapper">
+                <div class="articles-hover">
+                    <form method="POST" action="{% url 'articles:comment' article.pk %}">
+                        {% csrf_token %}
+                        <button id="read">
+                            <i class="far fa-comment"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </li>
+
+        <li class="articles-icon-item-active">
+            <div class="articles-icon-items-wrapper">
+                <div class="articles-hover">
+                    <a class="btn-book_mark" id="book_mark" name="{{ article.title }}">
+                        <i class="far fa-bookmark"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+         <li class="articles-icon-item-active">
+            <div class="articles-icon-items-wrapper">
+                <div class="articles-hover">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  detail_id=article.id %}"
+                        target="_blank" rel="nofollow" class="fb">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+         <li class="articles-icon-item-active">
+            <div class="articles-icon-items-wrapper">
+                <div class="articles-hover">
+                    <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
+                        target="_blank" rel="nofollow" class="tw">
+                    <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>

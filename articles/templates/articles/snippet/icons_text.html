@@ -1,0 +1,27 @@
+ <div class="articles-icon">
+  {% if article.total_likes or article.comments.count %}
+    <ul class="articles-icon-box">
+        <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+            <div class="articles-icon-wrapper">
+                {% if article.total_likes %}
+                <div class="articles-sum">
+                    <span>{{ article.total_likes }}</span>
+                </div>
+                <span class="icon-description">いいねの数</span>
+                {% endif %}
+            </div>
+        </li>
+
+        <li class="icon-items">
+           <div class="articles-icon-wrapper">
+               {% if article.comments.count %}
+                <div class="articles-sum">
+                    <span>{{ article.comments.count }}</span>
+                </div>
+                <span class="icon-description">コメントの数</span>
+               {% endif %}
+           </div>
+        </li>
+    </ul>
+ {% endif %}
+</div>

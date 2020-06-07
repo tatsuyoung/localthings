@@ -38,7 +38,7 @@ def article_list(request):
 
 def article_detail(request, detail_id):
     article = Article.objects.get(id=detail_id)
-    return render(request, 'articles/article_detail.html', {'article': article})
+    return render(request, 'articles/article_detail_new.html', {'article': article})
 
 
 @login_required(login_url="/accounts/login/")
@@ -83,7 +83,7 @@ def article_comment(request, pk):
                 'comments': comments,
                 'current_user': current_user
                }
-    return render(request, 'articles/article_detail.html', context)
+    return render(request, 'articles/article_detail_new.html', context)
 
 
 @require_POST
@@ -126,15 +126,15 @@ def like_button(request, like_id):
 
     if request.method == 'POST':
         user = request.user
-        slug = request.POST.get('slug', None)
-        article = get_object_or_404(Article, slug=slug, id=like_id)
+        title = request.POST.get('title', None)
+        article = get_object_or_404(Article, title=title, id=like_id)
 
         if article.like.filter(id=user.id).exists():
             article.like.remove(user)
-            message = 'You disliked this'
+            message = 'いいねを外しました。'
         else:
             article.like.add(user)
-            message = 'You liked this'
+            message = 'いいねしました。'
 
     context = dict(likes_count=article.total_likes, message=message)
     return HttpResponse(json.dumps(context), content_type='application/json')

@@ -1,0 +1,67 @@
+<div class="comment_wrapper">
+    <ul class="comment-section">
+        {% for comment in comments %}
+        {% if article.author.id != comment.author.id %}
+        <li class="comment user-comment">
+            <div class="info">
+                <a href="{% url 'articles:user-posts' comment.author.username %}">{{ comment.author }}</a>
+                <span>{{ comment.created_date|timesince }}{{ sometime }} ago</span>
+            </div>
+            <a href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
+                <img src="{{ comment.author.profile.image.url }}" alt="Profile Avatar">
+            </a>
+            <p>{{ comment.text }}</p>
+            {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
+            <div class="comment-delete-btn">
+                <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="comment_delete"
+                            onclick="return confirm('Do you want to delete this comment ?');">
+                        <i class="far fa-trash-alt fa-lg"></i>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </li>
+        {% endif %}
+
+        {% if article.author.id == comment.author.id %}
+        <li class="comment author-comment">
+            <div class="info">
+                <a href="{% url 'articles:user-posts' article.author.username %}">{{ comment.author }}</a>
+                <span>{{ comment.created_date|timesince }}{{ sometime }} ago</span>
+            </div>
+            <a href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
+               <img src="{{ comment.author.profile.image.url }}" alt="Profile Author">
+            </a>
+            <p>{{ comment.text }}</p>
+            {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
+            <div class="comment-delete-btn-2">
+                <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="comment_delete_2"
+                            onclick="return confirm('Do you want to delete this comment ?');">
+                        <i class="far fa-trash-alt fa-lg"></i>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        <li class="write-new">
+            <form method="POST" action="." id="comment_form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% for comment in comments|slice:":1" %}
+                <div>
+                    <img src="{{ current_user.profile.image.url }}" alt="Profile Avatar" >
+                </div>
+                {% endfor %}
+                <button type="submit" id="comment" name="{{ comment.pk }}">Add Comment <i class="far fa-paper-plane"></i></button>
+            </form>
+        </li>
+        <div class="global-footer"></div>
+    </ul>
+</div>

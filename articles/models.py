@@ -73,8 +73,8 @@ class Article(models.Model):
                     pilImage = pilImage.rotate(90, expand=True)
 
                 output = BytesIO()
-                if pilImage.height > 728 or pilImage.width > 728:
-                    size = (728, 728)
+                if pilImage.height > 648 or pilImage.width > 648:
+                    size = (648, 648)
                     pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
                     pilImage_fit.save(output, format='JPEG', quality=70)
                     output.seek(0)
