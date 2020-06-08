@@ -404,6 +404,24 @@
             });
         })
         </script>
+        <script>
+         $(document).on('submit', '#comment_form', function(e){
+            e.preventDefault();
+            $.ajax({
+                   type: "POST",
+                   url: "{% url 'articles:comment' article.pk %}",
+                   data: $("#comment_form").serializeArray(),
+                   success: function(data) {
+                            $("#comment_form" + " textarea ").val(' ');
+                            $("#comment_form" + " input ").val(' ');
+                            alert('Thank you for your message. it has been sent.' );
+                   },
+                   error: function(data) {
+                        alert("Error!!");
+                }
+            });
+         })
+        </script>
         <script src="/static/js/liked.js"></script>
     </body>
 </html>

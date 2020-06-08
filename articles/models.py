@@ -105,7 +105,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    text = models.TextField(help_text='コメントを送信する場合は、Comments横のIcon(吹き出しマーク)をTapして下さい')
+    text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:

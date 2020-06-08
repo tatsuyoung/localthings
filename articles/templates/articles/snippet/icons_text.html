@@ -4,10 +4,10 @@
         <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
             <div class="articles-icon-wrapper">
                 {% if article.total_likes %}
-                <div class="articles-sum">
-                    <span>{{ article.total_likes }}</span>
-                </div>
-                <span class="icon-description">いいねの数</span>
+                    <div class="articles-sum">
+                        <span>{{ article.total_likes }}</span>
+                    </div>
+                    <span class="icon-description">いいねの数</span>
                 {% endif %}
             </div>
         </li>
@@ -15,10 +15,25 @@
         <li class="icon-items">
            <div class="articles-icon-wrapper">
                {% if article.comments.count %}
-                <div class="articles-sum">
-                    <span>{{ article.comments.count }}</span>
-                </div>
-                <span class="icon-description">コメントの数</span>
+                    <div class="articles-sum">
+                        <span>{{ article.comments.count }}</span>
+                    </div>
+                    <span class="icon-description">コメントの数</span>
+               {% endif %}
+           </div>
+        </li>
+
+         <li class="icon-items">
+           <div class="articles-icon-wrapper">
+              {% if request.user == article.author or request.user.is_superuser %}
+                <form method="POST" action="{% url 'articles:delete' article.pk %}">
+                    {% csrf_token %}
+                    <button class="article_delete" type="submit"
+                            onclick='return confirm("この記事を削除しますか？");'>
+                        <span class="icon-description">記事を削除する</span>
+                    </button>
+
+                </form>
                {% endif %}
            </div>
         </li>
