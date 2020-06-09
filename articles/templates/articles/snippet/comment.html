@@ -1,5 +1,6 @@
 <div class="comment_wrapper">
     <ul class="comment-section">
+        <div class="comment-bg">
         {% for comment in comments %}
             {% if article.author.id != comment.author.id %}
             <li class="comment user-comment">
@@ -11,7 +12,7 @@
                     <img src="{{ comment.author.profile.image.url }}" alt="Profile Avatar">
                 </a>
                 <div class="user-comment-text-box">
-                    <p>{{ comment.text }}</p>
+                    <p>{{ comment.text | urlize | linebreaksbr | safe }}</p>
                     {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
                     <div class="comment-delete-btn">
                         <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
@@ -37,7 +38,7 @@
                    <img src="{{ comment.author.profile.image.url }}" alt="Profile Author">
                 </a>
                 <div class="author-comment-text-box">
-                    <p>{{ comment.text }}</p>
+                    <p>{{ comment.text | urlize | linebreaksbr | safe }}</p>
                     {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
                     <div class="comment-delete-btn-2">
                         <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
@@ -53,6 +54,7 @@
             </li>
             {% endif %}
         {% endfor %}
+        </div>
         <li class="write-new">
             <form method="POST" action="." id="comment_form">
                 {% csrf_token %}

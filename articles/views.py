@@ -37,8 +37,16 @@ def article_list(request):
 
 
 def article_detail(request, detail_id):
+    users = Profile.objects.all().order_by('?')[:4]
+    articles_list = Article.objects.all().order_by('-date')
+    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
     article = Article.objects.get(id=detail_id)
-    return render(request, 'articles/article_detail_new.html', {'article': article})
+    return render(request, 'articles/article_detail_new.html',
+                  {'article': article,
+                   'order_like_articles': order_like_articles,
+                   'users': users
+                   }
+                  )
 
 
 @login_required(login_url="/accounts/login/")
@@ -65,6 +73,9 @@ def article_delete(request, article_id):
 @login_required(login_url="/accounts/login/")
 @require_POST
 def article_comment(request, pk):
+    users = Profile.objects.all().order_by('?')[:4]
+    articles_list = Article.objects.all().order_by('-date')
+    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
     article_com = Article.objects.get(id=pk)
     comments = Comment.objects.filter(post=article_com).order_by('created_date')
     current_user = request.user
@@ -81,7 +92,9 @@ def article_comment(request, pk):
                 'article': article_com,
                 'form': form,
                 'comments': comments,
-                'current_user': current_user
+                'current_user': current_user,
+                'order_like_articles': order_like_articles,
+                'users': users
                }
     return render(request, 'articles/article_detail_new.html', context)
 

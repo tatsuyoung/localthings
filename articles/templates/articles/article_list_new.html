@@ -249,7 +249,7 @@
                         <div class="following-feed-wrapper">
                             <ul class="following-articles">
                                 <li class="articles-item">
-                                    <a href="{% url 'accounts:profile_detail' article.author.username %}">
+                                    <a href="{% url 'articles:user-posts' article.author.username %}">
                                         <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
                                     </a>
                                 </li>
