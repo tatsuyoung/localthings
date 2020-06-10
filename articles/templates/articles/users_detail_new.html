@@ -2,64 +2,33 @@
 {% load notifications_tags %}
 <html lang="ja">
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150304073-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-150304073-1');
-        </script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Local Things Home</title>
-        <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
-         ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
-         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
-        <!--  favicon  -->
-         <link rel="icon" href="{% static 'favicon.ico' %}">
-         <!-- PWA -->
-         <meta name="apple-mobile-web-app-capable" content="yes">
-         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-         <meta name="apple-mobile-web-app-title" content="Local Things">
-         <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
-         <meta name="theme-color" content="white">
-         <link rel="manifest" href="{% static 'manifest.json' %}">
-        <!--  Google Search Console   -->
-        <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
+        <title>User Following Feed</title>
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+        <!--  twitter card   -->
+         <meta name="twitter:card" content="summary_large_image" />
+         <meta name="twitter:site" content="@{{ article.author.username }}" />
+         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+         <meta property="og:title" content="{{ article.title }}" />
+         <meta property="og:description" content="{{ article.snippet }}" />
+         <meta property="og:image" content="{{ article.thumb.url }}" />
         <!--  Load CSS  -->
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/users-detail.css' %}">
     </head>
     <body>
         <header id="nav" class="mobil-nav-wrapper">
             <div class="mobile-nav-top-link">
-            {% if user.is_authenticated %}
-            <a href="{% url 'articles:users_detail' user.pk %}">
+            <a href="#">
                 <div class="mobile-profile-container">
                     <img src="{{ user.profile.image.url }}" class="profile-pic">
                 </div>
             </a>
-            {% else %}
-                <div class="mobile-profile-container">
-                    <i class="far fa-user-circle"></i>
-                </div>
-            {% endif %}
             </div>
-
-            <div class="mobile-nav-top-link">
-                <div class="mobile-nav-top-search">
-                   <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
-                        <i class="fas fa-search"></i>
-                        <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
-                    </form>
-                </div>
-            </div>
-
             <div class="mobile-nav-top-link">
             <a href="{% url 'about' %}">
                 <div class="mobile-wrapper_circle">
@@ -67,7 +36,14 @@
                 </div>
             </a>
             </div>
-
+            <div class="mobile-nav-top-link">
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
+            </div>
         </header>
         <div class="container">
             <div class="left">
@@ -76,41 +52,58 @@
 
             <div class="center" id="main">
                 <div class="center-header">
-                    <div class="header-name">
-                       <h3>ホーム</h3>
+                    <div class="header-return">
+                        <a href="{% url 'home' %}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
                     </div>
-                    <div class="header-icon-circle">
-                        <div class="header-icon">
-                            <a href="#">
-                                <i class="fas fa-star-and-crescent"></i>
-                            </a>
-                        </div>
+                    <div class="header-name">
+                       <h2>{{ user.username }}</h2>
+                        <span>{{ count }} Create</span>
                     </div>
                 </div>
-
-                <div class="hero" id="clouds">
-                    <div class="cloud top"></div>
-                    <div class="cloud mid_1"></div>
-                    <div class="cloud mid_2"></div>
-                    <div class="cloud mid_3"></div>
-                    <div class="cloud bottom"></div>
-                    <div class="bird">..</div>
-                    <div class="title_wrapper">
-                        <h1>Oita Local things</h1>
+                <div class="profile-bg">
+                    <div class="background-img">
+<!--                        <img src="{% static 'icon-512x512.png' %}" alt="background-img">-->
                     </div>
-                    <div class="sub_title">
-                        住んでいる人にとって「何気ないもの」...<br>
-                        「何気ないもの」は誰かにとっては<br>
-                        「何気なくないもの」かもしれない。
+                </div>
+                <div class="profile-description">
+                    <a href="{% url 'accounts:profile_detail' user %}">
+                        <img src="{{ user.profile.image.url }}" alt="avatar">
+                    </a>
+                    <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
+                    <div class="profile-name">
+                    {{ user.username }}
                     </div>
-                    {% if user.is_authenticated %}
-                    <div class="global-footer"></div>
-                    {% else %}
-                    <div class="hero-btn">
-                        <div class="hero-btn-word">さぁ、はじめよう</div>
-                        <a href="{% url 'accounts:login' %}">Login</a>
-                    </div>
+                    <div class="profile-bio">
+                    {% if user.profile.bio %}
+                        {{ user.profile.bio }}
                     {% endif %}
+                    </div>
+                    <div class="profile-website">
+                        <i class="fas fa-link"></i>
+                        {% if user.profile.website %}
+                        <a href="{{ user.profile.website }}">
+                            {{ user.profile.website }}
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="info-wrapper">
+                        <ul class="info-box">
+                            <li class="following-info">
+                                <a href="{% url 'accounts:is_following' user.username%}">
+                                    <strong>{{ user.is_following.all.count }}</strong>
+                                    <span>フォロー中</span>
+                                </a>
+                            </li>
+                            <li class="followers-info">
+                                <a href="{% url 'accounts:followers' user.username%}">
+                                    <strong>{{ user.profile.followers.all.count }}</strong>
+                                    <span>フォロワー</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="article-wrapper">
@@ -120,15 +113,13 @@
                         <div class="following-feed-wrapper">
                             <ul class="following-articles">
                                 <li class="articles-item">
-                                    <a href="{% url 'articles:user-posts' article.author.username %}">
+                                    <a href="{% url 'accounts:profile_detail' article.author.username %}">
                                         <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
                                     </a>
                                 </li>
+
                                 <li class="articles-item">
-                                    <p>{{ article.author.username }}</p>
-                                </li>
-                                <li class="articles-item">
-                                    <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
+                                    <p><small>{{ article.date | date:"y/n/j H:i" }}</small></p>
                                 </li>
                             </ul>
                             <div class="articles-thumb">
@@ -151,7 +142,9 @@
                                     <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
                                         <div class="articles-icon-wrapper">
                                             <div class="articles-hover heart-circle">
-                                                <i class="far fa-heart liked_heart"></i>
+                                                <a href="{% url 'articles:users_detail_like' article.pk %}">
+                                                    <i class="far fa-heart liked_heart"></i>
+                                                </a>
                                             </div>
 
                                             <div class="articles-sum">
@@ -165,7 +158,9 @@
                                     <li class="icon-items">
                                         <div class="articles-icon-wrapper">
                                             <div class="articles-hover">
-                                                <i class="far fa-comment"></i>
+                                                <a href="{% url 'articles:users_detail_comments' article.pk %}">
+                                                    <i class="far fa-comment "></i>
+                                                </a>
                                             </div>
 
                                             <div class="articles-sum">
@@ -175,12 +170,24 @@
                                             </div>
                                         </div>
                                     </li>
+
+                                    <li class="icon-items">
+                                        <div class="articles-icon-wrapper">
+                                            <div class="articles-hover">
+                                                 <a href="{% url 'articles:edit' pk=article.pk %}">
+                                                    <i class="far fa-edit"></i>
+                                                 </a>
+                                            </div>
+
+                                            <div class="articles-sum"></div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         {% empty %}
                         <div class="global-tag">
-                            <h3>お探しの検索キーワードは見つかりませんでした。</h3>
+                            <h3>まだ投稿はありません。</h3>
                         </div>
                         {% endfor %}
                     </article>
@@ -192,15 +199,6 @@
 
             <div class="right">
                 <div class="right-wrapper">
-
-                    <div class="right-search">
-                        <form id="right-search" class="form-search" method="GET" action="{% url 'articles:list' %}">
-                            <i class="fas fa-search"></i>
-                            <input class="search-input" type="text" name="q"
-                                   placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
-                        </form>
-                    </div>
-
                     <div class="favorite-articles">
                         <div class="favorite-title">
                             <h3>おすすめアーティクル</h3>
@@ -228,7 +226,7 @@
                             </a>
                         </div>
                     </div>
-                    {% if user.is_authenticated %}
+
                     <div class="users">
                         <div class="users-title">
                             <h3>おすすめユーザー</h3>
@@ -250,7 +248,6 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                    {% endif %}
                     <div class="web-info">
                         <a href="{% url 'about' %}">
                             <span>利用規約</span>
@@ -267,22 +264,9 @@
                 </div>
             </div>
         </div>
-
-        {% if user.is_authenticated %}
-        <div class="mobile-create-circle">
-            <a href="{% url 'articles:create' %}">
-                <i class="fas fa-feather-alt"></i>
-            </a>
-        </div>
-        {% endif %}
-
         {% include 'articles/snippet/mobile-nav-footer.html' %}
 
         <script src="/static/js/scroll.js"></script>
-        <script src="/static/js/search-box.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
-        <script src="/static/js/mobile-search-box.js"></script>
-        <script src="/static/js/scroll-top.js"></script>
-
     </body>
 </html>

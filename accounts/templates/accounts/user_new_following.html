@@ -40,112 +40,7 @@
         </header>
         <div class="container">
             <div class="left">
-                <ul>
-                    <li class="logo">
-                        <div class="wrapper_circle">
-                            <a href="{% url 'about' %}">
-                                <h1 class="logo_1">L</h1><h1 class="logo_2">T</h1>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon-circle">
-                            <a href="{% url 'home' %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="fa fa-home"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-<!--                    <li>-->
-<!--                        <div class="icon-circle">-->
-<!--                            <a href="#" class="icon-link">-->
-<!--                                <div class="icon-container">-->
-<!--                                    <i class="fas fa-hashtag"></i>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </li>-->
-                    <li>
-                        <div class="icon-circle">
-                            {% notifications_unread as unread_count %}
-                            <a href="{% url 'my_notifications' %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="far fa-bell">
-                                    {% if unread_count %}
-                                    <div class="number">
-                                        <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
-                                    </div>
-                                    {% endif %}
-                                    </i>
-
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-<!--                    <li>-->
-<!--                        <div class="icon-circle">-->
-<!--                            <a href="#" class="icon-link">-->
-<!--                                <div class="icon-container">-->
-<!--                                    <i class="far fa-envelope"></i>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </li>-->
-                    <li>
-                        <div class="icon-circle">
-                            <a href="{% url 'articles:gallery' %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="far fa-compass"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon-circle">
-                            <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="far fa-bookmark"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon-circle">
-                            <a href="{% url 'articles:user-posts' user.username %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="far fa-list-alt"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon-circle">
-                            <a href="#" class="profile-link">
-                                <div class="profile-container">
-                                    <img src="{{ user.profile.image.url }}" class="profile-pic">
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon-circle">
-                            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
-                                <div class="icon-container">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-                    <div class="create-btn-container">
-                        <a href="{% url 'articles:create' %}">
-                            <button class="create-btn">
-                                    <i class="fas fa-feather-alt"></i>
-                            </button>
-                        </a>
-                    </div>
-                </ul>
-
+                {% include 'articles/snippet/left-nav.html' %}
             </div>
 
             <div class="center" id="main">
@@ -156,53 +51,10 @@
                         </a>
                     </div>
                     <div class="header-name">
-                       <h2>{{ user.username }}</h2>
-                        <span>{{ count }} Create</span>
+                       <h2>フォロー中</h2>
                     </div>
                 </div>
-                <div class="profile-bg">
-                    <div class="background-img">
-<!--                        <img src="{% static 'icon-512x512.png' %}" alt="background-img">-->
-                    </div>
-                </div>
-                <div class="profile-description">
-                    <a href="{% url 'accounts:profile_detail' user %}">
-                        <img src="{{ user.profile.image.url }}" alt="avatar">
-                    </a>
-                    <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
-                    <div class="profile-name">
-                    {{ user.username }}
-                    </div>
-                    <div class="profile-bio">
-                    {% if user.profile.bio %}
-                        {{ user.profile.bio }}
-                    {% endif %}
-                    </div>
-                    <div class="profile-website">
-                        <i class="fas fa-link"></i>
-                        {% if user.profile.website %}
-                        <a href="{{ user.profile.website }}">
-                            {{ user.profile.website }}
-                        </a>
-                        {% endif %}
-                    </div>
-                    <div class="info-wrapper">
-                        <ul class="info-box">
-                            <li class="following-info">
-                                <a href="{% url 'accounts:is_following' user.username%}">
-                                    <strong>{{ user.is_following.all.count }}</strong>
-                                    <span>フォロー中</span>
-                                </a>
-                            </li>
-                            <li class="followers-info">
-                                <a href="{% url 'accounts:followers' user.username%}">
-                                    <strong>{{ user.profile.followers.all.count }}</strong>
-                                    <span>フォロワー</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
 
                 <div class="article-wrapper">
 
@@ -348,27 +200,7 @@
                 </div>
             </div>
         </div>
-        <nav class="mobile-nav">
-            <a href="{% url 'home' %}" class="mobile-nav-link">
-                <i class="fas fa-home mobile-nav-icon"></i>
-            </a>
-            <a href="{% url 'articles:gallery' %}" class="mobile-nav-link">
-                <i class="far fa-compass mobile-nav-icon"></i>
-            </a>
-            {% notifications_unread as unread_count %}
-            <a href="{% url 'my_notifications' %}" class="mobile-nav-link">
-                <i class="far fa-bell mobile-nav-icon">
-                    {% if unread_count %}
-                    <div class="number">
-                        <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
-                    </div>
-                    {% endif %}
-                </i>
-            </a>
-            <a href="{% url 'articles:book_mark_list' %}" class="mobile-nav-link">
-                <i class="far fa-bookmark mobile-nav-icon"></i>
-            </a>
-        </nav>
+        {% include 'articles/snippet/mobile-nav-footer.html' %}
 
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/mobile-hover.js"></script>

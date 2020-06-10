@@ -154,23 +154,28 @@ def like_button(request, like_id):
 
 
 def users_detail(request, pk):
+    users = Profile.objects.all().order_by('?')[:4]
+    articles_list = Article.objects.all().order_by('-date')
+    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
     current_user = request.user
     user = get_object_or_404(User, pk=current_user.pk)
     my_article = user.article_set.all().order_by('-date')
     paginator = Paginator(my_article, 9)
     page = request.GET.get('page')
-    my_article = paginator.get_page(page)
+    articles = paginator.get_page(page)
     count = user.article_set.all().count()
     following = user.is_following.all().count()
     followers = user.profile.followers.all().count()
     context = {
                 'user': user,
-                'my_article': my_article,
+                'articles': articles,
                 'count': count,
                 'following': following,
-                'followers': followers
+                'followers': followers,
+                'order_like_articles': order_like_articles,
+                'users': users
                 }
-    return render(request, 'articles/users_detail.html', context)
+    return render(request, 'articles/users_detail_new.html', context)
 
 
 def users_detail_comments(request, pk):

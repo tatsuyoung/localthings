@@ -206,7 +206,7 @@ class UserFollowingFeedView(View):
 
     def get(self, request, *args, **kwargs,):
         if not request.user.is_authenticated:
-            return render(request, 'articles/article_list.html', {})
+            return render(request, 'articles/article_list_new.html', {})
 
         users = Profile.objects.all().order_by('?')[:4]
         post_articles = Article.objects.all()

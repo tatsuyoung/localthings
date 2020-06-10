@@ -430,6 +430,11 @@ input::-moz-placeholder
     color: #fff;
 }
 
+.user-checking
+{
+    margin-left: 10px;
+}
+
 /* center style */
 
 .center

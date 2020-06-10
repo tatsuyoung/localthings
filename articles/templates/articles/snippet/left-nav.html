@@ -1,0 +1,132 @@
+{% load notifications_tags %}
+<ul>
+    <li class="logo">
+        <div class="wrapper_circle">
+            <a href="{% url 'about' %}">
+                <h1 class="logo_1">L</h1><h1 class="logo_2">T</h1>
+            </a>
+        </div>
+    </li>
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'home' %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="fa fa-home"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+<!--                    <li>-->
+<!--                        <div class="icon-circle">-->
+<!--                            <a href="#" class="icon-link">-->
+<!--                                <div class="icon-container">-->
+<!--                                    <i class="fas fa-hashtag"></i>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+    <li>
+        {% if user.is_authenticated %}
+        <div class="icon-circle">
+            {% notifications_unread as unread_count %}
+            <a href="{% url 'my_notifications' %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="far fa-bell">
+                    {% if unread_count %}
+                    <div class="number">
+                        <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
+                    </div>
+                    {% endif %}
+                    </i>
+
+                </div>
+            </a>
+        </div>
+    </li>
+<!--                    <li>-->
+<!--                        <div class="icon-circle">-->
+<!--                            <a href="#" class="icon-link">-->
+<!--                                <div class="icon-container">-->
+<!--                                    <i class="far fa-envelope"></i>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+    {% else %}
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'articles:gallery' %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="far fa-compass"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="far fa-bookmark"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'articles:user-posts' user.username %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="far fa-list-alt"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+    <li>
+        <div class="icon-circle">
+            <a href="#" class="profile-link">
+                <div class="profile-container">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                </div>
+            </a>
+        </div>
+    </li>
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'accounts:user_following' %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="fas fa-user-check user-checking"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+    <li>
+        <div class="icon-circle">
+            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
+                <div class="icon-container">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </a>
+        </div>
+    </li>
+
+    <div class="create-btn-container">
+        <a href="{% url 'articles:create' %}">
+            <button class="create-btn">
+                    <i class="fas fa-feather-alt"></i>
+            </button>
+        </a>
+    </div>
+
+    {% else %}
+    <li>
+        <div class="icon-circle">
+            <div class="icon-container">
+               <i class="far fa-user-circle"></i>
+            </div>
+        </div>
+    </li>
+
+</ul>
+{% endif %}
