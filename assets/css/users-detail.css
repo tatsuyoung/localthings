@@ -684,6 +684,11 @@ a
     background: rgba(255, 71, 231, 0.12)
 }
 
+.edit-circle:hover
+{
+    background: rgba(24, 218, 28, 0.14);
+}
+
 .articles-sum
 {
     display: inline-block;

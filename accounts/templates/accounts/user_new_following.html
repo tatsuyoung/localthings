@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>User Following Feed</title>
+        <!--  favicon  -->
+         <link rel="icon" href="{% static 'favicon.ico' %}">
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
@@ -16,7 +18,7 @@
     <body>
         <header id="nav" class="mobil-nav-wrapper">
             <div class="mobile-nav-top-link">
-            <a href="#">
+            <a href="{% url 'articles:users_detail' user.pk %}">
                 <div class="mobile-profile-container">
                     <img src="{{ user.profile.image.url }}" class="profile-pic">
                 </div>

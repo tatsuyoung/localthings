@@ -276,13 +276,37 @@
         </div>
         {% endif %}
 
-        {% include 'articles/snippet/mobile-nav-footer.html' %}
+       <nav class="mobile-nav">
+            <a href="#clouds" class="mobile-nav-link" id="scroll-top">
+                <i class="fas fa-home mobile-nav-icon"></i>
+            </a>
+            <a href="{% url 'articles:gallery' %}" class="mobile-nav-link">
+                <i class="far fa-compass mobile-nav-icon"></i>
+            </a>
+            {% notifications_unread as unread_count %}
+            <a href="{% url 'my_notifications' %}" class="mobile-nav-link">
+                <i class="far fa-bell mobile-nav-icon">
+                    {% if unread_count %}
+                    <div class="number">
+                        <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
+                    </div>
+                    {% endif %}
+                </i>
+            </a>
+            <a href="{% url 'articles:book_mark_list' %}" class="mobile-nav-link">
+                <i class="far fa-bookmark mobile-nav-icon"></i>
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'accounts:user_following' %}" class="mobile-nav-link">
+                <i class="fas fa-user-check mobile-nav-icon"></i>
+            </a>
+            {% endif %}
+        </nav>
 
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/search-box.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
         <script src="/static/js/mobile-search-box.js"></script>
         <script src="/static/js/scroll-top.js"></script>
-
     </body>
 </html>

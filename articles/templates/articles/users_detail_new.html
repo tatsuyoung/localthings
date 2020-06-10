@@ -5,7 +5,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>User Following Feed</title>
+        <title>{{ user.username }}article Feed</title>
+        <!--  favicon  -->
+         <link rel="icon" href="{% static 'favicon.ico' %}">
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
@@ -173,7 +175,7 @@
 
                                     <li class="icon-items">
                                         <div class="articles-icon-wrapper">
-                                            <div class="articles-hover">
+                                            <div class="articles-hover edit-circle">
                                                  <a href="{% url 'articles:edit' pk=article.pk %}">
                                                     <i class="far fa-edit"></i>
                                                  </a>
