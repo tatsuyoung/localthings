@@ -8,17 +8,17 @@
         <title>{{ user.username }}article Feed</title>
         <!--  favicon  -->
          <link rel="icon" href="{% static 'favicon.ico' %}">
+        <!-- PWA -->
+         <meta name="apple-mobile-web-app-capable" content="yes">
+         <meta name="apple-mobile-web-app-status-bar-style" content="black">
+         <meta name="apple-mobile-web-app-title" content="Local Things">
+         <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+         <meta name="theme-color" content="white">
+         <link rel="manifest" href="{% static 'manifest.json' %}">
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
-        <!--  twitter card   -->
-         <meta name="twitter:card" content="summary_large_image" />
-         <meta name="twitter:site" content="@{{ article.author.username }}" />
-         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-         <meta property="og:title" content="{{ article.title }}" />
-         <meta property="og:description" content="{{ article.snippet }}" />
-         <meta property="og:image" content="{{ article.thumb.url }}" />
         <!--  Load CSS  -->
         <link rel="stylesheet" href="{% static 'css/users-detail.css' %}">
     </head>
@@ -267,7 +267,7 @@
             </div>
         </div>
         {% include 'articles/snippet/mobile-nav-footer.html' %}
-
+        <script src="/static/js/app.js"></script>
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
     </body>
