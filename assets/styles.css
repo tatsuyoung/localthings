@@ -1145,7 +1145,7 @@ nav button{
 
 /* article-detail */
 
-.article-detail .article-two{
+/*.article-detail .article-two{
     padding:                   0;
     }
 
@@ -1270,12 +1270,12 @@ nav button{
     }
 }
 
-/*.article_detail_container{
+.article_detail_container{
     position:        relative;
     bottom:               0px;
     margin:                 0;
     padding:                0;
-    }*/
+    }
 
 .article_detail_container p:first-of-type{
     position:  relative;
@@ -1285,7 +1285,7 @@ nav button{
 .article_detail_delete{
     margin:                 0;
     padding:                0;
-    }
+    }*/
 
 
 /* highlight */
@@ -2013,7 +2013,7 @@ blockquote span{
     opacity:            0.5;
     }
 
-.comment_top{
+/*.comment_top{
     font-family:   'Italianno', cursive;
     font-size:        1.8em;
     margin:               0;
@@ -2154,11 +2154,11 @@ blockquote span{
 .comment-delete-btn-2 .comment_delete_2:active{
     box-shadow:             inset 0 0 2px #666;
     transform:                 translateY(2px);
-    }
+    }*/
 
 /* comment new */
 
-.comment_wrapper{
+/*.comment_wrapper{
     margin:               0;
     padding:              0;
     box-sizing:  border-box;
@@ -2338,12 +2338,12 @@ blockquote span{
 
 .global-footer{
     margin:     100px auto;
-    }
+    }*/
 
 
 /* comment new responsive */
 
-@media(max-width: 800px){
+/*@media(max-width: 800px){
     .comment p {
         width:      100%;
     }
@@ -2397,12 +2397,12 @@ blockquote span{
     .write-new{
         width:               100%;
     }
-}
+}*/
 
 
 /* article delete button */
 
-.article_delete{
+/*.article_delete{
     display:               block;
     position:           relative;
     width:                  57px;
@@ -2482,7 +2482,7 @@ blockquote span{
 .ordered:hover{
     color:                #b4df85;
     border:     1px solid #b4df85;
-    }
+    }*/
 
 /* footer */
 
@@ -2654,7 +2654,7 @@ footer:hover {
 
 /* clouds */
 
-#clouds{
+/*#clouds{
     overflow:          hidden;
     border-radius:       10px;
     padding:           20px 0;
@@ -2775,18 +2775,18 @@ footer:hover {
 
 /* 期間限定 */
 /*  Copyright (c) 2019 by Marco Barría (https://codepen.io/fixcl/pen/KhAqa) */
-.bird{
+/*.bird{
   background:                     black; /* black */ /* #f8f8f8 */
-  border-radius:        50% 50% 20% 20%;
+/*  border-radius:        50% 50% 20% 20%;
   color:                           #fff; /* #fff */ /* black */
-  line-height:                     20px;
+/*  line-height:                     20px;
   letter-spacing:                   2px;
   font-size:                      0.8em;
   text-align:                    center;
   position:                    relative;
   top:                            -70px; /* center 50% */
-  left:                             34%; /* center 50% */
-  margin-top:                     -20px;
+/*  left:                             34%; /* center 50% */
+/*  margin-top:                     -20px;
   margin-left:                    -10px;
   width:                           15px;
   height:                          15px;
@@ -2805,10 +2805,10 @@ footer:hover {
 
 /* bird wings */
 
-.bird:after{
+/*.bird:after{
   border-radius:          100% 100% 0 0;
   box-shadow:     inset 0px 5px 0 black; /* black */ /* inset 0px 5px 0 rgb(244, 244, 244) */
-  width:                          100px;
+/*  width:                          100px;
   height:                         100px;
   margin-top:                      -7px;
   margin-left:                    -50px;
@@ -2822,7 +2822,7 @@ footer:hover {
 
 /* bird beak */
 
-.bird:before{
+/*.bird:before{
   background:              #FFC37F;
   border-radius:    100% 0% 20% 0%;
   margin-top:                  3px;
@@ -2836,7 +2836,7 @@ footer:hover {
 
 /* wings animation */
 
-@keyframes alas {
+/*@keyframes alas {
   50%{
     transform:            rotateX(-1440deg);
     -webkit-transform:    rotateX(-1440deg);
@@ -2846,7 +2846,7 @@ footer:hover {
 
 /* bird animation */
 
-@keyframes bird {
+/*@keyframes bird {
   40%{
     transform:           rotateZ(2deg) translateX(2px) translateY(10px) translateZ(0);
     -webkit-transform:   rotateZ(2deg) translateX(2px) translateY(10px) translateZ(0);

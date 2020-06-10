@@ -977,7 +977,7 @@ input::-moz-placeholder
 {
     background: rgba(234, 242, 245, 0.62);
     width: 90%;
-    height: 480px;
+    height: 510px;
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
@@ -1043,8 +1043,7 @@ input::-moz-placeholder
 
 .favorite-info
 {
-    padding: 14px;
-    padding-bottom: 22px;
+    padding: 16px;
 }
 
 .favorite-info:hover
