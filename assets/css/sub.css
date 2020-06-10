@@ -700,7 +700,6 @@ a
 {
     background: rgba(234, 242, 245, 0.62);;
     width: 90%;
-    height: 480px;
     margin-top: 70px;
     margin-left: 20px;
     margin-right: 20px;
@@ -766,7 +765,7 @@ a
 
 .favorite-info
 {
-    padding: 18px;
+    padding: 14px;
 }
 
 .favorite-info:hover
