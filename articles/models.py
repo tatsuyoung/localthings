@@ -63,28 +63,39 @@ class Article(models.Model):
                 for orientation in ExifTags.TAGS.keys():
                     if ExifTags.TAGS[orientation] == 'Orientation':
                         break
-                exif = dict(pilImage._getexif().items())
+                e = pilImage._getexif()
+                if e is not None:
+                    exif = dict(e.items())
+                    if exif[orientation] == 3:
+                        pilImage = pilImage.rotate(180, expand=True)
+                    elif exif[orientation] == 6:
+                        pilImage = pilImage.rotate(270, expand=True)
+                    elif exif[orientation] == 8:
+                        pilImage = pilImage.rotate(90, expand=True)
 
-                if exif[orientation] == 3:
-                    pilImage = pilImage.rotate(180, expand=True)
-                elif exif[orientation] == 6:
-                    pilImage = pilImage.rotate(270, expand=True)
-                elif exif[orientation] == 8:
-                    pilImage = pilImage.rotate(90, expand=True)
-
-                output = BytesIO()
-                if pilImage.height > 648 or pilImage.width > 648:
-                    size = (648, 648)
-                    pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                    pilImage_fit.save(output, format='JPEG', quality=70)
-                    output.seek(0)
-                    self.thumb = File(output, self.thumb.name)
-                    self.slug = slugify(self.title)
-                else:
-                    pilImage.save(output, format='JPEG', quality=66)
-                    output.seek(0)
-                    self.thumb = File(output, self.thumb.name)
-                    self.slug = slugify(self.title)
+                    output = BytesIO()
+                    if pilImage.height > 648 or pilImage.width > 648:
+                        size = (648, 648)
+                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                        pilImage_fit.save(output, format='JPEG', quality=70)
+                        output.seek(0)
+                        self.thumb = File(output, self.thumb.name)
+                    else:
+                        pilImage.save(output, format='JPEG', quality=90)
+                        output.seek(0)
+                        self.thumb = File(output, self.thumb.name)
+                elif e is None:
+                    output = BytesIO()
+                    if pilImage.height > 648 or pilImage.width > 648:
+                        size = (648, 648)
+                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                        pilImage_fit.save(output, format='JPEG', quality=70)
+                        output.seek(0)
+                        self.thumb = File(output, self.thumb.name)
+                    else:
+                        pilImage.save(output, format='JPEG', quality=90)
+                        output.seek(0)
+                        self.thumb = File(output, self.thumb.name)
         except(AttributeError, KeyError, IndexError):
             pass
 
