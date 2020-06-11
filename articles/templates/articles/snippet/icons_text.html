@@ -1,6 +1,7 @@
  <div class="articles-icon">
-  {% if article.total_likes or article.comments.count %}
+
     <ul class="articles-icon-box">
+    {% if article.total_likes or article.comments.count %}
         <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
             <div class="articles-icon-wrapper">
                 {% if article.total_likes %}
@@ -22,7 +23,7 @@
                {% endif %}
            </div>
         </li>
-
+    {% endif %}
          <li class="icon-items">
            <div class="articles-icon-wrapper">
               {% if request.user == article.author or request.user.is_superuser %}
@@ -38,5 +39,4 @@
            </div>
         </li>
     </ul>
- {% endif %}
 </div>
