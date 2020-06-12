@@ -74,8 +74,8 @@ class Article(models.Model):
                         pilImage = pilImage.rotate(90, expand=True)
 
                     output = BytesIO()
-                    if pilImage.height > 648 or pilImage.width > 648:
-                        size = (648, 648)
+                    if pilImage.height > 598 or pilImage.width > 598:
+                        size = (598, 598)
                         pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
                         pilImage_fit.save(output, format='JPEG', quality=70)
                         output.seek(0)
@@ -86,8 +86,8 @@ class Article(models.Model):
                         self.thumb = File(output, self.thumb.name)
                 elif e is None:
                     output = BytesIO()
-                    if pilImage.height > 648 or pilImage.width > 648:
-                        size = (648, 648)
+                    if pilImage.height > 598 or pilImage.width > 598:
+                        size = (598, 598)
                         pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
                         pilImage_fit.save(output, format='JPEG', quality=70)
                         output.seek(0)
