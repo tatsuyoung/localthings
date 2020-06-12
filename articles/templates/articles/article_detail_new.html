@@ -66,6 +66,7 @@
                    <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
                         <i class="fas fa-search"></i>
                         <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
+                        <label for="search"></label>
                     </form>
                 </div>
             </div>

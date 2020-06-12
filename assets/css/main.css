@@ -198,10 +198,6 @@ a
     line-height: normal ;
 }
 
-.mobile-search input[type="text"]::-webkit-input-placeholder
-{
-    line-height: -50%;
-}
 
 .mobile-search-input{
     width: 100%;
