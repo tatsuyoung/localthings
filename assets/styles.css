@@ -2402,7 +2402,7 @@ blockquote span{
 
 /* article delete button */
 
-/*.article_delete{
+.article_delete{
     display:               block;
     position:           relative;
     width:                  57px;
@@ -2460,7 +2460,7 @@ blockquote span{
   }
 
 
-.ordered{
+/*.ordered{
     width:                  35px;
     height:                 35px;
     border-radius:           50%;
