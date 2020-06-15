@@ -2,38 +2,41 @@
 {% load widget_tweaks %}
 {% block title %}Create Article{% endblock %}
 {% block content %}
-
+<h1>Create an Awesome New Article</h1>
 <div class="form-wrapper">
-    <h1>Create an Awesome New Article</h1>
+    <h2>Create</h2>
     <form class="site-form-new" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data" id="form">
         {% csrf_token %}
         <div class="form-item">
-                <label for="id_title"></label>
-                <input type="text" name="title" placeholder="Title" maxlength="30" required="required" id="id_title">
-                <p class="helptext">{{ form.title.help_text }}</p>
-                {% for error in form.title.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+            <label for="id_title"></label>
+            <input type="text" name="title" placeholder="Title" maxlength="30" required="required" id="id_title">
+            <p class="helptext">{{ form.title.help_text }}</p>
+            {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
+
         <div class="form-item">
             <label for="id_body"></label>
-                <textarea name="body" placeholder="Article" cols="40" rows="10" required="required" id="id_body"></textarea>
-                <small><p class="helptext">{{ form.body.help_text }}</p></small>
-                {% for error in form.body.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+            <textarea name="body" placeholder="Article" cols="40" rows="10" required="required" id="id_body"></textarea>
+            <small><p class="helptext">{{ form.body.help_text }}</p></small>
+            {% for error in form.body.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
+
         <div class="form_group">
-                <div id="input-group">
-                    <input type="file" name="thumb" accept="image/*" id="01"/>
-                    <label for="01" id="input-label">UpLoad
-                        <i class="fas fa-camera-retro"></i>
-                    </label>
-                    {% for error in form.thumb.errors %}
-                    <span class="helptext">{{ error }}</span>
-                    {% endfor %}
-                </div>
+            <div id="input-group">
+                <input type="file" name="thumb" accept="image/*" id="01"/>
+                <label for="01" id="input-label">UpLoad
+                    <i class="fas fa-camera-retro"></i>
+                </label>
+                {% for error in form.thumb.errors %}
+                <span class="helptext">{{ error }}</span>
+                {% endfor %}
+            </div>
         </div>
+
          <div class="form-item">
            <div class="category_wrapper">
                 <select name="category" id="id_category"  class="category_form" required="">
@@ -46,25 +49,28 @@
                 <span class="category_select_bar"></span>
                 <label for="id_category" class="category_select_label">Category</label>
 
-                </select>
+
                 <small><p class="helptext">{{ form.category.help_text }}</p></small>
                 {% for error in form.category.errors %}
                 <span>{{ error }}</span>
                 {% endfor %}
            </div>
         </div>
+
         <div class="form-item">
             <label for="id_slug"></label>
-                <input type="text" name="slug" placeholder="Slug Automatic input" maxlength="50" required="required" id="id_slug" value="">
-                <p class="helptext">{{ form.slug.help_text }}</p>
-                {% for error in form.slug.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+            <input type="text" name="slug" placeholder="Slug Automatic input" maxlength="50" required="required" id="id_slug" value="">
+            <p class="helptext">{{ form.slug.help_text }}</p>
+            {% for error in form.slug.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
+
         <div class="button-panel">
             <input type="submit" value="Create" class="button-new-color" onclick="return confirm('Are you sure with the content of this article?');">
         </div>
     </form>
+
     <div class="form-footer">
         <div class="site-form-new">
             <div class="p_container">
@@ -76,9 +82,13 @@
                 </div>
             </div>
         </div>
-         <p><a href="{% url 'home' %}">Home</a></p>
+        <p>
+            <a href="{% url 'home' %}">Home</a>
+        </p>
     </div>
+
 </div>
+
 <script src="/static/js/slugify.js"></script>
 <script src="/static/js/thumb.js"></script>
 <script src="/static/js/progress.js"></script>
