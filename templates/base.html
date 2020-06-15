@@ -53,7 +53,7 @@
             {% if user.is_authenticated %}
             <a href="{% url 'articles:users_detail' user.pk %}">
                 <div class="mobile-profile-container">
-                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
                 </div>
             </a>
             {% else %}

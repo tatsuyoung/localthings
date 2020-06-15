@@ -28,7 +28,7 @@
             <div class="mobile-nav-top-link">
             <a href="{% url 'articles:users_detail' user.pk %}">
                 <div class="mobile-profile-container">
-                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="{{ user.username }} Avatar" loading="lazy">
                 </div>
             </a>
             </div>
@@ -74,7 +74,7 @@
                             <ul class="following-articles">
                                 <li class="articles-item">
                                     <a href="{% url 'accounts:profile_detail' article.author.username %}">
-                                        <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
+                                        <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
                                     </a>
                                 </li>
                                 <li class="articles-item">
@@ -183,7 +183,7 @@
                             <ul class="users-box">
                                 <li class="users-items">
                                     <a href="{% url 'accounts:profile_detail' user.user %}">
-                                        <img src="{{ user.user.profile.image.url }}" alt="following-avatar">
+                                        <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }} Avatar" loading="lazy">
                                     </a>
                                 </li>
                                 <li class="users-items">

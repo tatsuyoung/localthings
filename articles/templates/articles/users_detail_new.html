@@ -28,7 +28,7 @@
             <div class="mobile-nav-top-link">
             <a href="#">
                 <div class="mobile-profile-container">
-                    <img src="{{ user.profile.image.url }}" class="profile-pic">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="{{ user.username }} Avatar" loading="lazy">
                 </div>
             </a>
             </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="profile-description">
                     <a href="{% url 'accounts:profile_detail' user %}">
-                        <img src="{{ user.profile.image.url }}" alt="avatar">
+                        <img src="{{ user.profile.image.url }}" alt="{{ user.username }} Avatar" loading="lazy">
                     </a>
                     <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
                     <div class="profile-name">
@@ -117,7 +117,7 @@
                             <ul class="following-articles">
                                 <li class="articles-item">
                                     <a href="{% url 'accounts:profile_detail' article.author.username %}">
-                                        <img src="{{ article.author.profile.image.url }}" alt="following-avatar">
+                                        <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }}avatar" loading="lazy">
                                     </a>
                                 </li>
 
@@ -219,7 +219,7 @@
                                 </a>
                             </div>
                             <div class="favorite-thumb">
-                                <img src="{{ favorite.thumb.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                                <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
                             </div>
                         </div>
                         {% endfor %}
@@ -240,7 +240,7 @@
                             <ul class="users-box">
                                 <li class="users-items">
                                     <a href="{% url 'accounts:profile_detail' user.user %}">
-                                        <img src="{{ user.user.profile.image.url }}" alt="following-avatar">
+                                        <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }} Avatar" loading="lazy">
                                     </a>
                                 </li>
                                 <li class="users-items">
