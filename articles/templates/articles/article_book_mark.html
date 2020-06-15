@@ -1,7 +1,6 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
 {% block title %}Book Mark{% endblock %}
 {% block content %}
-<h1>My Book Mark</h1>
 <div class="swiper">
 
     <div class="swiper-container">
@@ -31,8 +30,6 @@
         <div class="swiper-pagination"></div>
     </div>
 </div>
-<div class="global-footer"></div>
-{% include 'snippet/sub_nav.html' %}
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script src="/static/js/swiper.js"></script>
 {% endblock %}

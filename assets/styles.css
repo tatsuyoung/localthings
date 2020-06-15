@@ -1233,7 +1233,7 @@ nav button{
 .article_detail_author_container{
     margin:                  0;
     padding:              16px;
-    }
+    }*/
 
 .article_detail_author_img{
     background:       #eeeeee;
@@ -1247,7 +1247,7 @@ nav button{
     z-index:                1;
     }
 
-.article_detail_author_username{
+/*.article_detail_author_username{
     margin:                 0;
     position:        relative;
     float:               left;
@@ -3750,7 +3750,7 @@ ul{
 
 /* swiper */
 
-.swiper{
+/*.swiper{
     display:                       flex;
     justify-content:             center;
     align-items:                 center;
@@ -3828,4 +3828,4 @@ ul{
 .swiper-wrapper h4{
     margin:                0 auto;
     font-size:               20px;
-    }
+    }*/

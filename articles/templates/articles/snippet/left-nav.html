@@ -52,7 +52,8 @@
 <!--                            </a>-->
 <!--                        </div>-->
 <!--                    </li>-->
-    {% else %}
+    {% endif %}
+
     <li>
         <div class="icon-circle">
             <a href="{% url 'articles:gallery' %}" class="icon-link">
@@ -62,7 +63,7 @@
             </a>
         </div>
     </li>
-    {% endif %}
+
     {% if user.is_authenticated %}
     <li>
         <div class="icon-circle">

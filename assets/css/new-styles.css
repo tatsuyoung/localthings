@@ -1,0 +1,530 @@
+:root
+{
+    --main-color: #00acee;
+    --hover-color:rgba(29, 161, 242, 0.07);
+}
+
+*, *::before, *::after
+{
+     box-sizing: border-box;
+}
+
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body
+{
+    font-family: Arial, "ヒラギノ角ゴ Pro W3",
+                        "Hiragino Kaku Gothic Pro",
+                         Osaka,
+                         メイリオ,
+                         Meiryo,
+                         "ＭＳ Ｐゴシック",
+                          "MS PGothic",
+                          sans-serif;
+}
+
+ul
+{
+    list-style: none ;
+}
+
+a
+{
+    text-decoration: none ;
+}
+
+.container
+{
+    max-width: 1000px;
+    margin: auto ;
+    display:flex;
+}
+
+.global-tag
+{
+    text-align:center ;
+    margin-bottom: 20px;
+}
+
+
+/* mobil header */
+
+.mobil-nav-wrapper
+{
+    position: fixed ;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display: flex ;
+    overflow-x: auto ;
+    z-index: 2;
+    justify-content: space-between ;
+    transition: transform 0.4s;
+}
+
+
+.mobile-nav-top-link
+{
+    display: flex ;
+    flex-direction: column ;
+    align-items: center ;
+    justify-content: center ;
+    /*flex-grow: 1;*/
+    min-width: 50px;
+    overflow: hidden ;
+    white-space: nowrap ;
+    color: gray;
+    text-decoration: none ;
+    -webkit-tap-highlight-color:transparent ;
+    transition: background-color 0.1s ease-in-out ;
+}
+
+.mobile-profile-container img
+{
+    border-radius:50%;
+    width:30px;
+    height:30px;
+}
+
+.mobile-profile-container
+{
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+}
+
+.mobile-wrapper_circle
+{
+    font-family: 'Baloo Paaji 2', cursive;
+    height:30px;
+    width:30px;
+    border-radius:50%;
+    z-index:1;
+    position:relative;
+    background:var(--main-color);
+}
+
+.mobile-logo_1
+{
+    position:absolute;
+    font-size:26px;
+    color: #fff;
+    transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    top: -13px;
+
+}
+
+.mobile-logo_2
+{
+    position:absolute;
+    font-size:26px;
+    color: #fff;
+    transform: translateX(110%) ;
+    -webkit-transform: translateX(110%);
+    top: 1px;
+}
+
+
+
+.mobile-nav-top-link button
+{
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.mobile-nav-top-link button i
+{
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--main-color);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 1px #fff;
+}
+
+
+/* left style */
+
+.left
+{
+    /* background: beige ;*/
+    float: left;
+    width: 10%;
+    height:auto;
+}
+
+
+/* center style */
+
+.center
+{
+    width: 80%;
+    float: left ;
+}
+
+.center-header
+{
+    display: flex ;
+    padding-top: 10px;
+}
+
+.header-return
+{
+    padding: 10px;
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative ;
+}
+
+.header-return a
+{
+    color: var(--main-color);
+}
+
+.header-return i
+{
+    position: absolute ;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%) ;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+.header-return:hover
+{
+    background:var(--hover-color);
+}
+
+.header-name
+{
+    margin-left: 20px;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+}
+
+
+
+/* right style */
+
+.right
+{
+    /*background: ghostwhite;*/
+    width: 10%;
+    height: auto;
+    display: flex ;
+    float:right;
+}
+
+
+/* content */
+
+/* swiper */
+
+.swiper{
+    display:                       flex;
+    justify-content:             center;
+    align-items:                 center;
+    padding-top:                   80px;
+    padding-bottom:80px;
+    }
+
+.swiper-card{
+    background:          #fafafa;
+    margin:               0 auto;
+    padding:                   0;
+    max-width:              100%;
+    position:           relative;
+    height:                463px;
+    }
+
+.swiper-card .sliderContent{
+    width:                  100%;
+    padding:                10px;
+    box-sizing:       border-box;
+    position:           relative;
+    bottom:                 20px;
+    text-align:             left;
+    margin-left:             6px;
+    }
+
+.swiper-card .sliderContent a{
+    display:        inline-block;
+    margin:             10px 0 0;
+    padding:           10px 20px;
+    text-decoration:        none;
+    border:    2px solid #32373c;
+    color:               #32373c;
+    font-weight:             600;
+    position:           relative;
+    top:                    20px;
+    }
+
+.sliderUsername{
+    color:                  #eee;
+    text-align:           center;
+    position:           relative;
+    bottom:                 50px;
+    font-weight:             400;
+    margin:                    0;
+    padding:                   0;
+    }
+
+.swiper-card .sliderText{
+    position:           relative;
+    width:                  100%;
+    height:                200px;
+    display:                flex;
+    justify-content:      center;
+    align-items:          center;
+    background:          #32373c;
+    }
+
+.swiper-card .sliderText h3{
+    color:                  #eee;
+    font-size:              23px;
+    text-align:           center;
+    }
+
+.swiper-slide{
+    width:                  100%;
+    background:             #eee;
+    }
+
+.swiper-container {
+    width:                  370px;
+    height:                 463px;
+    }
+
+.swiper-wrapper h4{
+    margin:                0 auto;
+    font-size:               20px;
+    }
+
+
+/* profile card */
+
+.user_profile_card {
+  box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
+    0 6.7px 5.3px rgba(0,0,0,.028),
+    0 12.5px 10px rgba(0,0,0,.035),
+    0 22.3px 17.9px rgba(0,0,0,.042),
+    0 41.8px 33.4px rgba(0,0,0,.05),
+    0 100px 80px rgba(0,0,0,.07);
+  max-width:                           300px;
+  margin:                               auto;
+  margin-bottom:                       180px;
+  text-align:                         center;
+  position:                         relative;
+  top:                                  80px;
+  word-wrap:                      break-word;
+    }
+
+.user_profile_card h3{
+    font-family:                'Cinzel', serif;
+    font-size:                            2.1em;
+    }
+
+.user_profile_card ul{
+    font-size:               0;
+    margin:               10px;
+    }
+
+.user_profile_card li{
+    display:        inline-block;
+    padding:                   0;
+    margin:                    0;
+    color:                  gray;
+    font-family:          'lato';
+    font-size:              12px;
+    width:                   35%;
+    text-transform:    uppercase;
+    }
+
+.user_profile_bio {
+  color:                        grey;
+  font-size:                    14px;
+  line-height:                  1.75;
+  letter-spacing:             0.05em;
+  text-align:                   left;
+  margin-left:                   6px;
+    }
+
+.user_profile_btn {
+  font-family:    'lato';
+  border:           none;
+  outline:             0;
+  display:  inline-block;
+  padding:           8px;
+  color:           white;
+  background-color: #000;
+  text-align:     center;
+  cursor:        pointer;
+  width:            100%;
+  font-size:        18px;
+    }
+
+.user_profile_btn_unfollow {
+  font-family:    'lato';
+  border:           none;
+  outline:             0;
+  display:  inline-block;
+  padding:           8px;
+  color:           white;
+  background-color: tomato;
+  text-align:     center;
+  cursor:        pointer;
+  width:            100%;
+  font-size:        18px;
+    }
+
+.user_profile_website{
+    padding:        12px;
+    }
+
+.user_profile_website a {
+  text-decoration:  none;
+  font-size:        12px;
+    }
+
+.user_profile_btn:hover {
+  opacity:           0.7;
+  }
+
+.user_profile_btn_unfollow:hover{
+  opacity:           0.7;
+    }
+
+
+
+
+
+/* mobile nav */
+
+.mobile-nav
+{
+    position: fixed ;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display: flex ;
+    overflow-x: auto ;
+}
+
+.mobile-nav-link
+{
+    display: flex ;
+    flex-direction: column ;
+    align-items: center ;
+    justify-content: center ;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden ;
+    white-space: nowrap ;
+    color: gray;
+    text-decoration: none ;
+    -webkit-tap-highlight-color:transparent ;
+    transition: background-color 0.1s ease-in-out ;
+}
+
+.mobile-nav-icon
+{
+    font-size: 26px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 1px #fff;
+}
+
+.mobile-nav-icon:hover
+{
+    color: var(--main-color);
+}
+
+.mobile-nav-icon:active
+{
+    color: var(--main-color);
+}
+
+.mobile-nav .live_notify_badge
+{
+    font-size: 10px;
+}
+
+.number{
+    background:  #00acee;
+    display: flex ;
+    justify-content: center ;
+    align-items: center ;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    position: absolute ;
+    transform: translateX(67%) translateY(-150%);
+     -webkit-transform: translateX(67%) translateY(-150%);
+    z-index: 1;
+}
+
+/* global footer */
+
+.global-footer{
+    margin:     100px auto;
+    }
+
+/* @media */
+
+@media (max-width: 600px)
+{
+    .left
+    {
+        display: none ;
+    }
+    .right
+    {
+        display: none ;
+    }
+    .center
+    {
+        width: 100%;
+        margin-top: 60px;
+    }
+    .mobile-nav
+    {
+        z-index: 1;
+    }
+    .user_profile_card
+    {
+        box-shadow: none ;
+    }
+}
+
+@media (min-width: 600px)
+{
+    .mobil-nav-wrapper
+    {
+        display:none;
+    }
+    .mobile-nav
+    {
+        display:none;
+    }
+}
+
