@@ -520,7 +520,7 @@ a
     0 22.3px 17.9px rgba(0,0,0,.042),
     0 41.8px 33.4px rgba(0,0,0,.05),
     0 100px 80px rgba(0,0,0,.07);
-  max-width:                           320px;
+  max-width:                           380px;
   margin:                               auto;
   margin-bottom:                       180px;
   text-align:                         center;
@@ -1217,6 +1217,14 @@ input[type="file"]{
     margin:     100px auto;
     }
 
+/* ios button  reset */
+
+.site-form-new input[type=submit],
+.site-form input[type=submit] {
+    -webkit-appearance: none;
+     border-radius:        0;
+    }
+
 /* @media */
 
 @media (max-width: 600px)
@@ -1241,6 +1249,7 @@ input[type="file"]{
     .user_profile_card
     {
         box-shadow: none ;
+        width:100%;
     }
     .form-wrapper
     {
