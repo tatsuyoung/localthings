@@ -1,37 +1,53 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
 {% block title %}{{ user }} post list{% endblock %}
 {% block content %}
 
-<div class="profile-container">
-    <div class="profile-new">
-        <div class="profile-new-image">
-            <a href="{% url 'accounts:profile_detail' user %}">
-                <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover"/>
-            </a>
-        </div>
+<div class="profile-bg">
+    <div class="background-img">
 
-        <div class="profile-new-info">
-            <div class="profile-new-info-top">
-                <h3>{{ user }}</h3>
-            </div>
-            <div class="profile-new-info-center">
-                <span>Posts <strong>{{ count }}</strong></span>
-                <span>Followers <strong>{{ followers }}</strong></span>
-                <span>Following <strong>{{ following }}</strong></span>
-            </div>
-            <div class="profile-new-info-bottom">
-                {% if bio %}
-                <p>{{ bio }}</p>
-                {% endif %}
-                {% if website %}
-                <a href="{{ website }}">{{ website }}</a>
-                {% endif %}
-            </div>
-        </div>
     </div>
- </div>
+</div>
 
- <div class="container-all-post">
+<div class="profile-description">
+    <a href="{% url 'accounts:profile_detail' user %}">
+        <img src="{{ user.profile.image.url }}" alt="{{ user.username }} Avatar" loading="lazy">
+    </a>
+    <a href="{% url 'accounts:profile_detail' user %}" class="edit">フォローする</a>
+    <div class="profile-name">
+    {{ user.username }}
+    </div>
+    <div class="profile-bio">
+    {% if user.profile.bio %}
+        {{ user.profile.bio }}
+    {% endif %}
+    </div>
+    <div class="profile-website">
+        <i class="fas fa-link"></i>
+        {% if user.profile.website %}
+        <a href="{{ user.profile.website }}">
+            {{ user.profile.website }}
+        </a>
+        {% endif %}
+    </div>
+    <div class="info-wrapper">
+        <ul class="info-box">
+            <li class="following-info">
+                <a href="{% url 'accounts:is_following' user.username%}">
+                    <strong>{{ user.is_following.all.count }}</strong>
+                    <span>フォロー中</span>
+                </a>
+            </li>
+            <li class="followers-info">
+                <a href="{% url 'accounts:followers' user.username%}">
+                    <strong>{{ user.profile.followers.all.count }}</strong>
+                    <span>フォロワー</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-all-post">
     <section class="listPost">
         {% for article in articles %}
         {% if article.thumb != 'No-image.png' %}
@@ -90,4 +106,5 @@
     </ul>
 </div>
 {% endif %}
+
 {% endblock %}

@@ -13,7 +13,7 @@ from django.core.files import File
 class Article(models.Model):
     title = models.CharField(max_length=30)
     slug = models.SlugField()
-    body = models.TextField('Article', blank=False, help_text='Titleまたは、Articleに地域名等を入れると検索し易くなります。')
+    body = models.TextField('Article', blank=False, help_text='')
     date = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     thumb = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')

@@ -1,5 +1,6 @@
 {% load static %}
 {% load widget_tweaks %}
+{% load notifications_tags %}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -29,13 +30,6 @@
          <link rel="manifest" href="{% static 'manifest.json' %}">
         <!--  Google Search Console   -->
         <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
-        <!--  twitter card   -->
-         <meta name="twitter:card" content="summary_large_image" />
-         <meta name="twitter:site" content="@{{ article.author.username }}" />
-         <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-         <meta property="og:title" content="{{ article.title }}" />
-         <meta property="og:description" content="{{ article.snippet }}" />
-         <meta property="og:image" content="{{ article.thumb.url }}" />
         <!--  Font Awesome      -->
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <!--  Google Fonts      -->
@@ -46,6 +40,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- Swiper -->
         <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+        <!-- notifications live -->
+        <!--  <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>  -->
     </head>
     <body>
         <header id="nav" class="mobil-nav-wrapper">
@@ -113,7 +109,10 @@
         {% include 'articles/snippet/mobile-nav-footer.html' %}
 
         <script src="/static/js/app.js"></script>
+        <script src="/static/js/scroll.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
+        <!--  <script src="/static/js/notification.js"></script>  -->
+        <!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
 
     </body>
 </html>
