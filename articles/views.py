@@ -246,6 +246,9 @@ class UserPostListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
+        users = Profile.objects.all().order_by('?')[:4]
+        articles_list = Article.objects.all().order_by('-date')
+        order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
         context = super().get_context_data(**kwargs)
         context.update({
             'user': user,
@@ -253,7 +256,9 @@ class UserPostListView(ListView):
             'followers': user.profile.followers.all().count(),
             'bio': user.profile.bio,
             'website': user.profile.website,
-            'count': user.article_set.all().count()
+            'count': user.article_set.all().count(),
+            'users': users,
+            'order_like_articles': order_like_articles
         })
         articles = Article.objects.filter(author=user).order_by('-date')
         return context

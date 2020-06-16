@@ -1,106 +1,280 @@
-{% extends 'base.html' %}
-{% block title %}{{ user }} post list{% endblock %}
-{% block content %}
+{% load static %}
+{% load notifications_tags %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{{ user }} post list</title>
+        <!--  favicon  -->
+         <link rel="icon" href="{% static 'favicon.ico' %}">
+        <!-- PWA -->
+         <meta name="apple-mobile-web-app-capable" content="yes">
+         <meta name="apple-mobile-web-app-status-bar-style" content="black">
+         <meta name="apple-mobile-web-app-title" content="Local Things">
+         <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+         <meta name="theme-color" content="white">
+         <link rel="manifest" href="{% static 'manifest.json' %}">
+        <!--  Font Awesome      -->
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <!--  Google Fonts      -->
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+        <!--  Load CSS  -->
+        <link rel="stylesheet" href="{% static 'css/users-detail.css' %}">
+    </head>
+    <body>
+        <header id="nav" class="mobil-nav-wrapper">
 
-<div class="profile-bg">
-    <div class="background-img">
-
-    </div>
-</div>
-
-<div class="profile-description">
-    <a href="{% url 'accounts:profile_detail' user %}">
-        <img src="{{ user.profile.image.url }}" alt="{{ user.username }} Avatar" loading="lazy">
-    </a>
-    <a href="{% url 'accounts:profile_detail' user %}" class="edit">フォローする</a>
-    <div class="profile-name">
-    {{ user.username }}
-    </div>
-    <div class="profile-bio">
-    {% if user.profile.bio %}
-        {{ user.profile.bio }}
-    {% endif %}
-    </div>
-    <div class="profile-website">
-        <i class="fas fa-link"></i>
-        {% if user.profile.website %}
-        <a href="{{ user.profile.website }}">
-            {{ user.profile.website }}
-        </a>
-        {% endif %}
-    </div>
-    <div class="info-wrapper">
-        <ul class="info-box">
-            <li class="following-info">
-                <strong>{{ user.is_following.all.count }}</strong>
-                <span>フォロー中</span>
-            </li>
-            <li class="followers-info">
-                <strong>{{ user.profile.followers.all.count }}</strong>
-                <span>フォロワー</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="container-all-post">
-    <section class="listPost">
-        {% for article in articles %}
-        {% if article.thumb != 'No-image.png' %}
-        <a href="{% url 'articles:detail' detail_id=article.id %}" class="articles-post">
-            <div class="post-image">
-                <img src="{{ article.thumb.url }}" alt="{{ article.title }}" loading="lazy"/>
+            <div class="mobile-nav-top-link">
+                <a href="{% url 'home' %}">
+                    <i class="fa fa-home"></i>
+                </a>
             </div>
-            <div class="overlay">
-                <span>
-                    <i class="far fa-heart"></i>
-                    {% if article.total_likes %}
-                    {{ article.total_likes }}
-                    {% endif %}
-                </span>
-                <span>
-                    <i class="far fa-comment"></i>
-                    {% if article.comments.count %}
-                    {{ article.comments.count }}
-                    {% endif %}
-                </span>
+
+            <div class="mobile-nav-top-link">
+                <div class="mobile-nav-top-search">
+                   <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
+                        <i class="fas fa-search"></i>
+                        <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
+                        <label for="search"></label>
+                    </form>
+                </div>
             </div>
-        </a>
-        {% endif %}
-        {% endfor %}
-    </section>
-</div>
 
-{% if is_paginated %}
-<div class="pager">
-    <ul class="pagination">
-    {% if page_obj.has_previous %}
-        <li class="pre"><a class="active" href="?page=1"><span>
-            <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
-        </a></li>
-        <li class="pre"><a class="active" href="?page={{ page_obj.previous_page_number }}"><span>
-            <i class="fa fa-angle-left" aria-hidden="true"></i></span>
-        </a></li>
-    {% endif %}
+            <div class="mobile-nav-top-link">
+                <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </form>
+            </div>
+        </header>
 
-    {% for num in paginator.page_range %}
-        {% if page_obj.number == num %}
-            <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-        <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
-        {% endif %}
-    {% endfor %}
+        <div class="container">
+            <div class="left">
+                <ul>
+                    <li class="logo">
+                        <div class="wrapper_circle">
+                            <a href="{% url 'about' %}">
+                                <h1 class="logo_1">L</h1><h1 class="logo_2">T</h1>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-circle">
+                            <a href="{% url 'home' %}" class="icon-link">
+                                <div class="icon-container">
+                                    <i class="fa fa-home"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-    {% if page_obj.has_next %}
-        <li class="next"><a href="?page={{page_obj.next_page_number }}"><span>
-            <i class="fa fa-angle-right" aria-hidden="true"></i></span>
-        </a></li>
-        <li class="next"><a href="?page={{ page_obj.paginator.num_pages }}"><span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
-        </a></li>
-    {% endif %}
-    </ul>
-</div>
-{% endif %}
+            <div class="center" id="main">
+                <div class="center-header">
+                    <div class="header-return">
+                        <a href="{% url 'home' %}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                    <div class="header-name">
+                       <h2>{{ user }}</h2>
+                        <span>{{ count }} Create</span>
+                    </div>
+                </div>
+                <div class="profile-bg">
+                    <div class="background-img">
+<!--                        <img src="{% static 'icon-512x512.png' %}" alt="background-img">-->
+                    </div>
+                </div>
+                <div class="profile-description">
+                    <a href="{% url 'accounts:profile_detail' user %}">
+                        <img src="{{ user.profile.image.url }}" alt="{{ user.username }} Avatar" loading="lazy">
+                    </a>
+                    <a href="{% url 'accounts:profile_detail' user %}" class="edit">フォローする</a>
+                    <div class="profile-name">
+                    {{ user }}
+                    </div>
+                    <div class="profile-bio">
+                    {% if bio %}
+                    {{ bio }}
+                    {% endif %}
+                    </div>
+                    <div class="profile-website">
+                        <i class="fas fa-link"></i>
+                        {% if website %}
+                            <a href="{{ user.profile.website }}">
+                            {{ website }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="info-wrapper">
+                        <ul class="info-box">
+                            <li class="following-info">
+                                <strong>{{ following }}</strong>
+                                <span>フォロー中</span>
+                            </li>
+                            <li class="followers-info">
+                                <strong>{{ followers }}</strong>
+                                <span>フォロワー</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-{% endblock %}
+                <div class="article-wrapper">
+
+                    <article class="following-feed">
+                        {% for article in articles %}
+                        <div class="following-feed-wrapper">
+                            <ul class="following-articles">
+                                <li class="articles-item">
+                                    <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }}avatar" loading="lazy">
+                                </li>
+
+                                <li class="articles-item">
+                                    <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
+                                </li>
+                            </ul>
+                            <div class="articles-thumb">
+                                {% if article.thumb != 'No-image.png' %}
+                                <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="articles-description">
+                                <h4>{{  article.title  }}</h4>
+                                <p>{{ article.snippet }}
+                                    <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                    <small>続きを読む</small>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="articles-icon">
+                                <ul class="articles-icon-box">
+                                    <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                                        <div class="articles-icon-wrapper">
+                                            <div class="articles-hover heart-circle">
+                                                <a href="{% url 'articles:users_detail_like' article.pk %}">
+                                                    <i class="far fa-heart liked_heart"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="articles-sum">
+                                                {% if article.total_likes %}
+                                                <span>{{ article.total_likes }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="icon-items">
+                                        <div class="articles-icon-wrapper">
+                                            <div class="articles-hover">
+                                                <a href="{% url 'articles:users_detail_comments' article.pk %}">
+                                                    <i class="far fa-comment "></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="articles-sum">
+                                                {% if article.comments.count %}
+                                                <span>{{ article.comments.count }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="global-tag">
+                            <h3>まだ投稿はありません。</h3>
+                        </div>
+                        {% endfor %}
+                    </article>
+                </div>
+                {% include 'accounts/snippet/pagination.html' %}
+                <div class="global-footer"></div>
+            </div>
+
+
+            <div class="right">
+                <div class="right-wrapper">
+                    <div class="favorite-articles">
+                        <div class="favorite-title">
+                            <h3>おすすめアーティクル</h3>
+                        </div>
+                        {% for favorite in order_like_articles %}
+                        <div class="favorite-wrapper">
+                            <div class="favorite-items">
+                                {% if favorite.category != None %}
+                                <span class="favorite-category">
+                                    {{ favorite.category }}
+                                </span>
+                                {% endif %}
+                                <a href="{% url 'articles:detail' detail_id=favorite.id %}">
+                                    <span>{{ favorite.title | truncatechars_html:10 }}</span>
+                                </a>
+                            </div>
+                            <div class="favorite-thumb">
+                                <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="favorite-info">
+                            <a href="{% url 'articles:ordered_by_likes' %}">
+                                <h4>さらに見る</h4>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="users">
+                        <div class="users-title">
+                            <h3>おすすめユーザー</h3>
+                        </div>
+                        {% for user in users %}
+                        {% if request.user != user.user %}
+                        <div class="users-wrapper">
+                            <ul class="users-box">
+                                <li class="users-items">
+                                    <a href="{% url 'accounts:profile_detail' user.user %}">
+                                        <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }} Avatar" loading="lazy">
+                                    </a>
+                                </li>
+                                <li class="users-items">
+                                    <span>{{ user.user }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="web-info">
+                        <a href="{% url 'about' %}">
+                            <span>利用規約</span>
+                        </a>
+                        <a href="{% url 'privacy-policy' %}">
+                            <span>プライバシーポリシー</span>
+                        </a>
+                        <div class="copyright">
+                            <P>
+                                <i class="far fa-copyright">2020 Local Things</i>
+                            </P>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'articles/snippet/mobile-nav-footer.html' %}
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/scroll.js"></script>
+        <script src="/static/js/mobile-hover.js"></script>
+        <script src="/static/js/mobile-search-box.js"></script>
+    </body>
+</html>
