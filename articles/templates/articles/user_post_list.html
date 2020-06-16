@@ -32,16 +32,12 @@
     <div class="info-wrapper">
         <ul class="info-box">
             <li class="following-info">
-                <a href="{% url 'accounts:is_following' user.username%}">
-                    <strong>{{ user.is_following.all.count }}</strong>
-                    <span>フォロー中</span>
-                </a>
+                <strong>{{ user.is_following.all.count }}</strong>
+                <span>フォロー中</span>
             </li>
             <li class="followers-info">
-                <a href="{% url 'accounts:followers' user.username%}">
-                    <strong>{{ user.profile.followers.all.count }}</strong>
-                    <span>フォロワー</span>
-                </a>
+                <strong>{{ user.profile.followers.all.count }}</strong>
+                <span>フォロワー</span>
             </li>
         </ul>
     </div>
