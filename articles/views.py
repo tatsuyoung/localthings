@@ -245,22 +245,22 @@ class UserPostListView(ListView):
     paginate_by = 24
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        _user = get_object_or_404(User, username=self.kwargs.get('username'))
         users = Profile.objects.all().order_by('?')[:4]
         articles_list = Article.objects.all().order_by('-date')
         order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
         context = super().get_context_data(**kwargs)
         context.update({
-            'user': user,
-            'following': user.is_following.all().count(),
-            'followers': user.profile.followers.all().count(),
-            'bio': user.profile.bio,
-            'website': user.profile.website,
-            'count': user.article_set.all().count(),
+            'User': _user,
+            'following': _user.is_following.all().count(),
+            'followers': _user.profile.followers.all().count(),
+            'bio': _user.profile.bio,
+            'website': _user.profile.website,
+            'count': _user.article_set.all().count(),
             'users': users,
             'order_like_articles': order_like_articles
         })
-        articles = Article.objects.filter(author=user).order_by('-date')
+        articles = Article.objects.filter(author=_user).order_by('-date')
         return context
 
     def get_queryset(self):
