@@ -451,6 +451,8 @@ a
     border-top: 1px solid #C0C0C0;
     border-right: 1px solid #C0C0C0;
     border-left: 1px solid #C0C0C0;
+    width: 60%;
+    margin: 0 auto ;
 }
 
 .following-feed-wrapper:hover
@@ -1730,6 +1732,10 @@ ul{
     .site-form
     {
         box-shadow:none;
+    }
+    .following-feed-wrapper
+    {
+        width: 100%;
     }
 }
 

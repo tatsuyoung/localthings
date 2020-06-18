@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
 <h1>{{ category.category_name }}</h1>
+<div class="articles-container">
 <div class="article-wrapper">
     <article class="following-feed">
         {% for article in articles %}
@@ -75,6 +76,7 @@
         </div>
         {% endfor %}
     </article>
+</div>
 </div>
 {% include 'accounts/snippet/pagination.html' %}
 <div class="global-footer"></div>
