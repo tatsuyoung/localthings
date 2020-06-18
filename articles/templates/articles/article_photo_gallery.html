@@ -1,4 +1,4 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
 {% block title %}Nice Things{% endblock %}
 {% block content %}
 
@@ -25,13 +25,15 @@
     <div id="gallery" class="container-fluid">
         {% for article in object_list %}
         {% if article.thumb != 'No-image.png' %}
-        <a href="{{ article.thumb.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
-            <img class="card img-responsive" src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-        </a>
-        <div class="link_box">
-            <a href="{% url 'articles:detail' detail_id=article.id %}">
-                <i class="fas fa-link icon-size"></i>
+        <div class="gallery-img-wrapper">
+            <a href="{{ article.thumb.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                <img class="card img-responsive" src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
             </a>
+            <div class="link_box">
+                <a href="{% url 'articles:detail' detail_id=article.id %}">
+                    <i class="fas fa-link icon-size"></i>
+                </a>
+            </div>
         </div>
         {% endif %}
         {% endfor %}
