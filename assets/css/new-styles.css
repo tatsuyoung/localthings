@@ -570,12 +570,14 @@ a
 
 .gallery-img-wrapper
 {
-    height: 140px;
-    background: tomato
+    height: 300px;
+    display: inline-block ;
 }
+
 .card{
     width:            100%;
-    height:           auto;
+    height:           100%;
+    object-fit: cover ;
     }
 
 /* gallery link icon */
