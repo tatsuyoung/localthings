@@ -495,10 +495,9 @@ a
     margin: 14px;
 }
 
-.articles-description h1
+.articles-description h2
 {
     font-size: 1em;
-    text-align: left ;
 }
 
 .articles-description p
