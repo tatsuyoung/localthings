@@ -554,6 +554,7 @@ a
     height: 150px;
     border-radius: 50%;
     border: 5px solid #fff;
+    background: #eee;
 }
 
 
@@ -637,6 +638,7 @@ a
     text-decoration: underline;
 }
 
+/* articles */
 
 .article-wrapper ul li
 {
