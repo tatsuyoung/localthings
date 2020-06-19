@@ -31,7 +31,7 @@
         <!--  Google Search Console   -->
         <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
         <!--  Font Awesome      -->
-        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
         <!--  Google Fonts      -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
         <!--  Load jquery  -->
@@ -69,12 +69,20 @@
             </a>
             </div>
             <div class="mobile-nav-top-link">
+            {% if user.is_authenticated %}
             <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </form>
+            {% else %}
+                <div class="mobile-profile-container">
+                <a href="{% url 'about' %}" id="about">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+                </div>
+            {% endif %}
             </div>
         </header>
 
@@ -94,7 +102,7 @@
                         </a>
                     </div>
                     <div class="header-name">
-                       <h3>戻る</h3>
+                       <h3>{% block headerName %}戻る{% endblock %}</h3>
                     </div>
                 </div>
                 <div class="center-wrapper">

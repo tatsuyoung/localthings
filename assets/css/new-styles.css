@@ -111,6 +111,11 @@ a
     -webkit-text-stroke: 1px #fff;
 }
 
+.mobile-profile-container .fa-info-circle
+{
+    color: var(--main-color) ;
+}
+
 .mobile-wrapper_circle
 {
     font-family: 'Baloo Paaji 2', cursive;
