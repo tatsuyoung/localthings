@@ -171,6 +171,7 @@ a
 
 .mobile-center-name
 {
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 18px;
     font-weight: 900;
     color:rgb(20, 23, 26);
@@ -674,9 +675,10 @@ a
     margin-left:                     -1px;
     }
 
-.category:hover{
-    background: linear-gradient(45deg, #f05a4f, #f4c030);
-    }
+.category:hover
+{
+    opacity: 0.7;
+}
 
 .category h5{
     font-size:            18px;

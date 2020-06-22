@@ -15,9 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>{{ article.title }}</title>
-        <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
-         ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
-         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
+        <meta name="description" content="{{ article.snippet }}"/>
         <!--  favicon  -->
          <link rel="icon" href="{% static 'favicon.ico' %}">
          <!-- PWA -->
