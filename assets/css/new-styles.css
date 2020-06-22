@@ -169,6 +169,13 @@ a
     -webkit-text-stroke: 1px #fff;
 }
 
+.mobile-center-name
+{
+    font-size: 18px;
+    font-weight: 900;
+    color:rgb(20, 23, 26);
+}
+
 
 /* left style */
 
