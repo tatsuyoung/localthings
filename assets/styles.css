@@ -3175,7 +3175,7 @@ ul{
 
 /* categories */
 
-.categories_wrapper{
+/*.categories_wrapper{
     margin:                              0;
     padding:                             0;
     font-family:  "Ubuntu", sans-serif;
@@ -3264,13 +3264,13 @@ ul{
     .category{
         width: 50%;
     }
-}
+}*/
 
 
 
 /* gallery */
 
-#gallery{
+/*#gallery{
   -webkit-column-count:  4;
   -moz-column-count:     4;
   column-count:          4;
@@ -3320,11 +3320,11 @@ ul{
   width:            100%;
   height:           auto;
   margin:       -1% auto;
-    }
+    }*/
 
 /* gallery link icon */
 
-.fa-external-link-alt{
+/*.fa-external-link-alt{
     position:               relative;
     top:                         3px;
     color:                   #eeeeee;
@@ -3340,7 +3340,7 @@ ul{
     position:               relative;
     bottom:                     18px;
     right:                       2px;
-    }
+    }*/
 
 
 /* styling the hamburger button */
@@ -3480,7 +3480,7 @@ ul{
 
 /* profile card */
 
-.user_profile_card {
+/*.user_profile_card {
   box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),
     0 12.5px 10px rgba(0,0,0,.035),
@@ -3569,7 +3569,7 @@ ul{
 
 .user_profile_btn_unfollow:hover{
   opacity:           0.7;
-    }
+    }*/
 
 
 /* notification */
