@@ -1748,7 +1748,10 @@ ul{
     {
         width: 100%;
     }
-
+    .center-header
+    {
+        display: none ;
+    }
 }
 
 @media (min-width: 600px)
