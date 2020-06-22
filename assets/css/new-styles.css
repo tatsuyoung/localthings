@@ -1755,10 +1755,13 @@ ul{
     {
         width: 100%;
     }
+<<<<<<< HEAD
     .center-header
     {
         display: none ;
     }
+=======
+>>>>>>> 869c9ef6c0fce9e2908516d73eae9c97c455fecb
 }
 
 @media (min-width: 600px)
