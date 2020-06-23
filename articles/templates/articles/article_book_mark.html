@@ -2,7 +2,11 @@
 {% block headerName %}ブックマーク{% endblock %}
 {% block title %}Book Mark{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">ブックマーク</p>{% endblock %}
-{% block sideNav %}{% include 'articles/snippet/left-nav.html' %}{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
 {% block content %}
 <div class="swiper">
 

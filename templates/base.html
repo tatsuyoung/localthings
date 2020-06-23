@@ -99,9 +99,11 @@
             <div class="center" id="main">
                 <div class="center-header">
                     <div class="header-return">
+                        {% block headerA %}
                         <a href="{{ request.META.HTTP_REFERER }}">
                             <i class="fas fa-arrow-left"></i>
                         </a>
+                        {% endblock %}
                     </div>
                     <div class="header-name">
                        <h3>{% block headerName %}戻る{% endblock %}</h3>

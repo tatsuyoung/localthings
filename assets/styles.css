@@ -3610,7 +3610,7 @@ ul{
 
 /* notification box */
 
-.notification_wrapper_all{
+/*.notification_wrapper_all{
     margin:                             0;
     padding:                            0;
     box-sizing:                border-box;
@@ -3692,7 +3692,7 @@ ul{
 
 /* notification speech bubble */
 
-.notification_wrapper .drop-down:before{
+/*.notification_wrapper .drop-down:before{
     content:                 "";
     position:          absolute;
     top:                  -30px;
@@ -3704,7 +3704,7 @@ ul{
 
 /* notification button */
 
-.notification_wrapper .drop-down button{
+/*.notification_wrapper .drop-down button{
     padding:          10px;
     width:             49%;
     box-sizing: border-box;
@@ -3739,13 +3739,13 @@ ul{
 
 /* notification message */
 
-.notification_wrapper .drop-down h4{
+/*.notification_wrapper .drop-down h4{
     padding:              16px;
     text-align:         center;
     color:                gray;
     line-height:           1.7;
     letter-spacing:     0.05em;
-    }
+    }*/
 
 
 /* swiper */

@@ -1637,6 +1637,170 @@ ul{
   }
 }
 
+/* notification box */
+
+.article_detail_author_img{
+    background:       #eeeeee;
+    width:               60px;
+    height:              60px;
+    overflow:          hidden;
+    border-radius:        50%;
+    border: 2px solid #eeeeee;
+    position:        relative;
+    top:                  0px;
+    z-index:                1;
+    }
+
+.img-cover{
+    display:         inline;
+    margin:          0 auto;
+    height:            100%;
+    widows:            auto;
+    }
+
+.notification_wrapper_all{
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin:                             0;
+    padding:                            0;
+    box-sizing:                border-box;
+    }
+
+.notification_wrapper{
+    max-width:                      500px;
+    margin:                  0 auto;
+    }
+
+.notification_wrapper .notification_icon{
+    position:      relative;
+    width:             50px;
+    height:            50px;
+    font-size:         32px;
+    margin:          0 auto;
+    text-align:      center;
+    color: var(--main-color);
+    }
+
+.notification_wrapper .drop-down{
+   box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
+    0 6.7px 5.3px rgba(0,0,0,.028),
+    0 12.5px 10px rgba(0,0,0,.035),
+    0 22.3px 17.9px rgba(0,0,0,.042),
+    0 41.8px 33.4px rgba(0,0,0,.05),
+    0 100px 80px rgba(0,0,0,.07);
+    background:          #fafafa;
+    margin:             1em auto;
+    padding:               0 1em;
+    max-width:             370px;
+    position:           relative;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    }
+
+
+.notification_wrapper .drop-down .notify_item{
+    display:                    flex;
+    align-items:              center;
+    padding:                  10px 0;
+    border-bottom: 1px solid #dbdaff;
+    }
+
+
+.notification_wrapper .drop-down .notify_item:last-child{
+    border-bottom: 0px;
+    }
+
+.notification_wrapper .drop-down .notify_item .notify_img{
+    margin-right: 15px;
+    }
+
+.notification_wrapper .drop-down .notify_item .read{
+    width:  70%;
+    color: #bbb;
+    }
+
+.notification_wrapper .drop-down .notify_item .read .notify_time{
+    font-size: 12px;
+    }
+
+.notification_wrapper .drop-down .notify_item .read a{
+    color: #bbb;
+    }
+
+
+.notification_wrapper .drop-down .notify_item .unread{
+    width: 70%;
+    }
+
+.notification_wrapper .drop-down .notify_item .unread a{
+    color: #605dff;
+    }
+
+.notification_wrapper .drop-down .notify_item .unread .notify_time{
+    color:  #c5c5a6;
+    font-size: 12px;
+    }
+
+
+/* notification speech bubble */
+
+.notification_wrapper .drop-down:before{
+    content:                 "";
+    position:          absolute;
+    top:                  -30px;
+    left:                   50%;
+    transform: translateX(-50%);
+    border:          15px solid;
+    border-color: transparent transparent #fafafa transparent
+    }
+
+/* notification button */
+
+.notification_wrapper .drop-down button{
+    padding:          10px;
+    width:             49%;
+    box-sizing: border-box;
+    border:           none;
+    font-size:        16px;
+    font-weight:      bold;
+    margin-top:       20px;
+    cursor:        pointer;
+    }
+
+.notification_wrapper .drop-down button a{
+    text-decoration: none;
+    color:           #fff;
+    }
+
+.notification_wrapper .drop-down button:nth-child(1){
+    background: #F17816;
+    }
+
+.notification_wrapper .drop-down button:nth-child(2){
+    background: #16c4fd;
+    }
+
+.notification_wrapper .drop-down button:hover{
+    background: #605dff;
+    }
+
+.notification_wrapper .drop-down button .fas{
+    font-size:     20px;
+    font-weight:   bold;
+    }
+
+/* notification message */
+
+.notification_wrapper .drop-down h4{
+    padding:              16px;
+    text-align:         center;
+    color:rgb(20, 23, 26);
+    line-height:           1.7;
+    letter-spacing:     0.05em;
+    }
+
+
 
 /* mobile nav */
 
