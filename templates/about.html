@@ -1,4 +1,4 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
 {% block title %}About{% endblock %}
 {% block content %}
 <div class="about">
@@ -7,20 +7,26 @@
             <div class="about_box">
                 <div class="about_content">
                     <span>LOCAL THINGS</span>
-                    <p>Localに恋するSNS</p>
+                    <div class="about-description">
+                        <p>Localに恋するSNS</p>
+                    </div>
                 </div>
             </div>
             <div class="about_box">
                  <div class="about_content">
                     <span>ABOUT</span>
-                    <p>Local Thingsは、"Localeに恋するSNS" というコンセプトの基に作られました。</p>
+                    <div class="about-description">
+                        <p>Local Thingsは、"Localeに恋するSNS" というコンセプトの基に作られました。</p>
+                    </div>
                 </div>
             </div>
             <div class="about_box">
                 <div class="about_content">
                     <span>COLLABORATION</span>
-                    <p>お気軽にお問い合わせ下さい。</p>
-                     <span>
+                    <div class="about-description">
+                        <p>お気軽にお問い合わせ下さい。</p>
+                    </div>
+                    <span>
                         <a href="{% url 'accounts:contact' %}" style="color:#61C359"><small>Contact</small></a>
                     </span>
                 </div>
@@ -28,20 +34,24 @@
             <div class="about_box">
                 <div class="about_content">
                     <span>CONCEPT</span>
-                    <p>" Localに恋するSNS "とは、地域に住んでいる人達が、何気なく見ている景色、何気なく食べているもの、何気なく行なっている事。
-                        その「何気ないもの」をこのSNSを通してみんなで発信してゆく。
-                        「何気ないもの」は、他の誰かにとっては「何気なくないもの」だったりする。
-                        今の時代だからこそ、何気ないものは個の心をギュッと鷲掴みにする。
-                        ギュッとされた人は、その土地を訪れたり、そのものを欲しいと思ったり、その何かを体験したいと想う。
-                        パラパラとしだいに人が増え始めて、キャハキャハと笑顔がじんわりゆっくりと広がってゆく。誰かにとても地域にとっても素敵な事だと思う。
-                        葉の雫たちが湖面に恋するように。
-                    </p>
+                    <div class="about-description">
+                        <p>" Localに恋するSNS "とは、地域に住んでいる人達が、何気なく見ている景色、何気なく食べているもの、何気なく行なっている事。
+                            その「何気ないもの」をこのSNSを通してみんなで発信してゆく。
+                            「何気ないもの」は、他の誰かにとっては「何気なくないもの」だったりする。
+                            今の時代だからこそ、何気ないものは個の心をギュッと鷲掴みにする。
+                            ギュッとされた人は、その土地を訪れたり、そのものを欲しいと思ったり、その何かを体験したいと想う。
+                            パラパラとしだいに人が増え始めて、キャハキャハと笑顔がじんわりゆっくりと広がってゆく。誰かにとても地域にとっても素敵な事だと思う。
+                            葉の雫たちが湖面に恋するように。
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="about_box">
                 <div class="about_content">
                     <span>SPONSORS</span>
-                    <p>準備中ですが、ご興味ある方はContact Pageからお問い合わせいただけれは幸いです。</p>
+                    <div class="about-description">
+                        <p>準備中ですが、ご興味ある方はContact Pageからお問い合わせいただけれは幸いです。</p>
+                    </div>
                     <span>
                         <a href="{% url 'accounts:contact' %}" style="color:#61C359"><small>Contact</small></a>
                     </span>
@@ -50,9 +60,11 @@
             <div class="about_box">
                 <div class="about_content">
                     <span>REQUEST</span>
-                    <p>大分Localとは関係の無い記事は掲載しないで下さい。
-                        例、アルバイトの募集、風俗店の記事、大分県以外の記事等。また、そのような投稿があった場合は、通知をせずに削除致しますのでご了承下さい。
-                    </p>
+                    <div class="about-description">
+                        <p>大分Localとは関係の無い記事は掲載しないで下さい。
+                            例、アルバイトの募集、風俗店の記事、大分県以外の記事等。また、そのような投稿があった場合は、通知をせずに削除致しますのでご了承下さい。
+                        </p>
+                    </div>
                     <span>
                         <a href="{% url 'privacy-policy' %}" style="color:tomato"><small>Privacy Policy</small></a>
                     </span>
@@ -63,12 +75,13 @@
                     <span>PRODUCER</span>
                     <h4>young</h4>
                     <small>2020 March 13</small>
-                    <a href="{% url 'special_thanks' %}"><p>Special Thanks</p></a>
+                    <div class="about-description">
+                        <a href="{% url 'special_thanks' %}"><p>Special Thanks</p></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
      <div class="global-footer"></div>
 </div>
-{% include 'snippet/sub_nav.html' %}
 {% endblock %}
