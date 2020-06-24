@@ -1089,6 +1089,22 @@ a
     }
 }
 
+/* privacy policy */
+
+.privacy h3{
+    text-align:             center;
+    margin:              30px auto;
+    }
+
+.privacy p{
+    width:                     80%;
+    margin:                 0 auto;
+    line-height:               1.5;
+    letter-spacing:         0.05em;
+    font-size:               0.9em;
+    }
+
+
 
 /* site-form */
 
