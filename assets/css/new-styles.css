@@ -1577,10 +1577,15 @@ ul{
   vertical-align:            middle;
     }
 
+.pager .pagination li a
+{
+    color: #333;
+}
+
 .pager .pagination li a:hover,
 .pager .pagination li a.active{
   color:                                #fff;
-  background:                        #dde68e;
+  background:              var(--main-color);
   border-radius:                        10px;
   border-radius:                        50px;
   animation:         animScale 0.4s ease-out;

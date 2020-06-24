@@ -890,7 +890,7 @@ input::-moz-placeholder
 
 .user-comment-text-box p{
     line-height:         1.7;
-    padding:       10px 22px;
+    padding:       10px 2px;
     width:               90%;
     position:       relative;
     word-wrap:    break-word;
@@ -903,11 +903,9 @@ input::-moz-placeholder
 .author-comment-text-box p
 {
    line-height:         1.7;
-    padding:       10px 22px;
+    padding:       10px 2px;
     width:               90%;
-    position:       relative;
     word-wrap:    break-word;
-    text-align: right ;
 }
 
 .comment-delete-btn
@@ -969,9 +967,14 @@ input::-moz-placeholder
 .comment-delete-btn button i
 {
     font-size: 18px;
-    color: #fff
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke: 1px #fff;
+}
+
+.fa-lg
+{
+    color: #fff;
+    cursor: pointer ;
 }
 
 .comment-delete-btn-2 button i
