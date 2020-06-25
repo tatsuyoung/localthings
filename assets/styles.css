@@ -703,11 +703,12 @@ nav button{
     margin:            0 auto;
     }
 
-.profile{
+/*.profile{
     text-align: center;
     }
+/* edit profile */
 
-.profile-circle{
+/*.profile-circle{
     width:            150px;
     height:           150px;
     overflow:        hidden;
@@ -2402,7 +2403,7 @@ blockquote span{
 
 /* article delete button */
 
-.article_delete{
+/*.article_delete{
     display:               block;
     position:           relative;
     width:                  57px;

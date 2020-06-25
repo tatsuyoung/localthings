@@ -1184,7 +1184,7 @@ a
     }
 
 .column_1 input{
-    background-color: #fafafa;
+    background-color: #fff;
     color:            #383838;
     border:               2px solid  #AEC4E5;
     border-radius:        4px;
@@ -1198,7 +1198,7 @@ a
     }
 
 .column_2 textarea{
-    background-color:#fafafa;
+    background-color:#fff;
     color:           #383838;
     border:              2px solid #AEC4E5;
     border-radius:       4px;
@@ -1545,6 +1545,125 @@ a
   transition: width 0.6s ease;
     }
 
+/* edit profile */
+
+.profile{
+    text-align: center;
+    margin-top: 60px;
+    }
+
+.profile-circle{
+    width:            150px;
+    height:           150px;
+    overflow:        hidden;
+    border-radius:      50%;
+    border: 2px solid white;
+    text-align:      center;
+    margin:          0 auto;
+    }
+
+.img-cover{
+    display:         inline;
+    margin:          0 auto;
+    height:            100%;
+    widows:            auto;
+    }
+
+.prof-messages{
+    background:    rgb(132, 200, 126);
+    border-radius:                4px;
+    }
+
+.prof-messages li{
+    font-family: 'Roboto', sans-serif;
+    color:                       #fff;
+    list-style:                  none;
+    margin:                         0;
+    padding:                        0;
+    margin-left:                    0;
+    font-size:                  1.3em;
+    text-align:                center;
+    line-height:                 1.75;
+    letter-spacing:            0.05em;
+    }
+
+.prof-messages ul{
+    margin            0;
+    padding:          0;
+    }
+
+.profile_website{
+    margin:            10px 0;
+    padding:           10px 0;
+    position:        relative;
+    top:                 20px;
+    }
+
+
+/* profile account delete button */
+
+.profile-account-delete{
+    display:               block;
+    position:           relative;
+    width:                  57px;
+    height:                 57px;
+    text-decoration:        none;
+    color:                  var(--main-color);
+    background:          #fff;
+    border-radius:          50%;
+    border:                  1px solid var(--main-color);
+    font-size:              16px;
+    float:                 right;
+    top:                    21px;
+    right:                   6px;
+    z-index:                  11;
+    }
+
+.profile-account-delete i
+{
+    padding-left: 6px;
+}
+
+.profile-account-delete:hover{
+    cursor: pointer;
+    -webkit-align:  profile-account-delete    0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -moz-animation: profile-account-delete-btn 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation:      profile-account-delete-btn 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+@-webkit-keyframes profile-account-delete-btn {
+  0% {
+         -webkit-transform: scale(0.85);
+                 transform: scale(0.85);
+     }
+  100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+       }
+  }
+
+@-moz-keyframes profile-account-delete-btn {
+  0% {
+         -webkit-transform: scale(0.85);
+                 transform: scale(0.85);
+     }
+  100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+       }
+  }
+
+@keyframes profile-account-delete-btn {
+  0% {
+        -webkit-transform: scale(0.85);
+                 transform: scale(0.85);
+     }
+  100% {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+       }
+  }
+
 
 /* social login */
 
@@ -1643,9 +1762,17 @@ a
 
 .form-logout-footer button p
 {
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 400;
     color:  #8c8c8c;
+    transition:     border-color 0.3s;
 }
+
+.form-logout-footer button p:hover
+{
+    border-bottom: 1px dotted #8c8c8c;
+}
+
 
 .form-footer {
   font-size:                    1em;
@@ -1672,7 +1799,7 @@ a
     float:                     left;
     position:              relative;
     top:                        0px;
-    background:             #fafafa;
+    background:             #fff;
     }
 
 .helptext, .helptext ul{
@@ -2152,6 +2279,10 @@ ul{
     .privacy h2
     {
         font-size:16px;
+    }
+    .profile-account-delete
+    {
+       z-index:1;
     }
 }
 
