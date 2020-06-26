@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block headSwiper %}<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">{% endblock %}
 {% block headerName %}ブックマーク{% endblock %}
 {% block title %}Book Mark{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">ブックマーク</p>{% endblock %}
@@ -21,7 +22,7 @@
                         <h3>{{ book_mark.title | truncatechars_html:20 }}</h3>
                     </div>
                     <div class="sliderUsername">
-                         <p>{{ book_mark.author }}</p>
+                        <p>{{ book_mark.author }}</p>
                     </div>
                     <div class="sliderContent">
                         <p>{{ book_mark.snippet }}</p>
@@ -31,7 +32,7 @@
 
             </div>
             {% empty %}
-                <h4>No Book Marks</h4>
+            <h4>No Book Marks</h4>
             {% endfor %}
         </div>
         <div class="swiper-pagination"></div>
