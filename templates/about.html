@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}About{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
 {% block content %}
 <div class="about">
     <div class="about_wrapper">
@@ -13,7 +18,7 @@
                 </div>
             </div>
             <div class="about_box">
-                 <div class="about_content">
+                <div class="about_content">
                     <span>ABOUT</span>
                     <div class="about-description">
                         <p>Local Thingsは、"Localeに恋するSNS" というコンセプトの基に作られました。</p>
@@ -82,6 +87,6 @@
             </div>
         </div>
     </div>
-     <div class="global-footer"></div>
+    <div class="global-footer"></div>
 </div>
 {% endblock %}
