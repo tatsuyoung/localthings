@@ -15,7 +15,7 @@
     </ul>
     <h3>
         <a href="{% url 'articles:user-posts' user.username %}"style="color:#383838">
-        {{ user.username }}
+            {{ user.username }}
         </a>
     </h3>
     <p class="user_profile_bio">
@@ -29,7 +29,7 @@
         {% endif %}
     </p>
     <p>
-    {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
+        {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
     </p>
 </div>
 {% endblock %}

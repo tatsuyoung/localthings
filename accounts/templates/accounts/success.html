@@ -1,6 +1,11 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
 {% block title %}Message has been send{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
 {% block content %}
-<h1>Message has been send</h1><br>
-<p class="password_reset" ><small>messageをお預かり致しました。</small></p>
+<h1>Message has been send</h1>
+<p class="password_reset ja" >メッセージをお預かり致しました。</p>
 {% endblock %}

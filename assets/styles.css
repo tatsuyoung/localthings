@@ -545,9 +545,9 @@ nav li:hover{
     transform:          scale(1,1);
     }
 
-.password_reset{
+/*.password_reset{
     text-align:              center;
-    }
+    }*/
 
 nav button{
     font-family:      'lato';

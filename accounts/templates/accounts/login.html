@@ -3,6 +3,11 @@
 {% block title %}Login{% endblock %}
 {% block headerName %}ログイン{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">ログイン</p>{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
 {% block content %}
 <div class="form-wrapper">
     <h1>Login</h1>
