@@ -177,6 +177,19 @@ a
     color:rgb(20, 23, 26);
 }
 
+/* mobile scroll event */
+
+.scroll-down
+{
+    transform: translate3d(0, -100%, 0);
+    filter: opacity(30%) ;
+}
+
+.scroll-up
+{
+    transform: none;
+}
+
 
 /* left style */
 
@@ -369,7 +382,6 @@ a
 {
     margin-left: 10px;
 }
-
 
 
 /* center style */
