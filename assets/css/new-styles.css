@@ -996,6 +996,91 @@ a
     opacity:           0.7;
     }
 
+/* users follower following */
+
+.users-wrapper
+{
+    margin-top: 60px;
+}
+
+.users-box
+{
+    display: flex ;
+    width: 80%;
+    margin: 0 auto ;
+    border-bottom: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0;;
+    border-left: 1px solid #C0C0C0;
+    padding: 10px;
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    word-wrap: break-word;
+}
+
+.users-box:first-child
+{
+    border-top: 1px solid #C0C0C0;
+}
+
+.users-box:hover
+{
+     background: rgb(245, 248, 250);
+}
+
+.users-item-pic
+{
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+}
+
+.users-item-pic img
+{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.users-items-box
+{
+    width: 100%;
+    display: flex ;
+    justify-content: space-between ;
+    justify-items: center ;
+    align-items: center ;
+}
+
+.users-item-username
+{
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.users-item-btn
+{
+    margin-right: 10px;
+    background: #fff;
+    padding: 6px 16px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border:1px solid var(--main-color)
+}
+
+.users-item-btn:hover
+{
+    background: var(--hover-color);
+}
+
+.users-item-btn p
+{
+    font-size: 15px;
+    color: var(--main-color) ;
+    font-weight: 600;
+}
 
 /* about */
 
@@ -2324,6 +2409,10 @@ ul{
     .form-wrapper
     {
         margin:3em auto;
+    }
+     .users-box
+    {
+        width: 100%;
     }
 }
 

@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}{{ user.username }}'s Profile Card{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
 {% block content %}
-
-
 <div class="user_profile_card">
     <img src="{{ user.profile.image.url }}" alt="Avatar" style="width:100%"/>
     <ul>

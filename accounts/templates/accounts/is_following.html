@@ -1,24 +1,29 @@
-{% extends 'base_layout.html' %}
+{% extends 'base.html' %}
+{% block headerName %}フォロワー中{% endblock %}
 {% block title %} Is Following {% endblock %}
 {% block content %}
-<div class="users_detail">
-    <div>
-        <h2>Is Following</h2>
-    </div>
-    <div class="users_detail_box">
-        {% for following in is_following %}
-        <div class="users_comment_user_img">
-            <a href="{% url 'accounts:profile_detail' following.user %}">
-            <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-            </a>
+<div class="users-wrapper">
+    {% for following in is_following %}
+    <div class="users-box">
+        <div class="users-item-pic">
+             <a href="{% url 'articles:user-posts' following.user %}">
+                <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+             </a>
         </div>
-        <div>
-            <p>{{ following.user }}<small>さん</small></p>
+        <div class="users-items-box">
+            <div class="users-item-username">
+                <p>{{ following.user }}</p>
+            </div>
+            <div class="users-item-btn">
+                <a href="{% url 'accounts:profile_detail' following.user %}">
+                    <p>詳細</p>
+                </a>
+            </div>
         </div>
-        <hr class="hr_border">
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
+
 {% if is_following.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
