@@ -1042,6 +1042,11 @@ a
     margin-right: 10px;
 }
 
+.users-items-wrapper
+{
+    width: 100%;
+}
+
 .users-items-box
 {
     width: 100%;
@@ -1080,6 +1085,17 @@ a
     font-size: 15px;
     color: var(--main-color) ;
     font-weight: 600;
+}
+
+.users-item-text
+{
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    word-wrap: break-word;
+    line-height: 1.3125;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: #333;
 }
 
 /* about */
