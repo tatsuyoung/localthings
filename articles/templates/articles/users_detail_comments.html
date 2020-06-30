@@ -29,6 +29,10 @@
             </div>
         </div>
     </div>
+    {% empty %}
+        <div class="global-tag">
+            <h3>まだコメントはありません。</h3>
+        </div>
     {% endfor %}
 </div>
 {% if comments.has_other_pages %}

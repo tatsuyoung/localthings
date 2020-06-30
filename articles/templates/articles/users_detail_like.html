@@ -21,6 +21,10 @@
             </div>
         </div>
     </div>
+    {% empty %}
+        <div class="global-tag">
+            <h3>まだいいねしたユーザーはいません。</h3>
+        </div>
     {% endfor %}
 </div>
 {% if liked_users.has_other_pages %}
