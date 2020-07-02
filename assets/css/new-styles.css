@@ -1367,6 +1367,34 @@ a
     display:         none;
     }
 
+/* clear */
+
+.clear
+{
+    margin-bottom: 60px;
+}
+
+.clear-input
+{
+    margin-top: 50px;
+    margin-left: 10px;
+}
+
+.clear-label p
+{
+    color: #fff;
+    width: 120px;
+    font-weight: 600;
+    background: var(--main-color);
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+    border-radius: 20px;
+    padding-top: 2px;
+}
+
+
 
 /* Nwe Form Layout */
 
@@ -1706,6 +1734,7 @@ a
 .prof-messages{
     background:    rgb(132, 200, 126);
     border-radius:                4px;
+    margin-top: 20px;
     }
 
 .prof-messages li{
@@ -1967,11 +1996,13 @@ input[type="file"]{
     border:                 2px solid   #AEC4E5;
     border-radius:          4px;
     transition:             .4s;
+    font-weight: 600;
     }
 
 #input-label:hover {
     background:        #6088C6;
     color:                #fff;
+    font-weight: 600;
     }
 
 #input-label::after{
@@ -1980,6 +2011,35 @@ input[type="file"]{
     }
 
 #input-label.changed::after{
+    content:             "";
+    }
+
+/* user background button animation */
+
+#input-label-bg{
+    margin:            8px auto;
+    display:       inline-block;
+    padding:          0.3em 1em;
+    text-decoration:       none;
+    color:              var(--main-color);
+    border:                 2px solid   var(--main-color);
+    border-radius:          4px;
+    transition:             .4s;
+    font-weight: 600;
+    }
+
+#input-label-bg:hover {
+    background:        var(--main-color);
+    color:                #fff;
+    font-weight: 600:
+    }
+
+#input-label-bg::after{
+    content:         "choice";
+    font-size:           12px;
+    }
+
+#input-label-bg.changed::after{
     content:             "";
     }
 

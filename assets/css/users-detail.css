@@ -532,6 +532,13 @@ a
     height: 200px;
 }
 
+.background-img img
+{
+    width: 100%;
+    height: 200px;
+    object-fit: cover ;
+}
+
 
 /*.background-img img
 {

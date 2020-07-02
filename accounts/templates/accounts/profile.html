@@ -40,11 +40,36 @@
                     <div class="icon_helptext">
                         <p class="helptext">{{ p_form.image.help_text }}</p>
                     </div>
-                    {% for error in p_form.errors %}
+                    {% for error in p_form.image.errors %}
                     <span class="helptext">{{ error }}</span>
                     {% endfor %}
                 </div>
             </div>
+
+            <div class="form_group">
+                <label>背景選択</label>
+                <div class="column_3">
+                    <input type="file" name="bg" accept="image/*" id="id_bg">
+                    <label for="id_bg" id="input-label-bg">UpLoad
+                        <i class="far fa-image"></i>
+                    </label>
+                    <div class="icon_helptext">
+                        <p class="helptext">{{ p_form.bg.help_text }}</p>
+                    </div>
+                    <div class="clear">
+                        <div class="clear-input">
+                            <input type="checkbox" name="bg-clear" id="bg-clear_id">
+                        </div>
+                        <div class="clear-label">
+                            <label for="bg-clear_id"><p>背景をクリア</p></label>
+                        </div>
+                    </div>
+                    {% for error in p_form.bg.errors %}
+                    <span class="helptext">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
             <div class="form_group">
                 <div class="column_2">
                     <label>Bio</label>
