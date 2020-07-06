@@ -634,15 +634,16 @@ a
     color: #333;
 }
 
-.following-info:hover
+.following-info a:hover
 {
     text-decoration: underline;
-
+    color: gray;
 }
 
-.followers-info:hover
+.followers-info a:hover
 {
     text-decoration: underline;
+    color:gray;
 }
 
 /* articles */
@@ -698,6 +699,11 @@ a
 .articles-description
 {
     margin: 14px;
+}
+
+.articles-description a
+{
+   color: #333 ;
 }
 
 .articles-description p

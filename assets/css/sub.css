@@ -477,6 +477,11 @@ a
     margin: 14px;
 }
 
+.articles-description a
+{
+   color: #333 ;
+}
+
 .articles-description p
 {
     padding-top: 10px;

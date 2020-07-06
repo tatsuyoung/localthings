@@ -30,11 +30,9 @@
                 </div>
                 <div class="articles-description">
                     <h2>{{  article.title  }}</h2>
-                    <p>{{ article.snippet }}
-                        <a href="{% url 'articles:detail' detail_id=article.id %}">
-                            <small>続きを読む</small>
-                        </a>
-                    </p>
+                    <a href="{% url 'articles:detail' detail_id=article.id %}">
+                        <p>{{ article.snippet }}<small>続きを読む</small></p>
+                    </a>
                 </div>
                 <div class="articles-icon">
                     <ul class="articles-icon-box">

@@ -823,6 +823,11 @@ input::-moz-placeholder
     font-size: 1em;
 }
 
+.articles-description a
+{
+   color: #333 ;
+}
+
 .articles-description p
 {
     padding-top: 10px;
