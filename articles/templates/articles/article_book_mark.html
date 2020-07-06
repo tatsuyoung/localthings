@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% block headSwiper %}<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">{% endblock %}
 {% block headerName %}ブックマーク{% endblock %}
 {% block title %}Book Mark{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">ブックマーク</p>{% endblock %}
@@ -38,6 +37,8 @@
         <div class="swiper-pagination"></div>
     </div>
 </div>
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+{% endblock %}
+{% block script %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/static/js/swiper.js"></script>
 {% endblock %}
