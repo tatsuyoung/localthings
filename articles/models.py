@@ -84,6 +84,8 @@ class Article(models.Model):
                         pilImage.save(output, format='JPEG', quality=90)
                         output.seek(0)
                         self.thumb = File(output, self.thumb.name)
+                elif e is None and self.thumb == 'No-image.png':
+                    pass
                 elif e is None:
                     output = BytesIO()
                     if pilImage.height > 598 or pilImage.width > 598:

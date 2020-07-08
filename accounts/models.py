@@ -78,6 +78,8 @@ class Profile(models.Model):
                         pilImage.save(output, format='JPEG', quality=90)
                         output.seek(0)
                         self.image = File(output, self.image.name)
+                elif e is None and self.image == 'default.png':
+                    pass
                 elif e is None:
                     output = BytesIO()
                     if pilImage.height > 192 or pilImage.width > 192:
