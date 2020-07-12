@@ -80,7 +80,7 @@ class Profile(models.Model):
                         self.image = File(output, self.image.name)
                 if self.image == 'default.png':
                     pass
-                elif e is None:
+                else:
                     output = BytesIO()
                     if pilImage.height > 192 or pilImage.width > 192:
                         size = (192, 192)

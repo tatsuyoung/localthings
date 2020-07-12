@@ -86,7 +86,7 @@ class Article(models.Model):
                         self.thumb = File(output, self.thumb.name)
                 if self.thumb == 'No-image.png':
                     pass
-                elif e is None:
+                else:
                     output = BytesIO()
                     if pilImage.height > 598 or pilImage.width > 598:
                         size = (598, 598)
