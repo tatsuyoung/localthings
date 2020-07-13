@@ -62,7 +62,6 @@ class Profile(models.Model):
                     exif = dict(e.items())
                     output_image = BytesIO()
                     if pilImage.height > 192 or pilImage.width > 192:
-                        print('come')
                         size = (192, 192)
                         pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
                         pilImage_fit.save(output_image, format='JPEG', quality=70)
