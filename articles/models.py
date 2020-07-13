@@ -66,13 +66,20 @@ class Article(models.Model):
                 e = pilImage._getexif()
                 if e is not None:
                     exif = dict(e.items())
+                    output_image = BytesIO()
+                    if pilImage.height > 598 or pilImage.width > 598:
+                        size = (598, 598)
+                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                        pilImage_fit.save(output_image, format='JPEG', quality=70)
+                        output_image.seek(0)
+                        self.thumb = File(output_image, self.thumb.name)
+
                     if exif[orientation] == 3:
                         pilImage = pilImage.rotate(180, expand=True)
                     elif exif[orientation] == 6:
                         pilImage = pilImage.rotate(270, expand=True)
                     elif exif[orientation] == 8:
                         pilImage = pilImage.rotate(90, expand=True)
-
                     output = BytesIO()
                     if pilImage.height > 598 or pilImage.width > 598:
                         size = (598, 598)
@@ -86,7 +93,7 @@ class Article(models.Model):
                         self.thumb = File(output, self.thumb.name)
                 if self.thumb == 'No-image.png':
                     pass
-                else:
+                elif e is None:
                     output = BytesIO()
                     if pilImage.height > 598 or pilImage.width > 598:
                         size = (598, 598)
