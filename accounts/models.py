@@ -113,6 +113,14 @@ class Profile(models.Model):
                 e = pilImage._getexif()
                 if e is not None:
                     exif = dict(e.items())
+                    output_image = BytesIO()
+                    if pilImage.height > 400 or pilImage.width > 400:
+                        size = (400, 400)
+                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
+                        pilImage_fit.save(output_image, format='JPEG', quality=70)
+                        output_image.seek(0)
+                        self.bg = File(output_image, self.bg.name)
+
                     if exif[orientation] == 3:
                         pilImage = pilImage.rotate(180, expand=True)
                     elif exif[orientation] == 6:
