@@ -2056,6 +2056,14 @@ input[type="file"]{
     top:               12px;
     }
 
+.filenameTwo{
+    font-size:         10px;
+    margin:            16px;
+    padding:           10px;
+    position:      relative;
+    top:               12px;
+    }
+
 /* pagination */
 
 ul{

@@ -49,12 +49,14 @@
             <div class="form_group">
                 <label>背景選択</label>
                 <div class="column_3">
+                    <div id="two">
                     <input type="file" name="bg" accept="image/*" id="id_bg">
                     <label for="id_bg" id="input-label-bg">UpLoad
                         <i class="far fa-image"></i>
                     </label>
                     <div class="icon_helptext">
                         <p class="helptext">{{ p_form.bg.help_text }}</p>
+                    </div>
                     </div>
                     <div class="clear">
                         <div class="clear-input">
@@ -114,4 +116,8 @@
     </div>
 </div>
 <div class="global-footer"></div>
+{% endblock %}
+{% block script %}
+<script src="/static/js/profile-image.js"></script>
+<script src="/static/js/profile-bg.js"></script>
 {% endblock %}
