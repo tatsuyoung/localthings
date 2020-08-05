@@ -14,8 +14,8 @@
         </div>
         <div class="drop-down">
             {% if request.user.notifications.all %}
-                <button type="button"><a class="btn-notify-1" href="{% url 'notifications:mark_all_as_read' %}?next={% url 'my_notifications' %}"><i class="fas fa-check"></i> All Read</a></button>
-                <button type="button"><a class="btn-notify-2" href="{% url 'delete_my_read_notifications' %}"><i class="fas fa-trash-alt"></i> All Delete</a></button>
+                <button type="button"><a class="btn-notify-1" href="{% url 'notifications:mark_all_as_read' %}?next={% url 'my_notifications' %}"><i class="fas fa-check"></i> 全て既読にする</a></button>
+                <button type="button"><a class="btn-notify-2" href="{% url 'delete_my_read_notifications' %}"><i class="fas fa-trash-alt"></i> 既読を削除する</a></button>
             {% endif %}
 
             <ul>

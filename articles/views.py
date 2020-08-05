@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
+from notifications.signals import notify
 
 from accounts.models import Profile
 from .models import Article, Comment, Category
@@ -144,10 +145,18 @@ def like_button(request, like_id):
 
         if article.like.filter(id=user.id).exists():
             article.like.remove(user)
-            message = 'いいねを外しました。'
+            message = 'いいねを取り消しました。'
         else:
             article.like.add(user)
+            url = article.get_url()
             message = 'いいねしました。'
+            notify.send(
+                user,
+                recipient=article.author,
+                verb=f'さんが、あなたの記事にいいねしました。{article.title}',
+                action_object=article,
+                url=url
+            )
 
     context = dict(likes_count=article.total_likes, message=message)
     return HttpResponse(json.dumps(context), content_type='application/json')

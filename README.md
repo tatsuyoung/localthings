@@ -80,6 +80,11 @@ Localが好きな皆さん達と面白い事をしたいと思っております
 
 36 - categories                       (Categoryを記事作成時、または編集時に登録できるようになりました。Nice ThingsからCategory別に記事を閲覧できます。)
 
+37 - user background change           (userのedit画面で、背景選択が出来ます。背景をクリアする事も出来ます。)
+
+38 - like notification                (userが記事にいいねすると、記事を書いたuserにお知らせが届きます。)
+
+
 *言語
 
 Python-3.7.3
@@ -97,7 +102,7 @@ Ajax
 
 *フレームワーク
 
-Django2.2.9
+Django2.2.13
 
 *本番環境
 
