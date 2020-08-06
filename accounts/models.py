@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image, ImageOps
+from PIL import ImageOps
 from PIL import Image as Img
 from PIL import ExifTags
 from io import BytesIO
 from django.core.files import File
+from notifications.signals import notify
 
 
 class ProfileManager(models.Manager):
@@ -17,6 +18,12 @@ class ProfileManager(models.Manager):
         else:
             profile_.followers.add(user)
             is_following = True
+            notify.send(
+                user,
+                recipient=profile_.user,
+                verb='さんが、あなたをフォローしました。',
+                action_object=profile_,
+            )
         return profile_, is_following
 
 
