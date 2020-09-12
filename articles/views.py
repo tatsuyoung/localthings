@@ -290,11 +290,12 @@ class Gallery(ListView):
                 num_article=Count('article', filter=Q())
             ),
         })
-        articles = Article.objects.all().order_by('-date')
+        #articles = Article.objects.all().order_by('-date')
         return context
 
     def get_queryset(self):
-        return Article.objects.all().order_by('-date')
+        return Article.objects.exclude(thumb='No-image.png').order_by('-date')
+        #return Article.objects.all().order_by('-date')
 
 
 class ArticleOrderedByLikes(ListView):
