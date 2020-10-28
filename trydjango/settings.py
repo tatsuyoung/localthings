@@ -220,6 +220,7 @@ SECURE_SSL_REDIRECT = True
 # security.W012 DEBUG = True off
 SESSION_COOKIE_SECURE = True
 
+# security.W016, W017 DEBUG = True off
 # security.W016、security.W017
 CSRF_COOKIE_HTTPONLY = True
 
