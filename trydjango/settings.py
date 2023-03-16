@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from typing import List
+
 from decouple import config
 import django_heroku
 
@@ -176,7 +178,7 @@ LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'login'
 
-SITE_ID = 1
+SITE_ID = 2
 
 # page移動だけ
 #EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
