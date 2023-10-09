@@ -87,7 +87,7 @@ Localが好きな皆さん達と面白い事をしたいと思っております
 
 *言語
 
-Python-3.7.13
+Python-3.8.18
 
 
 HTML5
@@ -102,7 +102,7 @@ Ajax
 
 *フレームワーク
 
-Django2.2.28
+Django3.0.2
 
 *本番環境
 
@@ -111,5 +111,5 @@ Heroku
 AWS S3
 
 
-<h2>Twitter</h2>
+<h2>X</h2>
 https://twitter.com/tatsuyoung55
