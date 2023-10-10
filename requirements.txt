@@ -19,6 +19,7 @@ django-notifications-hq==1.5.0
 django-storages==1.7.1
 django-utils-six==2.0
 django-widget-tweaks==1.4.3
+django-widgets-improved==1.5.0
 docutils==0.14
 gunicorn==19.9.0
 idna==2.9
