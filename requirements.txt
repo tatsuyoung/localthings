@@ -1,7 +1,7 @@
 asgiref==3.7.2
 boto3==1.20.34
 botocore==1.23.34
-certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_2emnmf1qow/croot/certifi_1690232232440/work/certifi
+certifi==2023.7.22
 cffi==1.14.0
 chardet==3.0.4
 charset-normalizer==2.0.4
