@@ -1178,8 +1178,8 @@ a
 
 .about_box:nth-child(1)
     {
-    grid-column: :span 2;
-    grid-row:     span 1;
+    grid-column : span 2;
+    grid-row    : span 1;
     }
 .about_box:nth-child(2)
     {
@@ -1756,8 +1756,8 @@ a
     }
 
 .prof-messages ul{
-    margin            0;
-    padding:          0;
+    margin  : 0;
+    padding : 0;
     }
 
 .profile_website{
@@ -1971,10 +1971,10 @@ a
     }
 
 .helptext, .helptext ul{
-    margin:       0 auto 30px;
-    color:            #ee8d88;
-    font-size: :        0.9em;
-    display:            block;
+    margin    : 0 auto 30px;
+    color     : #ee8d88;
+    font-size : 0.9em;
+    display   : block;
     }
 
 .errorlist li{
@@ -2034,9 +2034,9 @@ input[type="file"]{
     }
 
 #input-label-bg:hover {
-    background:        var(--main-color);
-    color:                #fff;
-    font-weight: 600:
+    background : var(--main-color);
+    color      : #fff;
+    font-weight: 600;
     }
 
 #input-label-bg::after{
@@ -2419,7 +2419,7 @@ ul{
     border: 1px solid #fff;
     position: absolute ;
     transform: translateX(67%) translateY(-150%);
-     -webkit-transform: translateX(67%) translateY(-150%);
+    -webkit-transform: translateX(67%) translateY(-150%);
     z-index: 1;
 }
 
@@ -2433,8 +2433,8 @@ ul{
 
 .site-form-new input[type=submit],
 .site-form input[type=submit] {
-    -webkit-appearance: none;
-     border-radius:        0;
+    -webkit-apearance: none;
+     border-radius:       0;
     }
 
 /* @media */

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %}{{ user.username }}'s Profile Card{% endblock %}
 {% block headerA %}
@@ -17,7 +18,7 @@
         </li>
     </ul>
     <h3>
-        <a href="{% url 'articles:user-posts' user.username %}"style="color:#383838">
+        <a href="{% url 'articles:user-posts' user.username %}" style="color:#383838">
             {{ user.username }}
         </a>
     </h3>

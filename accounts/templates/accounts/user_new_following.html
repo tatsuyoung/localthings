@@ -42,7 +42,7 @@
             <div class="mobile-nav-top-link">
             <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
-                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </form>
@@ -200,9 +200,9 @@
                             <span>プライバシーポリシー</span>
                         </a>
                         <div class="copyright">
-                            <P>
+                            <p>
                                 <i class="far fa-copyright">2020 Local Things</i>
-                            </P>
+                            </p>
                         </div>
                     </div>
                 </div>

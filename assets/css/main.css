@@ -542,8 +542,8 @@ input::-moz-placeholder
 
 .top {
     -webkit-animation: moveclouds 15s linear infinite;
-    -moz-animation:    moveclouds 15s linear infinite;
-    -o-animation:      moveclouds 15s linear infinite;
+    -moz-animation : moveclouds 15s linear infinite;
+    -o-animation : moveclouds 15s linear infinite;
     }
 
 
@@ -601,7 +601,7 @@ input::-moz-placeholder
 
 @-webkit-keyframes moveclouds {
       0% {margin-left: 1000px;}
-    100% {margin-left: -1000px;}
+    100% {margin-left:-1000px;}
     }
 
 @-moz-keyframes moveclouds {
@@ -1224,7 +1224,7 @@ input::-moz-placeholder
     border:                 0;
     padding:                0;
     cursor:           pointer;
-    trasition:transform   .4s;
+    transition:transform   .4s;
     outline:             none;
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),

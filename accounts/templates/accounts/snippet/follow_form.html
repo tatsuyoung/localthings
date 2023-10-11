@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% if request.user != user %}
 {% if request.user.is_authenticated %}
 <form class="form" method="POST" action="{% url 'follow' %}">

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block title %}Update Profile{% endblock %}
@@ -99,7 +100,7 @@
         <div class="form-logout-footer">
             <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
-                <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+                <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
                     <p>ログアウト</p>
                 </button>
             </form>
@@ -108,7 +109,7 @@
             <p><a href="{% url 'home' %}">Home</a></p>
             <a href="{% url 'accounts:unsubscribe' %}">
                 <button class="profile-account-delete" type="submit"
-                        onclick='return confirm("本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消しができません。");'>
+                        onclick="return confirm('本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消しができません。');">
                     <i class="fas fa-user-times"></i>
                 </button>
             </a>
