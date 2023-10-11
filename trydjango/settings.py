@@ -240,4 +240,4 @@ SESSION_COOKIE_SAMESITE = None
 DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
 
 # if safari css not read = staticfiles=False
-django_heroku.settings(locals(), staticfiles=False)
+django_heroku.settings(locals())
