@@ -12,11 +12,11 @@
     {% endif %}
 
     {% for num in articles.paginator.page_range %}
-        {% if articles.number == num %}
-            <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-        {% elif num > articles.number | add:'-3' and num < articles.number|add:'3' %}
+    {% if articles.number == num %}
+        <li><a class="active" href="#"><span>{{ num }}</span></a></li>
+    {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
         <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
-        {% endif %}
+    {% endif %}
     {% endfor %}
 
     {% if articles.has_next %}
