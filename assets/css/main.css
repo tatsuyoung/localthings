@@ -1,20 +1,16 @@
-@charset "utf-8";
-
 :root
 {
     --main-color: #00acee;
     --hover-color:rgba(29, 161, 242, 0.07);
 }
 
-*, *::before, *::after
-{
+*, *::before, *::after {
      box-sizing: border-box;
-}
+    }
 
-*
-{
+* {
     padding: 0;
-    margin: 0;
+    margin : 0;
 }
 
 html {
@@ -23,7 +19,7 @@ html {
 
 body {
     font-family:
-    Arial, 
+    "Arial", 
     "ヒラギノ角ゴ Pro W3",
     "Hiragino Kaku Gothic Pro",
     "Osaka",
