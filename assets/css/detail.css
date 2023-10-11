@@ -980,7 +980,7 @@ input::-moz-placeholder
 .comment-delete-btn-2 button i
 {
     font-size: 18px;
-    color: #fff
+    color: #fff;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke: 1px #fff;
 }
@@ -1420,7 +1420,7 @@ input::-moz-placeholder
     border:                 0;
     padding:                0;
     cursor:           pointer;
-    trasition:transform   .4s;
+    transition:transform   .4s;
     outline:             none;
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),

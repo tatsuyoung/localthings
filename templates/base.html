@@ -74,7 +74,7 @@
         {% if user.is_authenticated %}
         <form action="{% url 'accounts:logout' %}" method="POST">
             {% csrf_token %}
-            <button type="submit" onclick='return confirm("本当にログアウトしますか？");'>
+            <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
                 <i class="fas fa-sign-out-alt"></i>
             </button>
         </form>
