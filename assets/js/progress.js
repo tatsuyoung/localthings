@@ -11,9 +11,9 @@ function upload(event) {
                 console.log('Total Size: ' + e.total);
                 console.log('Percentage Uploaded: ' + (e.loaded / e.total))
                 var percent = Math.round((e.loaded / e.total) * 100);
-                $('.progress-bar').css('width', percent + '%')
-                $('.progress-bar').text(percent + '%')
-                //$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+                $('.progress-bar').css('width', percent + '%').text(percent + '%')
+                // $('.progress-bar').text(percent + '%')
+                // $('.progress-bar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
                 }
             });
             return xhr;

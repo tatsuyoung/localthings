@@ -540,10 +540,12 @@ input::-moz-placeholder
     right:            15px;
     }
 
-.top {
-    -webkit-animation: moveclouds 15s linear infinite;
-    -moz-animation : moveclouds 15s linear infinite;
-    -o-animation : moveclouds 15s linear infinite;
+
+.top{
+    animation         : moveclouds 15s linear infinite;
+    -webkit-animation : moveclouds 15s linear infinite;
+    -moz-animation    : moveclouds 15s linear infinite;
+    -o-animation      : moveclouds 15s linear infinite;
     }
 
 
@@ -554,9 +556,10 @@ input::-moz-placeholder
     -moz-transform:    scale(0.6);
     opacity:                  0.6;
 
+    animation        : moveclouds 25s linear infinite;
     -webkit-animation: moveclouds 25s linear infinite;
-    -moz-animation:    moveclouds 25s linear infinite;
-    -o-animation:      moveclouds 25s linear infinite;
+    -moz-animation   : moveclouds 25s linear infinite;
+    -o-animation     : moveclouds 25s linear infinite;
     }
 
 .mid_2 {
@@ -568,9 +571,10 @@ input::-moz-placeholder
     -moz-transform:    scale(0.8);
     opacity:                  0.8;
 
+    animation        : moveclouds 20s linear infinite;
     -webkit-animation: moveclouds 20s linear infinite;
-    -moz-animation:    moveclouds 20s linear infinite;
-    -o-animation:      moveclouds 20s linear infinite;
+    -moz-animation   : moveclouds 20s linear infinite;
+    -o-animation     : moveclouds 20s linear infinite;
     }
 
 .mid_3 {
@@ -581,9 +585,10 @@ input::-moz-placeholder
     -moz-transform:    scale(0.75);
     opacity:                   0.6;
 
+    animation        : moveclouds 18s linear infinite;
     -webkit-animation: moveclouds 18s linear infinite;
-    -moz-animation:    moveclouds 18s linear infinite;
-    -o-animation:      moveclouds 18s linear infinite;
+    -moz-animation   : moveclouds 18s linear infinite;
+    -o-animation     : moveclouds 18s linear infinite;
     }
 
 .bottom {
@@ -594,23 +599,29 @@ input::-moz-placeholder
     -moz-transform:    scale(0.5);
     opacity:                  0.7;
 
+    animation        : moveclouds 20s linear infinite;
     -webkit-animation: moveclouds 20s linear infinite;
-    -moz-animation:    moveclouds 20s linear infinite;
-    -o-animation:      moveclouds 20s linear infinite;
+    -moz-animation   : moveclouds 20s linear infinite;
+    -o-animation     : moveclouds 20s linear infinite;
     }
 
+@keyframes moveclouds {
+    0% {margin-left  : 1000px;}
+    100% {margin-left:-1000px;}
+}
+
 @-webkit-keyframes moveclouds {
-      0% {margin-left: 1000px;}
+    0% {margin-left  : 1000px;}
     100% {margin-left:-1000px;}
     }
 
 @-moz-keyframes moveclouds {
-      0% {margin-left: 1000px;}
+    0% {margin-left  : 1000px;}
     100% {margin-left: -1000px;}
     }
 
 @-o-keyframes moveclouds {
-      0% {margin-left: 1000px;}
+    0% {margin-left  : 1000px;}
     100% {margin-left: -1000px;}
     }
 
@@ -631,9 +642,10 @@ input::-moz-placeholder
   margin-left:                    -10px;
   width:                           15px;
   height:                          15px;
-  -o-animation:        bird 0.8s linear infinite;
-  -webkit-animation:   bird 0.8s linear infinite;
-  -moz-animation:      bird 0.8s linear infinite;
+  animation        : bird 0.8s linear infinite;
+  -o-animation     : bird 0.8s linear infinite;
+  -webkit-animation: bird 0.8s linear infinite;
+  -moz-animation   : bird 0.8s linear infinite;
   z-index:                            8;
  }
 
@@ -654,11 +666,13 @@ input::-moz-placeholder
   margin-top:                      -7px;
   margin-left:                    -50px;
   transform-origin:             100% 0%;
-  -webkit-transform:            100% 0%;
-  -moz-transform:               100% 0%;
-  -o-animation:         alas 3s linear infinite;
-  -webkit-animation:    alas 3s linear infinite;
-  -moz-animation:       alas 3s linear infinite;
+  transform        : 100% 0%;
+  -webkit-transform: 100% 0%;
+  -moz-transform   : 100% 0%;
+  animation        : alas 3s linear infinite;
+  -o-animation     : alas 3s linear infinite;
+  -webkit-animation: alas 3s linear infinite;
+  -moz-animation   : alas 3s linear infinite;
 }
 
 /* bird beak */
