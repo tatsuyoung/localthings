@@ -1,5 +1,6 @@
+<!DOCTYPE html>
  <div class="articles-icon">
-
+    
     <ul class="articles-icon-box">
     {% if article.total_likes or article.comments.count %}
         <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
@@ -30,7 +31,7 @@
                 <form method="POST" action="{% url 'articles:delete' article.pk %}">
                     {% csrf_token %}
                     <button class="article_delete" type="submit"
-                            onclick='return confirm("この記事を削除しますか？");'>
+                            onclick="return confirm('この記事を削除しますか？');">
                         <span class="icon-description">記事を削除する</span>
                     </button>
 

@@ -1,1 +1,1 @@
-document.addEventListener('touchstart', function() {}, {passive: true});
+document.addEventListener('touchstart', function () { }, { passive: true });
