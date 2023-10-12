@@ -1474,14 +1474,14 @@ a
     }
 
 .button-panel .button-new {
-    background:                     #f16272;
+    background:                   #f16272;
     border:                            none;
-    color:                             #fff;
+    color:                           #fff;
     cursor:                         pointer;
     height:                            50px;
     font-family:    'Open Sans', sans-serif;
     font-size:                        1.2em;
-    letter-spacing:                  0,05em;
+    letter-spacing:                  0.05em;
     text-align:                      center;
     text-transform:               uppercase;
     transition: background 0.3s ease-in-out;
@@ -1493,14 +1493,14 @@ a
     }
 
 .button-panel .button-new-color {
-    background:                     #00dba0;
+    background:                   #00dba0;
     border:                            none;
-    color:                             #fff;
+    color:                           #fff;
     cursor:                         pointer;
     height:                            50px;
     font-family:    'Open Sans', sans-serif;
     font-size:                        1.2em;
-    letter-spacing:                  0,05em;
+    letter-spacing:                  0.05em;
     text-align:                      center;
     text-transform:               uppercase;
     transition: background 0.3s ease-in-out;
@@ -2432,10 +2432,11 @@ ul{
 
 /* ios button  reset */
 
-.site-form-new input[type=submit],
-.site-form input[type=submit] {
-    -webkit-apearance: none;
-     border-radius:       0;
+.site-form-new input[type="submit"],
+.site-form input[type="submit"] {
+    appearance        : none;
+    -webkit-appearance: none;
+     border-radius    :    0;
     }
 
 /* @media */
