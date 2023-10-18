@@ -3,33 +3,35 @@
 {% load widget_tweaks %}
 {% load notifications_tags %}
 <html lang="ja">
+
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150304073-1"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2ESMP64HC"></script>
     <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-150304073-1');
-        </script>
-    <meta charset="UTF-8">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y2ESMP64HC');
+    </script>
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{% block title %}Local Things{% endblock %}</title>
     <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
          ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
-         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}"/>
+         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}" />
     <!--  favicon  -->
     <link rel="icon" href="{% static 'favicon.ico' %}">
     <!-- PWA -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Local Things">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Local Things" />
     <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
-    <meta name="theme-color" content="white">
+    <meta name="theme-color" content="white" />
     <link rel="manifest" href="{% static 'manifest.json' %}">
     <!--  Google Search Console   -->
-    <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw"/>
+    <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
     <!--  Font Awesome      -->
     <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
     <!--  Google Fonts      -->
@@ -42,93 +44,97 @@
     <!--  <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>  -->
     <!-- notifications -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js"
+        type="text/javascript"></script>
     <!--  Load CSS  -->
     <link rel="stylesheet" href="{% static 'css/new-styles.css' %}">
 </head>
+
 <body>
-<header id="nav" class="mobil-nav-wrapper">
-    <div class="mobile-nav-top-link">
-        {% if user.is_authenticated %}
-        <a href="{% url 'articles:users_detail' user.pk %}">
-            <div class="mobile-profile-container">
-                <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
-            </div>
-        </a>
-        {% else %}
-        <div class="mobile-profile-container">
-            <i class="far fa-user-circle"></i>
-        </div>
-        {% endif %}
-    </div>
-    <div class="mobile-nav-top-link">
-        {% block mobileCenter %}
-        <a href="{% url 'about' %}">
-            <div class="mobile-wrapper_circle">
-                <h1 class="mobile-logo_1">L</h1><h1 class="mobile-logo_2">T</h1>
-            </div>
-        </a>
-        {% endblock %}
-    </div>
-    <div class="mobile-nav-top-link">
-        {% if user.is_authenticated %}
-        <form action="{% url 'accounts:logout' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
-        </form>
-        {% else %}
-        <div class="mobile-profile-container">
-            <a href="{% url 'about' %}" id="about">
-                <i class="fas fa-info-circle"></i>
+    <header id="nav" class="mobil-nav-wrapper">
+        <div class="mobile-nav-top-link">
+            {% if user.is_authenticated %}
+            <a href="{% url 'articles:users_detail' user.pk %}">
+                <div class="mobile-profile-container">
+                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
+                </div>
             </a>
+            {% else %}
+            <div class="mobile-profile-container">
+                <i class="far fa-user-circle"></i>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
-</header>
-
-<div class="container">
-
-    <div class="left">
-        {% block sideNav %}
-
-        {% endblock %}
-    </div>
-
-    <div class="center" id="main">
-        <div class="center-header">
-            <div class="header-return">
-                {% block headerA %}
-                <a href="{{ request.META.HTTP_REFERER }}">
-                    <i class="fas fa-arrow-left"></i>
+        <div class="mobile-nav-top-link">
+            {% block mobileCenter %}
+            <a href="{% url 'about' %}">
+                <div class="mobile-wrapper_circle">
+                    <h1 class="mobile-logo_1">L</h1>
+                    <h1 class="mobile-logo_2">T</h1>
+                </div>
+            </a>
+            {% endblock %}
+        </div>
+        <div class="mobile-nav-top-link">
+            {% if user.is_authenticated %}
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
+            {% else %}
+            <div class="mobile-profile-container">
+                <a href="{% url 'about' %}" id="about">
+                    <i class="fas fa-info-circle"></i>
                 </a>
-                {% endblock %}
             </div>
-            <div class="header-name">
-                <h3>{% block headerName %}戻る{% endblock %}</h3>
-            </div>
+            {% endif %}
         </div>
-        <div class="center-wrapper">
-            {% block content %}
+    </header>
+
+    <div class="container">
+
+        <div class="left">
+            {% block sideNav %}
 
             {% endblock %}
         </div>
+
+        <div class="center" id="main">
+            <div class="center-header">
+                <div class="header-return">
+                    {% block headerA %}
+                    <a href="{{ request.META.HTTP_REFERER }}">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    {% endblock %}
+                </div>
+                <div class="header-name">
+                    <h3>{% block headerName %}戻る{% endblock %}</h3>
+                </div>
+            </div>
+            <div class="center-wrapper">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+
+
+        <div class="right">
+
+        </div>
     </div>
+    {% include 'articles/snippet/mobile-nav-footer.html' %}
 
-
-    <div class="right">
-
-    </div>
-</div>
-{% include 'articles/snippet/mobile-nav-footer.html' %}
-
-<script src="/static/js/app.js"></script>
-<script src="/static/js/scroll.js"></script>
-<script src="/static/js/mobile-hover.js"></script>
-<!--  <script src="/static/js/notification.js"></script>  -->
-<!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
-{% block script %}
-{% endblock %}
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/scroll.js"></script>
+    <script src="/static/js/mobile-hover.js"></script>
+    <!--  <script src="/static/js/notification.js"></script>  -->
+    <!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
+    {% block script %}
+    {% endblock %}
 </body>
+
 </html>
