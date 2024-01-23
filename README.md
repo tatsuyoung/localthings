@@ -1,6 +1,6 @@
 # localthings
 
-2023年は、ご当地SNS(Local SNS)ブームが日本各地、いや世界各地で起これば面白いなと思っています。
+2024年は、ご当地SNS(Local SNS)ブームが日本各地、いや世界各地で起これば面白いなと思っています。
 
 今現在は、Oita Local Thingsのみですが、Miyazaki Local ThingsやSaga Local Things など各県のLocal SNSが各地方独自の機能を持ち、発展して行けばその地方の良さをもっと広げ広めていけるのではないかと思っています。
 
