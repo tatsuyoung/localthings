@@ -1,4 +1,5 @@
-var swiper = new swiper('.swiper-container', {
+
+const swiper = new Swiper('.swiper-container', {
       effect: 'coverflow',
       grabCursor: true,
       freeMode: true,
