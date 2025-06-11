@@ -233,7 +233,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 
 # social login
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = None
 
 
 # Django-notifications-hq
