@@ -69,3 +69,58 @@
 ---
 
 **あなたの地元も、Local Thingsで盛り上げよう！**
+
+# 🌏 Local Things (English)
+
+**Local Things** is a local SNS to spread your love for your hometown to the world.  
+If you want to share the charm of your region or connect with local people, join us and make something fun together!
+
+---
+
+## 🚀 Main Features
+
+- **Login / Logout / Register**  
+  Like, comment, create or edit your profile, and post articles!
+
+- **Post, Edit, and Delete Articles**  
+  Easily post articles with photos. Images are automatically resized for your convenience.
+
+- **Comments, Likes, and Bookmarks**  
+  React to posts and save your favorites.
+
+- **User Pages & Profile Editing**  
+  Customize your posts and profile freely.
+
+- **Notification System**  
+  Get notified with a badge when you receive comments or likes!
+
+- **Follow & Follower System**  
+  Follow users you’re interested in and enjoy a more personalized timeline.
+
+- **Gallery, Search, and Category Views**  
+  Browse photos and articles by category with ease.
+
+- **SNS Integration & Twitter Cards**  
+  Share easily with Twitter and Facebook.
+
+- **PWA Support**  
+  Use it like an app from your smartphone’s home screen.
+
+- **Security**  
+  Custom error pages (403/404/500) and robust security settings.
+
+- **Progress Bar (Upload)**  
+  Fun dummy animation for uploads on S3/Heroku environments!
+
+- **And much more...**  
+  Password reset, sitemap, notifications, bookmarks, article sorting, background changes, and more!
+
+---
+
+## 🛠️ Tech Stack
+
+- **Languages**: Python 3.11.9, HTML5, CSS3, JavaScript, jQuery, Ajax
+- **Framework**: Django 3.2.25
+- **Production**: Heroku, AWS S3
+
+---
