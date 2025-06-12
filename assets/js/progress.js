@@ -17,62 +17,45 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-$.ajaxSetup({
-    headers: { "X-CSRFToken": csrftoken }
-});
+$("#form").submit(function(e) {
+    e.preventDefault();
+    const ok = confirm('Are you sure with the content of this article?');
+    if (!ok) return;
 
-$(function () {
-    $("#form").submit(function(e) {
-        e.preventDefault(); // ← フォームのデフォルト送信を止める
-        const ok = confirm('Are you sure with the content of this article?');
-        if (!ok) return;
-
-        const formData = new FormData($("#form").get(0));
-
-        for (const [key, value] of formData.entries()) {
-            console.log(key, value);
+    // フェイクアニメーション開始
+    $("#fake-upload-animation").show();
+    let fakePercent = 0;
+    $("#fake-bar").css("width", "0%");
+    const fakeInterval = setInterval(function() {
+        if (fakePercent < 95) { // 95%までゆっくり進める
+            fakePercent += Math.random() * 5;
+            $("#fake-bar").css("width", fakePercent + "%");
         }
+    }, 200);
 
-        $.ajax({
-            xhr: function () {
-                const xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress", function (evt) {
-                    console.log("progress event!!!!", evt);
-                    if (evt.lengthComputable) {
-                        const percent = Math.round((evt.loaded / evt.total) * 100);
-                        $("#progressBar")
-                            .attr("aria-valuenow", percent)
-                            .css("width", percent + "%")
-                            .text(percent + "%");
-                    }
-                }, false);
-                xhr.addEventListener("readystatechange", function() {
-                console.log("xhr readyState", xhr.readyState);
-            });
-            xhr.addEventListener("loadstart", function() {
-                console.log("xhr loadstart");
-            });
-            xhr.addEventListener("loadend", function() {
-                console.log("xhr loadend");
-            });
-            xhr.addEventListener("error", function() {
-                console.log("xhr error");
-            });
-                return xhr;
-            },
-            type: $("#form").attr("method"),
-            url: $("#form").attr("action"),
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                alert("Uploaded successfully!");
+    // FormDataでフォーム内容を取得
+    const formData = new FormData(this);
+
+    $.ajax({
+        url: $("#form").attr("action"),
+        type: "POST",
+        data: formData,
+        processData: false, // これが重要
+        contentType: false, // これが重要
+        headers: {'X-CSRFToken': csrftoken},
+        success: function (data) {
+            clearInterval(fakeInterval);
+            $("#fake-bar").css("width", "100%");
+            $("#fake-message").text("Successfully uploaded!");
+            setTimeout(function() {
+                $("#fake-upload-animation").hide();
                 window.location.href = "/";
-            },
-            error: function (xhr, status, error) {
-                alert("Error: " + error);
-            }
-        });
+            }, 800);
+        },
+        error: function (xhr, status, error) {
+            clearInterval(fakeInterval);
+            $("#fake-upload-animation").hide();
+            alert("Error: " + error);
+        }
     });
 });
