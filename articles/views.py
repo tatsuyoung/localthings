@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -50,6 +50,7 @@ def article_detail(request, detail_id):
                   )
 
 
+
 @login_required(login_url="/accounts/login/")
 def article_create(request):
     if request.method == 'POST':
@@ -58,7 +59,13 @@ def article_create(request):
             instance = form.save(commit=False)
             instance.author = request.user
             instance.save()
+            # AjaxリクエストならJSONで返す
+            if request.is_ajax():
+                return JsonResponse({'result': 'ok'})
             return redirect('articles:list')
+        else:
+            if request.is_ajax():
+                return JsonResponse({'result': 'error', 'errors': form.errors}, status=400)
     else:
         form = forms.CreateArticle()
     return render(request, 'articles/article_create.html', {'form': form})

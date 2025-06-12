@@ -8,7 +8,7 @@
 <h1>Create an Awesome New Article</h1>
 <div class="form-wrapper">
     <h2>Create</h2>
-    <form class="site-form-new" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data" id="form">
+    <form id="form" class="site-form-new" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-item">
             <label for="id_title"></label>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="button-panel">
-            <input type="submit" value="Create" class="button-new-color" onclick="return confirm('Are you sure with the content of this article?');">
+            <input type="submit" value="Create" class="button-new-color">
         </div>
     </form>
 
@@ -78,9 +78,9 @@
         <div class="site-form-new">
             <div class="p_container">
                 <div class="progress">
-                    <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-                     style="width: 0%;">
-                    0%
+                    <div id="progressBar" class="progress-bar" role="progressbar"
+                         style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        0%
                     </div>
                 </div>
             </div>

@@ -58,6 +58,7 @@ class Article(models.Model):
     def set_image(self):
         try:
             if self.thumb:
+                self.tahmb.seek(0)
                 pilImage = Img.open(BytesIO(self.thumb.read()))
                 for orientation in ExifTags.TAGS.keys():
                     if ExifTags.TAGS[orientation] == 'Orientation':
