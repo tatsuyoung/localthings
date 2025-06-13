@@ -477,7 +477,8 @@ input::-moz-placeholder
 .hero
 {
     width: 100%;
-    position:relative;
+    position: relative;
+    overflow: visible;
 }
 
 #clouds{
@@ -610,6 +611,26 @@ input::-moz-placeholder
     }
 
 /* 期間限定 */
+/* UFOスタイル */
+#ufo, .ufo {
+    position: absolute;
+    top      : 80px;
+    left     : 0;
+    font-size: 40px;
+    z-index  : 10;
+    opacity  : 1;
+    pointer-events: none;
+    animation: ufo-fly 6s linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes ufo-fly {
+    0%   { transform: translateX(0vw) scale(1); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateX(40vw) scale(1); opacity: 0; }
+}
+
 /*  Copyright (c) 2019 by Marco Barría (https://codepen.io/fixcl/pen/KhAqa) */
 .bird{
   background:                     black; /* black */ /* #f8f8f8 */
