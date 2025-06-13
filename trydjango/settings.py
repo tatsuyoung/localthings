@@ -16,6 +16,7 @@ from typing import List
 from decouple import config
 import django_heroku
 
+ENV = config("ENV", default="local")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -208,9 +209,15 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Security
 
-# security.W004 DEBUG True off 86400=1day 31536000=365day
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+if ENV == "PRODUCTION":
+    # security.W004 DEBUG True off 86400=1day 31536000=365day
+    SECURE_HSTS_SECONDS            = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_SSL_REDIRECT   = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_HTTPONLY  = True
+    CSRF_COOKIE_SECURE    = True
+
 
 # security.W006
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -218,17 +225,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # security.W007
 SECURE_BROWSER_XSS_FILTER = True
 
-# security.W008 DEBUG True off
-SECURE_SSL_REDIRECT = True
-
-# security.W012 DEBUG = True off
-SESSION_COOKIE_SECURE = True
-
-# security.W016, W017 DEBUG = True off
-# security.W016、security.W017
-CSRF_COOKIE_HTTPONLY = True
-
-CSRF_COOKIE_SECURE = True
 
 # security.W019
 X_FRAME_OPTIONS = 'DENY'
