@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ufo.style.opacity = '0';
         }, 6000);
     }
-    if (Math.random() < 0.8) {
+    if (Math.random() < 0.5) {
         setTimeout(showUfo, 1000 + Math.random() * 3000);
     }
 });
