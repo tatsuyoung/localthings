@@ -10,16 +10,16 @@ from django.core.files import File
 
 
 class Article(models.Model):
-    title      = models.CharField(max_length=30)
-    slug       = models.SlugField()
-    body       = models.TextField('Article', blank=False, help_text='')
-    date       = models.DateTimeField(default=timezone.now)
+    title = models.CharField(max_length=30)
+    slug = models.SlugField()
+    body = models.TextField('Article', blank=False, help_text='')
+    date = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    thumb      = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
-    category   = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
-    author     = models.ForeignKey(User, on_delete=models.CASCADE)
-    like       = models.ManyToManyField(User, related_name="likes", blank=True)
-    book_mark  = models.ManyToManyField(User, related_name='book_mark', blank=True)
+    thumb = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
+    category = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    like = models.ManyToManyField(User, related_name="likes", blank=True)
+    book_mark = models.ManyToManyField(User, related_name='book_mark', blank=True)
 
     def __str__(self):
         return self.title
@@ -111,22 +111,21 @@ class Article(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)
-    description   = models.CharField(max_length=50, 
-    blank=True, null=True, default='No explanation')
+    description = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.category_name
 
     class Meta:
-        verbose_name        = 'Category'
+        verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
 
 class Comment(models.Model):
-    post   = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    name   = models.CharField(max_length=200)
-    text   = models.TextField()
+    name = models.CharField(max_length=200)
+    text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
