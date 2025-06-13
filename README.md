@@ -128,59 +128,59 @@ If you want to share the charm of your region or connect with local people, join
 
 ### Please set the following environment variables in your .env file. Adjust the values depending on whether you’re in production or development.
 
-# デバッグモードの有効化（Trueで有効）  
-# Enable debug mode (True = ON)
+#### デバッグモードの有効化（Trueで有効）  
+#### Enable debug mode (True = ON)
 DEBUG=True
 
-# 環境種別（例: production, development）  
-# Environment type (e.g., production, development)
+#### 環境種別（例: production, development）  
+#### Environment type (e.g., production, development)
 ENV=production
 
-# Django のシークレットキー  
-# Django secret key
+#### Django のシークレットキー  
+#### Django secret key
 SECRET_KEY=your-django-secret-key
 
-# メール送信に使用する Gmail アドレス  
-# Gmail address used for sending emails
+#### メール送信に使用する Gmail アドレス  
+#### Gmail address used for sending emails
 EMAIL_HOST_USER=your-email@example.com
 
-# 上記メールアドレスの「アプリパスワード」  
-# App password for the above email (not your regular password)
+#### 上記メールアドレスの「アプリパスワード」  
+#### App password for the above email (not your regular password)
 EMAIL_HOST_PASSWORD=your-app-password
 
-# AWS アクセスキー（S3に使用）  
-# AWS access key (for S3)
+#### AWS アクセスキー（S3に使用）  
+#### AWS access key (for S3)
 AWS_ACCESS_KEY_ID=your-aws-access-key
 
-# AWS シークレットキー  
-# AWS secret key
+#### AWS シークレットキー  
+#### AWS secret key
 AWS_SECRET_ACCESS_KEY=your-aws-secret-key
 
-# アップロード先のS3バケット名  
-# S3 bucket name for file uploads
+#### アップロード先のS3バケット名  
+#### S3 bucket name for file uploads
 AWS_STORAGE_BUCKET_NAME=your-s3-bucket-name
 
-# データベース接続URL（例: PostgreSQL）  
-# Database connection URL (e.g., PostgreSQL)
+#### データベース接続URL（例: PostgreSQL）  
+#### Database connection URL (e.g., PostgreSQL)
 DATABASE_URL=postgres://user:password@hostname:5432/dbname
 
-# Google OAuth クライアントID  
-# Google OAuth client ID
+#### Google OAuth クライアントID  
+#### Google OAuth client ID
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=your-google-client-id
 
-# Google OAuth クライアントシークレット  
-# Google OAuth client secret
+#### Google OAuth クライアントシークレット  
+#### Google OAuth client secret
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=your-google-client-secret
 
-# Twitter APIキー  
-# Twitter API key
+#### Twitter APIキー  
+#### Twitter API key
 SOCIAL_AUTH_TWITTER_KEY=your-twitter-key
 
-# Twitter APIシークレット  
-# Twitter API secret
+#### Twitter APIシークレット  
+#### Twitter API secret
 SOCIAL_AUTH_TWITTER_SECRET=your-twitter-secret
 
-## 📄 環境変数の設定 (.envファイル)
+### 📄 環境変数の設定 (.envファイル)
 
 このリポジトリには `.env.example` が含まれています。以下のコマンドでコピーし、必要な値を入力してください：
 The .env.example file is included in this repository. Copy it and edit the values as needed:
