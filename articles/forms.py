@@ -6,7 +6,7 @@ from .models import Category
 class CreateArticle(forms.ModelForm):
 
     class Meta:
-        model = models.Article
+        model  = models.Article
         fields = ['title', 'body', 'thumb', 'category', 'slug']
 
     def __init__(self, *args, **kwargs):

@@ -2,11 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
-from PIL import ImageOps
-from PIL import Image as Img
-from PIL import ExifTags
-from io import BytesIO
 from django.core.files import File
+
+import os
+import pillow_heif
+pillow_heif.register_heif_opener()
+
+from PIL import Image, ImageOps, ExifTags
+from io import BytesIO
 
 
 class Article(models.Model):
@@ -46,67 +49,65 @@ class Article(models.Model):
         return Article.objects.count()
 
     def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None, *args, **kwargs):
-        if not self.id:
-            self.set_image()
-        else:
-            this = Article.objects.get(id=self.id)
-            if this.thumb != self.thumb:
-                self.set_image()
-        return super(Article, self).save(*args, **kwargs)
+         update_fields=None, *args, **kwargs):
+        print("save called")
+        self.set_image()  # 画像処理とファイル名変更を常に実行
+        super().save(*args, **kwargs)
 
+    # ...existing code...
     def set_image(self):
         try:
-            if self.thumb:
-                self.tahmb.seek(0)
-                pilImage = Img.open(BytesIO(self.thumb.read()))
-                for orientation in ExifTags.TAGS.keys():
-                    if ExifTags.TAGS[orientation] == 'Orientation':
-                        break
-                e = pilImage._getexif()
-                if e is not None:
-                    exif = dict(e.items())
-                    output_image = BytesIO()
-                    if pilImage.height > 598 or pilImage.width > 598:
-                        size = (598, 598)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output_image, format='JPEG', quality=70)
-                        output_image.seek(0)
-                        self.thumb = File(output_image, self.thumb.name)
+            if not self.thumb:
+                return
+            if self.thumb == 'No-image.png':
+                return
+            self.thumb.seek(0)
+            # ...existing code...
+            pil_image = Image.open(BytesIO(self.thumb.read()))
 
-                    if exif[orientation] == 3:
-                        pilImage = pilImage.rotate(180, expand=True)
-                    elif exif[orientation] == 6:
-                        pilImage = pilImage.rotate(270, expand=True)
-                    elif exif[orientation] == 8:
-                        pilImage = pilImage.rotate(90, expand=True)
-                    output = BytesIO()
-                    if pilImage.height > 598 or pilImage.width > 598:
-                        size = (598, 598)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.thumb = File(output, self.thumb.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.thumb = File(output, self.thumb.name)
-                if self.thumb == 'No-image.png':
-                    pass
-                elif e is None:
-                    output = BytesIO()
-                    if pilImage.height > 598 or pilImage.width > 598:
-                        size = (598, 598)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.thumb = File(output, self.thumb.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.thumb = File(output, self.thumb.name)
-        except(AttributeError, KeyError, IndexError):
+            # EXIFのOrientation取得（JPEGのみ）
+            exif = None
+            if hasattr(pil_image, "_getexif"):
+                exif = pil_image._getexif()
+                if exif is not None:
+                    exif = dict(exif.items())
+                    orientation = None
+                    for key, value in ExifTags.TAGS.items():
+                        if value == 'Orientation':
+                            orientation = key
+                            break
+                    # 回転
+                    if orientation in exif:
+                        if exif[orientation] == 3:
+                            pil_image = pil_image.rotate(180, expand=True)
+                        elif exif[orientation] == 6:
+                            pil_image = pil_image.rotate(270, expand=True)
+                        elif exif[orientation] == 8:
+                            pil_image = pil_image.rotate(90, expand=True)
+            # ...リサイズ・保存処理...
+
+            # リサイズ
+            if pil_image.height > 598 or pil_image.width > 598:
+                size      = (598, 598)
+                pil_image = ImageOps.fit(pil_image, size, Image.Resampling.LANCZOS)
+
+
+            # ...existing code...
+            output = BytesIO()
+            pil_image.save(output, format="JPEG", quality=70, optimize=True)
+            output.seek(0)
+
+            # ファイル名を明示的にjpgに
+            base     = os.path.splitext(self.thumb.name)[0]
+            filename = base + ".jpg"
+            self.thumb.delete(save=False)  # 古いファイルを削除
+            self.thumb.save(filename, File(output), save=False)
+            # ...existing code...
+
+        except Exception as e:
+            print("set_image error:", e)
             pass
+    # ...existing code...
 
 
 class Category(models.Model):
