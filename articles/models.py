@@ -54,15 +54,11 @@ class Article(models.Model):
         self.set_image()  # 画像処理とファイル名変更を常に実行
         super().save(*args, **kwargs)
 
-    # ...existing code...
     def set_image(self):
         try:
-            if not self.thumb:
-                return
-            if self.thumb == 'No-image.png':
+            if not self.thumb or self.thumb == 'No-image.png':
                 return
             self.thumb.seek(0)
-            # ...existing code...
             pil_image = Image.open(BytesIO(self.thumb.read()))
 
             # EXIFのOrientation取得（JPEGのみ）
@@ -84,30 +80,38 @@ class Article(models.Model):
                             pil_image = pil_image.rotate(270, expand=True)
                         elif exif[orientation] == 8:
                             pil_image = pil_image.rotate(90, expand=True)
-            # ...リサイズ・保存処理...
 
-            # リサイズ
-            if pil_image.height > 598 or pil_image.width > 598:
-                size      = (598, 598)
-                pil_image = ImageOps.fit(pil_image, size, Image.Resampling.LANCZOS)
+            # 📐 Instagram用アスペクト比によるリサイズ処理
+            original_width, original_height = pil_image.size
+            aspect_ratio = original_width / original_height
 
+            # Instagram Feed 用の推奨サイズに合わせる
+            if aspect_ratio > 1.91:
+                # 横長（例: 1080x566）
+                target_size = (1080, int(1080 / 1.91))  # 約 1080x566
+            elif aspect_ratio < 0.8:
+                # 縦長（例: 1080x1350）
+                target_size = (1080, 1350)
+            else:
+                # 正方形または近い（例: 1080x1080）
+                target_size = (1080, 1080)
 
-            # ...existing code...
+            pil_image = ImageOps.fit(pil_image, target_size, Image.Resampling.LANCZOS)
+
+            # 最終保存処理
             output = BytesIO()
             pil_image.save(output, format="JPEG", quality=70, optimize=True)
             output.seek(0)
 
             # ファイル名を明示的にjpgに
-            base     = os.path.splitext(self.thumb.name)[0]
+            base = os.path.splitext(self.thumb.name)[0]
             filename = base + ".jpg"
             self.thumb.delete(save=False)  # 古いファイルを削除
             self.thumb.save(filename, File(output), save=False)
-            # ...existing code...
 
         except Exception as e:
             print("set_image error:", e)
             pass
-    # ...existing code...
 
 
 class Category(models.Model):

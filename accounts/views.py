@@ -66,11 +66,20 @@ def profile(request):
                                    request.FILES,
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
+            # clear処理
+            profile_instance = p_form.instance
+            if request.POST.get('image-clear'):
+                profile_instance.image.delete(save=False)
+                profile_instance.image = "default.png"
+            if request.POST.get('bg-clear'):
+                profile_instance.bg.delete(save=False)
+                profile_instance.bg = None
+            # ここまで
+
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
             return redirect('accounts:profile')
-
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)

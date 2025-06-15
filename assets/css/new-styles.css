@@ -2518,3 +2518,101 @@ ul{
         display:none;
     }
 }
+
+/* Edit Article Styles */
+
+.edit-article-wrapper {
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 2em 1.5em;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+.edit-article-title {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #00acee;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.edit-article-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.edit-article-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+}
+
+.edit-article-label {
+    font-weight: bold;
+    margin-bottom: 0.2em;
+    color: #333;
+}
+
+.edit-article-helptext {
+    font-size: 0.95em;
+    color: #888;
+    margin: 0;
+}
+
+.edit-article-error {
+    color: tomato;
+    font-size: 0.95em;
+}
+
+.edit-article-slug-note {
+    color: tomato;
+    font-size: 0.95em;
+    margin-top: 0.5em;
+}
+
+.edit-article-button-panel {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.edit-article-submit {
+    background: #00acee;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8em 2.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.edit-article-submit:hover {
+    background: #008bb9;
+}
+
+.edit-article-footer {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.edit-article-home-link {
+    color: #00acee;
+    text-decoration: underline;
+    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+    .edit-article-wrapper {
+        padding: 1em 0.5em;
+    }
+    .edit-article-title {
+        font-size: 1.3em;
+    }
+    .edit-article-submit {
+        width: 100%;
+        padding: 0.8em 0;
+    }
+}

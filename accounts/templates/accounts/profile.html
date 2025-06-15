@@ -41,6 +41,14 @@
                     <div class="icon_helptext">
                         <p class="helptext">{{ p_form.image.help_text }}</p>
                     </div>
+                    <div class="clear">
+                        <div class="clear-input">
+                            <input type="checkbox" name="image-clear" id="image-clear_id">
+                        </div>
+                        <div class="clear-label">
+                            <label for="image-clear_id"><p>Iconをクリア</p></label>
+                        </div>
+                    </div>
                     {% for error in p_form.image.errors %}
                     <span class="helptext">{{ error }}</span>
                     {% endfor %}
@@ -75,7 +83,7 @@
 
             <div class="form_group">
                 <div class="column_2">
-                    <label>Bio</label>
+                    <label>BIO</label>
                     {{ p_form.bio | attr:"autocomplete:off" }}
                     <p class="helptext">{{ p_form.bio.help_text }}</p>
                     {% for error in p_form.bio.errors %}

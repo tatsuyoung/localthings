@@ -1,11 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import ImageOps
-from PIL import Image as Img
-from PIL import ExifTags
-from io import BytesIO
 from django.core.files import File
 from notifications.signals import notify
+
+import os
+import pillow_heif
+pillow_heif.register_heif_opener()
+
+from PIL import Image, ImageOps, ExifTags
+from io import BytesIO
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 class ProfileManager(models.Manager):
@@ -28,19 +34,20 @@ class ProfileManager(models.Manager):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user  = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png',
                               upload_to='profile_pics',
                               help_text='著作権があるものはiconにはできません。')
-    bg = models.ImageField(upload_to='user_background', blank=True, null=True, help_text='著作権を確認してください。')
-    bio = models.TextField(max_length=160, blank=True, null=True)
-    website = models.URLField(max_length=250, blank=True, null=True)
+    bg        = models.ImageField(upload_to='user_background', blank=True, null=True, help_text='著作権を確認してください。')
+    bio       = models.TextField(max_length=160, blank=True, null=True)
+    website   = models.URLField(max_length=250,  blank=True, null=True)
     followers = models.ManyToManyField(User, related_name='is_following', blank=True)
-    objects = ProfileManager()
+    objects   = ProfileManager()
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    # saveメソッドをオーバーライドして画像処理を追加
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
         if not self.id:
@@ -55,112 +62,104 @@ class Profile(models.Model):
             this = Profile.objects.get(id=self.id)
             if this.bg != self.bg:
                 self.set_bg()
-        return super(Profile, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+
 
     def set_image(self):
         try:
-            if self.image:
-                pilImage = Img.open(BytesIO(self.image.read()))
-                for orientation in ExifTags.TAGS.keys():
-                    if ExifTags.TAGS[orientation] == 'Orientation':
-                        break
-                e = pilImage._getexif()
-                if e is not None:
-                    exif = dict(e.items())
-                    output_image = BytesIO()
-                    if pilImage.height > 192 or pilImage.width > 192:
-                        size = (192, 192)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output_image, format='JPEG', quality=70)
-                        output_image.seek(0)
-                        self.image = File(output_image, self.image.name)
+            if not self.image or self.image.name == 'default.png':
+                return
 
-                    if exif[orientation] == 3:
-                        pilImage = pilImage.rotate(180, expand=True)
-                    elif exif[orientation] == 6:
-                        pilImage = pilImage.rotate(270, expand=True)
-                    elif exif[orientation] == 8:
-                        pilImage = pilImage.rotate(90, expand=True)
+            self.image.seek(0)
+            pil_image = Image.open(BytesIO(self.image.read()))
 
-                    output = BytesIO()
-                    if pilImage.height > 192 or pilImage.width > 192:
-                        size = (192, 192)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.image = File(output, self.image.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.image = File(output, self.image.name)
-                if self.image == 'default.png':
-                    pass
-                elif e is None:
-                    output = BytesIO()
-                    if pilImage.height > 192 or pilImage.width > 192:
-                        size = (192, 192)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.image = File(output, self.image.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.image = File(output, self.image.name)
-        except(AttributeError, KeyError, IndexError):
-            pass
+            # EXIFのOrientation取得と回転補正（JPEGのみ）
+            if hasattr(pil_image, "_getexif"):
+                exif = pil_image._getexif()
+                if exif:
+                    exif = dict(exif.items())
+                    orientation_key = next((k for k, v in ExifTags.TAGS.items() if v == 'Orientation'), None)
+                    orientation = exif.get(orientation_key)
+                    if orientation == 3:
+                        pil_image = pil_image.rotate(180, expand=True)
+                    elif orientation == 6:
+                        pil_image = pil_image.rotate(270, expand=True)
+                    elif orientation == 8:
+                        pil_image = pil_image.rotate(90, expand=True)
+
+            # 📐 アスペクト比を維持しつつ 192x192 正方形にトリミング & リサイズ
+            target_size = (192, 192)
+            pil_image = ImageOps.fit(pil_image, target_size, Image.Resampling.LANCZOS)
+
+            # 💾 JPEG形式で保存
+            output = BytesIO()
+            pil_image.save(output, format="JPEG", quality=70, optimize=True)
+            output.seek(0)
+
+            # 🔤 拡張子を .jpg にして再保存
+            base = os.path.splitext(self.image.name)[0]
+            filename = base + ".jpg"
+            self.image.delete(save=False)
+            self.image.save(filename, File(output), save=False)
+
+        except Exception as e:
+            logger.error(f"set_image error: {e}")
+
 
     def set_bg(self):
         try:
-            if self.bg:
-                pilImage = Img.open(BytesIO(self.bg.read()))
-                for orientation in ExifTags.TAGS.keys():
-                    if ExifTags.TAGS[orientation] == 'Orientation':
-                        break
-                e = pilImage._getexif()
-                if e is not None:
-                    exif = dict(e.items())
-                    output_image = BytesIO()
-                    if pilImage.height > 400 or pilImage.width > 400:
-                        size = (400, 400)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output_image, format='JPEG', quality=70)
-                        output_image.seek(0)
-                        self.bg = File(output_image, self.bg.name)
+            if not self.bg:
+                return
+            self.bg.seek(0)
+            pil_image = Image.open(BytesIO(self.bg.read()))
 
-                    if exif[orientation] == 3:
-                        pilImage = pilImage.rotate(180, expand=True)
-                    elif exif[orientation] == 6:
-                        pilImage = pilImage.rotate(270, expand=True)
-                    elif exif[orientation] == 8:
-                        pilImage = pilImage.rotate(90, expand=True)
+            # EXIFのOrientation取得（JPEGのみ）
+            exif = None
+            if hasattr(pil_image, "_getexif"):
+                exif = pil_image._getexif()
+                if exif is not None:
+                    exif = dict(exif.items())
+                    orientation = None
+                    for key, value in ExifTags.TAGS.items():
+                        if value == 'Orientation':
+                            orientation = key
+                            break
+                    # 回転
+                    if orientation in exif:
+                        if exif[orientation] == 3:
+                            pil_image = pil_image.rotate(180, expand=True)
+                        elif exif[orientation] == 6:
+                            pil_image = pil_image.rotate(270, expand=True)
+                        elif exif[orientation] == 8:
+                            pil_image = pil_image.rotate(90, expand=True)
 
-                    output = BytesIO()
-                    if pilImage.height > 400 or pilImage.width > 400:
-                        size = (400, 400)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.bg = File(output, self.bg.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.bg = File(output, self.bg.name)
-                elif e is None:
-                    output = BytesIO()
-                    if pilImage.height > 200 or pilImage.width > 200:
-                        size = (200, 200)
-                        pilImage_fit = ImageOps.fit(pilImage, size, Img.ANTIALIAS)
-                        pilImage_fit.save(output, format='JPEG', quality=70)
-                        output.seek(0)
-                        self.bg = File(output, self.bg.name)
-                    else:
-                        pilImage.save(output, format='JPEG', quality=90)
-                        output.seek(0)
-                        self.bg = File(output, self.bg.name)
-        except(AttributeError, KeyError, IndexError):
-            pass
+            # アスペクト比によるリサイズ処理
+            original_width, original_height = pil_image.size
+            aspect_ratio = original_width / original_height
+
+            # 推奨サイズ（例：Feed用）に合わせる
+            if aspect_ratio > 1.91:
+                target_size = (1080, int(1080 / 1.91))  # 横長
+            elif aspect_ratio < 0.8:
+                target_size = (1080, 1350)              # 縦長
+            else:
+                target_size = (1080, 1080)              # 正方形
+
+            pil_image = ImageOps.fit(pil_image, target_size, Image.Resampling.LANCZOS)
+
+            # 最終保存処理
+            output = BytesIO()
+            pil_image.save(output, format="JPEG", quality=70, optimize=True)
+            output.seek(0)
+
+            # ファイル名を明示的にjpgに
+            base = os.path.splitext(self.bg.name)[0]
+            filename = base + ".jpg"
+            self.bg.delete(save=False)  # 古いファイルを削除
+            self.bg.save(filename, File(output), save=False)
+        except Exception as e:
+            logger.error("set_bg error: {e}")
 
     def delete(self, using=None, keep_parents=False, *args, **kwargs):
         self.user.delete()
-        return super(self.__class__, self).delete(*args, **kwargs)
+        return super().delete(*args, **kwargs)
