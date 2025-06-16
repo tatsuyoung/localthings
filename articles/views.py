@@ -58,6 +58,11 @@ def article_create(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.author = request.user
+
+            # 画像clear処理
+            if "thumb-clear" in request.POST:
+                instance.thumb = 'No-image.png'
+                
             instance.save()
             # AjaxリクエストならJSONで返す
             if request.is_ajax():

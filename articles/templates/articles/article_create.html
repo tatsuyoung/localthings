@@ -62,7 +62,7 @@
 
         <div class="form-item">
             <label for="id_slug"></label>
-            <input type="text" name="slug" placeholder="Slug Automatic input" maxlength="50" required="required" id="id_slug" value="">
+            <input type="hidden" name="slug" placeholder="Slug Automatic input" maxlength="50" id="id_slug" value="">
             <p class="helptext">{{ form.slug.help_text }}</p>
             {% for error in form.slug.errors %}
             <span>{{ error }}</span>
@@ -93,7 +93,7 @@
 </div>
 {% endblock %}
 {% block script %}
-<script src="/static/js/slugify.js"></script>
+<!-- <script src="/static/js/slugify.js"></script> -->
 <script src="/static/js/thumb.js"></script>
 <script src="/static/js/progress.js"></script>
 {% endblock %}

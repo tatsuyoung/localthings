@@ -1365,9 +1365,16 @@ a
     font-size:     12px;
     }
 
-#thumb-clear_id{
+/* #thumb-clear_id{
     display:          none;
-    }
+    } */
+
+#thumb-clear_id {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
 
 .site-form p:nth-of-type(3) label:nth-of-type(2){
     display:         none;
@@ -2530,12 +2537,14 @@ ul{
     box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
-.edit-article-title {
-    text-align: center;
-    margin-bottom: 1.5em;
-    color: #00acee;
-    font-size: 2em;
-    font-weight: bold;
+.edit-article-title-input {
+    font-size: 1.2em;
+    padding: 0.7em 1em;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 1em;
 }
 
 .edit-article-form {
@@ -2545,6 +2554,7 @@ ul{
 }
 
 .edit-article-item {
+    font-size: 1.2em;
     display: flex;
     flex-direction: column;
     gap: 0.4em;
@@ -2556,6 +2566,18 @@ ul{
     color: #333;
 }
 
+.edit-article-body-textarea {
+    font-size: 1.2em;
+    padding: 1em;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    line-height: 1.7;
+}
+
 .edit-article-helptext {
     font-size: 0.95em;
     color: #888;
@@ -2565,6 +2587,17 @@ ul{
 .edit-article-error {
     color: tomato;
     font-size: 0.95em;
+}
+
+.edit-article-category-select {
+    font-size: 1.2em;
+    padding: 0.7em 1em;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    background: #fafbfc;
 }
 
 .edit-article-slug-note {
@@ -2615,4 +2648,38 @@ ul{
         width: 100%;
         padding: 0.8em 0;
     }
+}
+
+.thumb-upload-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+
+.thumb-upload-btn {
+    display: inline-block;
+    background: #00acee;
+    color: #fff;
+    padding: 0.5em 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.thumb-upload-btn:hover {
+    background: #008bb9;
+}
+.thumb-upload-input {
+    display: none;
+}
+.thumb-clear-group {
+    margin-top: 0.5em;
+    font-size: 0.95em;
+    color: #888;
+}
+.thumb-preview {
+    border-radius: 6px;
+    border: 1px solid #eee;
 }

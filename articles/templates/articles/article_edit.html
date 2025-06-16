@@ -26,13 +26,20 @@
         </div>
 
         <div class="edit-article-item">
-            <label for="id_thumb" class="edit-article-label">サムネイル画像</label>
-            {{ form.thumb }}
-            <p class="edit-article-helptext">
-                {{ form.thumb.help_text }}
-            </p>
+            <label class="edit-article-label">サムネイル画像</label>
+            <div class="thumb-upload-group">
+                <!-- 現在の画像を表示（あれば） -->
+                {% if form.instance.thumb %}
+                    <img src="{{ form.instance.thumb.url }}" alt="現在のサムネイル" class="thumb-preview" style="max-width:120px; max-height:120px; display:block; margin-bottom:8px;">
+                {% endif %}
+                <!-- ファイル選択ボタンをカスタム -->
+                <label for="id_thumb" class="thumb-upload-btn">Change Photo</label>
+                {{ form.thumb }}
+                {{ form.thumb.clear_checkbox}}
+            </div>
+            <p class="edit-article-helptext">{{ form.thumb.help_text }}</p>
             {% for error in form.thumb.errors %}
-            <span class="edit-article-error">{{ error }}</span>
+                <span class="edit-article-error">{{ error }}</span>
             {% endfor %}
         </div>
 
@@ -45,19 +52,8 @@
             {% endfor %}
         </div>
 
-        <div class="edit-article-item">
-            <label for="id_slug" class="edit-article-label">スラッグ（URL用）</label>
+        <div class="edit-article-item" style="display:none;">
             {{ form.slug }}
-            <p class="edit-article-helptext">{{ form.slug.help_text }}</p>
-            {% for error in form.slug.errors %}
-            <span class="edit-article-error">{{ error }}</span>
-            {% endfor %}
-            <small>
-                <p class="edit-article-slug-note">
-                    ※タイトルが日本語のみの場合は、半角英数字でスラッグを入力してください（例: "nihongo-no-kiroku"）。<br>
-                    空白は自動で「-」に変換されます。
-                </p>
-            </small>
         </div>
 
         <div class="edit-article-button-panel">
@@ -81,6 +77,6 @@
 </div>
 {% endblock %}
 {% block script %}
-<script src="/static/js/slugify.js"></script>
+<!-- <script src="/static/js/slugify.js"></script> -->
 <script src="/static/js/progress.js"></script>
 {% endblock %}

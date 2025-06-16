@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.core.files import File
 
+import re
+from django.utils.text import slugify
+
 import os
 import pillow_heif
 pillow_heif.register_heif_opener()
@@ -11,10 +14,13 @@ pillow_heif.register_heif_opener()
 from PIL import Image, ImageOps, ExifTags
 from io import BytesIO
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class Article(models.Model):
     title      = models.CharField(max_length=30)
-    slug       = models.SlugField()
+    slug       = models.SlugField(blank=True)
     body       = models.TextField('Article', blank=False, help_text='')
     date       = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -49,9 +55,20 @@ class Article(models.Model):
         return Article.objects.count()
 
     def save(self, force_insert=False, force_update=False, using=None,
-         update_fields=None, *args, **kwargs):
-        print("save called")
-        self.set_image()  # 画像処理とファイル名変更を常に実行
+            update_fields=None, *args, **kwargs):
+        self.set_image()  # 画像処理
+
+        # slug自動生成
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        # 英数字・ハイフン以外が含まれていたらハイフンに置き換え
+        if not re.fullmatch(r'[a-zA-Z0-9-]+', self.slug):
+            self.slug = '-'
+
+        if not self.thumb:
+            self.thumb = 'No-image.png'
+
         super().save(*args, **kwargs)
 
     def set_image(self):
@@ -110,8 +127,7 @@ class Article(models.Model):
             self.thumb.save(filename, File(output), save=False)
 
         except Exception as e:
-            print("set_image error:", e)
-            pass
+            logger.error(f"set_image error: {e}")
 
 
 class Category(models.Model):

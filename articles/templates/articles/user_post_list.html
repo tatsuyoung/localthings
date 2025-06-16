@@ -132,10 +132,12 @@
                         </li>
                     </ul>
                     <div class="articles-thumb">
-                        {% if article.thumb != 'No-image.png' %}
-                        <a href="{% url 'articles:detail' detail_id=article.id %}">
-                            <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                        </a>
+                        {% if article.thumb and article.thumb.url and article.thumb.name != "No-image.png" %}
+                            <a href="{% url 'articles:detail' detail_id=article.id %}">
+                                <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
+                            </a>
+                        {% else %}
+                            <span class="no-image-text"></span>
                         {% endif %}
                     </div>
                     <div class="articles-description">
@@ -200,21 +202,25 @@
                     <h3>おすすめアーティクル</h3>
                 </div>
                 {% for favorite in order_like_articles %}
-                <div class="favorite-wrapper">
-                    <div class="favorite-items">
-                        {% if favorite.category != None %}
-                        <span class="favorite-category">
-                                    {{ favorite.category }}
-                                </span>
-                        {% endif %}
-                        <a href="{% url 'articles:detail' detail_id=favorite.id %}">
-                            <span>{{ favorite.title | truncatechars_html:10 }}</span>
-                        </a>
+                    <div class="favorite-wrapper">
+                        <div class="favorite-items">
+                            {% if favorite.category != None %}
+                            <span class="favorite-category">
+                                        {{ favorite.category }}
+                                    </span>
+                            {% endif %}
+                            <a href="{% url 'articles:detail' detail_id=favorite.id %}">
+                                <span>{{ favorite.title | truncatechars_html:10 }}</span>
+                            </a>
+                        </div>
+                        <div class="favorite-thumb">
+                            {% if favorite.thumb and favorite.thumb.url and favorite.thumb.name != "No-image.png" %}
+                                <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
+                            {% else %}
+                                <span class="no-image-text"></span>
+                            {% endif %} 
+                        </div>
                     </div>
-                    <div class="favorite-thumb">
-                        <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
-                    </div>
-                </div>
                 {% endfor %}
                 <div class="favorite-info">
                     <a href="{% url 'articles:ordered_by_likes' %}">
