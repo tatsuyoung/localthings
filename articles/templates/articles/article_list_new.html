@@ -224,8 +224,8 @@
                     <div class="favorite-items">
                         {% if favorite.category != None %}
                         <span class="favorite-category">
-                                    {{ favorite.category }}
-                                </span>
+                            {{ favorite.category }}
+                        </span>
                         {% endif %}
                         <a href="{% url 'articles:detail' detail_id=favorite.id %}">
                             <span>{{ favorite.title | truncatechars_html:10 }}</span>
@@ -237,15 +237,6 @@
                         {% else %}
                             <img src="/media/No-image.png" loading="lazy" alt="No image"/>
                         {% endif %}
-                    </div>
-                    <div class="favorite-icon">
-                        <ul class="favorite-icon-box">
-                            <li class="icon-items">
-                                <div class="icon-circle">
-                                    <i class="far fa-heart"></i>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 {% endfor %}
