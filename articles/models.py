@@ -24,6 +24,7 @@ class Article(models.Model):
     body       = models.TextField('Article', blank=False, help_text='')
     date       = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    thumb      = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
     category   = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
     author     = models.ForeignKey(User, on_delete=models.CASCADE)
     like       = models.ManyToManyField(User, related_name="likes", blank=True)
