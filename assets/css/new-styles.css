@@ -515,7 +515,8 @@ a
     margin: 2px;
 }
 
-.articles-thumb
+/* articles thumbnail */
+/* .articles-thumb
 {
     display: flex ;
     justify-content: center ;
@@ -526,8 +527,10 @@ a
 {
     width: 100%;
     height: auto;
-}
+} */
 
+
+/* articles description */
 .articles-description
 {
     margin: 14px;
@@ -2006,7 +2009,7 @@ input[type="file"]{
     padding:          0.3em 1em;
     text-decoration:       none;
     color:              #6088C6;
-    border:                 2px solid   #AEC4E5;
+    border: 2px solid   #AEC4E5;
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
@@ -2026,6 +2029,30 @@ input[type="file"]{
 #input-label.changed::after{
     content:             "";
     }
+
+/* user upload image preview */
+#preview {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+    max-width: 100%;
+}
+#preview img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.note-max-images {
+    color: orange;
+    font-size  : 0.85em;
+    margin-top : 12px;
+    margin-left: 10px;
+}
 
 /* user background button animation */
 
@@ -2637,17 +2664,142 @@ ul{
     font-size: 1em;
 }
 
-@media (max-width: 600px) {
-    .edit-article-wrapper {
-        padding: 1em 0.5em;
-    }
-    .edit-article-title {
-        font-size: 1.3em;
-    }
-    .edit-article-submit {
-        width: 100%;
-        padding: 0.8em 0;
-    }
+/* edit article images */
+.edit-article-item {
+    width: 100%;
+}
+
+/* フォーム全体は幅いっぱい使い、内容は中央に */
+.edit-article-image-formset {
+    display: flex;
+    flex-direction: column;   /* 縦並び */
+    align-items: center ;    /* 各画像フォームを中央に */
+    width: 100%;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+/* 各画像フォーム（幅は少し絞る） */
+.article-image-form-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 360px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    box-sizing: border-box;
+    gap: 3px;
+}
+
+/* プレビュー画像 */
+.article-image-preview {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* ラベルやチェックボックス */
+.image-form-label {
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 6px;
+    text-align: center;
+}
+/* image urlをhidden */
+.article-image-form-block a {
+    display: none !important;
+}
+/* 画像プレビューのサイズ統一・角丸にする */
+.article-image-form-block img {
+    max-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+/* 画像がない場合のプレースホルダー画像 */
+.article-image-preview {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;  /* 塗りつぶすように拡大縮小 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+/* category Bar */
+.edit-article-category-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  background-image: url("data:image/svg+xml,%3Csvg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px 18px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.edit-article-category-select:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* ✅ モバイル用調整 */
+@media (max-width: 480px) {
+  .edit-article-category-select {
+    font-size: 0.95rem;
+    padding: 14px 38px 14px 14px;
+  }
+}
+
+.hidden-input-file {
+    display: none;
+}
+
+.custom-file-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-file-button:hover {
+    background-color: #45a049;
+}
+
+.article-image-form-block p {
+    font-size: 0.9em;
+    color: #de9929;
+    margin-top: 8px;
+}
+
+.clear-checkbox {
+    font-size: 0.8em;
+    color: #c00;
+    margin-top: 4px;
+}
+
+.clear-checkbox {
+    font-size: 0.8em;
+    color: #c00;
+    margin-top: 4px;
 }
 
 .thumb-upload-group {

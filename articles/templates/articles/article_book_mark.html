@@ -26,7 +26,7 @@
                     </div>
                     <div class="sliderContent">
                         <p>{{ book_mark.snippet }}</p>
-                        <a href="{% url 'articles:detail' detail_id=book_mark.id %}">Favorite</a>
+                        <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
                     </div>
                 </div>
 

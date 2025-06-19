@@ -24,7 +24,6 @@ class Article(models.Model):
     body       = models.TextField('Article', blank=False, help_text='')
     date       = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    thumb      = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
     category   = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
     author     = models.ForeignKey(User, on_delete=models.CASCADE)
     like       = models.ManyToManyField(User, related_name="likes", blank=True)
@@ -40,7 +39,7 @@ class Article(models.Model):
         return self.author
 
     def get_url(self):
-        return reverse('articles:detail', kwargs={'detail_id': self.id})
+        return reverse('articles:detail', kwargs={'pk': self.id})
 
     @property
     def total_likes(self):
@@ -56,7 +55,6 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
             update_fields=None, *args, **kwargs):
-        self.set_image()  # 画像処理
 
         # slug自動生成
         if not self.slug:
@@ -66,17 +64,29 @@ class Article(models.Model):
         if not re.fullmatch(r'[a-zA-Z0-9-]+', self.slug):
             self.slug = '-'
 
-        if not self.thumb:
-            self.thumb = 'No-image.png'
-
         super().save(*args, **kwargs)
 
-    def set_image(self):
+
+class ArticleImage(models.Model):
+    article     = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='images')
+    image       = models.ImageField('Photo', default='No-image.png', blank=True, upload_to='article_pics')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.article.title} - {self.id}"
+    # 画像処理はここに移動
+    def save(self, num_image=5, *args, **kwargs):
+        if self.article.images.count() >= num_image and not self.pk:
+            raise ValueError(f"画像は最大{num_image}枚までしか追加できません。")
+        self.process_image()
+        super().save(*args, **kwargs)
+
+    def process_image(self):
         try:
-            if not self.thumb or self.thumb == 'No-image.png':
+            if not self.image or self.image == 'No-image.png':
                 return
-            self.thumb.seek(0)
-            pil_image = Image.open(BytesIO(self.thumb.read()))
+            self.image.seek(0)
+            pil_image = Image.open(BytesIO(self.image.read()))
 
             # EXIFのOrientation取得（JPEGのみ）
             exif = None
@@ -104,13 +114,13 @@ class Article(models.Model):
 
             # Instagram Feed 用の推奨サイズに合わせる
             if aspect_ratio > 1.91:
-                # 横長（例: 1080x566）
+                # 横長（e.g: 1080x566）
                 target_size = (1080, int(1080 / 1.91))  # 約 1080x566
             elif aspect_ratio < 0.8:
-                # 縦長（例: 1080x1350）
+                # 縦長（e.g: 1080x1350）
                 target_size = (1080, 1350)
             else:
-                # 正方形または近い（例: 1080x1080）
+                # 正方形または近い(e.g: 1080x1080）
                 target_size = (1080, 1080)
 
             pil_image = ImageOps.fit(pil_image, target_size, Image.Resampling.LANCZOS)
@@ -121,14 +131,13 @@ class Article(models.Model):
             output.seek(0)
 
             # ファイル名を明示的にjpgに
-            base = os.path.splitext(self.thumb.name)[0]
+            base     = os.path.splitext(self.image.name)[0]
             filename = base + ".jpg"
-            self.thumb.delete(save=False)  # 古いファイルを削除
-            self.thumb.save(filename, File(output), save=False)
+            self.image.delete(save=False)  # 古いファイルを削除
+            self.image.save(filename, File(output), save=False)
 
         except Exception as e:
             logger.error(f"set_image error: {e}")
-
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30)

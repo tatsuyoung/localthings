@@ -819,19 +819,96 @@ input::-moz-placeholder
     margin: 2px;
 }
 
-.articles-thumb
-{
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
+/* articles thumbnail */
+.articles-thumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
-.articles-thumb img
-{
+.articles-thumb .swiper-container {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+}
+
+.articles-thumb .swiper-wrapper {
+    height: 100%;
+}
+
+.articles-thumb .swiper-slide {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.articles-thumb .swiper-slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
+/* --- 矢印ボタンスタイル --- */
+/* ボタンの共通スタイル */
+.custom-swiper-button {
+    width : 23px;
+    height: 23px;
+    background-color: rgba(250, 246, 246, 0.971);
+    opacity: 0.8;
+    border-radius: 50%;
+    color: #666666ab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* Font Awesome アイコンサイズ */
+.custom-swiper-button i {
+    font-size: 14px;
+}
+
+/* 位置調整 */
+.swiper-button-prev {
+    left: 8px;
+}
+
+.swiper-button-next {
+    right: 8px;
+}
+
+/* デフォルトの ::after を非表示にする */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none;
+}
+
+/* --- pagination スタイル --- */
+.articles-thumb .swiper-pagination-bullets {
+    bottom: 6px;
+}
+
+.articles-thumb .swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.7;
+}
+
+.articles-thumb .swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+/* articles-description */
 .articles-description
 {
     margin: 14px;
@@ -1466,4 +1543,11 @@ ul{
     }
 }
 
+/* --- レスポンシブ調整 Swiper--- */
+@media (max-width: 768px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
+}
 

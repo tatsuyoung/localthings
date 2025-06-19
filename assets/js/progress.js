@@ -19,8 +19,8 @@ const csrftoken = getCookie('csrftoken');
 
 $("#form").submit(function(e) {
     e.preventDefault();
-    const ok = confirm('Are you sure with the content of this article?');
-    if (!ok) return;
+    // const ok = confirm('Are you sure with the content of this article?');
+    // if (!ok) return;
 
     // フェイクアニメーション開始
     $("#fake-upload-animation").show();

@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>{{ article.title }}</title>
         <meta name="description" content="{{ article.snippet }}"/>
+        <meta name="csrf-token" content="{{ csrf_token }}">
         <!--  favicon  -->
          <link rel="icon" href="{% static 'favicon.ico' %}">
          <!-- PWA -->
@@ -38,10 +39,12 @@
         <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
         <!--  Google Fonts      -->
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
-        <!--  Load CSS  -->
-        <link rel="stylesheet" href="{% static 'css/detail.css' %}">
         <!--  Load jquery  -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+        <!--  Load CSS  -->
+        <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     </head>
     <body>
         <header id="nav" class="mobil-nav-wrapper">
@@ -97,9 +100,7 @@
                 </div>
 
                 <div class="article-wrapper">
-
                     <article class="following-feed">
-
                         <div class="following-feed-wrapper">
                             <ul class="following-articles">
                                 <li class="articles-item">
@@ -110,16 +111,37 @@
                                 <li class="articles-item">
                                     <p>{{ article.author.username }}</p>
                                 </li>
-
                             </ul>
+                            {% if article.images.all %}
                             <div class="articles-thumb">
-                                {% if article.thumb != 'No-image.png' %}
-                                <a href="{% url 'articles:detail' detail_id=article.id %}">
-                                    <img src="{{ article.thumb.url }}" alt="{{ article.title }}" loading="lazy"/>
-                                </a>
-                                {% endif %}
-                            </div>
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        {% for img in article.images.all %}
+                                            {% if img.image %}
+                                            <div class="swiper-slide">
+                                                <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                            </div>
+                                            {% else %}
+                                            <div class="swiper-slide">
+                                                <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
 
+                                    <div class="swiper-pagination"></div>
+
+                                    {% if article.images.count > 1 %}
+                                        <div class="swiper-button-prev custom-swiper-button">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </div>
+                                        <div class="swiper-button-next custom-swiper-button">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
                             <div class="articles-description">
                                 <h4>{{  article.title  }}</h4>
                                 <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
@@ -153,7 +175,7 @@
 
                     <div class="favorite-articles">
                         <div class="favorite-title">
-                            <h3>おすすめアーティクル</h3>
+                            <h3>Recommended Articles</h3>
                         </div>
                         {% for favorite in order_like_articles %}
                         <div class="favorite-wrapper">
@@ -163,13 +185,21 @@
                                     {{ favorite.category }}
                                 </span>
                                 {% endif %}
-                                <a href="{% url 'articles:detail' detail_id=favorite.id %}">
+                                <a href="{% url 'articles:detail' pk=favorite.pk %}">
                                     <span>{{ favorite.title | truncatechars_html:10 }}</span>
                                 </a>
                             </div>
                             <div class="favorite-thumb">
-                                <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
-                            </div>
+                            {% if favorite.images.all %}
+                                {% with first_img=favorite.images.all.first %}
+                                    {% if first_img %}
+                                        <img src="{{ first_img.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                            {% endif %}
+                        </div>
                         </div>
                         {% endfor %}
                         <div class="favorite-info">
@@ -181,7 +211,7 @@
                     {% if user.is_authenticated %}
                     <div class="users">
                         <div class="users-title">
-                            <h3>おすすめユーザー</h3>
+                            <h3>Recommended Users</h3>
                         </div>
                         {% for user in users %}
                         {% if request.user != user.user %}
@@ -218,27 +248,38 @@
             </div>
         </div>
         {% include 'articles/snippet/mobile-nav-footer.html' %}
-
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script src="/static/js/swiper-images.js"></script>
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/search-box.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
         <script src="/static/js/mobile-search-box.js"></script>
         <script>
+        const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         $('#like').click(function(){
             $.ajax({
-                   type: "POST",
-                   url: "{% url 'articles:like_button' article.pk %}",
-                   data: {'title': $(this).attr('name'),'csrfmiddlewaretoken':'{{ csrf_token }}'},
-                   dataType: "json",
-                   success: function(response) {
-                        alert(response.message);
-                        alert('いいね数トータルは' + response.likes_count + ' いいねです。');
-                   },
-                   error: function(data) {
-                        alert("Please Login or Signup");
+                type: "POST",
+                url: "{% url 'articles:like_button' article.pk %}",
+                headers: {
+                    'X-CSRFToken': csrftoken  // ← ここが大事！
+                },
+                data: {
+                    'title': $(this).attr('name')
+                },
+                dataType: "json",
+                success: function(response) {
+                    alert(response.message);
+                    alert('いいね数トータルは' + response.likes_count + ' いいねです。');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        alert("ログインしてください");
+                    } else {
+                        alert("エラーが発生しました");
+                    }
                 }
             });
-        })
+        });
         </script>
         <script>
         $('#book_mark').click(function(){

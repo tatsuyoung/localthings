@@ -44,4 +44,4 @@ if settings.DEBUG:
 
 
 admin.site.site_header = "LOCAL THINGS ADMIN"
-admin.site.site_title = "LOCAL THINGS ADMIN"
+admin.site.site_title  = "LOCAL THINGS ADMIN"

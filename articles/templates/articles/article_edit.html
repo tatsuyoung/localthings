@@ -24,25 +24,38 @@
             <span class="edit-article-error">{{ error }}</span>
             {% endfor %}
         </div>
-
         <div class="edit-article-item">
-            <label class="edit-article-label">サムネイル画像</label>
-            <div class="thumb-upload-group">
-                <!-- 現在の画像を表示（あれば） -->
-                {% if form.instance.thumb %}
-                    <img src="{{ form.instance.thumb.url }}" alt="現在のサムネイル" class="thumb-preview" style="max-width:120px; max-height:120px; display:block; margin-bottom:8px;">
+            <h2 class="edit-article-label">記事画像（最大5枚）</h2>
+
+            {{ formset.management_form }}
+            <div class="edit-article-image-formset">
+            {% for image_form in formset %}
+                {% if forloop.counter <= 5 %}
+                    <div class="article-image-form-block">
+                        {{ image_form.id }}
+
+                        {% if image_form.instance.image %}
+                            <img src="{{ image_form.instance.image.url }}" class="article-image-preview" >
+                        {% else %}
+                            <img src="/media/No-image.png" loading="lazy" class="article-image-preview" alt="No Image">   
+                        {% endif %}
+
+                        <label for="{{ image_form.image.id_for_label }}"></label>
+                        {{ image_form.image.as_widget }}  {# ファイル入力 #}
+
+                        <button type="button" class="custom-file-button">ファイルを選択</button>
+
+                        {% if image_form.instance.pk %}
+                            <label>
+                                <p>Delete</p>
+                                {{ image_form.DELETE }}
+                            </label>
+                        {% endif %}
+                    </div>
                 {% endif %}
-                <!-- ファイル選択ボタンをカスタム -->
-                <label for="id_thumb" class="thumb-upload-btn">Change Photo</label>
-                {{ form.thumb }}
-                {{ form.thumb.clear_checkbox}}
-            </div>
-            <p class="edit-article-helptext">{{ form.thumb.help_text }}</p>
-            {% for error in form.thumb.errors %}
-                <span class="edit-article-error">{{ error }}</span>
             {% endfor %}
         </div>
-
+        </div>
         <div class="edit-article-item">
             <label for="id_category" class="edit-article-label">カテゴリ</label>
             {{ form.category }}
@@ -78,5 +91,6 @@
 {% endblock %}
 {% block script %}
 <!-- <script src="/static/js/slugify.js"></script> -->
+ <script src="/static/js/edit.js"></script>
 <script src="/static/js/progress.js"></script>
 {% endblock %}
