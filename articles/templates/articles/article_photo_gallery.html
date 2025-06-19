@@ -27,17 +27,21 @@
 <div class="photo_container">
     <div id="gallery" class="container-fluid">
         {% for article in object_list %}
-            {% if article.thumb and article.thumb.name and article.thumb.name != "No-image.png" %}
-                <div class="gallery-img-wrapper">
-                    <a href="{{ article.thumb.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
-                        <img class="card img-responsive" src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                    </a>
-                    <div class="link_box">
-                        <a href="{% url 'articles:detail' detail_id=article.id %}">
-                            <i class="fas fa-link icon-size"></i>
-                        </a>
-                    </div>
-                </div>
+            {% if article.images.all %}
+                {% with first_image=article.images.all.first %}
+                    {% if first_image %}
+                        <div class="gallery-img-wrapper">
+                            <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                                <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                            </a>
+                            <div class="link_box">
+                                <a href="{% url 'articles:detail' pk=article.pk %}">
+                                    <i class="fas fa-link icon-size"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endwith %}
             {% endif %}
         {% endfor %}
     </div>

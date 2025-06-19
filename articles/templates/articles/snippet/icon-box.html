@@ -37,7 +37,7 @@
          <li class="articles-icon-item-active">
             <div class="articles-icon-items-wrapper">
                 <div class="articles-hover">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  detail_id=article.id %}"
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail'  pk=article.pk %}"
                         target="_blank" rel="nofollow" class="fb">
                         <i class="fab fa-facebook-f"></i>
                     </a>
@@ -48,7 +48,7 @@
          <li class="articles-icon-item-active">
             <div class="articles-icon-items-wrapper">
                 <div class="articles-hover">
-                    <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' detail_id=article.id %}&text={{ article.title }}"
+                    <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'articles:detail' pk=article.pk %}&text={{ article.title }}"
                         target="_blank" rel="nofollow" class="tw">
                     <i class="fa-brands fa-x-twitter"></i>
                     </a>

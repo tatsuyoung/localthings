@@ -20,6 +20,8 @@
     <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
     <!--  Google Fonts      -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <!--  Load CSS  -->
     <link rel="stylesheet" href="{% static 'css/users-detail.css' %}">
 </head>
@@ -127,18 +129,33 @@
                             <p><small>{{ article.date | date:"y/n/j H:i" }}</small></p>
                         </li>
                     </ul>
-                    <div class="articles-thumb">
-                        {% if article.thumb and article.thumb.url and article.thumb.name != "No-image.png" %}
-                            <a href="{% url 'articles:detail' detail_id=article.id %}">
-                                <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                            </a>
-                        {% else %}
-                            <span class="no-image-text"></span>
-                        {% endif %}
-                    </div>
+                    {% if article.images.all %}
+                        <div class="articles-thumb">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for img in article.images.all %}
+                                        <div class="swiper-slide">
+                                            <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="swiper-pagination"></div>
+
+                                {% if article.images.count > 1 %}
+                                    <div class="swiper-button-prev custom-swiper-button">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </div>
+                                    <div class="swiper-button-next custom-swiper-button">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="articles-description">
                         <h4>{{  article.title  }}</h4>
-                        <a href="{% url 'articles:detail' detail_id=article.id %}">
+                        <a href="{% url 'articles:detail' pk=article.pk %}">
                             <p>{{ article.snippet }}<small>続きを読む</small></p>
                         </a>
                     </div>
@@ -206,7 +223,7 @@
         <div class="right-wrapper">
             <div class="favorite-articles">
                 <div class="favorite-title">
-                    <h3>おすすめアーティクル</h3>
+                    <h3>Recommended Articles</h3>
                 </div>
                 {% for favorite in order_like_articles %}
                 <div class="favorite-wrapper">
@@ -216,16 +233,20 @@
                                     {{ favorite.category }}
                                 </span>
                         {% endif %}
-                        <a href="{% url 'articles:detail' detail_id=favorite.id %}">
+                        <a href="{% url 'articles:detail' pk=favorite.pk %}">
                             <span>{{ favorite.title | truncatechars_html:10 }}</span>
                         </a>
                     </div>
                     <div class="favorite-thumb">
-                        {% if favorite.thumb and favorite.thumb.url and favorite.thumb.name != "No-image.png" %}
-                                <img src="{{ favorite.thumb.url }}" alt="{{ favorite.title }}" loading="lazy"/>
-                        {% else %}
-                            <span class="no-image-text"></span>
-                        {% endif %} 
+                    {% if favorite.images.all %}
+                        {% with first_image=favorite.images.all.first %}
+                            {% if first_image %}
+                                <img src="{{ first_image.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                            {% endif %}
+                        {% endwith %}
+                    {% else %}
+                        <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                    {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -238,7 +259,7 @@
 
             <div class="users">
                 <div class="users-title">
-                    <h3>おすすめユーザー</h3>
+                    <h3>Recommended Users</h3>
                 </div>
                 {% for user in users %}
                 {% if request.user != user.user %}
@@ -274,6 +295,8 @@
     </div>
 </div>
 {% include 'articles/snippet/mobile-nav-footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="/static/js/swiper-images.js"></script>
 <script src="/static/js/app.js"></script>
 <script src="/static/js/scroll.js"></script>
 <script src="/static/js/mobile-hover.js"></script>

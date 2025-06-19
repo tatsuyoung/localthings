@@ -2,12 +2,13 @@ from django.urls import path
 from articles import views
 from .views import UserPostListView, Gallery, ArticleOrderedByLikes
 
+
 app_name = 'articles'
 
 urlpatterns = [
     path('', views.article_list, name="list"),
     path('create/', views.article_create, name="create"),
-    path('<int:detail_id>/', views.article_detail, name="detail"),
+    path('<int:pk>/', views.article_detail, name="detail"),
     path('<int:article_id>/delete', views.article_delete, name="delete"),
     path('<int:pk>/comment/', views.article_comment, name="comment"),
     path('<int:comment_id>/delete_comment', views.delete_comment, name="com_delete"),

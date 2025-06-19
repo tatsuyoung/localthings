@@ -11,17 +11,21 @@ from django.views.generic import ListView
 from notifications.signals import notify
 
 from accounts.models import Profile
-from .models import Article, Comment, Category
+from .models import Comment, Category
+from .models import Article, ArticleImage
 from. import forms
+
+from django.forms import inlineformset_factory
+from .forms import CreateArticle, ArticleImageForm
 
 
 def article_list(request):
-    users = Profile.objects.all().order_by('?')[:4]
-    articles_list = Article.objects.all().order_by('-date')
+    users               = Profile.objects.all().order_by('?')[:4]
+    articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    paginator = Paginator(articles_list, 24)
-    page = request.GET.get('page')
-    articles = paginator.get_page(page)
+    paginator           = Paginator(articles_list, 24)
+    page                = request.GET.get('page')
+    articles            = paginator.get_page(page)
 
     query = request.GET.get("q")
     if query:
@@ -37,11 +41,11 @@ def article_list(request):
                   )
 
 
-def article_detail(request, detail_id):
-    users = Profile.objects.all().order_by('?')[:4]
-    articles_list = Article.objects.all().order_by('-date')
+def article_detail(request, pk):
+    users               = Profile.objects.all().order_by('?')[:4]
+    articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    article = Article.objects.get(id=detail_id)
+    article             = Article.objects.get(pk=pk)
     return render(request, 'articles/article_detail_new.html',
                   {'article': article,
                    'order_like_articles': order_like_articles,
@@ -52,19 +56,21 @@ def article_detail(request, detail_id):
 
 
 @login_required(login_url="/accounts/login/")
-def article_create(request):
+def article_create(request, num_images=5):
     if request.method == 'POST':
-        form = forms.CreateArticle(request.POST, request.FILES)
+        form  = forms.CreateArticle(request.POST)
+        files = request.FILES.getlist('images')  # input name="images" で複数取得
         if form.is_valid():
             instance = form.save(commit=False)
             instance.author = request.user
-
-            # 画像clear処理
-            if "thumb-clear" in request.POST:
-                instance.thumb = 'No-image.png'
-                
             instance.save()
-            # AjaxリクエストならJSONで返す
+
+            # 画像保存（最大5枚まで）
+            for i, image in enumerate(files):
+                if i >= num_images:
+                    break
+                ArticleImage.objects.create(article=instance, image=image)
+
             if request.is_ajax():
                 return JsonResponse({'result': 'ok'})
             return redirect('articles:list')
@@ -74,6 +80,36 @@ def article_create(request):
     else:
         form = forms.CreateArticle()
     return render(request, 'articles/article_create.html', {'form': form})
+
+ArticleImageFormSet = inlineformset_factory(
+        Article,
+        ArticleImage,
+        form=ArticleImageForm,
+        extra=1,  # 新規に追加できるフォーム数
+        can_delete=True  # 削除チェックボックスを有効化
+    )
+
+@login_required(login_url="/accounts/login/")
+def article_edit(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+
+    if request.method == 'POST':
+        form = CreateArticle(request.POST, request.FILES, instance=article)
+        formset = ArticleImageFormSet(request.POST, request.FILES, instance=article)
+
+        if form.is_valid() and formset.is_valid():
+            article = form.save()
+            formset.save()  # ← これだけでOK！
+            return redirect('articles:detail', pk=article.pk)
+    else:
+        form = CreateArticle(instance=article)
+        formset = ArticleImageFormSet(instance=article)
+
+    return render(request, 'articles/article_edit.html', {
+        'form': form,
+        'formset': formset,
+        'article': article,
+    })
 
 
 @require_POST
@@ -86,28 +122,29 @@ def article_delete(request, article_id):
 @login_required(login_url="/accounts/login/")
 @require_POST
 def article_comment(request, pk):
-    users = Profile.objects.all().order_by('?')[:4]
-    articles_list = Article.objects.all().order_by('-date')
+    users               = Profile.objects.all().order_by('?')[:4]
+    articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    article_com = Article.objects.get(id=pk)
-    comments = Comment.objects.filter(post=article_com).order_by('created_date')
-    current_user = request.user
+    article_com         = Article.objects.get(id=pk)
+    comments            = Comment.objects.filter(post=article_com).order_by('created_date')
+    current_user        = request.user
+
     if request.method == "POST":
         form = forms.CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = article_com
+            comment        = form.save(commit=False)
+            comment.post   = article_com
             comment.author = request.user
             comment.save()
     else:
         form = forms.CommentForm()
     context = {
-                'article': article_com,
-                'form': form,
-                'comments': comments,
-                'current_user': current_user,
+                'article'            : article_com,
+                'form'               : form,
+                'comments'           : comments,
+                'current_user'       : current_user,
                 'order_like_articles': order_like_articles,
-                'users': users
+                'users'              : users
                }
     return render(request, 'articles/article_detail_new.html', context)
 
@@ -121,9 +158,9 @@ def delete_comment(request, comment_id):
 
 @login_required(login_url="/accounts/login/")
 def book_mark_list(request):
-    user = request.user
+    user         = request.user
     my_book_mark = user.book_mark.all().order_by('-date')
-    context = {
+    context      = {
         'my_book_mark': my_book_mark
     }
     return render(request, 'articles/article_book_mark.html', context)
@@ -131,11 +168,13 @@ def book_mark_list(request):
 
 @require_POST
 def book_mark(request, book_mark_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'message': 'Please log in.'}, status=403)
 
     if request.method == 'POST':
-        user = request.user
-        title = request.POST.get('title', None)
-        article = get_object_or_404(Article, title=title, id=book_mark_id)
+        user         = request.user
+        title        = request.POST.get('title', None)
+        article      = get_object_or_404(Article, title=title, id=book_mark_id)
 
         if article.book_mark.filter(id=user.id).exists():
             article.book_mark.remove(user)
@@ -149,44 +188,46 @@ def book_mark(request, book_mark_id):
 
 @require_POST
 def like_button(request, like_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'message': 'Please log in.'}, status=403)
 
-    if request.method == 'POST':
-        user = request.user
-        title = request.POST.get('title', None)
-        article = get_object_or_404(Article, title=title, id=like_id)
+    user    = request.user
+    title   = request.POST.get('title', None)
+    article = get_object_or_404(Article, title=title, id=like_id)
 
-        if article.like.filter(id=user.id).exists():
-            article.like.remove(user)
-            message = 'いいねを取り消しました。'
-        else:
-            article.like.add(user)
-            url = article.get_url()
-            message = 'いいねしました。'
-            notify.send(
-                user,
-                recipient=article.author,
-                verb=f'さんが、あなたの記事にいいねしました。{article.title}',
-                action_object=article,
-                url=url
-            )
+    if article.like.filter(id=user.id).exists():
+        article.like.remove(user)
+        message = 'いいねを取り消しました。'
+    else:
+        article.like.add(user)
+        url     = article.get_url()
+        message = 'いいねしました。'
+        notify.send(
+            user,
+            recipient=article.author,
+            verb=f'さんが、あなたの記事にいいねしました。{article.title}',
+            action_object=article,
+            url=url
+        )
 
     context = dict(likes_count=article.total_likes, message=message)
-    return HttpResponse(json.dumps(context), content_type='application/json')
+    return JsonResponse(context)
 
 
 def users_detail(request, pk):
-    users = Profile.objects.all().order_by('?')[:4]
-    articles_list = Article.objects.all().order_by('-date')
+    users               = Profile.objects.all().order_by('?')[:4]
+    articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    current_user = request.user
-    user = get_object_or_404(User, pk=current_user.pk)
-    my_article = user.article_set.all().order_by('-date')
-    paginator = Paginator(my_article, 9)
-    page = request.GET.get('page')
-    articles = paginator.get_page(page)
-    count = user.article_set.all().count()
-    following = user.is_following.all().count()
-    followers = user.profile.followers.all().count()
+    current_user        = request.user
+    user                = get_object_or_404(User, pk=current_user.pk)
+    my_article          = user.article_set.all().order_by('-date')
+    paginator           = Paginator(my_article, 9)
+    page                = request.GET.get('page')
+    articles            = paginator.get_page(page)
+    count               = user.article_set.all().count()
+    following           = user.is_following.all().count()
+    followers           = user.profile.followers.all().count()
+
     context = {
                 'user': user,
                 'articles': articles,
@@ -201,10 +242,10 @@ def users_detail(request, pk):
 
 def users_detail_comments(request, pk):
     article_com = Article.objects.get(id=pk)
-    comments = Comment.objects.filter(post=article_com).order_by('-created_date')
-    paginator = Paginator(comments, 10)
-    page = request.GET.get('page')
-    comments = paginator.get_page(page)
+    comments    = Comment.objects.filter(post=article_com).order_by('-created_date')
+    paginator   = Paginator(comments, 10)
+    page        = request.GET.get('page')
+    comments    = paginator.get_page(page)
     context = {
                 'comments': comments
                }
@@ -213,45 +254,22 @@ def users_detail_comments(request, pk):
 
 def users_detail_liked(request, pk):
     article_title = Article.objects.get(id=pk)
-    liked_users = article_title.like.all().order_by('?')
-    paginator = Paginator(liked_users, 10)
-    page = request.GET.get('page')
-    liked_users = paginator.get_page(page)
+    liked_users   = article_title.like.all().order_by('?')
+    paginator     = Paginator(liked_users, 10)
+    page          = request.GET.get('page')
+    liked_users   = paginator.get_page(page)
     context = {
                 'liked_users': liked_users
                 }
     return render(request, 'articles/users_detail_like.html', context)
 
 
-#@login_required(login_url="/accounts/login/")
-def article_edit(request, pk):
-    if id:
-        post = get_object_or_404(Article, pk=pk)
-        if post.author != request.user:
-            #return HttpResponseForbidden() #default
-            raise PermissionDenied
-    else:
-        post = Article(author=request.user)
-
-    form = forms.CreateArticle(request.POST, request.FILES, instance=post)
-    if request.method == 'POST':
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('articles:list')
-    else:
-        form = forms.CreateArticle(instance=post)
-    context = {'form': form}
-    return render(request, 'articles/article_edit.html', context)
-
-
 def category_detail(request, pk):
-    category = get_object_or_404(Category, pk=pk)
+    category          = get_object_or_404(Category, pk=pk)
     articles_category = category.article_set.all().order_by('-date')
-    paginator = Paginator(articles_category, 24)
-    page = request.GET.get('page')
-    articles = paginator.get_page(page)
+    paginator         = Paginator(articles_category, 24)
+    page              = request.GET.get('page')
+    articles          = paginator.get_page(page)
     context = {
         'category': category,
         'articles': articles
@@ -260,25 +278,25 @@ def category_detail(request, pk):
 
 
 class UserPostListView(ListView):
-    model = Article
-    template_name = 'articles/user_post_list.html'
+    model               = Article
+    template_name       = 'articles/user_post_list.html'
     context_object_name = 'articles'
-    paginate_by = 24
+    paginate_by         = 24
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        _user = get_object_or_404(User, username=self.kwargs.get('username'))
-        users = Profile.objects.all().order_by('?')[:4]
-        articles_list = Article.objects.all().order_by('-date')
+        _user               = get_object_or_404(User, username=self.kwargs.get('username'))
+        users               = Profile.objects.all().order_by('?')[:4]
+        articles_list       = Article.objects.all().order_by('-date')
         order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
         context = super().get_context_data(**kwargs)
         context.update({
-            'User': _user,
+            'User'     : _user,
             'following': _user.is_following.all().count(),
             'followers': _user.profile.followers.all().count(),
-            'bio': _user.profile.bio,
-            'website': _user.profile.website,
-            'count': _user.article_set.all().count(),
-            'users': users,
+            'bio'      : _user.profile.bio,
+            'website'  : _user.profile.website,
+            'count'    : _user.article_set.all().count(),
+            'users'    : users,
             'order_like_articles': order_like_articles
         })
         articles = Article.objects.filter(author=_user).order_by('-date')
@@ -290,9 +308,9 @@ class UserPostListView(ListView):
 
 
 class Gallery(ListView):
-    model = Article
+    model         = Article
     template_name = 'articles/article_photo_gallery.html'
-    paginate_by = 24
+    paginate_by   = 24
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -306,15 +324,14 @@ class Gallery(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.exclude(thumb='No-image.png').order_by('-date')
-        #return Article.objects.all().order_by('-date')
+        return Article.objects.filter(images__isnull=False).distinct().order_by('-date')
 
 
 class ArticleOrderedByLikes(ListView):
-    model = Article
-    template_name = 'articles/article_ordered_by_likes.html'
+    model               = Article
+    template_name       = 'articles/article_ordered_by_likes.html'
     context_object_name = 'articles'
-    paginate_by = 9
+    paginate_by         = 9
 
     def get_queryset(self):
         return Article.objects.annotate(like_count=Count('like')).order_by('-like_count')

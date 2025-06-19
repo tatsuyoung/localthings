@@ -30,14 +30,13 @@
 
         <div class="form_group">
             <div id="input-group">
-                <input type="file" name="thumb" accept="image/*" id="01"/>
+                <input type="file" name="images" accept="image/*" id="01" multiple/>
                 <label for="01" id="input-label">UpLoad
                     <i class="fas fa-camera-retro"></i>
                 </label>
-                {% for error in form.thumb.errors %}
-                <span class="helptext">{{ error }}</span>
-                {% endfor %}
             </div>
+            <div class="note-max-images">Up to 5 images allowed</div>
+            <div id="preview"></div>
         </div>
 
          <div class="form-item">
@@ -94,6 +93,6 @@
 {% endblock %}
 {% block script %}
 <!-- <script src="/static/js/slugify.js"></script> -->
-<script src="/static/js/thumb.js"></script>
+<!-- <script src="/static/js/thumb.js"></script> -->
 <script src="/static/js/progress.js"></script>
 {% endblock %}

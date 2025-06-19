@@ -24,16 +24,20 @@
                 </li>
             </ul>
             <div class="articles-thumb">
-                {% if article.thumb != 'No-image.png' %}
-                <a href="{% url 'articles:detail' detail_id=article.id %}">
-                    <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                </a>
+                {% if article.images.all %}
+                    {% with first_image=article.images.all.first %}
+                        {% if first_image %}
+                        <a href="{% url 'articles:detail' pk=article.pk %}">
+                            <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                        </a>
+                        {% endif %}
+                    {% endwith %}
                 {% endif %}
             </div>
             <div class="articles-description">
                 <h2>{{  article.title  }}</h2>
                 <p>{{ article.snippet }}
-                    <a href="{% url 'articles:detail' detail_id=article.id %}">
+                    <a href="{% url 'articles:detail' pk=article.pk %}">
                     <small>続きを読む</small>
                     </a>
                 </p>

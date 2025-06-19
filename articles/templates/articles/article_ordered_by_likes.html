@@ -22,16 +22,20 @@
                         <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
                     </li>
                 </ul>
-                <div class="articles-thumb">
-                    {% if article.thumb != 'No-image.png' %}
-                    <a href="{% url 'articles:detail' detail_id=article.id %}">
-                        <img src="{{ article.thumb.url }}" loading="lazy" alt="{{ article.title }}"/>
-                    </a>
-                    {% endif %}
-                </div>
+                {% if article.images.all %}
+                    {% with first_image=article.images.all.first %}
+                        {% if first_image %}
+                            <div class="articles-thumb">
+                                <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                                    <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
                 <div class="articles-description">
                     <h2>{{  article.title  }}</h2>
-                    <a href="{% url 'articles:detail' detail_id=article.id %}">
+                    <a href="{% url 'articles:detail' pk=article.pk %}">
                         <p>{{ article.snippet }}<small>続きを読む</small></p>
                     </a>
                 </div>
