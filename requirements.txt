@@ -44,5 +44,5 @@ social-auth-app-django==5.4.2
 social-auth-core==4.5.4
 sqlparse==0.5.0
 typing_extensions==4.7.1
-urllib3==1.26.19
+urllib3==2.5.0
 whitenoise==5.2.0
