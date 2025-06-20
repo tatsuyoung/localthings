@@ -18,6 +18,9 @@ from. import forms
 from django.forms import inlineformset_factory
 from .forms import CreateArticle, ArticleImageForm
 
+from django.http import HttpResponseServerError
+import logging
+logger = logging.getLogger(__name__)
 
 def article_list(request):
     users               = Profile.objects.all().order_by('?')[:4]
@@ -53,33 +56,36 @@ def article_detail(request, pk):
                    }
                   )
 
-
-
 @login_required(login_url="/accounts/login/")
 def article_create(request, num_images=5):
-    if request.method == 'POST':
-        form  = forms.CreateArticle(request.POST)
-        files = request.FILES.getlist('images')  # input name="images" で複数取得
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
+    try:
+        if request.method == 'POST':
+            form = forms.CreateArticle(request.POST)
+            files = request.FILES.getlist('images')
+            logger.info(f"FILES: {[f.name for f in files]}")
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.author = request.user
+                instance.save()
 
-            # 画像保存（最大5枚まで）
-            for i, image in enumerate(files):
-                if i >= num_images:
-                    break
-                ArticleImage.objects.create(article=instance, image=image)
+                for i, image in enumerate(files):
+                    if i >= num_images:
+                        break
+                    ArticleImage.objects.create(article=instance, image=image)
 
-            if request.is_ajax():
-                return JsonResponse({'result': 'ok'})
-            return redirect('articles:list')
+                return redirect('articles:list')
+            else:
+                logger.error(f"Form errors: {form.errors}")
+                return render(request, 'articles/article_create.html', {'form': form})
+
         else:
-            if request.is_ajax():
-                return JsonResponse({'result': 'error', 'errors': form.errors}, status=400)
-    else:
-        form = forms.CreateArticle()
-    return render(request, 'articles/article_create.html', {'form': form})
+            form = forms.CreateArticle()
+            return render(request, 'articles/article_create.html', {'form': form})
+
+    except Exception as e:
+        logger.exception("Error during article_create")
+        return HttpResponseServerError("Internal Server Error")
+
 
 ArticleImageFormSet = inlineformset_factory(
         Article,
