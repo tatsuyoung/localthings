@@ -8,127 +8,73 @@
             </a>
         </div>
     </li>
-    <li>
-        <div class="icon-circle">
-            <a href="{% url 'home' %}" class="icon-link">
-                <div class="icon-container">
-                    <i class="fa fa-home"></i>
-                </div>
-            </a>
-        </div>
+    <li class="icon-item">
+        <a href="{% url 'home' %}" class="icon-link">
+            <div class="icon-wrapper">
+                <i class="fa fa-home"></i>
+            </div>
+            <span class="icon-label-text">ホーム</span>
+        </a>
     </li>
-<!--                    <li>-->
-<!--                        <div class="icon-circle">-->
-<!--                            <a href="#" class="icon-link">-->
-<!--                                <div class="icon-container">-->
-<!--                                    <i class="fas fa-hashtag"></i>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </li>-->
-    <li>
+    <li class="icon-item">
         {% if user.is_authenticated %}
-        <div class="icon-circle">
-            {% notifications_unread as unread_count %}
+        {% notifications_unread as unread_count %}
             <a href="{% url 'my_notifications' %}" class="icon-link">
-                <div class="icon-container">
+                <div class="icon-wrapper">
                     <i class="far fa-bell">
-                    {% if unread_count %}
-                    <div class="number">
-                        <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
-                    </div>
-                    {% endif %}
+                        {% if unread_count %}
+                            <div class="number">
+                                <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
+                            </div>
+                        {% endif %}
                     </i>
-
                 </div>
+                <span class="icon-label-text">お知らせ</span>
             </a>
-        </div>
+        {% endif %}
     </li>
-<!--                    <li>-->
-<!--                        <div class="icon-circle">-->
-<!--                            <a href="#" class="icon-link">-->
-<!--                                <div class="icon-container">-->
-<!--                                    <i class="far fa-envelope"></i>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </li>-->
-    {% endif %}
 
-    <li>
-        <div class="icon-circle">
-            <a href="{% url 'articles:gallery' %}" class="icon-link">
-                <div class="icon-container">
-                    <i class="far fa-compass"></i>
-                </div>
-            </a>
-        </div>
+    <li class="icon-item">
+        <a href="{% url 'articles:gallery' %}" class="icon-link">
+            <div class="icon-wrapper">
+                <i class="far fa-compass"></i>
+            </div>
+            <span class="icon-label-text">発見</span>
+        </a>
     </li>
 
     {% if user.is_authenticated %}
-    <li>
-        <div class="icon-circle">
+        <li class="icon-item">
             <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
-                <div class="icon-container">
+                <div class="icon-wrapper">
                     <i class="far fa-bookmark"></i>
                 </div>
+                <span class="icon-label-text">ブックマーク</span>
             </a>
-        </div>
-    </li>
-
-    <li>
-        <div class="icon-circle">
-            <a href="{% url 'articles:user-posts' user.username %}" class="icon-link">
-                <div class="icon-container">
-                    <i class="far fa-list-alt"></i>
-                </div>
-            </a>
-        </div>
-    </li>
-    <li>
-        <div class="icon-circle">
-            <a href="#" class="profile-link">
-                <div class="profile-container">
-                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
-                </div>
-            </a>
-        </div>
-    </li>
-    <li>
-        <div class="icon-circle">
+        </li>
+        <li class="icon-item">
             <a href="{% url 'accounts:user_following' %}" class="icon-link">
-                <div class="icon-container">
+                <div class="icon-wrapper">
                     <i class="fas fa-user-check user-checking"></i>
                 </div>
+                <span class="icon-label-text">フォロー中</span>
             </a>
-        </div>
-    </li>
-    <li>
-        <div class="icon-circle">
-            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
-                <div class="icon-container">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </a>
-        </div>
-    </li>
-
-    <div class="create-btn-container">
-        <a href="{% url 'articles:create' %}">
-            <button class="create-btn">
+        </li>
+        <li class="icon-item">
+            <a href="{% url 'articles:create' %}" class="icon-link">
+                <div class="icon-wrapper">
                     <i class="fas fa-feather-alt"></i>
-            </button>
-        </a>
-    </div>
-
-    {% else %}
-    <li>
-        <div class="icon-circle">
-            <div class="icon-container">
-               <i class="far fa-user-circle"></i>
-            </div>
-        </div>
-    </li>
-
+                </div>
+                <span class="icon-label-text">投稿</span>
+            </a>
+        </li>
+        <li class="icon-item">
+            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
+                <div class="icon-wrapper">
+                    <img src="{{ user.profile.image.url }}" class="left-profile-pic" alt="Avatar" loading="lazy">
+                </div>
+                <span class="icon-label-text">プロフィール</span>
+            </a>
+        </li>
+    {% endif %}
 </ul>
-{% endif %}
