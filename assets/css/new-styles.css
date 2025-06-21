@@ -234,7 +234,7 @@ a
 .left
 {
     float: left;
-    width: 20%;
+    width: 25%;
     height:160vh;
 }
 /* ulの固定位置（スクロールしても追従） */
@@ -405,7 +405,7 @@ a
 
 .center
 {
-    width: 80%;
+    width: 55%;
     float: left ;
 }
 
@@ -475,7 +475,7 @@ a
 .right
 {
     /*background: ghostwhite;*/
-    width: 10%;
+    width: 25%;
     height: auto;
     display: flex ;
     float:right;
@@ -1262,7 +1262,6 @@ a
 
 
 /* site-form */
-
 .site-form{
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),
@@ -1273,7 +1272,7 @@ a
     background:          #fff;
     margin:             3em auto;
     padding:               0 1em;
-    max-width:             370px;
+    max-width:             100%;
     }
 
 .site-form input, .site-form textarea, .site-form select{
@@ -1440,7 +1439,7 @@ a
     background:          #fff;
     margin:             10em auto;
     padding:               0 1em;
-    max-width:             370px;
+    max-width:             100%;
     }
 
 .form-wrapper h2{
@@ -1493,11 +1492,16 @@ a
     border-bottom:    2px solid #c0c0c0;
     outline:                       none;
     }
+/* edit submit button */
+.button-panel {
+    width: 100%;
+    margin: 2em 0 0;
+    text-align: center; /* これで中の input を中央揃え */
+}
 
-.button-panel{
-    margin:                     2em 0 0;
-    width:                         100%;
-    }
+.button-panel input {
+    display: inline-block;
+}
 
 .button-panel .button-new {
     background:                   #f16272;
@@ -1740,47 +1744,83 @@ a
 }
 
 /* edit profile */
-
-.profile{
+.profile {
     text-align: center;
     margin-top: 60px;
+    position: relative;
 }
 
-.profile-circle{
-    width:            150px;
-    height:           150px;
-    overflow:        hidden;
-    border-radius:      50%;
-    border: 2px solid white;
-    text-align:      center;
-    margin:          0 auto;
-    }
+.profile-bg-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;  /* 明示的に高さを指定 */
+    overflow: visible; /* はみ出し表示を許可 */
+}
 
-.img-cover{
-    display:         inline;
-    margin:          0 auto;
-    height:            100%;
-    widows:            auto;
-    }
+.profile-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #ccc;  /* 任意で区切り線 */
+}
 
+.profile-circle {
+    position: absolute;
+    bottom: -75px; /* はみ出し量を大きく */
+    left: 20%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid white;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);  /* 影をつけて浮かせる感じに */
+    z-index: 10;
+}
+
+.img-cover2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* user Email */
+.user-email {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+/* Sucess massage */
 .prof-messages{
-    background:    rgb(132, 200, 126);
+    background:    #fff;
     border-radius:                4px;
     margin-top: 20px;
     }
 
-.prof-messages li{
+.prof-messages li {
     font-family: 'Roboto', sans-serif;
-    color:                       #fff;
-    list-style:                  none;
-    margin:                         0;
-    padding:                        0;
-    margin-left:                    0;
-    font-size:                  1.3em;
-    text-align:                center;
-    line-height:                 1.75;
-    letter-spacing:            0.05em;
-    }
+    color: #e88c0b;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 0;
+    font-size: 1.3em;
+    text-align: center;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* text-shadow:
+        -1px -1px 0 white,
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white; */
+}
+
 
 .prof-messages ul{
     margin  : 0;
@@ -2024,16 +2064,16 @@ input[type="file"]{
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
-    color:              #6088C6;
-    border: 2px solid   #AEC4E5;
+    color:    var(--main-color);
+    border: 2px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
     }
 
 #input-label:hover {
-    background:        #6088C6;
-    color:                #fff;
+    background : var(--main-color);
+    color      : #fff;
     font-weight: 600;
     }
 
@@ -2077,8 +2117,8 @@ input[type="file"]{
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
-    color:              var(--main-color);
-    border:                 2px solid   var(--main-color);
+    color:    var(--main-color);
+    border: 2px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
