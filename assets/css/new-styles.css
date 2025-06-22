@@ -42,11 +42,10 @@ a
     text-decoration: none ;
 }
 
-.container
-{
-    max-width: 1200px;
-    margin: auto ;
-    display:flex;
+.container {
+    display: flex;
+    height: 100vh; /* 必要に応じて */
+    max-width: 100%;
 }
 
 .global-tag
@@ -192,22 +191,9 @@ a
 }
 
 
-/* left style */
+/* left style icon*/
 
-.left
-{
-    float: left;
-    width: 10%;
-    height:160vh;
-}
-
-.left ul
-{
-    position: -webkit-sticky ;
-    position: sticky ;
-    top: 0;
-}
-
+/* Logo */
 .wrapper_circle
 {
     font-family: 'Baloo Paaji 2', cursive;
@@ -243,47 +229,74 @@ a
     background-color: unset!important;
 }
 
-.left ul li
+/* left icons */
+/* 左ナビ全体 */
+.left
 {
-    font-size: 24px;
-    padding: 3px;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
+    float: left;
+    width: 25%;
+    height:160vh;
+}
+/* ulの固定位置（スクロールしても追従） */
+.left ul {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-.left ul li a
-{
-    color: var(--main-color);
+/* 各リンク（アイコン + ラベル） */
+/* 各項目をブロック状にする */
+
+.icon-item {
+    margin-bottom: 12px;  /* 各ボックスの間隔 */
 }
 
-.icon-circle
-{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
+/* aタグをflexで水平に並べてbox化 */
+.icon-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.icon-circle:hover
-{
-    background: var(--hover-color);
-    border-radius: 50px;
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;  /* fa-icon に合わせた幅 */
+  height: 24px;
+}
+.icon-wrapper i {
+    font-size: 1.4rem;  /* 少し大きめ */
 }
 
-.icon-container:hover
-{
-    color: rgb(29, 161, 242) ;
+.icon-link:hover {
+    background-color: var(--hover-color, #f0f0f0); /* 好きな色に */
+    color: rgb(29, 161, 242); /* hover時に色変化 */
 }
 
-.create-btn-container
-{
-   text-align: center ;
-   margin-top: 20px;
+/* ラベルの文字 */
+.icon-label-text {
+    font-size: 18px;
+    font-weight: 580;
+    white-space: nowrap;
 }
 
+/* アイコン */
+.icon-link i {
+    font-size: 20px;
+}
+
+/* create button */
 .create-btn
 {
     background: #1da1f2;
@@ -302,6 +315,15 @@ a
     background: rgba(0, 148, 255, 0.97);
 }
 
+.left-profile-pic {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* profile style */
 .profile-pic
 {
     border-radius:50%;
@@ -324,12 +346,6 @@ a
     color: rgb(101,119,134);
 }
 
-.icon-link
-{
-    display: flex ;
-    justify-content: center;
-    align-items: center ;
-}
 
 .icon-container
 {
@@ -389,7 +405,7 @@ a
 
 .center
 {
-    width: 80%;
+    width: 55%;
     float: left ;
 }
 
@@ -459,7 +475,7 @@ a
 .right
 {
     /*background: ghostwhite;*/
-    width: 10%;
+    width: 25%;
     height: auto;
     display: flex ;
     float:right;
@@ -1246,7 +1262,6 @@ a
 
 
 /* site-form */
-
 .site-form{
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),
@@ -1257,7 +1272,7 @@ a
     background:          #fff;
     margin:             3em auto;
     padding:               0 1em;
-    max-width:             370px;
+    max-width:             100%;
     }
 
 .site-form input, .site-form textarea, .site-form select{
@@ -1424,7 +1439,7 @@ a
     background:          #fff;
     margin:             10em auto;
     padding:               0 1em;
-    max-width:             370px;
+    max-width:             100%;
     }
 
 .form-wrapper h2{
@@ -1477,11 +1492,16 @@ a
     border-bottom:    2px solid #c0c0c0;
     outline:                       none;
     }
+/* edit submit button */
+.button-panel {
+    width: 100%;
+    margin: 2em 0 0;
+    text-align: center; /* これで中の input を中央揃え */
+}
 
-.button-panel{
-    margin:                     2em 0 0;
-    width:                         100%;
-    }
+.button-panel input {
+    display: inline-block;
+}
 
 .button-panel .button-new {
     background:                   #f16272;
@@ -1724,47 +1744,83 @@ a
 }
 
 /* edit profile */
-
-.profile{
+.profile {
     text-align: center;
     margin-top: 60px;
+    position: relative;
 }
 
-.profile-circle{
-    width:            150px;
-    height:           150px;
-    overflow:        hidden;
-    border-radius:      50%;
-    border: 2px solid white;
-    text-align:      center;
-    margin:          0 auto;
-    }
+.profile-bg-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;  /* 明示的に高さを指定 */
+    overflow: visible; /* はみ出し表示を許可 */
+}
 
-.img-cover{
-    display:         inline;
-    margin:          0 auto;
-    height:            100%;
-    widows:            auto;
-    }
+.profile-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #ccc;  /* 任意で区切り線 */
+}
 
+.profile-circle {
+    position: absolute;
+    bottom: -75px; /* はみ出し量を大きく */
+    left: 20%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid white;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);  /* 影をつけて浮かせる感じに */
+    z-index: 10;
+}
+
+.img-cover2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* user Email */
+.user-email {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+/* Sucess massage */
 .prof-messages{
-    background:    rgb(132, 200, 126);
+    background:    #fff;
     border-radius:                4px;
     margin-top: 20px;
     }
 
-.prof-messages li{
+.prof-messages li {
     font-family: 'Roboto', sans-serif;
-    color:                       #fff;
-    list-style:                  none;
-    margin:                         0;
-    padding:                        0;
-    margin-left:                    0;
-    font-size:                  1.3em;
-    text-align:                center;
-    line-height:                 1.75;
-    letter-spacing:            0.05em;
-    }
+    color: #e88c0b;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 0;
+    font-size: 1.3em;
+    text-align: center;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* text-shadow:
+        -1px -1px 0 white,
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white; */
+}
+
 
 .prof-messages ul{
     margin  : 0;
@@ -2008,16 +2064,16 @@ input[type="file"]{
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
-    color:              #6088C6;
-    border: 2px solid   #AEC4E5;
+    color:    var(--main-color);
+    border: 2px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
     }
 
 #input-label:hover {
-    background:        #6088C6;
-    color:                #fff;
+    background : var(--main-color);
+    color      : #fff;
     font-weight: 600;
     }
 
@@ -2061,8 +2117,8 @@ input[type="file"]{
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
-    color:              var(--main-color);
-    border:                 2px solid   var(--main-color);
+    color:    var(--main-color);
+    border: 2px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;

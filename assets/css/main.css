@@ -39,8 +39,9 @@ a {
 }
 
 .container {
-    max-width: 1000px;
-    margin: auto;
+    display: flex;
+    height: 100vh; /* 必要に応じて */
+    max-width: 100%;
 }
 
 .global-tag {
@@ -141,7 +142,7 @@ a {
  }
 
 
-/* mobile nov */
+/* mobile nav */
 
 .mobile-nav-top-link button
 {
@@ -229,23 +230,9 @@ input::-moz-placeholder
   vertical-align: middle;
 }
 
-/* left style */
+/* left style icon */
 
-.left
-{
-    /* background: beige ;*/
-    float: left;
-    width: 10%;
-    height:2704vh;
-}
-
-.left ul
-{
-    position: -webkit-sticky ;
-    position: sticky ;
-    top: 0;
-}
-
+/* Logo */
 .wrapper_circle
 {
     font-family: 'Baloo Paaji 2', cursive;
@@ -256,6 +243,7 @@ input::-moz-placeholder
     border:double 10px #fff;
     position:relative;
     background:#555d66;
+    margin-left: 8px;
     }
 
 .logo_1
@@ -280,48 +268,78 @@ input::-moz-placeholder
 {
     background-color: unset!important;
 }
-
-.left ul li
-{
-    font-size: 24px;
-    padding: 3px;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
+li.logo {
+    margin-top: 10px;
+    margin-bottom: 23px;
+}
+/* left icons */
+/* 左ナビ全体 */
+.left {
+    float: left;
+    width: 25%;
+    height: 2704vh;
 }
 
-.left ul li a
-{
-    color: var(--main-color);
+/* ulの固定位置（スクロールしても追従） */
+.left ul {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-.icon-circle
-{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
+/* 各リンク（アイコン + ラベル） */
+/* 各項目をブロック状にする */
+
+.icon-item {
+    margin-bottom: 12px;  /* 各ボックスの間隔 */
 }
 
-.icon-circle:hover
-{
-    background: var(--hover-color);
-    border-radius: 50px;
+/* aタグをflexで水平に並べてbox化 */
+.icon-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.icon-container:hover
-{
-    color: rgb(29, 161, 242) ;
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;  /* fa-icon に合わせた幅 */
+  height: 24px;
+}
+.icon-wrapper i {
+    font-size: 1.4rem;  /* 少し大きめ */
 }
 
-.create-btn-container
-{
-   text-align: center ;
-   margin-top: 20px;
+.icon-link:hover {
+    background-color: var(--hover-color, #f0f0f0); /* 好きな色に */
+    color: rgb(29, 161, 242); /* hover時に色変化 */
 }
 
+/* ラベルの文字 */
+.icon-label-text {
+    font-size: 18px;
+    font-weight: 580;
+    white-space: nowrap;
+}
+
+/* アイコン */
+.icon-link i {
+    font-size: 20px;
+}
+
+/* create button */
 .create-btn
 {
     background: #1da1f2;
@@ -340,6 +358,15 @@ input::-moz-placeholder
     background: rgba(0, 148, 255, 0.97);
 }
 
+.left-profile-pic {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* profile style */
 .profile-pic
 {
     border-radius:50%;
@@ -360,13 +387,6 @@ input::-moz-placeholder
     justify-content: center;
     align-items: center ;
     color: rgb(101,119,134);
-}
-
-.icon-link
-{
-    display: flex ;
-    justify-content: center;
-    align-items: center ;
 }
 
 .icon-container
@@ -417,16 +437,16 @@ input::-moz-placeholder
     color: #fff;
 }
 
-.user-checking
+/* .user-checking
 {
     margin-left: 10px;
-}
+} */
 
 /* center style */
 
 .center
 {
-    width: 60%;
+    width: 55%;
     float: left ;
     border-left: 1px solid #C0C0C0;
     border-right: 1px solid #C0C0C0;
@@ -854,7 +874,7 @@ input::-moz-placeholder
     display: block;
 }
 
-/* --- 矢印ボタンスタイル --- */
+/* --- SWiper 矢印ボタンスタイル --- */
 /* ボタンの共通スタイル */
 .custom-swiper-button {
     width : 23px;
@@ -894,7 +914,7 @@ input::-moz-placeholder
     display: none;
 }
 
-/* --- pagination スタイル --- */
+/* --- Swiper pagination スタイル --- */
 .articles-thumb .swiper-pagination-bullets {
     bottom: 6px;
 }
@@ -1011,7 +1031,7 @@ input::-moz-placeholder
 .right
 {
     /*background: ghostwhite;*/
-    width: 30%;
+    width: 25%;
     height: 2704vh;
     display: flex ;
     flex-direction: column ;
@@ -1346,18 +1366,6 @@ input::-moz-placeholder
     font-size: 20px;
 }
 
-.mobile-create-circle:hover
-{
-    width:               42px;
-    height:              42px;
-}
-
-.mobile-create-circle i:hover
-{
-    font-size: 16px;
-}
-
-
 /* pagination */
 
 ul{
@@ -1491,6 +1499,9 @@ ul{
     margin:     100px auto;
     }
 
+/* Icons box */
+
+
 /* @media */
 
 @media (max-width: 600px)
@@ -1544,10 +1555,10 @@ ul{
 }
 
 /* --- レスポンシブ調整 Swiper--- */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px), (hover: none) and (pointer: coarse) {
     .swiper-button-prev,
     .swiper-button-next {
-        display: none;
+        display: none !important;
     }
 }
 

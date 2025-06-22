@@ -6,26 +6,32 @@
 {% block content %}
 <div>
     <div class="profile">
-        <div class="profile-circle">
-            <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover">
+        <div class="profile-bg-wrapper">
+            {% if user.profile.bg %}
+                <img src="{{ user.profile.bg.url }}" alt="background-img" class="profile-bg" loading="lazy">
+            {% endif %}
+
+            {% if messages %}
+            <div class="prof-messages">
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message|safe }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="profile-circle">
+                <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover2">
+            </div>
         </div>
-        <div>
+
+        <div class="user-email">
             <p>{{ user.email }}</p>
         </div>
     </div>
-
-    <div class="prof-messages">
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">
-                {{ message|safe }}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
-
     <div class="site-form">
         <h3>Profile Info</h3>
         <form method="POST" enctype="multipart/form-data">
