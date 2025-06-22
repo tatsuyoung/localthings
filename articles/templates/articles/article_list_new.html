@@ -76,7 +76,9 @@
 
     <div class="container">
         <div class="left">
-            {% include 'articles/snippet/left-nav.html' %}
+            <div class="left-icons-wrapper">
+                {% include 'articles/snippet/left-nav.html' %}
+            </div>
         </div>
 
         <div class="center" id="main">
@@ -217,7 +219,6 @@
 
         <div class="right">
             <div class="right-wrapper">
-
                 <div class="right-search">
                     <form id="right-search" class="form-search" method="GET" action="{% url 'articles:list' %}">
                         <i class="fas fa-search"></i>
@@ -225,7 +226,6 @@
                             placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
                     </form>
                 </div>
-
                 <div class="favorite-articles">
                     <div class="favorite-title">
                         <h3>Recommended Articles</h3>

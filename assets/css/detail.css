@@ -286,17 +286,17 @@ input::-moz-placeholder
 .left
 {
     float: left;
-    width: 25%;
-    height:160vh;
+    width: 20%;
+    height: 100vh;
 }
-/* ulの固定位置（スクロールしても追従） */
-.left ul {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    padding: 0;
-    margin: 0;
-    list-style: none;
+/* (スクロールしても追従） */
+/* left icons wrapper */
+.left-icons-wrapper {
+    position:fixed;
+    padding-left:6px;
+    flex-direction: column;
+    gap: 24px; /* アイコンの間のスペース */
+    width: 17%;
 }
 
 /* 各リンク（アイコン + ラベル） */
@@ -453,9 +453,13 @@ input::-moz-placeholder
 }
 
 /* center style */
-.center {
-    width: 55%;
+.center
+{
     float: left;
+    width: 55%;
+    border-left: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
 }
 
 .center-header
@@ -663,6 +667,10 @@ input::-moz-placeholder
     font-size: 15px;
 }
 
+.center-footer{
+    padding-bottom: 6px;
+}
+
 /* articles icon text box */
 
 .articles-icon-box
@@ -839,8 +847,6 @@ input::-moz-placeholder
 }
 
 /* comment */
-
-
 .comment_wrapper{
     margin:               0;
     padding:              0;
@@ -1203,17 +1209,19 @@ input::-moz-placeholder
 .right
 {
     /*background: ghostwhite;*/
-    width: 25%;
-    height: 2704vh;
+    width: 30%;
+    height: 100vh;
     display: flex ;
     flex-direction: column ;
     float:right;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
 }
 
 .right-wrapper
 {
-    position: -webkit-sticky ;
-    position: sticky ;
+    position: fixed;
     top: 0;
 }
 

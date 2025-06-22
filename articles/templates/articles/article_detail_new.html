@@ -82,9 +82,10 @@
 
         </header>
         <div class="container">
-
             <div class="left">
-                {% include 'articles/snippet/left-nav.html' %}
+                <div class="left-icons-wrapper">
+                    {% include 'articles/snippet/left-nav.html' %}
+                </div>
             </div>
 
             <div class="center" id="main">
@@ -146,19 +147,16 @@
                                 <h4>{{  article.title  }}</h4>
                                 <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
                             </div>
-
                             <div class="articles-time">
                                 <p>{{ article.date }}</p>
                             </div>
-
                             {% include 'articles/snippet/icons_text.html' %}
                             {% include 'articles/snippet/icon-box.html' %}
-
                         </div>
                     </article>
-                    
                 </div>
                 {% include 'articles/snippet/comment.html' %}
+                <div class="center-footer"></div>
             </div>
 
 
