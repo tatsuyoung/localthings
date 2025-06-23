@@ -803,6 +803,12 @@ li.logo {
 }
 
 /* articles */
+.following-feed-wrapper {
+    width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
+    max-width: 100%;
+    margin: 0 auto; /* 中央寄せ */
+    border-bottom: 1px solid #C0C0C0;
+}
 
 .article-wrapper ul li
 {
@@ -812,10 +818,6 @@ li.logo {
     margin: 10px  10px 10px  10px ;
 }
 
-.following-feed-wrapper
-{
-    border-bottom: 1px solid #C0C0C0;
-}
 
 .following-feed-wrapper:hover
 {
@@ -1569,6 +1571,10 @@ ul{
         width: 100%;
         margin-top: 0px;
     }
+    .following-feed-wrapper {
+        width:100%;
+    }
+
     .mobile-nav
     {
         z-index: 1;

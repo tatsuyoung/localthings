@@ -659,6 +659,12 @@ a
 }
 
 /* articles */
+.following-feed-wrapper {
+    width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
+    max-width: 100%;
+    margin: 0 auto; /* 中央寄せ */
+}
+
 .article-wrapper{
     /* border-left: 1px solid #C0C0C0;
     border-right: 1px solid #C0C0C0; */
@@ -1339,6 +1345,9 @@ ul{
     {
         width: 100%;
         margin-top: 60px;
+    }
+    .following-feed-wrapper {
+        width:100%;
     }
     .mobile-nav
     {

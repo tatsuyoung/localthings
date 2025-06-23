@@ -508,9 +508,10 @@ input::-moz-placeholder
 
 
 /* articles */
-.article-wrapper {
-    /* border-bottom: 1px solid #C0C0C0;
-    box-sizing: border-box; */
+.following-feed-wrapper {
+    width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
+    max-width: 100%;
+    margin: 0 auto; /* 中央寄せ */
 }
 
 .article-wrapper ul li
@@ -520,12 +521,6 @@ input::-moz-placeholder
     vertical-align: middle;
     margin: 10px  10px 10px  10px ;
 }
-
-.following-feed-wrapper
-{
-    /* border-bottom: 1px solid #C0C0C0; */
-}
-
 
 .articles-item img
 {
@@ -853,7 +848,10 @@ input::-moz-placeholder
 
 .comment-bg
 {
-    background: rgb(245, 248, 250) ;
+    background: rgb(245, 248, 250) ;    
+    display: flex;
+    flex-direction: column; /* ← 縦並び */
+
 }
 
 .comment-section li:first-child
@@ -885,9 +883,9 @@ input::-moz-placeholder
     justify-content:  flex-end;
     }
 
-.comment .info{
+/* .comment .info{
     width:                17%;
-    }
+    } */
 
 .comment.user-comment .info{
     text-align:         right;
@@ -949,7 +947,7 @@ input::-moz-placeholder
 {
     line-height:         1.7;
     padding:       5px 20px;
-    width:               50%;
+    width:               80%;
     position:       relative;
     word-wrap:    break-word;
     border-top-right-radius: 20px;
@@ -1094,7 +1092,7 @@ input::-moz-placeholder
   display: block;
   width: 0;
   height: 0;
-  left: -10px;
+  right: -10px;
   top: 3px;
   border-right: 20px solid #EDF1EE;
   border-top: 10px solid transparent;
@@ -1110,8 +1108,8 @@ input::-moz-placeholder
   display: block;
   width: 0;
   height: 0;
-  right: -10px;
-  top: 3px;
+  left: -2px;
+  top: 9px;
   border-left: 20px solid #8de055;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
@@ -1179,6 +1177,7 @@ input::-moz-placeholder
     border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    margin-left: 10px;
 }
 
 
@@ -1750,6 +1749,9 @@ ul{
     {
         width: 100%;
         margin-top: 0px;
+    }
+    .following-feed-wrapper {
+        width:100%;
     }
     .mobile-nav
     {
