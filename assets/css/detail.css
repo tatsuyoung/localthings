@@ -622,11 +622,13 @@ input::-moz-placeholder
 .articles-thumb .swiper-pagination-bullet {
     background-color: white;
     opacity: 0.7;
+    z-index: 1;
 }
 
 .articles-thumb .swiper-pagination-bullet-active {
     background-color: #1c507a; /* アクティブ時は少し濃い青 */
     opacity: 1;
+    z-index: 1;
 }
 
 /* article description */
@@ -1778,6 +1780,7 @@ ul{
     .mobile-nav
     {
         display:none;
+        z-index: 10;
     }
     .mobile-create-circle
     {
@@ -1865,6 +1868,21 @@ ul{
     .articles-sum
     {
         font-size: 12px;
+    }
+}
+
+
+/* スマホ（幅600px未満）専用のナビやUIパーツを、
+大きな画面（タブレットやPC）では非表示 */
+@media (min-width: 600px) {
+    .mobile-nav-wrapper {
+        display: none;
+    }
+    .mobile-nav {
+        display: none;
+    }
+    .mobile-create-circle {
+        display: none;
     }
 }
 
