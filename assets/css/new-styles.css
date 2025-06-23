@@ -234,17 +234,18 @@ a
 .left
 {
     float: left;
-    width: 25%;
-    height:160vh;
+    width: 20%;
+    height:100vh;
 }
-/* ulの固定位置（スクロールしても追従） */
-.left ul {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    padding: 0;
-    margin: 0;
-    list-style: none;
+/*（スクロールしても追従） */
+/* left icons wrapper */
+.left-icons-wrapper {
+    position:fixed;
+    padding-left:6px;
+    flex-direction: column;
+    gap: 24px; /* アイコンの間のスペース */
+    width: 17%;
+    margin-top: 10px;
 }
 
 /* 各リンク（アイコン + ラベル） */
@@ -475,7 +476,7 @@ a
 .right
 {
     /*background: ghostwhite;*/
-    width: 25%;
+    width: 30%;
     height: auto;
     display: flex ;
     float:right;
@@ -1745,7 +1746,7 @@ a
 
 /* edit profile */
 .profile {
-    text-align: center;
+    text-align: -webkit-right;
     margin-top: 60px;
     position: relative;
 }
@@ -1789,7 +1790,7 @@ a
 /* user Email */
 .user-email {
     margin-top: 5px;
-    padding-left: 20px;
+    padding-right: 40px;
 }
 
 /* Sucess massage */
@@ -1801,7 +1802,7 @@ a
 
 .prof-messages li {
     font-family: 'Roboto', sans-serif;
-    color: #e88c0b;
+    color: var(--main-color);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -1811,14 +1812,9 @@ a
     line-height: 1.75;
     letter-spacing: 0.05em;
     position: absolute;
-    top: 20px;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    /* text-shadow:
-        -1px -1px 0 white,
-         1px -1px 0 white,
-        -1px  1px 0 white,
-         1px  1px 0 white; */
 }
 
 
@@ -2518,6 +2514,7 @@ ul{
 
 .global-footer{
     margin:     100px auto;
+    padding-bottom: 20px;
     }
 
 /* ios button  reset */
@@ -2530,6 +2527,54 @@ ul{
     }
 
 /* @media */
+/* ipad 横 */
+/* iPadサイズではラベルを非表示に */
+@media (max-width: 900px) {
+    .center {
+        width:75%;
+    }
+    .left {
+        width:20%;
+    }
+    .right {
+        width:5%;
+    }
+    .right-wrapper {
+        display: none;
+    }
+    .sub_title {
+        padding-top: 90px;
+    }
+    .icon-label-text {
+        display: none;
+    }
+    li.logo {
+        justify-content: center;
+        justify-items: center;
+        padding-left: 23px;
+    }
+    .wrapper_circle {
+        justify-content: center;
+        justify-items: center;
+    }
+    .left-icons-wrapper {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-item {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-link {
+        justify-content: center;
+        justify-items: center;
+    }
+    .web-info, .web-info a span{
+        font-size: 12px;
+    }
+}
+
+/* スマホ */
 
 @media (max-width: 600px)
 {

@@ -3,7 +3,11 @@
 {% block title %}Nice Things{% endblock %}
 {% block headerName %}探索{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">探索</p>{% endblock %}
-{% block sideNav %}{% include 'articles/snippet/left-nav.html' %}{% endblock %}
+{% block sideNav %}
+<div class="left-icons-wrapper">
+    {% include 'articles/snippet/left-nav.html' %}
+</div>
+{% endblock %}
 {% block content %}
 <div class="categories_wrapper">
     <div class="categories">

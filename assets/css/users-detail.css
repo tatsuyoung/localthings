@@ -302,10 +302,10 @@ a
 {
     background-color: unset!important;
 }
-li.logo {
+/* li.logo {
     margin-top: 10px;
     margin-bottom: 23px;
-}
+} */
 /* left icons */
 /* 左ナビ全体 */
 .left {
@@ -481,14 +481,13 @@ li.logo {
 {
     float: left;
     width: 55%;
-    border-left: 1px solid #C0C0C0;
+    /* border-left: 1px solid #C0C0C0;
     border-right: 1px solid #C0C0C0;
-    border-bottom: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0; */
 }
 
-.center-header
-{
-    display: flex ;
+.center-header {
+    display: flex;
     padding-top: 10px;
 }
 
@@ -661,8 +660,8 @@ li.logo {
 
 /* articles */
 .article-wrapper{
-    border-left: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0;
+    /* border-left: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0; */
     border-bottom: 1px solid #C0C0C0;
     box-sizing: border-box;
 }
@@ -907,23 +906,18 @@ li.logo {
 
 /* right style */
 
-.right
-{
-    /*background: ghostwhite;*/
+.right {
     width: 30%;
     height: 100vh;
-    display: flex ;
-    flex-direction: column ;
-    float:right;
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
 }
 
 .right-wrapper
 {
     position: fixed;
-    top: 0;
+    margin-top: 10px;
 }
 
 
@@ -1279,10 +1273,58 @@ ul{
 
 .global-footer{
     margin:     100px auto;
+    padding-bottom: 20px;
     }
 
 /* @media */
+/* ipad 横 */
+/* iPadサイズではラベルを非表示に */
+@media (max-width: 900px) {
+    .center {
+        width:75%;
+    }
+    .left {
+        width:20%;
+    }
+    .right {
+        width:5%;
+    }
+    .right-wrapper {
+        display: none;
+    }
+    .sub_title {
+        padding-top: 90px;
+    }
+    .icon-label-text {
+        display: none;
+    }
+    li.logo {
+        justify-content: center;
+        justify-items: center;
+        padding-left: 23px;
+    }
+    .wrapper_circle {
+        justify-content: center;
+        justify-items: center;
+    }
+    .left-icons-wrapper {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-item {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-link {
+        justify-content: center;
+        justify-items: center;
+    }
+    .web-info, .web-info a span{
+        font-size: 12px;
+    }
+}
 
+/* スマホ */
 @media (max-width: 600px)
 {
     .left
