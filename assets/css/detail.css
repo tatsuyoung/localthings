@@ -625,6 +625,7 @@ input::-moz-placeholder
 }
 
 .articles-thumb .swiper-pagination-bullet-active {
+    background-color: #1c507a; /* アクティブ時は少し濃い青 */
     opacity: 1;
 }
 

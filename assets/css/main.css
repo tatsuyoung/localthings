@@ -448,9 +448,7 @@ li.logo {
 {
     float: left;
     width: 55%;
-    /* border-left: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0;
-    border-bottom: 1px solid #C0C0C0; */
+    overflow-x: hidden;
 }
 
 .center-header
@@ -917,6 +915,7 @@ li.logo {
 }
 
 /* --- Swiper pagination スタイル --- */
+/* Swiper pagenation */
 .articles-thumb .swiper-pagination-bullets {
     bottom: 6px;
 }
@@ -927,6 +926,7 @@ li.logo {
 }
 
 .articles-thumb .swiper-pagination-bullet-active {
+    background-color: #1c507a; /* アクティブ時は少し濃い青 */
     opacity: 1;
 }
 
