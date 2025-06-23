@@ -1813,7 +1813,7 @@ a
     line-height: 1.75;
     letter-spacing: 0.05em;
     position: absolute;
-    top: 80px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
 }
