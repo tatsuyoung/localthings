@@ -47,7 +47,7 @@
         <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     </head>
     <body>
-        <header id="nav" class="mobil-nav-wrapper">
+        <header id="nav" class="mobile-nav-wrapper">
             <div class="mobile-nav-top-link">
             {% if user.is_authenticated %}
             <a href="{% url 'articles:users_detail' user.pk %}">
@@ -173,7 +173,7 @@
 
                     <div class="favorite-articles">
                         <div class="favorite-title">
-                            <h3>Recommended Articles</h3>
+                            <span>おすすめ</span>
                         </div>
                         {% for favorite in order_like_articles %}
                         <div class="favorite-wrapper">
@@ -202,14 +202,14 @@
                         {% endfor %}
                         <div class="favorite-info">
                             <a href="{% url 'articles:ordered_by_likes' %}">
-                                <h4>さらに見る</h4>
+                                <h5>さらに見る</h5>
                             </a>
                         </div>
                     </div>
                     {% if user.is_authenticated %}
                     <div class="users">
                         <div class="users-title">
-                            <h3>Recommended Users</h3>
+                            <span>Users</span>
                         </div>
                         {% for user in users %}
                         {% if request.user != user.user %}

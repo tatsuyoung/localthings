@@ -57,7 +57,7 @@ a
 
 /* mobil header */
 
-.mobil-nav-wrapper
+.mobile-nav-wrapper
 {
     position: fixed ;
     top: 0;
@@ -87,6 +87,27 @@ a
 
 /* end scroll event */
 
+.mobile-nav-wrapper {
+    top       : 0;
+    width     : 100%;
+    height    : 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display   : flex;
+    overflow-x: auto;
+    z-index   : 999;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+}
+/* Scroll Event */
+.mobile-nav-wrapper.scroll-down {
+    transform: translateY(-100%);
+}
+
+.mobile-nav-wrapper.scroll-up {
+    transform: translateY(0%);
+}
+
 .mobile-nav-top-link
 {
     display: flex ;
@@ -103,26 +124,18 @@ a
     transition: background-color 0.1s ease-in-out ;
 }
 
-.mobile-profile-container img
-{
-    border-radius:50%;
-    width:30px;
-    height:30px;
-}
-
-.mobile-profile-container
-{
-    display: flex ;
+.mobile-profile-container {
+    display       : flex ;
     justify-content: center;
-    align-items: center ;
+    align-items    : center ;
 }
 
-.mobile-profile-container img
-{
+.mobile-profile-container img {
     border-radius:50%;
-    width:30px;
-    height:30px;
+    width        :30px;
+    height       :30px;
 }
+
 
 .mobile-profile-container i
 {
@@ -164,8 +177,7 @@ a
     top: 1px;
 }
 
-
-
+/* mobile nav */
 .mobile-nav-top-link button
 {
     background: none;
@@ -302,10 +314,11 @@ a
 {
     background-color: unset!important;
 }
-/* li.logo {
+li.logo {
     margin-top: 10px;
     margin-bottom: 23px;
-} */
+}
+
 /* left icons */
 /* 左ナビ全体 */
 .left {
@@ -370,7 +383,7 @@ a
 
 /* アイコン */
 .icon-link i {
-    font-size: 20px;
+    font-size: 23px;
 }
 
 /* create button */
@@ -666,9 +679,7 @@ a
 }
 
 .article-wrapper{
-    /* border-left: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0; */
-    border-bottom: 1px solid #C0C0C0;
+    /* border-bottom: 1px solid #C0C0C0; */
     box-sizing: border-box;
 }
 
@@ -931,123 +942,125 @@ a
 
 
 /* おすすめアーティクル */
-
 .favorite-articles
 {
-    background: rgba(234, 242, 245, 0.62);;
-    width: 90%;
-    margin-top: 70px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 20px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .favorite-title
 {
     padding: 10px ;
-    border-bottom: 1px solid #C0C0C0;
+}
+.favorite-title span {
+    font-size: 14px;              /* または 13px */
+    font-weight: 600;             /* セミボールド */
+    color: #262626;               /* Instagramの標準テキスト色 */
+    letter-spacing: 0.3px;        /* 若干の余白で視認性UP */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.4;
 }
 
-.favorite-wrapper
-{
-    display: flex ;
-    justify-content: space-between ;
-    border-bottom: 1px solid #C0C0C0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.favorite-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px 8px 10px;
 }
 
 .favorite-wrapper:hover
 {
-    background: rgb(225, 232, 237) ;
+    background: rgb(240, 242, 243);
+    border-radius: 16px;
 }
-
+/* favorite Items */
 .favorite-category
 {
     color: gray ;
     line-height: 2;
 }
 
-.favorite-items
-{
-    display: flex ;
-    flex-direction: column ;
-    justify-content: center ;
+.favorite-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; /* タイトル側が残り幅を使うように */
 }
 
-.favorite-items a
-{
-    color:#333;
+.favorite-items a {
+    color: #333;
+    text-decoration: none;
 }
 
-.favorite-items span
-{
-   margin-left: 10px;
-   font-size: 18px;
-   font-weight: 600;
+.favorite-items span {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.favorite-thumb
-{
-    position: relative ;
-    right: 10px;
+.favorite-thumb {
+    margin-left: 12px;
+    flex-shrink: 0;
 }
 
-.favorite-thumb img
-{
+.favorite-thumb img {
+    width: 50px;
     height: 50px;
-    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 50%; /* 丸型に */
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
-
+/* さらに見る */
 .favorite-info
 {
     padding: 14px;
 }
 
-.favorite-info:hover
-{
-    background: rgb(225, 232, 237) ;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.favorite-info h4
+.favorite-info h5
 {
     color: #00acee ;
     font-weight: 200;
 }
 
 /* おすすめユーザー */
-
 .users
 {
-    background: rgba(234, 242, 245, 0.62);;
-    width: 90%;
+    width: 100%;
     height: auto;
     margin-top: 20px;
-    margin-left: 20px;
-    border-radius: 20px;
+    margin-left: 6px;
+    margin-right: 6x;
+}
+.users-wrapper {
+    padding: 8px 10px 8px 10px;
 }
 
-.users-title
-{
-    padding: 10px ;
-    border-bottom: 1px solid #C0C0C0;
+.users-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
 }
 
-.users-wrapper ul li
-{
-    text-decoration: none ;
-    display: inline-block ;
-    vertical-align: middle;
-    margin: 10px 10px 10px 10px ;
+.users-items img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%; /* 丸くする */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
-.users-wrapper
-{
-    border-bottom: 1px solid #C0C0C0;
+.users-items span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
 }
-
 .users-wrapper:last-child
 {
     border-bottom: none ;
@@ -1055,24 +1068,11 @@ a
 
 .users-wrapper:hover
 {
-    background: rgb(225, 232, 237) ;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: rgb(240, 242, 243);
+    border-radius: 16px;
 }
 
-.users-box img
-{
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    border:2px solid #fff;
-}
-
-.users-items span:hover
-{
-    text-decoration: underline;
-}
-
+/* Right item under */
 .web-info, .web-info a
 {
     text-align: center ;
@@ -1095,6 +1095,59 @@ a
 {
     font-size: 14px;
     margin-top: 6px;
+}
+
+
+/* mobile nav */
+.mobile-nav
+{
+    position: fixed ;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    z-index: 10;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    display: flex ;
+    overflow-x: auto ;
+}
+
+.mobile-nav-link
+{
+    display: flex ;
+    flex-direction: column ;
+    align-items: center ;
+    justify-content: center ;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden ;
+    white-space: nowrap ;
+    color: gray;
+    text-decoration: none ;
+    -webkit-tap-highlight-color:transparent ;
+    transition: background-color 0.1s ease-in-out ;
+}
+
+.mobile-nav-icon
+{
+    font-size: 26px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 1px #fff;
+}
+
+.mobile-nav-icon:hover
+{
+    color: var(--main-color);
+}
+
+.mobile-nav-icon:active
+{
+    color: var(--main-color);
+}
+
+.mobile-nav .live_notify_badge
+{
+    font-size: 10px;
 }
 
 
@@ -1355,6 +1408,9 @@ ul{
     .mobile-nav
     {
         z-index: 10;
+    }
+    .favorite-title span {
+        font-size: 15px;
     }
 }
 

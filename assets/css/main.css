@@ -51,9 +51,7 @@ a {
 
 
 /* mobil header */
-
-.mobil-nav-wrapper {
-    position  : fixed;
+.mobile-nav-wrapper {
     top       : 0;
     width     : 100%;
     height    : 50px;
@@ -61,24 +59,21 @@ a {
     background: #fff;
     display   : flex;
     overflow-x: auto;
-    z-index   : 2;
+    z-index   : 999;
     justify-content: space-between;
-    transition: transform 0.4s;
+    transition: transform 0.3s ease-in-out;
+}
+/* Scroll Event */
+.mobile-nav-wrapper.scroll-down {
+    transform: translateY(-100%);
 }
 
-/* scroll event */
-
-.scroll-down {
-    transform: translate3d(0, -100%, 0);
-    filter   : opacity(30%);
+.mobile-nav-wrapper.scroll-up {
+    transform: translateY(0%);
 }
 
-.scroll-up {
-    transform: none;
-}
 
 /* end scroll event */
-
 .mobile-nav-top-link {
     display       : flex;
     flex-direction: column;
@@ -95,7 +90,7 @@ a {
 }
 
 .mobile-profile-container {
-     display       : flex ;
+    display       : flex ;
     justify-content: center;
     align-items    : center ;
 }
@@ -272,6 +267,7 @@ li.logo {
     margin-top: 10px;
     margin-bottom: 23px;
 }
+
 /* left icons */
 /* 左ナビ全体 */
 .left {
@@ -336,7 +332,7 @@ li.logo {
 
 /* アイコン */
 .icon-link i {
-    font-size: 20px;
+    font-size: 23px;
 }
 
 /* create button */
@@ -437,10 +433,6 @@ li.logo {
     color: #fff;
 }
 
-/* .user-checking
-{
-    margin-left: 10px;
-} */
 
 /* center style */
 
@@ -635,7 +627,7 @@ li.logo {
     top      : 80px;
     left     : 0;
     font-size: 40px;
-    z-index  : 10;
+    z-index  : 2;
     opacity  : 1;
     pointer-events: none;
     animation: ufo-fly 6s linear forwards;
@@ -1108,124 +1100,125 @@ li.logo {
 }
 
 /* おすすめアーティクル */
-
 .favorite-articles
 {
-    background: rgba(234, 242, 245, 0.62);
     width: 100%;
     margin-top: 10px;
-    margin-left: 6px;
-    margin-right: 6px;
-    border-radius: 20px;
 }
 
 .favorite-title
 {
     padding: 10px ;
-    border-bottom: 1px solid #C0C0C0;
+}
+.favorite-title span {
+    font-size: 14px;              /* または 13px */
+    font-weight: 600;             /* セミボールド */
+    color: #262626;               /* Instagramの標準テキスト色 */
+    letter-spacing: 0.3px;        /* 若干の余白で視認性UP */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.4;
 }
 
-.favorite-wrapper
-{
-    display: flex ;
-    justify-content: space-between ;
-    border-bottom: 1px solid #C0C0C0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.favorite-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px 8px 10px;
 }
 
 .favorite-wrapper:hover
 {
-    background: rgb(225, 232, 237) ;
+    background: rgb(240, 242, 243);
+    border-radius: 16px;
 }
-
+/* favorite Items */
 .favorite-category
 {
     color: gray ;
     line-height: 2;
 }
 
-.favorite-items
-{
-    display: flex ;
-    flex-direction: column ;
-    justify-content: center ;
+.favorite-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; /* タイトル側が残り幅を使うように */
 }
 
-.favorite-items a
-{
-    color:#333;
+.favorite-items a {
+    color: #333;
+    text-decoration: none;
 }
 
-.favorite-items span
-{
-   margin-left: 10px;
-   font-size: 18px;
-   font-weight: 600;
+.favorite-items span {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.favorite-thumb
-{
-    position: relative ;
-    right: 10px;
+.favorite-thumb {
+    margin-left: 12px;
+    flex-shrink: 0;
 }
 
-.favorite-thumb img
-{
+.favorite-thumb img {
+    width: 50px;
     height: 50px;
-    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 50%; /* 丸型に */
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
-
+/* さらに見る */
 .favorite-info
 {
     padding: 14px;
 }
 
-.favorite-info:hover
-{
-    background: rgb(225, 232, 237) ;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.favorite-info h4
+.favorite-info h5
 {
     color: #00acee ;
     font-weight: 200;
 }
 
 /* おすすめユーザー */
-
 .users
 {
-    background: rgba(234, 242, 245, 0.62);;
     width: 100%;
     height: auto;
     margin-top: 20px;
     margin-left: 6px;
     margin-right: 6x;
-    border-radius: 20px;
+}
+.users-wrapper {
+    padding: 8px 10px 8px 10px;
 }
 
-.users-title
-{
-    padding: 10px ;
-    border-bottom: 1px solid #C0C0C0;
+.users-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
 }
 
-.users-wrapper ul li
-{
-    text-decoration: none ;
-    display: inline-block ;
-    vertical-align: middle;
-    margin: 10px 10px 10px 10px ;
+.users-items img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%; /* 丸くする */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
-.users-wrapper
-{
-    border-bottom: 1px solid #C0C0C0;
+.users-items span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
 }
-
 .users-wrapper:last-child
 {
     border-bottom: none ;
@@ -1233,24 +1226,11 @@ li.logo {
 
 .users-wrapper:hover
 {
-    background: rgb(225, 232, 237) ;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: rgb(240, 242, 243);
+    border-radius: 16px;
 }
 
-.users-box img
-{
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    border:2px solid #fff;
-}
-
-.users-items span:hover
-{
-    text-decoration: underline;
-}
-
+/* Right item under */
 .web-info, .web-info a
 {
     text-align: center ;
@@ -1277,7 +1257,6 @@ li.logo {
 
 
 /* mobile nav */
-
 .mobile-nav
 {
     position: fixed ;
@@ -1590,6 +1569,9 @@ ul{
     .sub_title
     {
         margin-top: 20px;
+    }
+    .favorite-title span {
+        font-size: 15px;
     }
 }
 
