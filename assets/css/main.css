@@ -1534,6 +1534,14 @@ ul{
     }
 }
 
+@media screen and (max-width: 768px) {
+    .center {
+        float: none;
+        width: 100%;
+        overflow-x: visible;
+    }
+}
+
 /* スマホ */
 @media (max-width: 600px)
 {
