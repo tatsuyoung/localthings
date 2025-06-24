@@ -52,11 +52,10 @@
 </header>
 <div class="container">
     <div class="left">
-            <div class="left-icons-wrapper">
-                {% include 'articles/snippet/left-nav.html' %}
-            </div>
+        <div class="left-icons-wrapper">
+            {% include 'articles/snippet/left-nav.html' %}
         </div>
-
+    </div>
     <div class="center" id="main">
         <div class="center-header">
             <div class="header-return">
@@ -64,9 +63,18 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
-            <div class="header-name">
-                <h2>{{ user.username }}</h2>
-                <span>{{ count }} Create</span>
+            <div class="header-icon-text-wrapper">
+                <div class="header-name">
+                    <h2>{{ user.username }}</h2>
+                    <span>{{ count }} Create</span>
+                </div>
+                <div class="header-icon-circle">
+                    <div class="header-icon">
+                        <button id="darkModeToggle">
+                            <i class="fas fa-star-and-crescent"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="profile-bg">
@@ -218,8 +226,6 @@
         {% include 'accounts/snippet/pagination.html' %}
         <div class="global-footer"></div>
     </div>
-
-
     <div class="right">
         <div class="right-wrapper">
             <div class="favorite-articles">
@@ -301,5 +307,6 @@
 <script src="/static/js/app.js"></script>
 <script src="/static/js/scroll.js"></script>
 <script src="/static/js/mobile-hover.js"></script>
+<script src="/static/js/darkmode.js"></script>
 </body>
 </html>

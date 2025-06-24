@@ -19,6 +19,42 @@ html {
   scroll-behavior:smooth;
 }
 
+/* darkmode */
+body.dark-mode {
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+}
+/* main */
+body {
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #000);
+}
+
+a {
+  color: var(--main-color);
+}
+
+a:hover {
+  background-color: var(--hover-color);
+}
+
+/* headerやボタンにも反映 */
+.header-icon-circle {
+  background-color: var(--bg-color);
+}
+
+button {
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+}
+.fas {
+  color: var(--text-color);
+}
+
+/* main */
 body {
     font-family: 
     "Arial", 
@@ -234,7 +270,7 @@ input::-moz-placeholder
   vertical-align: middle;
 }
 
-/* left style */
+/* left style icon */
 
 /* Logo */
 .wrapper_circle
@@ -247,6 +283,7 @@ input::-moz-placeholder
     border:double 10px #fff;
     position:relative;
     background:#555d66;
+    margin-left: 8px;
     }
 
 .logo_1
@@ -270,6 +307,11 @@ input::-moz-placeholder
 .logo:hover
 {
     background-color: unset!important;
+}
+
+li.logo {
+    margin-top: 10px;
+    margin-bottom: 23px;
 }
 
 /* left icons */
@@ -448,15 +490,15 @@ input::-moz-placeholder
 {
     float: left;
     width: 55%;
-    /* border-left: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0; */
-    /* border-bottom: 1px solid #C0C0C0; */
 }
 
 .center-header
 {
     display: flex;
-    padding-top: 10px;
+    height: 53px;
+    align-items: center;
+    padding-left:15px;
+    padding-right:15px;
 }
 
 .header-return
@@ -467,6 +509,11 @@ input::-moz-placeholder
     height: 40px;
     border-radius: 50%;
     position: relative ;
+}
+.header-icon-text-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .header-return a
@@ -1874,4 +1921,15 @@ ul{
     .swiper-button-next {
         display: none !important;
     }
+}
+/* Darkmode 自動切り替え */
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode) {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+
+  body:not(.dark-mode) .mobile-nav-wrapper {
+    background-color: #1e1e1e;
+  }
 }

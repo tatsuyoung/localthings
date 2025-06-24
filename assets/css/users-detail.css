@@ -19,6 +19,42 @@ html {
   scroll-behavior:smooth;
 }
 
+/* darkmode */
+body.dark-mode {
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+}
+/* main */
+body {
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #000);
+}
+
+a {
+  color: var(--main-color);
+}
+
+a:hover {
+  background-color: var(--hover-color);
+}
+
+/* headerやボタンにも反映 */
+.header-icon-circle {
+  background-color: var(--bg-color);
+}
+
+button {
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+}
+.fas {
+  color: var(--text-color);
+}
+
+/* main */
 body {
     font-family: 
     "Arial", 
@@ -494,14 +530,16 @@ li.logo {
 {
     float: left;
     width: 55%;
-    /* border-left: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0;
-    border-bottom: 1px solid #C0C0C0; */
 }
 
-.center-header {
+.center-header
+{
     display: flex;
-    padding-top: 10px;
+    height: 53px;
+    align-items: center;
+    padding-left:15px;
+    padding-right:15px;
+    margin: 10px;
 }
 
 .header-return
@@ -512,6 +550,14 @@ li.logo {
     height: 40px;
     border-radius: 50%;
     position: relative ;
+}
+
+.header-icon-text-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;       /* 縦の中央揃え */
+    justify-content: space-between; /* 両端に配置（必要に応じて変更） */
+    gap: 10px;                 /* 必要なら隙間調整 */
 }
 
 .header-return a
@@ -535,12 +581,14 @@ li.logo {
 
 .header-name
 {
-    line-height: 30px;
-    margin-left: 20px;
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    align-items: center ;
+    margin-left: 10px;
 }
 
 .header-name span
 {
+    margin-left: 20px;
     font-size: 16px;
     color: gray ;
 }
@@ -564,12 +612,6 @@ li.logo {
     object-fit: cover ;
 }
 
-
-/*.background-img img
-{
-    width: auto ;
-    height: 200px;
-}*/
 
 .profile-description
 {
@@ -1434,5 +1476,17 @@ ul{
     .swiper-button-next {
         display: none !important;
     }
+}
+
+/* Darkmode 自動切り替え */
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode) {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+
+  body:not(.dark-mode) .mobile-nav-wrapper {
+    background-color: #1e1e1e;
+  }
 }
 

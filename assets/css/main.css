@@ -16,6 +16,40 @@
 html {
   scroll-behavior:smooth;
 }
+/* darkmode */
+body.dark-mode {
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+}
+/* main */
+body {
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #000);
+}
+
+a {
+  color: var(--main-color);
+}
+
+a:hover {
+  background-color: var(--hover-color);
+}
+
+/* header やボタンにも反映 */
+.header-icon-circle {
+  background-color: var(--bg-color);
+}
+
+button {
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+}
+.fas {
+  color: var(--text-color);
+}
 
 body {
     font-family:
@@ -263,6 +297,7 @@ input::-moz-placeholder
 {
     background-color: unset!important;
 }
+
 li.logo {
     margin-top: 10px;
     margin-bottom: 23px;
@@ -1603,5 +1638,16 @@ ul{
     .swiper-button-next {
         display: none !important;
     }
+}
+/* Darkmode 自動切り替え */
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode) {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+
+  body:not(.dark-mode) .mobile-nav-wrapper {
+    background-color: #1e1e1e;
+  }
 }
 
