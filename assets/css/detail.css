@@ -1,7 +1,6 @@
-:root
-{
-    --main-color: #00acee;
-    --hover-color:rgba(29, 161, 242, 0.07);
+:root {
+  --main-color: #00acee;
+  --hover-color: #f5f8fa; /* Twitter風の薄いグレー */
 }
 
 *, *::before, *::after
@@ -22,9 +21,16 @@ html {
 /* darkmode */
 body.dark-mode {
     --main-color: #1da1f2;
-    --hover-color: rgba(255, 255, 255, 0.1);
+    --hover-color: rgba(255, 255, 255, 0.04);
     --bg-color: #121212;
     --text-color: #f5f5f5;
+}
+/* ✅ Darkmode時の文字色を白に */
+body.dark-mode .favorite-wrapper span {
+  color: #f5f5f5;
+}
+body.dark-mode .users-wrapper span {
+    color: #f5f5f5;
 }
 /* main */
 body {
@@ -93,24 +99,50 @@ a
 
 /* mobil header */
 .mobile-nav-wrapper {
-    top       : 0;
-    width     : 100%;
-    height    : 50px;
+    top: 0;
+    width: 100%;
+    height: 50px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     background: #fff;
-    display   : flex;
+    display: flex;
     overflow-x: auto;
-    z-index   : 999;
+    z-index: 999;
     justify-content: space-between;
     transition: transform 0.3s ease-in-out;
 }
-/* Scroll Event */
+
+/* ダークモード用 */
+body.dark-mode .mobile-nav-wrapper {
+    background: #1e1e1e;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+/* スクロールイベント */
 .mobile-nav-wrapper.scroll-down {
     transform: translateY(-100%);
 }
 
 .mobile-nav-wrapper.scroll-up {
     transform: translateY(0%);
+}
+
+/* オプション：アイコンカラー調整 */
+body.dark-mode .mobile-profile-container i,
+body.dark-mode .fas.fa-search {
+    color: #e0e0e0;
+}
+
+/* オプション：検索バー入力 */
+body.dark-mode .mobile-search-input {
+    background-color: #2b2b2b;
+    color: #f5f5f5;
+    border: none;
+}
+
+/* optional logo color override */
+body.dark-mode .mobile-logo_1,
+body.dark-mode .mobile-logo_2 {
+    color: #e0e0e0;
 }
 
 /* end scroll event */
@@ -144,19 +176,12 @@ a
     height:30px;
 }
 
-.mobile-profile-container i
-{
-    color: #333;
-    font-size: 30px;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
-}
-
+/* mobile logo */
 .mobile-wrapper_circle
 {
     font-family: 'Baloo Paaji 2', cursive;
-    height:30px;
-    width:30px;
+    height:36px;
+    width:36px;
     border-radius:50%;
     z-index:1;
     position:relative;
@@ -170,7 +195,7 @@ a
     color: #fff;
     transform: translateX(30%);
     -webkit-transform: translateX(30%);
-    top: -13px;
+    top: -10px;
 
 }
 
@@ -181,7 +206,7 @@ a
     color: #fff;
     transform: translateX(110%) ;
     -webkit-transform: translateX(110%);
-    top: 1px;
+    top: 4px;
 }
 
 
@@ -557,7 +582,7 @@ li.logo {
     text-decoration: none ;
     display: inline-block ;
     vertical-align: middle;
-    margin: 10px  10px 10px  10px ;
+    margin: 10px  0px 10px  0px ;
 }
 
 .articles-item img
@@ -917,16 +942,13 @@ li.logo {
 
 .comment.user-comment{
     color:          #333;
+    padding-right: 10px;
     }
 
 .comment.author-comment{
     color:             #333;
     justify-content:  flex-end;
     }
-
-/* .comment .info{
-    width:                17%;
-    } */
 
 .comment.user-comment .info{
     text-align:         right;
@@ -953,7 +975,10 @@ li.logo {
     padding:   3px 12px 3px 15px;
     }
 
-.comment.avatar{
+.author-icon-wrapper {
+    padding-left: 10px;
+}
+.comment.avatar {
     width:                   8%;
     }
 
@@ -986,7 +1011,7 @@ li.logo {
 
 .user-comment-text-box
 {
-    line-height:         1.7;
+    line-height:         1.7em;
     padding:       5px 20px;
     width:               80%;
     position:       relative;
@@ -1000,10 +1025,11 @@ li.logo {
     justify-items: center ;
     align-items: center ;
     background: #EDF1EE;
+    margin-left: 20px;
 }
 
 .author-comment-text-box{
-    line-height:         1.7;
+    line-height:         1.7em;
     padding:       5px 20px;
     width:               50%;
     position:       relative;
@@ -1017,6 +1043,7 @@ li.logo {
     justify-items: center ;
     align-items: center ;
     background:  #8DE055;
+    margin-left: 20px;
 }
 
 .user-comment-text-box a,
@@ -1133,7 +1160,7 @@ li.logo {
   display: block;
   width: 0;
   height: 0;
-  right: -10px;
+  right: -8px;
   top: 3px;
   border-right: 20px solid #EDF1EE;
   border-top: 10px solid transparent;
@@ -1160,7 +1187,7 @@ li.logo {
 /* comment text area */
 
 .write-new textarea{
-    background:                    #fff;
+    background:                  #fff;
     border:                        none;
     border-bottom:    2px solid #dbdbdb;
     color:                         #666;
@@ -1181,11 +1208,11 @@ li.logo {
     outline:                       none;
 }
 
-.write-new img{
+.write-new img {
     border-radius:        50%;
     background:       #eeeeee;
-    width:               70px;
-    height:              70px;
+    width:               50px;
+    height:              50px;
     overflow:          hidden;
     text-align:        center;
     }
@@ -1197,7 +1224,9 @@ li.logo {
     margin:0px auto;
     justify-items: center ;
     align-items: center ;
-    vertical-align: middle ;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-top: 4px;
 }
 
 .write-new button
@@ -1343,10 +1372,14 @@ li.logo {
     padding: 8px 10px 8px 10px;
 }
 
-.favorite-wrapper:hover
-{
-    background: rgb(240, 242, 243);
+.favorite-wrapper:hover{
+    background: var(--hover-color);
     border-radius: 16px;
+}
+.favorite-wrapper a:hover {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
 }
 /* favorite Items */
 .favorite-category
@@ -1443,7 +1476,7 @@ li.logo {
 
 .users-wrapper:hover
 {
-    background: rgb(240, 242, 243);
+    background: var(--hover-color);
     border-radius: 16px;
 }
 
@@ -1508,6 +1541,7 @@ li.logo {
     font-size: 26px;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke: 1px #fff;
+    color: black;
 }
 
 .mobile-nav-icon:hover
@@ -1712,6 +1746,30 @@ ul{
     }
 
 /* @media */
+@media only screen and (max-width: 767px) {
+.center {
+    float: none;
+    width: 100%;
+    overflow-x: visible;
+}
+.pager .pagination li{
+    display: none;
+}
+.pager .pagination li.pre,
+.pager .pagination li.next{
+    display:            inline-block;
+    width:                      42px;
+    height:                     42px;
+    text-align:               center;
+    margin:                   0 auto;
+}
+.pager .pagination li.pre a,
+.pager .pagination li.next a{
+    width:                      100%;
+    text-align:               center;
+}
+}
+
 /* ipad 横 */
 /* iPadサイズではラベルを非表示に */
 @media (max-width: 900px) {
@@ -1797,6 +1855,15 @@ ul{
     .favorite-title span {
         font-size: 15px;
     }
+    .following-articles {
+        padding-left: 6px;
+    }
+    .articles-description {
+        padding-left: 6px;
+    }
+    .articles-time {
+        padding-left: 6px;
+    }
 }
 
 
@@ -1819,27 +1886,23 @@ ul{
 
 /* comment responsive */
 
-@media(max-width: 800px){
-     .user-comment-text-box,
-     .author-comment-text-box
-    {
-        width:      100%;
-        margin: 3px;
+@media(max-width: 768px){
+     .user-comment-text-box {
+        order: 1;
+        width: 80%;
+     }
+     .author-comment-text-box{
+        width: 80%;
     }
     .comment.user-comment .info
     {
         order:         3;
-        text-align: left;
     }
     .comment.user-comment .avatar
     {
         order:         2;
     }
 
-    .user-comment-text-box
-    {
-        order:         1;
-    }
     .comment.author-comment
     {
         justify-content: flex-start;
@@ -1863,17 +1926,18 @@ ul{
         width:               auto;
         position:        relative;
     }
-    .user-comment-text-box:after,
-    .author-comment-text-box:after
-    {
-        width:               12px;
-        height:              12px;
-        top:              initial;
-        left:                28px;
-        bottom:              -6px;
+    .user-comment-text-box:after {
+        width: 12px;
+    }
+    .author-comment-text-box:after {
+        width: 12px;
     }
     .write-new{
         width:               100%;
+    }
+    .comment-btn-wrapper{
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 
@@ -1931,5 +1995,10 @@ ul{
 
   body:not(.dark-mode) .mobile-nav-wrapper {
     background-color: #1e1e1e;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .mobile-nav i {
+    color: #f5f5f5;
   }
 }

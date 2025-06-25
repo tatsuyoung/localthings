@@ -35,9 +35,11 @@
                     <a href="{% url 'articles:user-posts' article.author.username %}">{{ comment.author }}</a>
                     <span>{{ comment.created_date|timesince }}{{ sometime }} ago</span>
                 </div>
-                <a href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
-                   <img src="{{ comment.author.profile.image.url }}" alt="Profile Author">
-                </a>
+                <div class="author-icon-wrapper">
+                    <a href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
+                    <img src="{{ comment.author.profile.image.url }}" alt="Profile Author">
+                    </a>
+                </div>
                 <div class="author-comment-text-box">
                     <p>{{ comment.text | urlize | linebreaksbr | safe }}</p>
                     {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
