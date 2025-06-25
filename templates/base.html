@@ -116,6 +116,15 @@
                 <div class="header-name">
                     <h3>{% block headerName %}戻る{% endblock %}</h3>
                 </div>
+                <div class="darkmode-wrapper">
+                    <div class="header-icon-circle">
+                        <div class="header-icon">
+                            <button id="darkModeToggle" style="display: none;">
+                                <i class="fas fa-star-and-crescent"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="center-wrapper">
                 {% block content %}

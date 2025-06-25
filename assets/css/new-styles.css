@@ -1,7 +1,6 @@
-:root
-{
-    --main-color: #00acee;
-    --hover-color:rgba(29, 161, 242, 0.07);
+:root {
+  --main-color: #00acee;
+  --hover-color: #f5f8fa; /* Twitter風の薄いグレー */
 }
 
 *, *::before, *::after
@@ -22,9 +21,19 @@ html {
 /* darkmode */
 body.dark-mode {
     --main-color: #1da1f2;
-    --hover-color: rgba(255, 255, 255, 0.1);
+    --hover-color: rgba(255, 255, 255, 0.04);
     --bg-color: #121212;
     --text-color: #f5f5f5;
+}
+/* ✅ Darkmode時の文字色を白に */
+body.dark-mode .favorite-wrapper span {
+  color: #f5f5f5;
+}
+body.dark-mode .users-wrapper span {
+    color: #f5f5f5;
+}
+body.dark-mode .mobile-center-name {
+    color: #f5f5f5;
 }
 /* main */
 body {
@@ -93,24 +102,50 @@ a
 
 /* mobil header */
 .mobile-nav-wrapper {
-    top       : 0;
-    width     : 100%;
-    height    : 50px;
+    top: 0;
+    width: 100%;
+    height: 50px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     background: #fff;
-    display   : flex;
+    display: flex;
     overflow-x: auto;
-    z-index   : 999;
+    z-index: 999;
     justify-content: space-between;
     transition: transform 0.3s ease-in-out;
 }
-/* Scroll Event */
+
+/* ダークモード用 */
+body.dark-mode .mobile-nav-wrapper {
+    background: #1e1e1e;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+/* スクロールイベント */
 .mobile-nav-wrapper.scroll-down {
     transform: translateY(-100%);
 }
 
 .mobile-nav-wrapper.scroll-up {
     transform: translateY(0%);
+}
+
+/* オプション：アイコンカラー調整 */
+body.dark-mode .mobile-profile-container i,
+body.dark-mode .fas.fa-search {
+    color: #e0e0e0;
+}
+
+/* オプション：検索バー入力 */
+body.dark-mode .mobile-search-input {
+    background-color: #2b2b2b;
+    color: #f5f5f5;
+    border: none;
+}
+
+/* optional logo color override */
+body.dark-mode .mobile-logo_1,
+body.dark-mode .mobile-logo_2 {
+    color: #e0e0e0;
 }
 
 /* end scroll event */
@@ -157,11 +192,12 @@ a
     color: var(--main-color) ;
 }
 
+/* mobile logo */
 .mobile-wrapper_circle
 {
     font-family: 'Baloo Paaji 2', cursive;
-    height:30px;
-    width:30px;
+    height:36px;
+    width:36px;
     border-radius:50%;
     z-index:1;
     position:relative;
@@ -175,7 +211,7 @@ a
     color: #fff;
     transform: translateX(30%);
     -webkit-transform: translateX(30%);
-    top: -13px;
+    top: -10px;
 
 }
 
@@ -186,7 +222,7 @@ a
     color: #fff;
     transform: translateX(110%) ;
     -webkit-transform: translateX(110%);
-    top: 1px;
+    top: 4px;
 }
 
 /* mobile nav */
@@ -493,6 +529,13 @@ li.logo {
     color:rgb(20, 23, 26);
 }
 
+.darkmode-wrapper {
+    display: flex;
+    margin-left: auto;
+    align-items: center; /* 中央揃え（縦方向） */
+    padding-right: 10px; /* 任意の余白 */
+}
+
 .center-wrapper h1{
     text-align:                 center;
     margin:                  40px auto;
@@ -544,7 +587,7 @@ li.logo {
 
 .following-feed-wrapper:hover
 {
-    background: rgb(245, 248, 250) ;
+    background-color: var(--hover-color);
 }
 
 .articles-item img
@@ -1082,7 +1125,7 @@ li.logo {
 
 .users-box:hover
 {
-     background: rgb(245, 248, 250);
+     background: var(--hover-color);
 }
 
 .users-item-pic
@@ -1158,111 +1201,114 @@ li.logo {
 }
 
 /* about */
-
-.about{
-    margin:                         0;
-    padding:                        0;
-    font-family:  Helvetica Neue LT,Helvetica Neue,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
-
-    }
-
-.about_wrapper{
-    display:            flex;
-    justify-content:  center;
-    align-self:       center;
-    min-height:        100vh;
-    background:         #fff;
-    margin-top:         20px;
-    }
-
-.about_container{
-    position:                   relative;
-    max-width:                      100%;
-    display:                        grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-template-rows:                      minmax(100px, auto);
-    margin:                         0px;
-    grid-auto-flow:                dense;
-    grid-gap:                       10px;
-    }
-
-.about-description
-{
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
-    align-items: center ;
+.about {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica Neue LT, Helvetica Neue, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
 }
 
-.about_content p{
-    text-align:                     left;
-    line-height:                    1.75;
-    letter-spacing:               0.04em;
+.about_wrapper {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    min-height: 100vh;
+    background: #fff;
+    margin-top: 20px;
+}
+
+body.dark-mode .about_wrapper {
+    background: #121212;
+}
+
+.about_container {
+    position: relative;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: minmax(100px, auto);
+    margin: 0px;
+    grid-auto-flow: dense;
+    grid-gap: 10px;
+}
+
+.about-description {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.about_content p {
+    text-align: left;
+    line-height: 1.75;
+    letter-spacing: 0.04em;
     font-size: 20px;
     color: #14171a;
-    }
+}
 
-.about_box{
-    background:      #fff;
-    padding:                        20px;
-    display:                        grid;
-    font-size:                      20px;
-    place-items:                  center;
-    text-align:                   center;
-    transition:                     0.5s;
-    border-bottom: 1px solid #C0C0C0;
-    border-top: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0;;
-    border-left: 1px solid #C0C0C0;
-    }
+body.dark-mode .about_content p {
+    color: #e0e0e0;
+}
 
-.about_box:hover{
-    background: rgb(245, 248, 250);
-    }
+.about_box {
+    background-color: #fff;
+    padding: 20px;
+    display: grid;
+    font-size: 20px;
+    place-items: center;
+    text-align: center;
+    transition: 0.5s;
+    border: 1px solid #C0C0C0;
+}
 
-.about_box span{
-    position:                   relative;
-    max-width:                     100px;
-    font-size:                      42px;
-    color: var(--main-color) ;
+body.dark-mode .about_box {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+
+.about_box:hover {
+    background: var(--hover-color);
+}
+
+body.dark-mode .about_box:hover {
+    background: rgba(255, 255, 255, 0.05); /* optional override */
+}
+
+.about_box span {
+    position: relative;
+    max-width: 100px;
+    font-size: 42px;
+    color: var(--main-color);
     font-weight: 700;
     line-height: 2;
-    word-break: break-word ;
-    }
+    word-break: break-word;
+}
 
-.about_box:nth-child(1)
-    {
-    grid-column : span 2;
-    grid-row    : span 1;
-    }
-.about_box:nth-child(2)
-    {
-    grid-column:  span 1;
-    grid-row:     span 3;
-    }
-.about_box:nth-child(4)
-    {
-    grid-column: span 1;
-    grid-row:    span 3;
-    }
-.about_box:nth-child(5)
-    {
+.about_box:nth-child(1) {
     grid-column: span 2;
-    grid-row:    span 1;
-    }
+    grid-row: span 1;
+}
+.about_box:nth-child(2) {
+    grid-column: span 1;
+    grid-row: span 3;
+}
+.about_box:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 3;
+}
+.about_box:nth-child(5) {
+    grid-column: span 2;
+    grid-row: span 1;
+}
 
-
-@media(max-width: 991px)
-{
-    .about_container
-    {
-    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-    grid-template-rows:                     minmax(auto, auto);
+@media(max-width: 991px) {
+    .about_container {
+        grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+        grid-template-rows: minmax(auto, auto);
     }
-    .about_box
-    {
-    grid-column: unset !important;
-    grid-row:    unset !important;
+    .about_box {
+        grid-column: unset !important;
+        grid-row: unset !important;
     }
 }
 
@@ -2056,12 +2102,15 @@ li.logo {
   border-bottom: 1px dotted #8c8c8c;
     }
 
-.form-footer button{
+.form-footer button {
     float:                     left;
     position:              relative;
     top:                        0px;
     background:             #fff;
     }
+.form-footer button i {
+    color: black;
+}
 
 .helptext, .helptext ul{
     margin    : 0 auto 30px;
@@ -2508,6 +2557,7 @@ ul{
     font-size: 26px;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke: 1px #fff;
+    color: black;
 }
 
 .mobile-nav-icon:hover
@@ -2555,135 +2605,6 @@ ul{
     -webkit-appearance: none;
      border-radius    :    0;
     }
-
-/* @media */
-/* ipad 横 */
-/* iPadサイズではラベルを非表示に */
-@media (max-width: 900px) {
-    .center {
-        width:75%;
-    }
-    .left {
-        width:20%;
-    }
-    .right {
-        width:5%;
-    }
-    .right-wrapper {
-        display: none;
-    }
-    .sub_title {
-        padding-top: 90px;
-    }
-    .icon-label-text {
-        display: none;
-    }
-    li.logo {
-        justify-content: center;
-        justify-items: center;
-        padding-left: 23px;
-    }
-    .wrapper_circle {
-        justify-content: center;
-        justify-items: center;
-    }
-    .left-icons-wrapper {
-        justify-content: center;
-        justify-items: center;
-    }
-    .icon-item {
-        justify-content: center;
-        justify-items: center;
-    }
-    .icon-link {
-        justify-content: center;
-        justify-items: center;
-    }
-    .web-info, .web-info a span{
-        font-size: 12px;
-    }
-}
-
-/* スマホ */
-
-@media (max-width: 600px)
-{
-    .left
-    {
-        display: none ;
-    }
-    .right
-    {
-        display: none ;
-    }
-    .center
-    {
-        width: 100%;
-        margin-top: 60px;
-    }
-    .mobile-nav
-    {
-        z-index: 10;
-    }
-    .user_profile_card
-    {
-        box-shadow: none ;
-        width:100%;
-    }
-    .form-wrapper
-    {
-        box-shadow: none ;
-    }
-    .site-form
-    {
-        box-shadow:none;
-    }
-    .following-feed-wrapper
-    {
-        width: 100%;
-    }
-    .center-header
-    {
-        display: none ;
-    }
-    .about_box span
-    {
-        font-size:30px;
-    }
-    .privacy h2
-    {
-        font-size:16px;
-    }
-    .profile-account-delete
-    {
-        z-index:1;
-    }
-    .password_reset.ja
-    {
-        font-size: 11px;
-    }
-    .form-wrapper
-    {
-        margin:3em auto;
-    }
-     .users-box
-    {
-        width: 100%;
-    }
-}
-/* スマホ（幅600px未満）専用のナビやUIパーツを、
-大きな画面（タブレットやPC）では非表示 */
-@media (min-width: 600px) {
-    .mobile-nav-wrapper {
-        display: none;
-    }
-    .mobile-nav {
-        display: none;
-    }
-    .mobile-create-circle {
-        display: none;
-    }
-}
 
 /* Edit Article Styles */
 
@@ -2891,25 +2812,6 @@ ul{
   outline: none;
 }
 
-/* ✅ モバイル用調整 */
-@media (max-width: 480px) {
-  .edit-article-category-select {
-    font-size: 0.95rem;
-    padding: 14px 38px 14px 14px;
-  }
-}
-/* Darkmode 自動切り替え */
-@media (prefers-color-scheme: dark) {
-  body:not(.dark-mode) {
-    background-color: #121212;
-    color: #f1f1f1;
-  }
-
-  body:not(.dark-mode) .mobile-nav-wrapper {
-    background-color: #1e1e1e;
-  }
-}
-
 /* Edeit */
 .hidden-input-file {
     display: none;
@@ -2978,4 +2880,176 @@ ul{
 .thumb-preview {
     border-radius: 6px;
     border: 1px solid #eee;
+}
+
+/* @media */
+@media only screen and (max-width: 767px) {
+.center {
+    float: none;
+    width: 100%;
+    overflow-x: visible;
+}
+.pager .pagination li{
+    display: none;
+}
+.pager .pagination li.pre,
+.pager .pagination li.next{
+    display:            inline-block;
+    width:                      42px;
+    height:                     42px;
+    text-align:               center;
+    margin:                   0 auto;
+}
+.pager .pagination li.pre a,
+.pager .pagination li.next a{
+    width:                      100%;
+    text-align:               center;
+}
+}
+
+/* ipad 横 */
+/* iPadサイズではラベルを非表示に */
+@media (max-width: 900px) {
+    .center {
+        width:75%;
+    }
+    .left {
+        width:20%;
+    }
+    .right {
+        width:5%;
+    }
+    .right-wrapper {
+        display: none;
+    }
+    .sub_title {
+        padding-top: 90px;
+    }
+    .icon-label-text {
+        display: none;
+    }
+    li.logo {
+        justify-content: center;
+        justify-items: center;
+        padding-left: 23px;
+    }
+    .wrapper_circle {
+        justify-content: center;
+        justify-items: center;
+    }
+    .left-icons-wrapper {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-item {
+        justify-content: center;
+        justify-items: center;
+    }
+    .icon-link {
+        justify-content: center;
+        justify-items: center;
+    }
+    .web-info, .web-info a span{
+        font-size: 12px;
+    }
+}
+
+/* スマホ */
+
+@media (max-width: 600px)
+{
+    .left
+    {
+        display: none ;
+    }
+    .right
+    {
+        display: none ;
+    }
+    .center
+    {
+        width: 100%;
+        margin-top: 60px;
+    }
+    .mobile-nav
+    {
+        z-index: 10;
+    }
+    .user_profile_card
+    {
+        box-shadow: none ;
+        width:100%;
+    }
+    .form-wrapper
+    {
+        box-shadow: none ;
+    }
+    .site-form
+    {
+        box-shadow:none;
+    }
+    .following-feed-wrapper
+    {
+        width: 100%;
+    }
+    .center-header
+    {
+        display: none ;
+    }
+    .about_box span
+    {
+        font-size:30px;
+    }
+    .privacy h2
+    {
+        font-size:16px;
+    }
+    .profile-account-delete
+    {
+        z-index:1;
+    }
+    .password_reset.ja
+    {
+        font-size: 11px;
+    }
+    .form-wrapper
+    {
+        margin:3em auto;
+    }
+     .users-box
+    {
+        width: 100%;
+    }
+}
+/* スマホ（幅600px未満）専用のナビやUIパーツを、
+大きな画面（タブレットやPC）では非表示 */
+@media (min-width: 600px) {
+    .mobile-nav-wrapper {
+        display: none;
+    }
+    .mobile-nav {
+        display: none;
+    }
+    .mobile-create-circle {
+        display: none;
+    }
+}
+
+/* ✅ モバイル用調整 */
+@media (max-width: 480px) {
+  .edit-article-category-select {
+    font-size: 0.95rem;
+    padding: 14px 38px 14px 14px;
+  }
+}
+/* Darkmode 自動切り替え */
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode) {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+
+  body:not(.dark-mode) .mobile-nav-wrapper {
+    background-color: #1e1e1e;
+  }
 }
