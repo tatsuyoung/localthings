@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <div class="user_profile_card">
-    <img src="{{ user.profile.image.url }}" alt="Avatar" style="width:100%"/>
+    <img src="{{ user.profile.image.url }}" alt="Avatar"/>
     <ul>
         <li>
             {{ user.is_following.all.count }} <small>Following</small>
@@ -18,7 +18,7 @@
         </li>
     </ul>
     <h3>
-        <a href="{% url 'articles:user-posts' user.username %}" style="color:#383838">
+        <a href="{% url 'articles:user-posts' user.username %}">
             {{ user.username }}
         </a>
     </h3>
