@@ -1,6 +1,6 @@
 :root {
   --main-color: #00acee;
-  --hover-color: #f5f8fa; /* Twitter風の薄いグレー */
+  --hover-color: #f5f8fa; 
 }
 
 *, *::before, *::after {
@@ -42,6 +42,31 @@ body.dark-mode #clouds {
     background: -o-linear-gradient(top, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
     background: linear-gradient(to bottom, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
 }
+/* mobil icons */
+/* ダークモード用スタイル */
+body.dark-mode .mobile-nav {
+    background: #1e1e1e;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .mobile-nav-link {
+    color: #f5f5f5;
+}
+
+body.dark-mode .mobile-nav-icon {
+    color: #f5f5f5;
+}
+
+/* hover や active 状態も対応 */
+body.dark-mode .mobile-nav-icon:hover,
+body.dark-mode .mobile-nav-icon:active {
+    color: var(--main-color); 
+}
+/* scroll  */
+body.dark-mode .mobile-nav {
+  background: #1e1e1e;
+}
+
 /* main */
 body {
   background-color: var(--bg-color, #fff);
@@ -873,11 +898,20 @@ li.logo {
 }
 
 /* articles */
+
 .following-feed-wrapper {
     width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
     max-width: 100%;
     margin: 0 auto; /* 中央寄せ */
     border-bottom: 1px solid #C0C0C0;
+    transition: transform 0.3s ease;
+}
+
+/* 4つに1つは大きめに */
+.following-feed-wrapper.large-card .articles-thumb img {
+    height: 500px; /* 大きめに */
+    object-fit: cover;
+    width: 100%;
 }
 
 .article-wrapper ul li
@@ -911,11 +945,17 @@ li.logo {
 }
 
 /* articles thumbnail */
-.articles-thumb {
+/* .articles-thumb {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+} */
+/* 通常カードの画像サイズ */
+.articles-thumb img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
 }
 
 .articles-thumb .swiper-container {
@@ -943,6 +983,14 @@ li.logo {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.following-feed-wrapper.large-card .swiper-slide img {
+    height: 500px;
+}
+
+.swiper-slide img {
+    height: 300px;
 }
 
 /* --- SWiper 矢印ボタンスタイル --- */
@@ -1370,12 +1418,12 @@ li.logo {
     transition: background-color 0.1s ease-in-out ;
 }
 
-.mobile-nav-icon
-{
-    font-size: 26px;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
-    color: black;
+ .mobile-nav-icon {
+    font-size: 24px; /* 少し小さめに */
+    color: #000;
+    font-weight: 300; /* 効果は限定的（FontAwesomeには反映されないことも） */
+    -webkit-text-stroke: 0 !important; /* 輪郭を除去してスッキリ */
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .mobile-nav-icon:hover
@@ -1391,6 +1439,21 @@ li.logo {
 .mobile-nav .live_notify_badge
 {
     font-size: 10px;
+}
+
+/* 半透明（下スクロール時） */
+.mobile-nav.scrolled-down {
+  opacity: 0.3;
+}
+
+/* 元に戻す（上スクロール時） */
+.mobile-nav.scrolled-up {
+  opacity: 1;
+}
+/* hiden */
+.mobile-nav.nav-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* mobile create */
@@ -1621,9 +1684,24 @@ ul{
 }
 
 /* スマホ */
-@media (max-width: 600px)
-{
-    .left
+@media screen and (max-width: 600px) {
+  .articles-description h1 {
+    font-size: 14px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .articles-description p {
+    font-size: 12px;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .articles-description small {
+    font-size: 10px;
+    color: #888; 
+  }
+  .left
     {
         display: none ;
     }
@@ -1684,13 +1762,63 @@ ul{
 }
 /* Darkmode 自動切り替え */
 @media (prefers-color-scheme: dark) {
-  body:not(.dark-mode) {
+    body:not(.dark-mode) {
     background-color: #121212;
     color: #f1f1f1;
-  }
+    }
 
-  body:not(.dark-mode) .mobile-nav-wrapper {
+    body:not(.dark-mode) .mobile-nav-wrapper {
     background-color: #1e1e1e;
-  }
+    }
+
+    body:not(.dark-mode) #clouds {
+    background: -webkit-linear-gradient(top, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
+    background: -moz-linear-gradient(top, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
+    background: -o-linear-gradient(top, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
+    background: linear-gradient(to bottom, #ffcc70 0%, #ff6f61 30%, #6a0572 100%);
+    }
+
+    body:not(.dark-mode) .articles-icon-items-wrapper .tw i {
+    color: #fff;
+    }
+    body:not(.dark-mode) .articles-icon-items-wrapper .fb i {
+    color: #fff;
+    }
+    body:not(.dark-mode) .articles-hover i {
+    color: #fff;
+    }
+    body.dark-mode .favorite-wrapper span {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .users-wrapper span {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .articles-description p {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .articles-description p small {
+    color: #ddd;
+    }
+    body:not(.dark-mode) .mobile-nav {
+    background: #1e1e1e;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
+    }
+
+    body:not(.dark-mode) .mobile-nav-link {
+    color: #f5f5f5;
+    }
+
+    body:not(.dark-mode) .mobile-nav-icon {
+    color: #f5f5f5;
+    }
+
+    body:not(.dark-mode) .mobile-nav-icon:hover,
+    body:not(.dark-mode) .mobile-nav-icon:active {
+    color: var(--main-color);
+    }
+    body:not(.dark-mode) .mobile-nav {
+    background: #1e1e1e;
+    }
+
 }
 

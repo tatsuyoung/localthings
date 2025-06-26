@@ -156,7 +156,7 @@
                                 <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
                             </div>
                             <div class="articles-time">
-                                <p>{{ article.date }}</p>
+                                <p><small>{{ article.display_date }}</small></p>
                             </div>
                             {% include 'articles/snippet/icons_text.html' %}
                             {% include 'articles/snippet/icon-box.html' %}
@@ -324,5 +324,6 @@
         <script src="/static/js/app.js"></script>
         <script src="/static/js/liked.js"></script>
         <script src="/static/js/darkmode.js"></script>
+        <script src="/static/js/mobile-nav-scroll.js"></script>
     </body>
 </html>

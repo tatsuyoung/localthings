@@ -23,17 +23,20 @@ from django.views.generic.base import View
 from accounts.models import Profile
 from articles.models import Article
 from .forms import UserCreationForms, ContactForm, UserUpdateForm, ProfileUpdateForm
+from django.utils import timezone 
 
 
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForms(request.POST)
+
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('articles:list')
     else:
         form = UserCreationForms()
+        
     return render(request, 'accounts/signup.html', {'form': form})
 
 
@@ -101,13 +104,13 @@ def Contact(request):
         form = Contact_Form(data=request.POST)
 
         if form.is_valid():
-            contact_name = request.POST.get('contact_name')
-            contact_email = request.POST.get('contact_email')
+            contact_name    = request.POST.get('contact_name')
+            contact_email   = request.POST.get('contact_email')
             contact_message = request.POST.get('message')
-            template = get_template('accounts/contact_form.txt')
+            template        = get_template('accounts/contact_form.txt')
             context = {
-                'contact_name': contact_name,
-                'contact_email': contact_email,
+                'contact_name'   : contact_name,
+                'contact_email'  : contact_email,
                 'contact_message': contact_message,
             }
 
@@ -134,36 +137,36 @@ def Delete_user(self):
 @login_required
 def user_is_following(request, username):
     current_user = request.user
-    user = get_object_or_404(User, username=current_user)
+    user         = get_object_or_404(User, username=current_user)
     is_following = user.is_following.all().order_by('id')
-    paginator = Paginator(is_following, 10)
-    page = request.GET.get('page')
+    paginator    = Paginator(is_following, 10)
+    page         = request.GET.get('page')
     is_following = paginator.get_page(page)
     context = {
-               'is_following': is_following
-                }
+        'is_following': is_following
+        }
     return render(request, 'accounts/is_following.html', context)
 
 
 @login_required
 def user_followers(request, username):
     current_user = request.user
-    user = get_object_or_404(User, username=current_user)
-    followers = user.profile.followers.all().order_by('id')
-    paginator = Paginator(followers, 10)
-    page = request.GET.get('page')
-    followers = paginator.get_page(page)
+    user         = get_object_or_404(User, username=current_user)
+    followers    = user.profile.followers.all().order_by('id')
+    paginator    = Paginator(followers, 10)
+    page         = request.GET.get('page')
+    followers    = paginator.get_page(page)
     context = {
-               'followers': followers
-                }
+        'followers': followers
+        }
     return render(request, 'accounts/followers.html', context)
 
 
 class PasswordReset(PasswordResetView):
     subject_template_name = 'accounts/mail_template/reset/subject.txt'
-    email_template_name = 'accounts/mail_template/reset/message.txt'
-    template_name = 'accounts/password_reset.html'
-    success_url = reverse_lazy('accounts:password_reset_done')
+    email_template_name   = 'accounts/mail_template/reset/message.txt'
+    template_name         = 'accounts/password_reset.html'
+    success_url           = reverse_lazy('accounts:password_reset_done')
 
 
 class PasswordResetDone(PasswordResetDoneView):
@@ -171,7 +174,7 @@ class PasswordResetDone(PasswordResetDoneView):
 
 
 class PasswordResetConfirm(PasswordResetConfirmView):
-    success_url = reverse_lazy('accounts:password_reset_complete')
+    success_url   = reverse_lazy('accounts:password_reset_complete')
     template_name = 'accounts/password_reset_confirm.html'
 
 
@@ -180,7 +183,7 @@ class PasswordResetComplete(PasswordResetCompleteView):
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
-    login_url = '/accounts/login/'
+    login_url     = '/accounts/login/'
     template_name = 'accounts/user.html'
 
     def get_object(self, queryset=None):
@@ -193,11 +196,13 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         if self.request.user.is_anonymous:
             raise Http404
         else:
-            context = super(ProfileDetailView, self).get_context_data(*args, **kwargs)
-            user = context['user']
+            context      = super(ProfileDetailView, self).get_context_data(*args, **kwargs)
+            user         = context['user']
             is_following = False
+
             if user.profile in self.request.user.is_following.all():
                 is_following = True
+
             context['is_following'] = is_following
             return context
 
@@ -206,31 +211,44 @@ class ProfileFollowToggle(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def post(self, request, *args, **kwargs):
-        username_to_toggle = request.POST.get("username")
+        username_to_toggle     = request.POST.get("username")
         profile_, is_following = Profile.objects.toggle_follow(request.user, username_to_toggle)
         return redirect(f"/accounts/{profile_.user.username}")
 
 
-class UserFollowingFeedView(View):
 
-    def get(self, request, *args, **kwargs,):
+class UserFollowingFeedView(View):
+    def format_custom_date_style(self, date, now):
+        delta = now - date
+        if delta.days < 7:
+            return f"{delta.days}日前" if delta.days > 0 else "今日"
+        else:
+            return date.strftime("%-m月%-d日")  # Linux/Mac
+
+    def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return render(request, 'articles/article_list_new.html', {})
 
-        users = Profile.objects.all().order_by('?')[:4]
-        post_articles = Article.objects.all()
-        order_like_articles = post_articles.annotate(like_count=Count('like')).order_by('-like_count')[:5]
-        user = request.user
-        count = user.article_set.all().count()
+        users                 = Profile.objects.all().order_by('?')[:4]
+        post_articles         = Article.objects.all()
+        order_like_articles   = post_articles.annotate(like_count=Count('like')).order_by('-like_count')[:5]
+        user                  = request.user
+        count                 = user.article_set.all().count()
         is_following_user_ids = [x.user.id for x in user.is_following.all()]
-        qs = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
-        paginator = Paginator(qs, 24)
-        page = request.GET.get('page')
-        articles = paginator.get_page(page)
+        qs                    = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
+        paginator             = Paginator(qs, 24)
+        page                  = request.GET.get('page')
+        articles              = paginator.get_page(page)
+
+        # ✅ 各記事に display_date を追加
+        now = timezone.now()
+        for article in articles:
+            article.display_date = self.format_custom_date_style(article.date, now)
+
         context = {
-            'articles': articles,
-            'count': count,
+            'articles'           : articles,
+            'count'              : count,
             'order_like_articles': order_like_articles,
-            'users': users
+            'users'              : users
         }
         return render(request, 'accounts/user_new_following.html', context)
