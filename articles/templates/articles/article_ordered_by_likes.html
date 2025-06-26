@@ -18,9 +18,6 @@
                     <li class="articles-item">
                         <p>{{ article.author.username }}</p>
                     </li>
-                    <li class="articles-item">
-                        <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
-                    </li>
                 </ul>
                 {% if article.images.all %}
                     {% with first_image=article.images.all.first %}
@@ -38,6 +35,9 @@
                     <a href="{% url 'articles:detail' pk=article.pk %}">
                         <p>{{ article.snippet }}<small>続きを読む</small></p>
                     </a>
+                    <div>
+                        <p><small>{{ article.display_date }}</small></p>
+                    </div>
                 </div>
                 <div class="articles-icon">
                     <ul class="articles-icon-box">

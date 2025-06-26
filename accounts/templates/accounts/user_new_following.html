@@ -91,9 +91,6 @@
                                 <li class="articles-item">
                                     <p>{{ article.author.username }}</p>
                                 </li>
-                                <li class="articles-item">
-                                    <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
-                                </li>
                             </ul>
                             {% if article.images.all %}
                                 <div class="articles-thumb">
@@ -124,6 +121,9 @@
                                 <a href="{% url 'articles:detail' pk=article.pk %}">
                                     <p>{{ article.snippet }}<small>続きを読む</small></p>
                                 </a>
+                                <div>
+                                    <p><small>{{ article.display_date }}</small></p>
+                                </div>
                             </div>
                             <div class="articles-icon">
                                 <ul class="articles-icon-box">
@@ -251,5 +251,6 @@
         <script src="/static/js/scroll.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
         <script src="/static/js/darkmode.js"></script>
+        <script src="/static/js/mobile-nav-scroll.js"></script>
     </body>
 </html>

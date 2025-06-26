@@ -22,6 +22,18 @@ from django.http import HttpResponseServerError
 import logging
 logger = logging.getLogger(__name__)
 
+from django.utils import timezone
+
+
+def format_custom_date_style(date, now):
+    delta = now - date
+    if delta.days < 7:
+        return f"{delta.days}日前" if delta.days > 0 else "今日"
+    else:
+        return date.strftime("%-m月%-d日")  # Linux/Mac
+        # return date.strftime("%#m月%#d日")  # Windowsの場合
+
+
 def article_list(request):
     users               = Profile.objects.all().order_by('?')[:4]
     articles_list       = Article.objects.all().order_by('-date')
@@ -35,13 +47,18 @@ def article_list(request):
         articles = articles_list.filter(
             Q(title__icontains=query) |
             Q(body__icontains=query)
-            ).distinct()
-    return render(request, 'articles/article_list_new.html',
-                  {'articles': articles,
-                   'order_like_articles': order_like_articles,
-                   'users': users
-                   }
-                  )
+        ).distinct()
+
+    # ✅ 日付表示を整形して付加
+    now = timezone.now()
+    for article in articles:
+        article.display_date = format_custom_date_style(article.date, now)
+
+    return render(request, 'articles/article_list_new.html', {
+        'articles': articles,
+        'order_like_articles': order_like_articles,
+        'users': users,
+    })
 
 
 def article_detail(request, pk):
@@ -49,12 +66,16 @@ def article_detail(request, pk):
     articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
     article             = Article.objects.get(pk=pk)
+    # ✅ 日付フォーマット追加
+    now = timezone.now()
+    article.display_date = format_custom_date_style(article.date, now)
     return render(request, 'articles/article_detail_new.html',
                   {'article': article,
                    'order_like_articles': order_like_articles,
                    'users': users
                    }
                   )
+
 
 @login_required(login_url="/accounts/login/")
 def article_create(request, num_images=5):
@@ -108,11 +129,11 @@ def article_edit(request, pk):
             formset.save()  # ← これだけでOK！
             return redirect('articles:detail', pk=article.pk)
     else:
-        form = CreateArticle(instance=article)
+        form    = CreateArticle(instance=article)
         formset = ArticleImageFormSet(instance=article)
 
     return render(request, 'articles/article_edit.html', {
-        'form': form,
+        'form'   : form,
         'formset': formset,
         'article': article,
     })
@@ -233,11 +254,15 @@ def users_detail(request, pk):
     count               = user.article_set.all().count()
     following           = user.is_following.all().count()
     followers           = user.profile.followers.all().count()
+    # ✅ 各記事に display_date を追加
+    now = timezone.now()
+    for article in articles:
+        article.display_date = format_custom_date_style(article.date, now)
 
     context = {
-                'user': user,
-                'articles': articles,
-                'count': count,
+                'user'     : user,
+                'articles' : articles,
+                'count'    : count,
                 'following': following,
                 'followers': followers,
                 'order_like_articles': order_like_articles,
@@ -294,7 +319,10 @@ class UserPostListView(ListView):
         users               = Profile.objects.all().order_by('?')[:4]
         articles_list       = Article.objects.all().order_by('-date')
         order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-        context = super().get_context_data(**kwargs)
+        articles            = Article.objects.filter(author=_user).order_by('-date')
+
+        context             = super().get_context_data(**kwargs)
+
         context.update({
             'User'     : _user,
             'following': _user.is_following.all().count(),
@@ -305,7 +333,6 @@ class UserPostListView(ListView):
             'users'    : users,
             'order_like_articles': order_like_articles
         })
-        articles = Article.objects.filter(author=_user).order_by('-date')
         return context
 
     def get_queryset(self):
@@ -341,3 +368,17 @@ class ArticleOrderedByLikes(ListView):
 
     def get_queryset(self):
         return Article.objects.annotate(like_count=Count('like')).order_by('-like_count')
+
+    def format_custom_date_style(self, date, now):
+        delta = now - date
+        if delta.days < 7:
+            return f"{delta.days}日前" if delta.days > 0 else "今日"
+        else:
+            return date.strftime("%-m月%-d日")  # Mac/Linux（Windowsなら %#m）
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = timezone.now()
+        for article in context['articles']:
+            article.display_date = self.format_custom_date_style(article.date, now)
+        return context
