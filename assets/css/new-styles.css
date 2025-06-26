@@ -2469,6 +2469,7 @@ ul{
     width:                      100%;
     text-align:               center;
   }
+
 }
 
 /* notification box */
@@ -3048,6 +3049,11 @@ ul{
     color: #262626; 
     margin: 2px 0;
     }
+    .user_profile_card
+    {
+        box-shadow: none ;
+        max-width:60%;
+    }
 }
 
 /* ipad 横 */
@@ -3133,11 +3139,6 @@ ul{
     .mobile-nav
     {
         z-index: 10;
-    }
-    .user_profile_card
-    {
-        box-shadow: none ;
-        width:100%;
     }
     .form-wrapper
     {

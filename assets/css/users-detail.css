@@ -762,6 +762,10 @@ li.logo {
     color: var( --main-color)
 }
 
+.info-wrapper {
+    padding-bottom: 8px;
+}
+
 .info-wrapper ul li
 {
     text-decoration: none ;
