@@ -618,19 +618,18 @@ li.logo {
     display: flex;
     height: 53px;
     align-items: center;
-    padding-left:15px;
+    padding-left:6px;
     padding-right:15px;
     margin: 10px;
 }
 
-.header-return
-{
-    padding: 10px;
-    margin-left: 20px;
-    width: 40px;
-    height: 40px;
+.header-return {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    position: relative ;
+    position: relative;
 }
 
 .header-icon-text-wrapper {
@@ -702,6 +701,12 @@ li.logo {
     border-bottom: 1px solid #C0C0C0;
 }
 
+.profile-description  a:hover {
+    text-decoration: none;
+    background: none;
+    color: inherit;
+}
+
 .profile-description img
 {
     width: 150px;
@@ -737,6 +742,9 @@ li.logo {
   background-color: #e8f5fd;
 }
 
+.profile-wrapper {
+    padding-left: 10px;
+}
 .profile-name
 {
     margin: 10px auto ;
@@ -1600,8 +1608,10 @@ ul{
 /* Darkmode 自動切り替え */
 @media (prefers-color-scheme: dark) {
     body:not(.dark-mode) {
-    background-color: #121212;
-    color: #f1f1f1;
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.04);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
     }
 
     body:not(.dark-mode) .mobile-nav-wrapper {

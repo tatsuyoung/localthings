@@ -4,20 +4,11 @@
 {% block headerName %}編集する{% endblock %}
 {% block content %}
 <div class="edit-article-wrapper">
-    <h2 class="edit-article-title">記事を編集</h2>
     <form method="POST" enctype="multipart/form-data" id="form" class="edit-article-form">
         {% csrf_token %}
-        <div class="edit-article-item">
-            <label for="id_title" class="edit-article-label">タイトル</label>
-            {{ form.title }}
-            <p class="edit-article-helptext">{{ form.title.help_text }}</p>
-            {% for error in form.title.errors %}
-            <span class="edit-article-error">{{ error }}</span>
-            {% endfor %}
-        </div>
 
         <div class="edit-article-item">
-            <label for="id_body" class="edit-article-label">本文</label>
+            <label for="id_body" class="edit-article-label">Main</label>
             {{ form.body }}
             <p class="edit-article-helptext">{{ form.body.help_text }}</p>
             {% for error in form.body.errors %}
@@ -25,7 +16,7 @@
             {% endfor %}
         </div>
         <div class="edit-article-item">
-            <h2 class="edit-article-label">記事画像（最大5枚）</h2>
+            <label class="edit-article-label">Max 5 images</label>
 
             {{ formset.management_form }}
             <div class="edit-article-image-formset">
@@ -57,7 +48,7 @@
         </div>
         </div>
         <div class="edit-article-item">
-            <label for="id_category" class="edit-article-label">カテゴリ</label>
+            <label for="id_category" class="edit-article-label">Category</label>
             {{ form.category }}
             <p class="edit-article-helptext">{{ form.category.help_text }}</p>
             {% for error in form.category.errors %}
@@ -70,7 +61,7 @@
         </div>
 
         <div class="edit-article-button-panel">
-            <input type="submit" class="edit-article-submit" value="更新する">
+            <input type="submit" class="edit-article-submit" value="Update">
         </div>
     </form>
     <div class="form-footer">
@@ -85,9 +76,10 @@
             </div>
         </div>
     <div class="edit-article-footer">
-        <a href="{% url 'home' %}" class="edit-article-home-link">ホームに戻る</a>
+        <a href="{% url 'home' %}" class="edit-article-home-link">Home</a>
     </div>
 </div>
+<div class="global-footer"></div>
 {% endblock %}
 {% block script %}
 <!-- <script src="/static/js/slugify.js"></script> -->

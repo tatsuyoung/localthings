@@ -27,106 +27,104 @@
                 <img src="{{ user.profile.image.url }}" alt="Avatar" class="img-cover2">
             </div>
         </div>
-
-        <div class="user-email">
-            <p>{{ user.email }}</p>
-        </div>
     </div>
-    <div class="site-form">
-        <h3>Profile Info</h3>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ u_form.as_p }}
-            <div class="form_group">
-                <label>My icon</label>
-                <div class="column_3" id="input-group">
-                    <input type="file" name="image" accept="image/*" id="id_image"/>
-                    <label for="id_image" id="input-label">UpLoad
-                        <i class="fas fa-user-cog"></i>
-                    </label>
-                    <div class="icon_helptext">
-                        <p class="helptext">{{ p_form.image.help_text }}</p>
-                    </div>
-                    <div class="clear">
-                        <div class="clear-input">
-                            <input type="checkbox" name="image-clear" id="image-clear_id">
-                        </div>
-                        <div class="clear-label">
-                            <label for="image-clear_id"><p>Iconをクリア</p></label>
-                        </div>
-                    </div>
-                    {% for error in p_form.image.errors %}
-                    <span class="helptext">{{ error }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="form_group">
-                <label>背景選択</label>
-                <div class="column_3">
-                    <div id="two">
-                    <input type="file" name="bg" accept="image/*" id="id_bg">
-                    <label for="id_bg" id="input-label-bg">UpLoad
-                        <i class="far fa-image"></i>
-                    </label>
-                    <div class="icon_helptext">
-                        <p class="helptext">{{ p_form.bg.help_text }}</p>
-                    </div>
-                    </div>
-                    <div class="clear">
-                        <div class="clear-input">
-                            <input type="checkbox" name="bg-clear" id="bg-clear_id">
-                        </div>
-                        <div class="clear-label">
-                            <label for="bg-clear_id"><p>背景をクリア</p></label>
-                        </div>
-                    </div>
-                    {% for error in p_form.bg.errors %}
-                    <span class="helptext">{{ error }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="form_group">
-                <div class="column_2">
-                    <label>BIO</label>
-                    {{ p_form.bio | attr:"autocomplete:off" }}
-                    <p class="helptext">{{ p_form.bio.help_text }}</p>
-                    {% for error in p_form.bio.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form_group">
-                <div class="column_1">
-                    <label>Website</label>
-                    {{ p_form.website | attr:"autocomplete:off" }}
-                    <p class="helptext">{{ p_form.website.help_text }}</p>
-                    {% for error in p_form.website.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="button-panel">
-                <input type="submit" class="button-new-color" value="Update">
-            </div>
-        </form>
-        <div class="form-logout-footer">
-            <form action="{% url 'accounts:logout' %}" method="POST">
+    <div class="site-form-wrapper">
+        <div class="site-form">
+            <h3>Profile Info</h3>
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
-                    <p>ログアウト</p>
-                </button>
+                {{ u_form.as_p }}
+                <div class="form_group">
+                    <label>My icon</label>
+                    <div class="column_3" id="input-group">
+                        <input type="file" name="image" accept="image/*" id="id_image"/>
+                        <label for="id_image" id="input-label">UpLoad
+                            <i class="fas fa-user-cog"></i>
+                        </label>
+                        <div class="icon_helptext">
+                            <p class="helptext">{{ p_form.image.help_text }}</p>
+                        </div>
+                        <div class="clear">
+                            <div class="clear-input">
+                                <input type="checkbox" name="image-clear" id="image-clear_id">
+                            </div>
+                            <div class="clear-label">
+                                <label for="image-clear_id"><p>Iconをクリア</p></label>
+                            </div>
+                        </div>
+                        {% for error in p_form.image.errors %}
+                        <span class="helptext">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form_group">
+                    <label>背景選択</label>
+                    <div class="column_3">
+                        <div id="two">
+                        <input type="file" name="bg" accept="image/*" id="id_bg">
+                        <label for="id_bg" id="input-label-bg">UpLoad
+                            <i class="far fa-image"></i>
+                        </label>
+                        <div class="icon_helptext">
+                            <p class="helptext">{{ p_form.bg.help_text }}</p>
+                        </div>
+                        </div>
+                        <div class="clear">
+                            <div class="clear-input">
+                                <input type="checkbox" name="bg-clear" id="bg-clear_id">
+                            </div>
+                            <div class="clear-label">
+                                <label for="bg-clear_id"><p>背景をクリア</p></label>
+                            </div>
+                        </div>
+                        {% for error in p_form.bg.errors %}
+                        <span class="helptext">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form_group">
+                    <div class="column_2">
+                        <label>BIO</label>
+                        {{ p_form.bio | attr:"autocomplete:off" }}
+                        <p class="helptext">{{ p_form.bio.help_text }}</p>
+                        {% for error in p_form.bio.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="column_1">
+                        <label>Website</label>
+                        {{ p_form.website | attr:"autocomplete:off" }}
+                        <p class="helptext">{{ p_form.website.help_text }}</p>
+                        {% for error in p_form.website.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="button-panel">
+                    <input type="submit" class="button-new-color" value="Update">
+                </div>
             </form>
-        </div>
-        <div class="form-footer">
-            <p><a href="{% url 'home' %}">Home</a></p>
-            <a href="{% url 'accounts:unsubscribe' %}">
-                <button class="profile-account-delete" type="submit"
-                        onclick="return confirm('本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消しができません。');">
-                    <i class="fas fa-user-times"></i>
-                </button>
-            </a>
+            <div class="form-logout-footer">
+                <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
+                        <p>ログアウト</p>
+                    </button>
+                </form>
+            </div>
+            <div class="form-footer">
+                <p><a href="{% url 'home' %}">Home</a></p>
+                <a href="{% url 'accounts:unsubscribe' %}">
+                    <button class="profile-account-delete" type="submit"
+                            onclick="return confirm('本当に退会しますか？ {{ user.username }}さんに関するすべてのデータが消去されます。この操作は取り消しができません。');">
+                        <i class="fas fa-user-times"></i>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

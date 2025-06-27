@@ -89,37 +89,36 @@
                 <img src="{{ user.profile.image.url }}" alt="{{ user.username }} Avatar" loading="lazy">
             </a>
             <a href="{% url 'accounts:profile' %}" class="edit">Edit Profile</a>
-            <div class="profile-name">
-                {{ user.username }}
-            </div>
-            <div class="profile-bio">
-                {% if user.profile.bio %}
-                {{ user.profile.bio }}
-                {% endif %}
-            </div>
-            <div class="profile-website">
-                <i class="fas fa-link"></i>
-                {% if user.profile.website %}
-                <a href="{{ user.profile.website }}">
-                    {{ user.profile.website }}
-                </a>
-                {% endif %}
-            </div>
-            <div class="info-wrapper">
-                <ul class="info-box">
-                    <li class="following-info">
-                        <a href="{% url 'accounts:is_following' user.username%}">
-                            <strong>{{ user.is_following.all.count }}</strong>
-                            <span>フォロー中</span>
-                        </a>
-                    </li>
-                    <li class="followers-info">
-                        <a href="{% url 'accounts:followers' user.username%}">
-                            <strong>{{ user.profile.followers.all.count }}</strong>
-                            <span>フォロワー</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="profile-wrapper">
+                <div class="profile-bio">
+                    {% if user.profile.bio %}
+                    {{ user.profile.bio }}
+                    {% endif %}
+                </div>
+                <div class="profile-website">
+                    {% if user.profile.website %}
+                    <i class="fas fa-link"></i>
+                    <a href="{{ user.profile.website }}">
+                        {{ user.profile.website }}
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="info-wrapper">
+                    <ul class="info-box">
+                        <li class="following-info">
+                            <a href="{% url 'accounts:is_following' user.username%}">
+                                <strong>{{ user.is_following.all.count }}</strong>
+                                <span>フォロー中</span>
+                            </a>
+                        </li>
+                        <li class="followers-info">
+                            <a href="{% url 'accounts:followers' user.username%}">
+                                <strong>{{ user.profile.followers.all.count }}</strong>
+                                <span>フォロワー</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -163,7 +162,6 @@
                         </div>
                     {% endif %}
                     <div class="articles-description">
-                        <h4>{{  article.title  }}</h4>
                         <a href="{% url 'articles:detail' pk=article.pk %}">
                             <p>{{ article.snippet }}<small>続きを読む</small></p>
                         </a>

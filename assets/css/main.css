@@ -948,13 +948,6 @@ li.logo {
     padding-left: 8px;
 }
 
-/* articles thumbnail */
-/* .articles-thumb {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-} */
 /* 通常カードの画像サイズ */
 .articles-thumb img {
     height: 300px;
@@ -1090,7 +1083,6 @@ li.logo {
 
 .icon-items
 {
-    padding-right: 2px;
     color: gray ;
 }
 
@@ -1118,7 +1110,9 @@ li.logo {
     align-items: center ;
     margin: 0;
     padding: 0;
-    margin-right: -20px;
+}
+.articles-icon-wrapper i {
+    font-size: 23px;
 }
 
 .articles-hover
@@ -1775,8 +1769,10 @@ ul{
 /* Darkmode 自動切り替え */
 @media (prefers-color-scheme: dark) {
     body:not(.dark-mode) {
-    background-color: #121212;
-    color: #f1f1f1;
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.04);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
     }
 
     body:not(.dark-mode) .mobile-nav-wrapper {

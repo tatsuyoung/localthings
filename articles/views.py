@@ -87,6 +87,7 @@ def article_create(request, num_images=5):
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.author = request.user
+                instance.date   = timezone.now()
                 instance.save()
 
                 for i, image in enumerate(files):

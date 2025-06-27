@@ -4,11 +4,10 @@ from .models import ArticleImage
 
 class CreateArticle(forms.ModelForm):
     class Meta:
-        model  = models.Article
-        fields = ['title', 'body', 'category', 'slug']
+        model   = models.Article
+        exclude = ['title', 'date', 'author']  # ← fieldsの代わりに exclude
         widgets = {
             "slug"    : forms.HiddenInput(), 
-            "title"   : forms.TextInput(attrs={"class": "edit-article-title-input"}),
             "body"    : forms.Textarea(attrs={"class": "edit-article-body-textarea"}),
             "category": forms.Select(attrs={"class": "edit-article-category-select"}),
         }

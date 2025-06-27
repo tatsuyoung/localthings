@@ -131,7 +131,7 @@
                                 </a>
                             </li>
                             <li class="articles-item">
-                                <p>{{ article.author.username }}</p>
+                                <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
                             </li>
                         </ul>
                         {% if article.images.all %}
@@ -165,13 +165,9 @@
                         </div>
                         {% endif %}
                         <div class="articles-description">
-                            <h1>{{  article.title  }}</h1>
                             <a href="{% url 'articles:detail' pk=article.pk %}">
                                 <p>{{ article.snippet }}<small>続きを読む</small></p>
                             </a>
-                            <div>
-                                <p><small>{{ article.display_date }}</small></p>
-                            </div>
                         </div>
                         <div class="articles-icon">
                             <ul class="articles-icon-box">

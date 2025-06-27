@@ -31,7 +31,6 @@
                     {% endwith %}
                 {% endif %}
                 <div class="articles-description">
-                    <h2>{{  article.title  }}</h2>
                     <a href="{% url 'articles:detail' pk=article.pk %}">
                         <p>{{ article.snippet }}<small>続きを読む</small></p>
                     </a>

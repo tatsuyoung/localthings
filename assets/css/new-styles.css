@@ -680,10 +680,8 @@ li.logo {
 
 .following-feed-wrapper
 {
-    border-bottom: 1px solid #C0C0C0;
-    border-top: 1px solid #C0C0C0;
-    border-right: 1px solid #C0C0C0;
-    border-left: 1px solid #C0C0C0;
+    border-bottom: 0.5px solid #C0C0C0;
+    border-top: 0.5px solid #C0C0C0;
     width: 60%;
     margin: 0 auto ;
 }
@@ -710,20 +708,6 @@ li.logo {
     margin: 2px;
     padding-left: 8px;
 }
-
-/* articles thumbnail */
-/* .articles-thumb
-{
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
-}
-
-.articles-thumb img
-{
-    width: 100%;
-    height: auto;
-} */
 
 
 /* articles description */
@@ -1632,7 +1616,7 @@ body.dark-mode .about_box:hover {
     background:          #fff;
     margin:             10em auto;
     padding:               0 1em;
-    max-width:             100%;
+    max-width:             70%;
     }
 
 .form-wrapper h2{
@@ -1685,6 +1669,84 @@ body.dark-mode .about_box:hover {
     border-bottom:    2px solid #c0c0c0;
     outline:                       none;
     }
+/* user input */
+.username-wrapper {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.username-wrapper input[type="text"] {
+    width: 100%;
+    padding: 0.75em 1em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--form-bg, #fff);
+    color: var(--form-text, #333);
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.username-wrapper input:focus {
+    border-color: #888;
+    outline: none;
+}
+
+.form-error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+    display: block;
+}
+
+/* password input */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+    width: 100%;
+    padding: 0.75em 2.8em 0.75em 1em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--form-bg, #fff);
+    color: var(--form-text, #333);
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.password-wrapper input:focus {
+    border-color: #888;
+    outline: none;
+}
+
+.password-icon-wrapper {
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+.password-icon-wrapper:hover {
+    color: #333;
+}
+
+.form-error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+    display: block;
+}
 
 /* edit submit button */
 .button-panel {
@@ -1938,9 +2000,12 @@ body.dark-mode .about_box:hover {
 }
 
 /* edit profile */
+.site-form-wrapper {
+    padding-top: 20px;
+}
 .profile {
     text-align: -webkit-right;
-    margin-top: 60px;
+    margin-top: 20px;
     position: relative;
 }
 
@@ -2755,7 +2820,7 @@ ul{
 }
 
 .edit-article-title-input {
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 0.7em 1em;
     width: 100%;
     border-radius: 8px;
@@ -2778,13 +2843,14 @@ ul{
 }
 
 .edit-article-label {
-    font-weight: bold;
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     margin-bottom: 0.2em;
     color: #333;
+    font-size: 1.2em;
 }
 
 .edit-article-body-textarea {
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 1em;
     width: 100%;
     min-height: 200px;
@@ -3054,6 +3120,11 @@ ul{
         box-shadow: none ;
         max-width:60%;
     }
+    .edit-article-title-input,
+    .edit-article-body-textarea {
+    font-size: 0.95em;  /* または 14px 程度 */
+    line-height: 1.5;
+    }
 }
 
 /* ipad 横 */
@@ -3205,8 +3276,10 @@ ul{
 /* Darkmode 自動切り替え */
 @media (prefers-color-scheme: dark) {
     body:not(.dark-mode) {
-    background-color: #121212;
-    color: #f1f1f1;
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.04);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
     }
 
     body:not(.dark-mode) .mobile-nav-wrapper {
@@ -3334,4 +3407,96 @@ ul{
     .button-new-color:hover {
     background: #666;
     }
+}
+/* profile edit */
+@media (prefers-color-scheme: dark) {
+  .site-form {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  }
+
+  .site-form h3,
+  .site-form label,
+  .site-form p,
+  .site-form span,
+  .site-form a {
+    color: #f1f1f1;
+  }
+
+  /* テキスト入力・セレクト・テキストエリア */
+  .site-form input[type="text"],
+  .site-form input[type="url"],
+  .site-form textarea,
+  .site-form select {
+    background-color: #2c2c2c;
+    color: #f1f1f1;
+    border: 1px solid #444;
+  }
+
+  .site-form input[type="text"]:focus,
+  .site-form input[type="url"]:focus,
+  .site-form textarea:focus,
+  .site-form select:focus {
+    border-color: #888;
+    outline: none;
+  }
+
+  /* ヘルプテキストやエラー */
+  .site-form .helptext,
+  .site-form span {
+    color: #bbbbbb;
+  }
+
+  /* アップロードボタン */
+  #input-label,
+  #input-label-bg {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+
+  /* チェックボックスとラベル */
+  .clear-input input[type="checkbox"] {
+    accent-color: #888;
+  }
+
+  .clear-label label p {
+    color: #ccc;
+  }
+
+  /* ボタン */
+  .button-new-color {
+    background: #444;
+    color: #fff;
+    border: none;
+  }
+
+  .button-new-color:hover {
+    background: #666;
+  }
+
+  /* ログアウト/退会ボタン */
+  .form-logout-footer button,
+  .profile-account-delete {
+    background-color: #2c2c2c;
+    color: #f66;
+    border: 1px solid #f66;
+  }
+
+  .form-logout-footer button:hover,
+  .profile-account-delete:hover {
+    background-color: #400;
+  }
+
+  .form-footer a {
+    color: #aaa;
+  }
+}
+/* login */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --form-bg: #1e1e1e;
+    --form-text: #f5f5f5;
+  }
 }

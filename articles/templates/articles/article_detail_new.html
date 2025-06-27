@@ -152,16 +152,16 @@
                             </div>
                             {% endif %}
                             <div class="articles-description">
-                                <h4>{{  article.title  }}</h4>
                                 <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
                             </div>
                             <div class="articles-time">
                                 <p><small>{{ article.display_date }}</small></p>
                             </div>
                             {% include 'articles/snippet/icons_text.html' %}
-                            {% include 'articles/snippet/icon-box.html' %}
+                            <div class="icons-box-wrapper">
+                                {% include 'articles/snippet/icon-box.html' %}
+                            </div>
                             {% include 'articles/snippet/comment.html' %}
-                        </div>
                     </article>
                 </div>
                 <div class="center-footer"></div>
@@ -275,7 +275,7 @@
                 dataType: "json",
                 success: function(response) {
                     alert(response.message);
-                    alert('いいね数トータルは' + response.likes_count + ' いいねです。');
+                    // alert('いいね数トータルは' + response.likes_count + ' いいねです。');
                 },
                 error: function(xhr) {
                     if (xhr.status === 403) {

@@ -633,6 +633,11 @@ li.logo {
     max-width: 100%;
     margin: 0 auto; /* 中央寄せ */
 }
+.following-articles a:hover {
+    text-decoration: none;
+    background: none;
+    color: inherit;
+}
 
 .article-wrapper ul li
 {
@@ -762,7 +767,7 @@ li.logo {
 {
     font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     padding-top: 10px;
-    font-size: 23px;
+    font-size: 1.2em;
     word-wrap: break-word;
     line-height: 1.8125;
     color: #333;
@@ -879,11 +884,15 @@ li.logo {
 
 
 /* icons box */
-
+.icons-box-wrapper {
+    padding-left: 60px;
+}
 .icons-box
 {
-    margin: 10px;
-    margin-bottom:0;
+    justify-content: flex-end;
+    justify-items: flex-end;
+    margin-top: 10px;
+    margin-bottom:  10px;;
 }
 
 .articles-icon-box-items
@@ -907,8 +916,8 @@ li.logo {
 
 .articles-hover
 {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex ;
     justify-content: center ;
@@ -1817,28 +1826,60 @@ ul{
     }
 
 /* @media */
-@media only screen and (max-width: 767px) {
-.center {
+@media only screen and (max-width: 768px) {
+    .center {
     float: none;
     width: 100%;
     overflow-x: visible;
-}
-.pager .pagination li{
+    }
+    .pager .pagination li{
     display: none;
-}
-.pager .pagination li.pre,
-.pager .pagination li.next{
+    }
+    .pager .pagination li.pre,
+    .pager .pagination li.next{
     display:            inline-block;
     width:                      42px;
     height:                     42px;
     text-align:               center;
     margin:                   0 auto;
-}
-.pager .pagination li.pre a,
-.pager .pagination li.next a{
+    }
+    .pager .pagination li.pre a,
+    .pager .pagination li.next a{
     width:                      100%;
     text-align:               center;
-}
+    }
+    /* icons */
+    .icons-box {
+    display: flex;
+    justify-content: flex-end; /* ← 右寄せ */
+    padding-right: 8px;
+    }
+
+    .articles-icon-box-items {
+    display: flex;
+    gap: 8px; /* ← アイコン間の間隔を狭く */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 60%;
+    }
+
+    .articles-icon-item-active {
+    margin: 0; /* デフォルトの余白を消す */
+    }
+
+    .articles-icon-items-wrapper {
+    display: flex;
+    align-items: center;
+    }
+
+    .articles-hover {
+    padding: 4px; /* アイコンの内側のスペース */
+    }
+
+    .articles-hover i {
+    font-size: 18px; /* 必要に応じて調整 */
+    }
 }
 
 /* ipad 横 */
@@ -2082,8 +2123,10 @@ ul{
 /* Darkmode 自動切り替え */
 @media (prefers-color-scheme: dark) {
     body:not(.dark-mode) {
-    background-color: #121212;
-    color: #f1f1f1;
+    --main-color: #1da1f2;
+    --hover-color: rgba(255, 255, 255, 0.04);
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
     }
 
     body:not(.dark-mode) .mobile-nav-wrapper {

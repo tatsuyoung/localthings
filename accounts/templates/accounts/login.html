@@ -16,17 +16,24 @@
         {% csrf_token %}
         <div class="form-item">
             <label for="id_username"></label>
-            <input type="text" name="username" placeholder="Username" required="required" id="id_username">
-            {% for error in form.username.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
+            <div class="form-item username-wrapper">
+                <input type="text" name="username" placeholder="Username" required="required" id="id_username">
+                {% for error in form.username.errors %}
+                <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            </div>
         </div>
         <div class="form-item">
             <label for="id_password"></label>
-            <input type="password" name="password" placeholder="Password" required="required" id="id_password">
-            {% for error in form.password.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
+            <div class="password-wrapper">
+                <input type="password" name="password" id="id_password" placeholder="Password">
+                <div class="password-icon-wrapper">
+                    <i class="far fa-eye" onclick="togglePassword(this)"></i>
+                </div>
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
         </div>
         {% if request.POST.next %}
         <input type="hidden" name="next" value="{{request.POST.next}}">
@@ -49,4 +56,18 @@
         <p><a href="{% url 'accounts:password_reset' %}">Forgot password?</a></p>
     </div>
 </div>
+<script>
+function togglePassword(icon) {
+  const pwField = document.getElementById("id_password");
+  if (pwField.type === "password") {
+    pwField.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    pwField.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
+</script>
 {% endblock %}

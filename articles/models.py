@@ -54,13 +54,16 @@ class Article(models.Model):
         return Article.objects.count()
 
     def save(self, force_insert=False, force_update=False, using=None,
-            update_fields=None, *args, **kwargs):
+         update_fields=None, *args, **kwargs):
 
-        # slug自動生成
+        # body からタイトル自動生成（未入力時のみ）
+        if not self.title:
+            self.title = re.split(r'[。！？\n]', self.body)[0][:15] or 'Untitled'
+
+        # slug 自動生成
         if not self.slug:
             self.slug = slugify(self.title)
 
-        # 英数字・ハイフン以外が含まれていたらハイフンに置き換え
         if not re.fullmatch(r'[a-zA-Z0-9-]+', self.slug):
             self.slug = '-'
 
