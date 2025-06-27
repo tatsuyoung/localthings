@@ -115,6 +115,10 @@ body.dark-mode .user_profile_btn {
 body.dark-mode .categories h2 {
     color: #f5f5f5;
 }
+/* like */
+body.dark-mode .liked .liked_heart {
+    color: var(--main-color);
+  }
 
 /* main */
 body {
@@ -3346,6 +3350,9 @@ ul{
     }
     body:not(.dark-mode) .categories h2 {
     color: #f5f5f5;
+    }
+    body:not(.dark-mode) .liked .liked_heart {
+    color: var(--main-color);
     }
 }
 
