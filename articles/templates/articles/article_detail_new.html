@@ -118,7 +118,7 @@
                                     </a>
                                 </li>
                                 <li class="articles-item">
-                                    <p>{{ article.author.username }}</p>
+                                    <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
                                 </li>
                             </ul>
                             {% if article.images.all %}
@@ -153,9 +153,6 @@
                             {% endif %}
                             <div class="articles-description">
                                 <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
-                            </div>
-                            <div class="articles-time">
-                                <p><small>{{ article.display_date }}</small></p>
                             </div>
                             {% include 'articles/snippet/icons_text.html' %}
                             <div class="icons-box-wrapper">

@@ -937,9 +937,20 @@ li.logo {
     border-radius: 50%;
 }
 
-.articles-item small
-{
-    color: gray ;
+.articles-item p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600; /* Usernameを少し太く */
+    line-height: 1.4;
+    color: #262626;
+    margin: 0;
+}
+
+.articles-item p small {
+    font-weight: 400;
+    font-size: 13px;
+    color: #8e8e8e; 
+    margin-left: 4px;
 }
 
 .following-articles
