@@ -72,10 +72,20 @@ def article_list(request):
     for article in articles:
         article.display_date = format_custom_date_style(article.date, now)
 
+    # ✅ 各 author の記事数を取得 → {user_id: 投稿数} の dict に
+    author_ids = [article.author.id for article in articles]
+    author_article_counts = Article.objects.filter(author__id__in=author_ids) \
+                                        .values('author') \
+                                        .annotate(count=Count('id'))
+
+    author_count_dict = {item['author']: item['count'] for item in author_article_counts}
+
+    # ✅ contextに含めている？
     return render(request, 'articles/article_list_new.html', {
         'articles'           : articles,
         'order_like_articles': order_like_articles,
         'users'              : users,
+        'author_count_dict'  : author_count_dict, 
     })
 
 
