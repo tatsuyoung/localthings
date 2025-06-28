@@ -158,7 +158,65 @@
                             <div class="icons-box-wrapper">
                                 {% include 'articles/snippet/icon-box.html' %}
                             </div>
-                            {% include 'articles/snippet/comment.html' %}
+                            <!-- Comment  -->
+                            <!-- コメントセクション -->
+                            <div id="comment-section" class="comment-section" style="display: {% if request.method == 'POST' %}block{% else %}none{% endif %};">
+                                <div class="comment_wrapper">
+                                    <div class="comment-bg">
+                                        <ul class="comment-section">
+                                            {% for comment in comments %}
+                                            <li class="comment {% if article.author.id == comment.author.id %}author-comment{% else %}user-comment{% endif %}">
+                                                <div class="info">
+                                                    <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-username">
+                                                        {{ comment.author }}
+                                                    </a>
+                                                    <span class="comment-time">{{ comment.created_date|timesince }}{{ sometime }}</span>
+                                                </div>
+
+                                                <div href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
+                                                    <img src="{{ comment.author.profile.image.url }}" alt="Avatar">
+                                                </div>
+                                                <div class="{% if article.author.id == comment.author.id %}author-comment-text-wrapper{% else %}user-comment-text-wrapper{% endif %}">
+                                                    <div class="{% if article.author.id == comment.author.id %}author-comment-text-box{% else %}user-comment-text-box{% endif %}">
+                                                        <p>{{ comment.text | urlize | linebreaksbr | safe }}</p>
+
+                                                        {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
+                                                        <div class="{% if article.author.id == comment.author.id %}comment-delete-btn-2{% else %}comment-delete-btn{% endif %}">
+                                                            <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
+                                                                {% csrf_token %}
+                                                                <button type="submit"
+                                                                    onclick="return confirm('Do you want to delete this comment ?');">
+                                                                    <i class="far fa-trash-alt fa-lg"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <!-- コメント投稿フォーム -->
+                                    <div class="write-new">
+                                        <form method="POST" action="." id="comment_form">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <div class="comment-btn-wrapper">
+                                                {% if current_user.profile.image %}
+                                                <img src="{{ current_user.profile.image.url }}" alt="Profile Avatar">
+                                                {% endif %}
+
+                                                {% if form %}
+                                                <button type="submit" id="comment">Add Comment <i class="far fa-paper-plane"></i></button>
+                                                {% endif %}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="global-footer"></div>
+                        </div>
                     </article>
                 </div>
                 <div class="center-footer"></div>
@@ -257,6 +315,7 @@
         <script src="/static/js/search-box.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
         <script src="/static/js/mobile-search-box.js"></script>
+        <script src="/static/js/comment_toggle.js"></script>
         <script>
         const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         $('#like').click(function(){
@@ -310,7 +369,7 @@
                    success: function(data) {
                             $("#comment_form" + " textarea ").val(' ');
                             $("#comment_form" + " input ").val(' ');
-                            alert('Thank you for your message. it has been sent.' );
+                            // alert('Thank you for your message. it has been sent.' );
                    },
                    error: function(data) {
                         alert("Error!!");

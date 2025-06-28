@@ -16,7 +16,7 @@
                         </a>
                     </li>
                     <li class="articles-item">
-                        <p>{{ article.author.username }}</p>
+                        <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
                     </li>
                 </ul>
                 {% if article.images.all %}
@@ -30,13 +30,16 @@
                         {% endif %}
                     {% endwith %}
                 {% endif %}
-                <div class="articles-description">
-                    <a href="{% url 'articles:detail' pk=article.pk %}">
-                        <p>{{ article.snippet }}<small>続きを読む</small></p>
-                    </a>
-                    <div>
-                        <p><small>{{ article.display_date }}</small></p>
-                    </div>
+                <div class="articles-caption-inline">
+                    <span class="username">
+                        <a href="{% url 'articles:user-posts' article.author.username %}">
+                        {{ article.author.username }}
+                        </a>
+                    </span>
+                    <span class="snippet-text">
+                        {{ article.snippet }}
+                    </span>
+                    <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                 </div>
                 <div class="articles-icon">
                     <ul class="articles-icon-box">

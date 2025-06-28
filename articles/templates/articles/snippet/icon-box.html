@@ -16,7 +16,7 @@
                 <div class="articles-hover">
                     <form method="POST" action="{% url 'articles:comment' article.pk %}">
                         {% csrf_token %}
-                        <button type="submit">
+                        <button type="button" id="toggle-comment-button">
                             <i class="far fa-comment"></i>
                         </button>
                     </form>
