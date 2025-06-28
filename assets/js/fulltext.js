@@ -1,20 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const expandables = document.querySelectorAll(".snippet-text.expandable");
+document.addEventListener('DOMContentLoaded', function () {
+    const snippets = document.querySelectorAll('.snippet-text');
 
-    expandables.forEach(span => {
-      let expanded = false;
+    snippets.forEach(snippet => {
+        const fullText = snippet.dataset.fulltext;
+        const snippetText = snippet.dataset.snippet;
 
-      span.addEventListener("click", function () {
-        const full = span.dataset.fulltext;
-        const short = span.dataset.snippet;
+        snippet.addEventListener('click', function () {
+            const isExpanded = snippet.dataset.expanded === 'true';
 
-        if (!expanded) {
-          span.textContent = full;
-        } else {
-          span.textContent = short;
-        }
-
-        expanded = !expanded;
-      });
+            if (!isExpanded) {
+                snippet.innerText = fullText;
+                snippet.dataset.expanded = 'true';
+            } else {
+                snippet.innerText = snippetText;
+                snippet.dataset.expanded = 'false';
+            }
+        });
     });
-  });
+});

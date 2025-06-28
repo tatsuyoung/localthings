@@ -180,9 +180,11 @@
                                 {% endwith %}
                             </span>
                             <!-- クリックで展開するテキスト部分 -->
-                            <div class="snippet-text expandable" data-fulltext="{{ article.body|urlize|linebreaksbr|safe|escapejs }}" data-snippet="{{ article.snippet }}">
-                                {{ article.snippet }}
-                            </div>
+                            <span class="snippet-text expandable"
+                                data-fulltext="{{ article.body|escape }}"
+                                data-snippet="{{ article.snippet|escape }}">
+                            {{ article.snippet }}
+                            </span>
                             <!-- クリックで detail ページへ遷移 -->
                             <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                         </div>
