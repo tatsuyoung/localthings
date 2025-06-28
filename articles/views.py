@@ -33,6 +33,24 @@ def format_custom_date_style(date, now):
         return date.strftime("%-m月%-d日")  # Linux/Mac
         # return date.strftime("%#m月%#d日")  # Windowsの場合
 
+def get_article_context(article):
+    articles_list       = Article.objects.all().order_by('-date')
+    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
+    users               = Profile.objects.all().order_by('?')[:4]
+    now                 = timezone.now()
+    article.display_date = format_custom_date_style(article.date, now)
+    comments            = Comment.objects.filter(post=article).order_by('created_date')
+    form                = forms.CommentForm()
+    current_user        = article.author  # または request.user（後で上書き）
+
+    return {
+        'article'            : article,
+        'order_like_articles': order_like_articles,
+        'users'              : users,
+        'comments'           : comments,
+        'form'               : form,
+        'current_user'       : current_user,
+    }
 
 def article_list(request):
     users               = Profile.objects.all().order_by('?')[:4]
@@ -55,26 +73,18 @@ def article_list(request):
         article.display_date = format_custom_date_style(article.date, now)
 
     return render(request, 'articles/article_list_new.html', {
-        'articles': articles,
+        'articles'           : articles,
         'order_like_articles': order_like_articles,
-        'users': users,
+        'users'              : users,
     })
 
 
+
 def article_detail(request, pk):
-    users               = Profile.objects.all().order_by('?')[:4]
-    articles_list       = Article.objects.all().order_by('-date')
-    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    article             = Article.objects.get(pk=pk)
-    # ✅ 日付フォーマット追加
-    now = timezone.now()
-    article.display_date = format_custom_date_style(article.date, now)
-    return render(request, 'articles/article_detail_new.html',
-                  {'article': article,
-                   'order_like_articles': order_like_articles,
-                   'users': users
-                   }
-                  )
+    article = get_object_or_404(Article, pk=pk)
+    context = get_article_context(article)
+    context['current_user'] = request.user  # 上書き
+    return render(request, 'articles/article_detail_new.html', context)
 
 
 @login_required(login_url="/accounts/login/")
@@ -150,30 +160,21 @@ def article_delete(request, article_id):
 @login_required(login_url="/accounts/login/")
 @require_POST
 def article_comment(request, pk):
-    users               = Profile.objects.all().order_by('?')[:4]
-    articles_list       = Article.objects.all().order_by('-date')
-    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    article_com         = Article.objects.get(id=pk)
-    comments            = Comment.objects.filter(post=article_com).order_by('created_date')
-    current_user        = request.user
+    article = get_object_or_404(Article, id=pk)
 
     if request.method == "POST":
         form = forms.CommentForm(request.POST)
         if form.is_valid():
-            comment        = form.save(commit=False)
-            comment.post   = article_com
+            comment = form.save(commit=False)
+            comment.post = article
             comment.author = request.user
             comment.save()
-    else:
-        form = forms.CommentForm()
-    context = {
-                'article'            : article_com,
-                'form'               : form,
-                'comments'           : comments,
-                'current_user'       : current_user,
-                'order_like_articles': order_like_articles,
-                'users'              : users
-               }
+            return redirect('articles:detail', pk=article.pk)  # ✅ POST後にリダイレクト
+
+    # POST でない or フォームエラー
+    context                 = get_article_context(article)
+    context['form']         = form  # エラーのあるフォームで上書き
+    context['current_user'] = request.user
     return render(request, 'articles/article_detail_new.html', context)
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load notifications_tags %}
+{% load dict_extras %}
 <html lang="ja">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G08GZPEB1K"></script>
@@ -164,10 +165,26 @@
                             </div>
                         </div>
                         {% endif %}
-                        <div class="articles-description">
-                            <a href="{% url 'articles:detail' pk=article.pk %}">
-                                <p>{{ article.snippet }}<small>続きを読む</small></p>
-                            </a>
+                        <div class="articles-caption-inline">
+                            <span class="username">
+                                <a href="{% url 'articles:user-posts' article.author.username %}">
+                                    {{ article.author.username }}
+                                </a>
+                                {% with article.author.id as aid %}
+                                    {% if author_count_dict|dict_get:aid >= 10 %}
+                                        <svg class="verified-badge" aria-label="認証バッジ" fill="#0095f6" height="14" viewBox="0 0 40 40" width="14">
+                                            <title>認証済み</title>
+                                            <path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z"></path>
+                                        </svg>
+                                    {% endif %}
+                                {% endwith %}
+                            </span>
+                            <!-- クリックで展開するテキスト部分 -->
+                            <div class="snippet-text expandable" data-fulltext="{{ article.body|urlize|linebreaksbr|safe|escapejs }}" data-snippet="{{ article.snippet }}">
+                                {{ article.snippet }}
+                            </div>
+                            <!-- クリックで detail ページへ遷移 -->
+                            <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                         </div>
                         <div class="articles-icon">
                             <ul class="articles-icon-box">
@@ -341,5 +358,6 @@
     <script src="/static/js/ufo.js"></script>
     <script src="/static/js/darkmode.js"></script>
     <script src="/static/js/mobile-nav-scroll.js"></script>
+    <script src="/static/js/fulltext.js"></script>
     </body>
 </html>
