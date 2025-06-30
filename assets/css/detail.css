@@ -1454,13 +1454,23 @@ li.logo {
     width: 36px;
     height: 36px;
   }
+  .write-new,
+  .comment-btn-wrapper,
+  .write-new textarea {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
 
   .write-new textarea {
-    height: 80px;
-    max-width: 100%;
-    font-size: 14px;
-    box-sizing: border-box;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
+
+  body {
+    overflow-x: hidden; /* ページ全体の横スクロール防止 */
+    }
 }
 @media (max-width: 600px) {
   .comment-btn-wrapper {
