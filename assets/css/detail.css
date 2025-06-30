@@ -1473,6 +1473,13 @@ li.logo {
     }
 }
 @media (max-width: 600px) {
+  .write-new textarea,
+  .write-new input,
+  .write-new button {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 600px) {
   .comment-btn-wrapper {
     display: flex;
     justify-content: space-between; /* ← 右寄せに */
