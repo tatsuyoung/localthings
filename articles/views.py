@@ -23,15 +23,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 from django.utils import timezone
+from .utils import format_custom_date_style  # ← 日付フォーマット関数
+from django.template.loader import render_to_string
 
-
-def format_custom_date_style(date, now):
-    delta = now - date
-    if delta.days < 7:
-        return f"{delta.days}日前" if delta.days > 0 else "今日"
-    else:
-        return date.strftime("%-m月%-d日")  # Linux/Mac
-        # return date.strftime("%#m月%#d日")  # Windowsの場合
 
 def get_article_context(article):
     articles_list       = Article.objects.all().order_by('-date')
@@ -80,20 +74,32 @@ def article_list(request):
 
     author_count_dict = {item['author']: item['count'] for item in author_article_counts}
 
-    # ✅ contextに含めている？
-    return render(request, 'articles/article_list_new.html', {
-        'articles'           : articles,
-        'order_like_articles': order_like_articles,
-        'users'              : users,
-        'author_count_dict'  : author_count_dict, 
-    })
+    # ✅ 各記事に全コメントと1つのフォームを付加
+    article_comment_data = {}
+    for article in articles:
+        all_comments = Comment.objects.filter(post=article).order_by('created_date')
+        article_comment_data[article.id] = {
+            'comments': all_comments,
+            'form'    : forms.CommentForm(),
+        }
 
+    # ✅ context
+    return render(request, 'articles/article_list_new.html', {
+        'articles'            : articles,
+        'order_like_articles' : order_like_articles,
+        'users'               : users,
+        'author_count_dict'   : author_count_dict,
+        'article_comment_data': article_comment_data,
+        'view_name'           : 'list',
+    })
 
 
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     context = get_article_context(article)
-    context['current_user'] = request.user  # 上書き
+    context['current_user'] = request.user
+    context['view_name']    = 'detail'
+
     return render(request, 'articles/article_detail_new.html', context)
 
 
@@ -147,7 +153,7 @@ def article_edit(request, pk):
 
         if form.is_valid() and formset.is_valid():
             article = form.save()
-            formset.save()  # ← これだけでOK！
+            formset.save() 
             return redirect('articles:detail', pk=article.pk)
     else:
         form    = CreateArticle(instance=article)
@@ -175,10 +181,18 @@ def article_comment(request, pk):
     if request.method == "POST":
         form = forms.CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = article
+            comment        = form.save(commit=False)
+            comment.post   = article
             comment.author = request.user
             comment.save()
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                comments = Comment.objects.filter(post=article).order_by('created_date')
+                html     = render_to_string('articles/partial_comment_list.html', {
+                    'comments': comments,
+                    'article' : article,
+                    'request' : request,
+                })
+                return JsonResponse({'html': html})
             return redirect('articles:detail', pk=article.pk)  # ✅ POST後にリダイレクト
 
     # POST でない or フォームエラー
@@ -189,10 +203,23 @@ def article_comment(request, pk):
 
 
 @require_POST
-def delete_comment(request, comment_id):
+@login_required
+def delete_comment_ajax(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
+
+    if request.user != comment.author:
+        return JsonResponse({'error': '削除権限がありません'}, status=403)
+
+    article = comment.post
     comment.delete()
-    return redirect('articles:list')
+
+    comments = Comment.objects.filter(post=article).order_by('created_date')
+    html = render_to_string('articles/partial_comment_list.html', {
+        'comments': comments,
+        'article' : article,
+        'request' : request,
+    }, request=request)
+    return JsonResponse({'html': html})
 
 
 @login_required(login_url="/accounts/login/")

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<ul class="comment-section">
+    {% for comment in comments %}
+        <li class="comment {% if article.author.id == comment.author.id %}author-comment{% else %}user-comment{% endif %}">
+            <div class="info">
+                {% if comment.author != request.user %}
+                    <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-username">
+                        {{ comment.author }}
+                    </a>
+                {% endif %}
+                <span class="comment-time">{{ comment.created_date|timesince }}前</span>
+            </div>
+            {% if comment.author != request.user %}
+            <div class="avatar">
+                <img src="{{ comment.author.profile.image.url }}" alt="Avatar">
+            </div>
+            {% endif %}
+            <div class="{% if article.author.id == comment.author.id %}author-comment-text-wrapper{% else %}user-comment-text-wrapper{% endif %}">
+                <div class="{% if article.author.id == comment.author.id %}author-comment-text-box{% else %}user-comment-text-box{% endif %}">
+                    <p>{{ comment.text|urlize|linebreaksbr|safe }}</p>
+                    {% if view_name != 'list' and request.user.id == comment.author.id %}
+                        <div class="{% if article.author.id == comment.author.id %}comment-delete-btn-2{% else %}comment-delete-btn{% endif %}">
+                            <form method="POST" action="{% url 'articles:comment_ajax_delete' comment.pk %}" class="comment-delete-form" data-article-id="{{ article.id }}">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn">
+                                    <i class="far fa-trash-alt fa-lg"></i>
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

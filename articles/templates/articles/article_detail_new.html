@@ -159,64 +159,34 @@
                                 {% include 'articles/snippet/icon-box.html' %}
                             </div>
                             <!-- Comment  -->
-                            <!-- コメントセクション -->
-                            <div id="comment-section" class="comment-section" style="display: {% if request.method == 'POST' %}block{% else %}none{% endif %};">
-                                <div class="comment_wrapper">
+                            <!-- ✅ コメントセクションの追加 -->
+                            <div class="comment-section" id="comment-section-{{ article.id }}">
+                                <!-- コメントエリア -->
+                                <div class="comment-wrapper" id="comment-wrapper-{{ article.id }}" style="display: none;">
                                     <div class="comment-bg">
-                                        <ul class="comment-section">
-                                            {% for comment in comments %}
-                                            <li class="comment {% if article.author.id == comment.author.id %}author-comment{% else %}user-comment{% endif %}">
-                                                <div class="info">
-                                                    <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-username">
-                                                        {{ comment.author }}
-                                                    </a>
-                                                    <span class="comment-time">{{ comment.created_date|timesince }}{{ sometime }}</span>
-                                                </div>
-
-                                                <div href="{% url 'accounts:profile_detail' comment.author.username %}" class="avatar">
-                                                    <img src="{{ comment.author.profile.image.url }}" alt="Avatar">
-                                                </div>
-                                                <div class="{% if article.author.id == comment.author.id %}author-comment-text-wrapper{% else %}user-comment-text-wrapper{% endif %}">
-                                                    <div class="{% if article.author.id == comment.author.id %}author-comment-text-box{% else %}user-comment-text-box{% endif %}">
-                                                        <p>{{ comment.text | urlize | linebreaksbr | safe }}</p>
-
-                                                        {% if request.user.id == article.author.id or request.user.id == comment.author.id %}
-                                                        <div class="{% if article.author.id == comment.author.id %}comment-delete-btn-2{% else %}comment-delete-btn{% endif %}">
-                                                            <form method="POST" action="{% url 'articles:com_delete' comment.pk %}">
-                                                                {% csrf_token %}
-                                                                <button type="submit"
-                                                                    onclick="return confirm('Do you want to delete this comment ?');">
-                                                                    <i class="far fa-trash-alt fa-lg"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
+                                        <div id="comment-list-{{ article.id }}">
+                                            {% include "articles/partial_comment_list.html" with comments=comments article=article %}
+                                        </div>
                                     </div>
-                                    <!-- コメント投稿フォーム -->
+                                    <!-- ✅ コメントフォーム -->
                                     <div class="write-new">
-                                        <form method="POST" action="." id="comment_form">
-                                            {% csrf_token %}
-                                            {{ form.as_p }}
-                                            <div class="comment-btn-wrapper">
-                                                {% if current_user.profile.image %}
-                                                <img src="{{ current_user.profile.image.url }}" alt="Profile Avatar">
-                                                {% endif %}
-
-                                                {% if form %}
-                                                <button type="submit" id="comment">Add Comment <i class="far fa-paper-plane"></i></button>
-                                                {% endif %}
-                                            </div>
-                                        </form>
+                                        <div class="write-new">
+                                            <form method="POST" action="{% url 'articles:comment_post' article.pk %}" class="comment-form" data-article-id="{{ article.id }}">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                                <div class="comment-btn-wrapper">
+                                                    {% if request.user.profile.image %}
+                                                        <img src="{{ request.user.profile.image.url }}" alt="Profile Avatar">
+                                                    {% endif %}
+                                                    <button type="submit" class="comment-submit-btn">Add Comment <i class="far fa-paper-plane"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="global-footer"></div>
                         </div>
+                        <div class="global-footer"></div>
                     </article>
                 </div>
                 <div class="center-footer"></div>
@@ -360,22 +330,68 @@
         })
         </script>
         <script>
-         $(document).on('submit', '#comment_form', function(e){
-            e.preventDefault();
-            $.ajax({
-                   type: "POST",
-                   url: "{% url 'articles:comment' article.pk %}",
-                   data: $("#comment_form").serializeArray(),
-                   success: function(data) {
-                            $("#comment_form" + " textarea ").val(' ');
-                            $("#comment_form" + " input ").val(' ');
-                            // alert('Thank you for your message. it has been sent.' );
-                   },
-                   error: function(data) {
-                        alert("Error!!");
-                }
+            // ✅ コメント投稿（Ajax）
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("form.comment-form").forEach(function (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const articleId = form.getAttribute("data-article-id");
+                    const action = form.getAttribute("action");
+                    const formData = new FormData(form);
+                    const commentList = document.querySelector(`#comment-list-${articleId}`);
+
+                    fetch(action, {
+                        method: "POST",
+                        body: formData,
+                        headers: { "X-Requested-With": "XMLHttpRequest" }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        commentList.innerHTML = data.html;
+                        form.querySelector("textarea").value = "";
+                        setDeleteHandlers();  // 🔁 再バインド
+                        scrollToBottom(articleId);
+                    })
+                    .catch(error => {
+                        alert("投稿に失敗しました");
+                        console.error(error);
+                    });
+                });
             });
-         })
+
+            // ✅ コメント削除（Ajax）
+            function setDeleteHandlers() {
+                document.querySelectorAll(".comment-delete-form").forEach(function (form) {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        if (!confirm("このコメントを削除しますか？")) return;
+
+                        const articleId = form.getAttribute("data-article-id");
+                        const action = form.getAttribute("action");
+                        const commentList = document.querySelector(`#comment-list-${articleId}`);
+
+                        fetch(action, {
+                            method: "POST",
+                            headers: {
+                                "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value,
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            commentList.innerHTML = data.html;
+                            setDeleteHandlers();  // 🔁 再バインド
+                        })
+                        .catch(error => {
+                            alert("削除に失敗しました");
+                            console.error(error);
+                        });
+                    });
+                });
+            }
+
+            setDeleteHandlers(); // 初期化時も実行
+        });
         </script>
         <script src="/static/js/app.js"></script>
         <script src="/static/js/liked.js"></script>

@@ -28,27 +28,25 @@
     </div>
 </div>
 <h1>Nice Things</h1>
-<div class="photo_container">
-    <div id="gallery" class="container-fluid">
-        {% for article in object_list %}
-            {% if article.images.all %}
-                {% with first_image=article.images.all.first %}
-                    {% if first_image %}
-                        <div class="gallery-img-wrapper">
-                            <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
-                                <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+<div class="masonry-grid">
+    {% for article in object_list %}
+        {% if article.images.all %}
+            {% with first_image=article.images.all.first %}
+                {% if first_image and 'No-image.png' not in first_image.image.url %}
+                    <div class="masonry-item">
+                        <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                            <img src="{{ first_image.image.url }}" alt="{{ article.title }}" loading="lazy"/>
+                        </a>
+                        <div class="link_box">
+                            <a href="{% url 'articles:detail' pk=article.pk %}">
+                                <i class="fas fa-link icon-size"></i>
                             </a>
-                            <div class="link_box">
-                                <a href="{% url 'articles:detail' pk=article.pk %}">
-                                    <i class="fas fa-link icon-size"></i>
-                                </a>
-                            </div>
                         </div>
-                    {% endif %}
-                {% endwith %}
-            {% endif %}
-        {% endfor %}
-    </div>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        {% endif %}
+    {% endfor %}
 </div>
 {% include 'accounts/snippet/Class-pagination.html' %}
 <div class="global-footer"></div>
