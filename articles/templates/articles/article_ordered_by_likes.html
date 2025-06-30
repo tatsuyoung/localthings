@@ -31,14 +31,20 @@
                     {% endwith %}
                 {% endif %}
                 <div class="articles-caption-inline">
-                    <span class="username">
-                        <a href="{% url 'articles:user-posts' article.author.username %}">
-                        {{ article.author.username }}
-                        </a>
+                    <span class="username-badge-wrapper">
+                        <span class="username">
+                            <a href="{% url 'articles:user-posts' article.author.username %}">
+                                {{ article.author.username }}
+                            </a>
+                        </span>
                     </span>
-                    <span class="snippet-text">
-                        {{ article.snippet }}
+                    <!-- クリックで展開するテキスト部分 -->
+                    <span class="snippet-text expandable"
+                        data-fulltext="{{ article.body|escape }}"
+                        data-snippet="{{ article.snippet|escape }}">
+                    {{ article.snippet }}
                     </span>
+                    <!-- クリックで detail ページへ遷移 -->
                     <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                 </div>
                 <div class="articles-icon">
@@ -79,4 +85,5 @@
 </div>
 {% include 'accounts/snippet/Class-pagination.html' %}
 <div class="global-footer"></div>
+<script src="/static/js/fulltext.js"></script>
 {% endblock %}

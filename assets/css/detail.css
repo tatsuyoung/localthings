@@ -97,6 +97,7 @@ body.dark-mode .liked .liked_heart {
     color: var(--main-color);
   }
 
+
 /* main */
 body {
   background-color: var(--bg-color, #fff);
@@ -937,7 +938,7 @@ li.logo {
     height: 100%;
 }
 .liked_heart:hover {
-    background: rgba(255, 71, 231, 0.12);
+    background: rgba(71, 157, 255, 0.12);
 }
 
 .articles-hover {
@@ -961,12 +962,12 @@ li.logo {
 
 .heart-circle:hover
 {
-    background: rgba(71, 157, 255, 0.12)
+    background: rgba(71, 157, 255, 0.12);
 }
 
 .articles-icon-item-active.liked .heart-circle
 {
-    background: rgba(255, 71, 231, 0.12)
+    background:rgba(71, 157, 255, 0.12);
 }
 
 .articles-icon-item-active button
@@ -993,7 +994,7 @@ li.logo {
 
 .btn-like.liked
 {
-    color: rgb(253, 29, 29);
+    color: var(--hover-color);
 }
 
 /* comment */
@@ -1020,6 +1021,16 @@ li.logo {
     background:  #E5EDF1;    
     display: flex;
     flex-direction: column; /* ← 縦並び */
+    max-height: 300px; /* ← 高さ調整 */
+    overflow-y: auto;  /* ← 縦スクロールを有効にする */
+    padding-right: 5px; /* スクロールバーで内容が隠れないように */
+}
+.comment-bg::-webkit-scrollbar {
+    width: 6px;
+}
+.comment-bg::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
 }
 .comment-section {
     border-radius: 16px;
@@ -1295,7 +1306,7 @@ li.logo {
     color:                         #666;
     font-family: 'Open Sans' sans-serif;
     font-size:                      1em;
-    height:                       130px;
+    height:                       80px;
     transition:       border-color 0.3s;
     width:                         100%;
     appearance:                    none;

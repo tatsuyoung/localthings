@@ -7,11 +7,11 @@ app_name = 'articles'
 
 urlpatterns = [
     path('', views.article_list, name="list"),
+    path('<int:pk>/comment/', views.article_comment, name="comment_post"),
     path('create/', views.article_create, name="create"),
     path('<int:pk>/', views.article_detail, name="detail"),
     path('<int:article_id>/delete', views.article_delete, name="delete"),
-    path('<int:pk>/comment/', views.article_comment, name="comment"),
-    path('<int:comment_id>/delete_comment', views.delete_comment, name="com_delete"),
+    path('<int:comment_id>/ajax_delete/', views.delete_comment_ajax, name='comment_ajax_delete'),
     path('<int:like_id>/like/', views.like_button, name='like_button'),
     path('<int:book_mark_id>/book_mark/', views.book_mark, name='book_mark'),
     path('<int:pk>/user_detail', views.users_detail, name='users_detail'),

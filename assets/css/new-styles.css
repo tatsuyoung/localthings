@@ -153,9 +153,9 @@ a {
   color: var(--main-color);
 }
 
-a:hover {
+/* a:hover {
   background-color: var(--hover-color);
-}
+} */
 
 /* headerやボタンにも反映 */
 .header-icon-circle {
@@ -704,12 +704,14 @@ li.logo {
     vertical-align: middle;
     margin: 10px  2px 10px  2px ;
 }
+/* articles */
 
-.following-feed-wrapper
-{
+.following-feed-wrapper {
+    width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
+    max-width: 100%;
+    margin: 0 auto; /* 中央寄せ */
     border-bottom: 0.5px solid #efefef;
-    width: 60%;
-    margin: 0 auto ;
+    transition: transform 0.3s ease;
 }
 
 .following-feed-wrapper:hover
@@ -724,9 +726,20 @@ li.logo {
     border-radius: 50%;
 }
 
-.articles-item small
-{
-    color: gray ;
+.articles-item p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600; /* Usernameを少し太く */
+    line-height: 1.4;
+    color: #262626;
+    margin: 0;
+}
+
+.articles-item p small {
+    font-weight: 400;
+    font-size: 13px;
+    color: #8e8e8e; 
+    margin-left: 4px;
 }
 
 .following-articles
@@ -735,40 +748,51 @@ li.logo {
     padding-left: 8px;
 }
 
+.articles-thumb {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.articles-thumb img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
 
 /* articles description */
+.snippet-text {
+  white-space: pre-line; /* ← 改行を反映する */
+}
 .articles-caption-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;  /* スマホ対応 */
+  gap: 6px;
   font-size: 14px;
-  line-height: 1.5;
   color: #262626;
   padding: 8px 12px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.articles-caption-inline .username a {
-  font-weight: 400;
+.username-badge-wrapper a {
   color: #262626;
   text-decoration: none;
-  margin-right: 6px;
-  font-size: 18px;          /* ← 少し大きく */
-  line-height: 1.8;         /* ← 垂直位置も少し上げる */
-  vertical-align: middle;
+  font-weight: 500;
 }
 
-.articles-caption-inline .snippet-text {
-  color: #262626;
+.snippet-text {
+  white-space: normal;
+  word-break: break-word;
   font-size: 14px;
-  vertical-align: middle;
+  cursor: pointer;
 }
 
-.articles-caption-inline .read-more {
+.read-more {
+  font-size: 12px;
   color: #8e8e8e;
   text-decoration: none;
-  margin-left: 6px;
-  font-size: 12px;
-  vertical-align: middle;
   white-space: nowrap;
 }
 /* articles icons */
@@ -1018,89 +1042,83 @@ li.logo {
 
 
 /* gallery */
-
-#gallery{
-  -webkit-column-count:  4;
-  -moz-column-count:     4;
-  column-count:          4;
-
-  -webkit-column-gap:  6px;
-  -moz-column-gap:     6px;
-  column-gap:          6px;
-    }
-
-@media (max-width:1200px){
-  #gallery{
-  -webkit-column-count:  3;
-  -moz-column-count:     3;
-  column-count:          3;
-
-  -webkit-column-gap:  6px;
-  -moz-column-gap:     6px;
-  column-gap:          6px;
-    }
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 6px;
 }
 
-@media (max-width:800px){
-  #gallery{
-  -webkit-column-count: 2;
-  -moz-column-count:    2;
-  column-count:         2;
-
-  -webkit-column-gap: 6px;
-  -moz-column-gap:    6px;
-  column-gap:         6px;
-    }
+.masonry-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-@media (max-width:600px){
-  #gallery{
-  -webkit-column-count:3;
-  -moz-column-count:   3;
-  column-count:        3;
-
-  -webkit-column-gap:2px;
-  -moz-column-gap:   2px;
-  column-gap:        2px;
-    }
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
 }
 
-.gallery-img-wrapper
-{
-    height: 300px;
-    display: inline-block ;
+.link_box {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -24px;
+  z-index: 2;
+  position: relative;
 }
 
-.card{
-    width:            100%;
-    height:           100%;
-    object-fit: cover ;
-    }
-
-/* gallery link icon */
-
-.fa-external-link-alt{
-    position:               relative;
-    top:                         3px;
-    color:                   #fff;
-    }
-
-.icon-size{
-    font-size:                 0.8em;
-    }
-
-.link_box{
-    display: flex ;
-    justify-content: flex-end ;
-    position: relative ;
-    top: -23px;
-    }
-.link_box i
-{
-    color: #fff;
-    padding-right: 6px;
+.link_box i {
+  color: white;
+  padding-right: 6px;
+  pointer-events: none; /* ← iタグにはイベント反応させない */
+}
+.link_box i {
+  color: white;
+  padding-right: 6px;
+  pointer-events: none; /* ← iタグにはhover等反応させない */
 }
 
+.link_box a {
+  text-decoration: none;
+  color: inherit;
+  pointer-events: auto; /* ←クリックは可能に */
+}
+
+.link_box a:hover,
+.link_box a:focus,
+.link_box a:active {
+  text-decoration: none;
+  color: inherit;
+  opacity: 1; /* 明示的にhover時のopacityも変えない */
+}
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 初期設定 */
+  gap: 6px;
+}
+
+/* タブレット（中サイズ）では1カラムあたり180px〜 */
+@media (max-width: 1024px) {
+  .masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* スマホ（小サイズ）では1カラムあたり140px〜 */
+@media (max-width: 768px) {
+  .masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* 極小デバイス（例: iPhone SE）では1カラムあたり100px〜 */
+@media (max-width: 480px) {
+  .masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
 
 /* swiper */
 
