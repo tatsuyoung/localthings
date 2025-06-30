@@ -341,6 +341,11 @@ def category_detail(request, pk):
     paginator         = Paginator(articles_category, 24)
     page              = request.GET.get('page')
     articles          = paginator.get_page(page)
+    # ✅ 日付表示を整形して付加
+    now = timezone.now()
+    for article in articles:
+        article.display_date = format_custom_date_style(article.date, now)
+        
     context = {
         'category': category,
         'articles': articles
