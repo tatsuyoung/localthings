@@ -188,9 +188,10 @@ def article_comment(request, pk):
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 comments = Comment.objects.filter(post=article).order_by('created_date')
                 html     = render_to_string('articles/partial_comment_list.html', {
-                    'comments': comments,
-                    'article' : article,
-                    'request' : request,
+                    'comments' : comments,
+                    'article'  : article,
+                    'request'  : request,
+                    'view_name': 'list',
                 })
                 return JsonResponse({'html': html})
             return redirect('articles:detail', pk=article.pk)  # ✅ POST後にリダイレクト

@@ -10,70 +10,76 @@
     <article class="following-feed">
         {% for article in articles %}
         <div class="following-feed-wrapper">
-            <ul class="following-articles">
-                <li class="articles-item">
-                    <a href="{% url 'articles:user-posts' article.author.username %}">
-                        <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
-                    </a>
-                </li>
-                <li class="articles-item">
-                    <p>{{ article.author.username }}</p>
-                </li>
-                <li class="articles-item">
-                    <p><small>{{ article.date | timesince }}{{ sometime }}</small></p>
-                </li>
-            </ul>
-            <div class="articles-thumb">
+                <ul class="following-articles">
+                    <li class="articles-item">
+                        <a href="{% url 'articles:user-posts' article.author.username %}">
+                            <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
+                        </a>
+                    </li>
+                    <li class="articles-item">
+                        <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
+                    </li>
+                </ul>
                 {% if article.images.all %}
                     {% with first_image=article.images.all.first %}
                         {% if first_image %}
-                        <a href="{% url 'articles:detail' pk=article.pk %}">
-                            <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
-                        </a>
+                            <div class="articles-thumb">
+                                <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                                    <img class="card img-responsive" src="{{ first_image.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                </a>
+                            </div>
                         {% endif %}
                     {% endwith %}
                 {% endif %}
-            </div>
-            <div class="articles-description">
-                <h2>{{  article.title  }}</h2>
-                <p>{{ article.snippet }}
-                    <a href="{% url 'articles:detail' pk=article.pk %}">
-                    <small>続きを読む</small>
-                    </a>
-                </p>
-            </div>
-            <div class="articles-icon">
-                <ul class="articles-icon-box">
-                    <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
-                        <div class="articles-icon-wrapper">
-                            <div class="articles-hover heart-circle">
-                                <i class="far fa-heart liked_heart"></i>
-                            </div>
+                <div class="articles-caption-inline">
+                    <span class="username-badge-wrapper">
+                        <span class="username">
+                            <a href="{% url 'articles:user-posts' article.author.username %}">
+                                {{ article.author.username }}
+                            </a>
+                        </span>
+                    </span>
+                    <!-- クリックで展開するテキスト部分 -->
+                    <span class="snippet-text expandable"
+                        data-fulltext="{{ article.body|escape }}"
+                        data-snippet="{{ article.snippet|escape }}">
+                    {{ article.snippet }}
+                    </span>
+                    <!-- クリックで detail ページへ遷移 -->
+                    <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
+                </div>
+                <div class="articles-icon">
+                    <ul class="articles-icon-box">
+                        <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                            <div class="articles-icon-wrapper">
+                                <div class="articles-hover heart-circle">
+                                    <i class="far fa-heart liked_heart"></i>
+                                </div>
 
-                            <div class="articles-sum">
-                                {% if article.total_likes %}
-                                <span>{{ article.total_likes }}</span>
-                                {% endif %}
+                                <div class="articles-sum">
+                                    {% if article.total_likes %}
+                                    <span>{{ article.total_likes }}</span>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <li class="icon-items">
-                        <div class="articles-icon-wrapper">
-                            <div class="articles-hover">
-                                <i class="far fa-comment"></i>
-                            </div>
+                        <li class="icon-items">
+                            <div class="articles-icon-wrapper">
+                                <div class="articles-hover">
+                                    <i class="far fa-comment"></i>
+                                </div>
 
-                            <div class="articles-sum">
-                                {% if article.comments.count %}
-                                <span>{{ article.comments.count }}</span>
-                                {% endif %}
+                                <div class="articles-sum">
+                                    {% if article.comments.count %}
+                                    <span>{{ article.comments.count }}</span>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         {% empty %}
         <div class="global-tag">
             <h3>まだ投稿はありません。</h3>
@@ -84,4 +90,5 @@
 </div>
 {% include 'accounts/snippet/pagination.html' %}
 <div class="global-footer"></div>
+<script src="/static/js/fulltext.js"></script>
 {% endblock %}
