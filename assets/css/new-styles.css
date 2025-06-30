@@ -1042,62 +1042,60 @@ li.logo {
 
 
 /* gallery */
-.masonry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 6px;
-}
+    .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5px;
+    }
+    .masonry-item {
+    position: relative;
+    overflow: hidden;
+    height: 300px; /* ✅ 固定 or 制限をかける（お好みで調整） */
+    }
 
-.masonry-item {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+    .masonry-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ✅ 高さをはみ出さずに中央からトリミング */
+    display: block;
+    }
 
-.masonry-item img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-}
+    .link_box {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    z-index: 2;
+    padding: 6px;
+    }
 
-.link_box {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -24px;
-  z-index: 2;
-  position: relative;
-}
+    .link_box a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    pointer-events: auto;
+    }
 
-.link_box i {
-  color: white;
-  padding-right: 6px;
-  pointer-events: none; /* ← iタグにはイベント反応させない */
-}
-.link_box i {
-  color: white;
-  padding-right: 6px;
-  pointer-events: none; /* ← iタグにはhover等反応させない */
-}
+    .link_box i {
+    color: #f5f5f5;
+    font-size: 16px;
+    padding-right: 6px;
+    pointer-events: none;
+    }
 
-.link_box a {
-  text-decoration: none;
-  color: inherit;
-  pointer-events: auto; /* ←クリックは可能に */
-}
+    .link_box a {
+    text-decoration: none;
+    color: inherit;
+    pointer-events: auto; /* ←クリックは可能に */
+    }
 
-.link_box a:hover,
-.link_box a:focus,
-.link_box a:active {
-  text-decoration: none;
-  color: inherit;
-  opacity: 1; /* 明示的にhover時のopacityも変えない */
-}
-.masonry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 初期設定 */
-  gap: 6px;
-}
+    .link_box a:hover,
+    .link_box a:focus,
+    .link_box a:active {
+    text-decoration: none;
+    color: inherit;
+    opacity: 1; /* 明示的にhover時のopacityも変えない */
+    }
 
 /* タブレット（中サイズ）では1カラムあたり180px〜 */
 @media (max-width: 1024px) {
@@ -3232,8 +3230,11 @@ ul{
     }
     .edit-article-title-input,
     .edit-article-body-textarea {
-    font-size: 0.95em;  /* または 14px 程度 */
+    font-size: 0.75em;  /* 12px ÷ 16px（基準） = 0.75em */
     line-height: 1.5;
+    }
+    .edit-article-category-select {
+        font-size:0.75em;
     }
     .category h5 {
         font-size: 8px;
