@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<div class="masonry-item">
+    {% with first_image=article.images.all.first %}
+        {% if first_image and 'No-image.png' not in first_image.image.url %}
+            <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
+                <img src="{{ first_image.image.url }}" alt="{{ article.title }}" loading="lazy"/>
+            </a>
+            <div class="link_box">
+                <a href="{% url 'articles:detail' pk=article.pk %}">
+                    <i class="fas fa-link icon-size"></i>
+                </a>
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load dict_extras %}
+
+<div class="following-feed-wrapper {% if forloop.counter|divisibleby:4 %}large-card{% endif %}">
+    <ul class="following-articles">
+        <li class="articles-item">
+            <a href="{% url 'articles:user-posts' article.author.username %}">
+                <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
+            </a>
+        </li>
+        <li class="articles-item">
+            <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
+        </li>
+    </ul>
+    {% if article.images.all %}
+    <div class="articles-thumb">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for img in article.images.all %}
+                    {% if img.image%}
+                        <div class="swiper-slide">
+                            <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                        </div>
+                    {% else %}
+                        <div class="swiper-slide">
+                            <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            {% if article.images.count > 1 %}
+                <div class="swiper-button-prev custom-swiper-button">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="swiper-button-next custom-swiper-button">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="articles-caption-inline">
+        <span class="username-badge-wrapper">
+            <span class="username">
+                <a href="{% url 'articles:user-posts' article.author.username %}">
+                    {{ article.author.username }}
+                </a>
+            </span>
+            {% with author_count=author_count_dict|get_item:article.author.id %}
+                {% if author_count >= 10 %}
+                    <svg class="verified-badge" aria-label="認証バッジ" fill="#0095f6" height="14" viewBox="0 0 40 40" width="14">
+                        <title>認証済み</title>
+                        <path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z"></path>
+                    </svg>
+                {% endif %}
+            {% endwith %}
+        </span>
+        <!-- クリックで展開するテキスト部分 -->
+        <span class="snippet-text expandable"
+            data-fulltext="{{ article.body|escape }}"
+            data-snippet="{{ article.snippet|escape }}">
+        {{ article.snippet }}
+        </span>
+        <!-- クリックで detail ページへ遷移 -->
+        <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
+    </div>
+    <div class="articles-icon">
+        <ul class="articles-icon-box">
+            <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                <div class="articles-icon-wrapper">
+                    <div class="articles-hover heart-circle">
+                        <!-- ハートアイコン -->
+                        <button type="button" class="btn-like" data-id="{{ article.id }}" data-title="{{ article.title }}">
+                            <i class="far fa-heart liked_heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="icon-items">
+                <div class="articles-icon-wrapper">
+                    <div class="articles-hover heart-circle">
+                        <!-- コメントアイコン -->
+                        <button type="button" class="toggle-comment-btn" data-article-id="{{ article.id }}">
+                            <i class="far fa-comment"></i>
+                        </button>
+                    </div>
+
+                    <div class="articles-sum">
+                        {% if article.comments.count %}
+                            <span>{{ article.comments.count }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ✅ コメントセクションの追加 -->
+    <div class="comment-section" id="comment-section-{{ article.id }}">
+        <!-- コメントエリア -->
+        <div class="comment-wrapper" id="comment-wrapper-{{ article.id }}" style="display: none;">
+            <div class="comment-bg">
+                {% with comment_data=article_comment_data|get_item:article.id %}
+                    <div id="comment-list-{{ article.id }}">
+                        {% include "articles/partial_comment_list.html" with comments=comment_data.comments article=article %}
+                    </div>
+                {% endwith %}
+            </div>
+            <!-- ✅ コメントフォーム -->
+            {% with comment_data=article_comment_data|get_item:article.id %}
+                <div class="write-new">
+                    <form method="POST" action="{% url 'articles:comment_post' article.pk %}" class="comment-form" data-article-id="{{ article.id }}">
+                        {% csrf_token %}
+                        {{ comment_data.form.as_p }}
+                        <div class="comment-btn-wrapper">
+                            {% if request.user.profile.image %}
+                            <img src="{{ request.user.profile.image.url }}" alt="Profile Avatar">
+                            {% endif %}
+                            <button type="submit" class="comment-submit-btn">
+                                ✨ Post away! <i class="far fa-smile"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+</div>

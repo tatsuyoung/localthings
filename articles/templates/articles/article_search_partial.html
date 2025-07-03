@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<!-- templates/articles/partial_article_search.html -->
+<div class="searchs">
+    <div class="search-wrapper">
+        <div class="search-box">
+            <form class="simple-search-form" method="get" action="{% url 'articles:article_search' %}">
+                <input type="text" name="q" id="search-input" placeholder="検索..." required>
+                <i class="fas fa-search search-icon"></i>
+            </form>
+        </div>
+    </div>
+</div>

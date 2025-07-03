@@ -62,7 +62,7 @@
             {% endif %}
             </div>
 
-            <div class="mobile-nav-top-link">
+            <!-- <div class="mobile-nav-top-link">
                 <div class="mobile-nav-top-search">
                    <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
                         <i class="fas fa-search"></i>
@@ -70,7 +70,7 @@
                         <label for="search"></label>
                     </form>
                 </div>
-            </div>
+            </div> -->
 
             <div class="mobile-nav-top-link">
             <a href="{% url 'home' %}">
@@ -197,15 +197,6 @@
 
             <div class="right">
                 <div class="right-wrapper">
-
-                    <div class="right-search">
-                        <form id="right-search" class="form-search" method="GET" action="{% url 'articles:list' %}">
-                            <i class="fas fa-search"></i>
-                            <input class="search-input" type="text" name="q"
-                                   placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
-                        </form>
-                    </div>
-
                     <div class="favorite-articles">
                         <div class="favorite-title">
                             <span>おすすめ</span>
@@ -284,53 +275,8 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
         <script src="/static/js/swiper-images.js"></script>
         <script src="/static/js/scroll.js"></script>
-        <script src="/static/js/search-box.js"></script>
         <script src="/static/js/mobile-hover.js"></script>
-        <script src="/static/js/mobile-search-box.js"></script>
         <script src="/static/js/comment_toggle.js"></script>
-        <script>
-        const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        $('#like').click(function(){
-            $.ajax({
-                type: "POST",
-                url: "{% url 'articles:like_button' article.pk %}",
-                headers: {
-                    'X-CSRFToken': csrftoken  // ← ここが大事！
-                },
-                data: {
-                    'title': $(this).attr('name')
-                },
-                dataType: "json",
-                success: function(response) {
-                    alert(response.message);
-                    // alert('いいね数トータルは' + response.likes_count + ' いいねです。');
-                },
-                error: function(xhr) {
-                    if (xhr.status === 403) {
-                        alert("ログインしてください");
-                    } else {
-                        alert("エラーが発生しました");
-                    }
-                }
-            });
-        });
-        </script>
-        <script>
-        $('#book_mark').click(function(){
-            $.ajax({
-                   type: "POST",
-                   url: "{% url 'articles:book_mark' article.pk %}",
-                   data: {'title': $(this).attr('name'),'csrfmiddlewaretoken':'{{ csrf_token }}'},
-                   dataType: "json",
-                   success: function(response) {
-                        alert(response.message);
-                   },
-                   error: function(data) {
-                        alert("Please Login");
-                }
-            });
-        })
-        </script>
         <script>
             // ✅ コメント投稿（Ajax）
         document.addEventListener("DOMContentLoaded", function () {

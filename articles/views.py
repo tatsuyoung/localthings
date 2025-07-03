@@ -1,11 +1,16 @@
 import json
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
+
 from django.core.paginator import Paginator
+from django.core.exceptions import PermissionDenied
+from django.core.paginator import EmptyPage
+
 from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.http import HttpResponseServerError
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from notifications.signals import notify
@@ -13,12 +18,12 @@ from notifications.signals import notify
 from accounts.models import Profile
 from .models import Comment, Category
 from .models import Article, ArticleImage
-from. import forms
 
+from. import forms
 from django.forms import inlineformset_factory
 from .forms import CreateArticle, ArticleImageForm
 
-from django.http import HttpResponseServerError
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -26,16 +31,22 @@ from django.utils import timezone
 from .utils import format_custom_date_style  # ← 日付フォーマット関数
 from django.template.loader import render_to_string
 
+from django.http import Http404
+
+# Articles
+
+def article_search_partial(request):
+    return render(request, 'articles/article_search_partial.html')
 
 def get_article_context(article):
-    articles_list       = Article.objects.all().order_by('-date')
-    order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    users               = Profile.objects.all().order_by('?')[:4]
-    now                 = timezone.now()
+    articles_list        = Article.objects.all().order_by('-date')
+    order_like_articles  = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
+    users                = Profile.objects.all().order_by('?')[:4]
+    now                  = timezone.now()
     article.display_date = format_custom_date_style(article.date, now)
-    comments            = Comment.objects.filter(post=article).order_by('created_date')
-    form                = forms.CommentForm()
-    current_user        = article.author  # または request.user（後で上書き）
+    comments             = Comment.objects.filter(post=article).order_by('created_date')
+    form                 = forms.CommentForm()
+    current_user         = article.author  # または request.user（後で上書き）
 
     return {
         'article'            : article,
@@ -46,28 +57,66 @@ def get_article_context(article):
         'current_user'       : current_user,
     }
 
+def article_search(request):
+    query = request.GET.get("q", "")
+    articles = Article.objects.filter(
+        Q(title__icontains=query) |
+        Q(body__icontains=query)
+    ).order_by('-date') if query else Article.objects.none()
+
+    paginator   = Paginator(articles, 10)
+    page_number = request.GET.get("page", 1)
+    page_obj    = paginator.get_page(page_number)
+
+    # ✅ display_date をつける
+    now = timezone.now()
+    for article in page_obj:
+        article.display_date = format_custom_date_style(article.date, now)
+
+    # ✅ author_count_dict を計算
+    author_ids = [article.author.id for article in page_obj]
+    author_article_counts = Article.objects.filter(author__id__in=author_ids) \
+                                        .values('author') \
+                                        .annotate(count=Count('id'))
+
+    author_count_dict = {item['author']: item['count'] for item in author_article_counts}
+
+    # ✅ コメント & フォーム
+    article_comment_data = {}
+    for article in page_obj:
+        all_comments = Comment.objects.filter(post=article).order_by('created_date')
+        article_comment_data[article.id] = {
+            'comments': all_comments,
+            'form'    : forms.CommentForm(),
+        }
+
+    context = {
+        "articles"            : page_obj,
+        "query"               : query,
+        "article_comment_data": article_comment_data,
+        "author_count_dict"   : author_count_dict,
+        "view_name"           : "search", 
+    }
+
+    return render(request, "articles/article_search.html", context)
+
+
 def article_list(request):
     users               = Profile.objects.all().order_by('?')[:4]
     articles_list       = Article.objects.all().order_by('-date')
     order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
-    paginator           = Paginator(articles_list, 24)
-    page                = request.GET.get('page')
-    articles            = paginator.get_page(page)
+    page_number         = request.GET.get("page", 1)
 
-    query = request.GET.get("q")
-    if query:
-        articles = articles_list.filter(
-            Q(title__icontains=query) |
-            Q(body__icontains=query)
-        ).distinct()
+    paginator = Paginator(articles_list, 10)
+    page_obj  = paginator.get_page(page_number)
 
     # ✅ 日付表示を整形して付加
     now = timezone.now()
-    for article in articles:
+    for article in page_obj:
         article.display_date = format_custom_date_style(article.date, now)
 
     # ✅ 各 author の記事数を取得 → {user_id: 投稿数} の dict に
-    author_ids = [article.author.id for article in articles]
+    author_ids = [article.author.id for article in page_obj]
     author_article_counts = Article.objects.filter(author__id__in=author_ids) \
                                         .values('author') \
                                         .annotate(count=Count('id'))
@@ -76,16 +125,35 @@ def article_list(request):
 
     # ✅ 各記事に全コメントと1つのフォームを付加
     article_comment_data = {}
-    for article in articles:
+    for article in page_obj:
         all_comments = Comment.objects.filter(post=article).order_by('created_date')
         article_comment_data[article.id] = {
             'comments': all_comments,
             'form'    : forms.CommentForm(),
         }
+    context = {
+        'articles'            : page_obj,
+        'article_comment_data': article_comment_data,
+        'author_count_dict'   : {
+            item['author']: item['count']
+            for item in Article.objects.filter(author__in=[a.author for a in page_obj])
+                .values('author')
+                .annotate(count=Count('id'))
+        },
+        'view_name': 'list',
+    }
+
+    # ✅ Ajaxの場合はJSONで返す
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string("articles/partial_article_card_list.html", context, request=request)
+        return JsonResponse({
+            'html'    : html,
+            'has_next': page_obj.has_next(),
+        })
 
     # ✅ context
     return render(request, 'articles/article_list_new.html', {
-        'articles'            : articles,
+        'articles'            : page_obj,
         'order_like_articles' : order_like_articles,
         'users'               : users,
         'author_count_dict'   : author_count_dict,
@@ -173,6 +241,7 @@ def article_delete(request, article_id):
     return redirect('articles:list')
 
 
+# Comment
 @login_required(login_url="/accounts/login/")
 @require_POST
 def article_comment(request, pk):
@@ -222,7 +291,7 @@ def delete_comment_ajax(request, comment_id):
     }, request=request)
     return JsonResponse({'html': html})
 
-
+# Book mark
 @login_required(login_url="/accounts/login/")
 def book_mark_list(request):
     user         = request.user
@@ -252,7 +321,7 @@ def book_mark(request, book_mark_id):
     context = dict(message=message)
     return HttpResponse(json.dumps(context), content_type='application/json')
 
-
+# Liked
 @require_POST
 def like_button(request, like_id):
     if not request.user.is_authenticated:
@@ -264,11 +333,9 @@ def like_button(request, like_id):
 
     if article.like.filter(id=user.id).exists():
         article.like.remove(user)
-        message = 'いいねを取り消しました。'
     else:
         article.like.add(user)
         url     = article.get_url()
-        message = 'いいねしました。'
         notify.send(
             user,
             recipient=article.author,
@@ -277,10 +344,35 @@ def like_button(request, like_id):
             url=url
         )
 
-    context = dict(likes_count=article.total_likes, message=message)
+    context = dict(likes_count=article.total_likes)
     return JsonResponse(context)
 
 
+class ArticleOrderedByLikes(ListView):
+    model               = Article
+    template_name       = 'articles/article_ordered_by_likes.html'
+    context_object_name = 'articles'
+    paginate_by         = 9
+
+    def get_queryset(self):
+        return Article.objects.annotate(like_count=Count('like')).order_by('-like_count')
+
+    def format_custom_date_style(self, date, now):
+        delta = now - date
+        if delta.days < 7:
+            return f"{delta.days}日前" if delta.days > 0 else "今日"
+        else:
+            return date.strftime("%-m月%-d日")  # Mac/Linux（Windowsなら %#m）
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = timezone.now()
+        for article in context['articles']:
+            article.display_date = self.format_custom_date_style(article.date, now)
+        return context
+
+
+# User
 def users_detail(request, pk):
     users               = Profile.objects.all().order_by('?')[:4]
     articles_list       = Article.objects.all().order_by('-date')
@@ -335,24 +427,6 @@ def users_detail_liked(request, pk):
     return render(request, 'articles/users_detail_like.html', context)
 
 
-def category_detail(request, pk):
-    category          = get_object_or_404(Category, pk=pk)
-    articles_category = category.article_set.all().order_by('-date')
-    paginator         = Paginator(articles_category, 24)
-    page              = request.GET.get('page')
-    articles          = paginator.get_page(page)
-    # ✅ 日付表示を整形して付加
-    now = timezone.now()
-    for article in articles:
-        article.display_date = format_custom_date_style(article.date, now)
-        
-    context = {
-        'category': category,
-        'articles': articles
-    }
-    return render(request, 'articles/category_detail.html', context)
-
-
 class UserPostListView(ListView):
     model               = Article
     template_name       = 'articles/user_post_list.html'
@@ -385,45 +459,62 @@ class UserPostListView(ListView):
         return Article.objects.filter(author=user).order_by('-date')
 
 
-class Gallery(ListView):
-    model         = Article
-    template_name = 'articles/article_photo_gallery.html'
-    paginate_by   = 24
+# Category
+def category_detail(request, pk):
+    category          = get_object_or_404(Category, pk=pk)
+    articles_category = category.article_set.all().order_by('-date')
+    paginator         = Paginator(articles_category, 24)
+    page              = request.GET.get('page')
+    articles          = paginator.get_page(page)
+    # ✅ 日付表示を整形して付加
+    now = timezone.now()
+    for article in articles:
+        article.display_date = format_custom_date_style(article.date, now)
+        
+    context = {
+        'category': category,
+        'articles': articles
+    }
+    return render(request, 'articles/category_detail.html', context)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'category_list': Category.objects.order_by('category_name'),
-            'categories': Category.objects.annotate(
-                num_article=Count('article', filter=Q())
-            ),
-        })
-        #articles = Article.objects.all().order_by('-date')
-        return context
 
-    def get_queryset(self):
-        return Article.objects.filter(images__isnull=False).distinct().order_by('-date')
+# Gallery
+def gallery(request):
+    page = request.GET.get("page", 1)
 
+    articles = (
+        Article.objects
+        .filter(images__isnull=False)
+        .exclude(images__image__icontains="No-image.png")
+        .order_by("-date")
+        .distinct()
+    )
 
-class ArticleOrderedByLikes(ListView):
-    model               = Article
-    template_name       = 'articles/article_ordered_by_likes.html'
-    context_object_name = 'articles'
-    paginate_by         = 9
+    paginator = Paginator(articles, 11)
 
-    def get_queryset(self):
-        return Article.objects.annotate(like_count=Count('like')).order_by('-like_count')
-
-    def format_custom_date_style(self, date, now):
-        delta = now - date
-        if delta.days < 7:
-            return f"{delta.days}日前" if delta.days > 0 else "今日"
+    try:
+        page_obj = paginator.page(page)
+    except EmptyPage:
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return JsonResponse({"html": "", "has_next": False})
         else:
-            return date.strftime("%-m月%-d日")  # Mac/Linux（Windowsなら %#m）
+            raise Http404(f"無効なページです ({page})")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        now = timezone.now()
-        for article in context['articles']:
-            article.display_date = self.format_custom_date_style(article.date, now)
-        return context
+    # ✅ カテゴリを追加
+    categories = Category.objects.all().annotate(num_article=Count("article"))
+
+    context = {
+        "articles"  : page_obj,
+        "page_obj"  : page_obj,
+        "categories": categories
+    }
+
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        html = render_to_string("articles/partial_gallery_card_list.html", context, request=request)
+        return JsonResponse({
+            "html"    : html,
+            "has_next": page_obj.has_next()
+        })
+
+    return render(request, "articles/article_photo_gallery.html", context)
+
