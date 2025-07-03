@@ -376,7 +376,7 @@ body.dark-mode .mobile-logo_2 {
 }
 
 
-.mobile-search-input{
+.mobile-search-input {
     width: 100%;
     height: 100%;
     position: relative ;
@@ -394,8 +394,7 @@ body.dark-mode .mobile-logo_2 {
     -webkit-text-stroke: 1px #fff;
 }
 
-.mobile-search.active
-{
+.mobile-search-input .active {
     background: #fff;
     border: 1px solid var(--main-color);
     border-top-right-radius: 20px;
@@ -633,11 +632,10 @@ li.logo {
 
 /* center style */
 
-.center
-{
-    float: left;
+.center {
     width: 55%;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .center-header
@@ -1253,29 +1251,43 @@ li.logo {
 .articles-icon-wrapper button i {
     color: gray;
 }
-.articles-hover
-{
+.articles-icon-wrapper a {
+    color:gray;
+}
+
+/* hover */
+.articles-hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
-    align-items: center ;
-    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-.articles-hover:hover
-{
-    background: var(--hover-color);
-}
-
-.heart-circle:hover
-{
+.articles-hover:hover {
     background: rgba(71, 157, 255, 0.12);
 }
 
+.articles-hover i {
+    pointer-events: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    transition: color 0.2s ease;
+}
+
+.btn-like, .toggle-comment-btn {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* counts */
 .articles-sum
 {
     display: inline-block;
@@ -1752,71 +1764,109 @@ li.logo {
     margin-top: 10px;
 }
 
-/* search box */
-
-.form-search
-{
-    background: rgba(234, 242, 245, 0.62);
-    width: 90%;
-    height: 47px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 3px;
-    margin-bottom: 15px;
-    font-size: 15px;
-    display: flex ;
-    justify-content: center ;
-    align-items: center ;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-}
-
-.form-search input[type="text"]
-{
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    background: none;
-}
-
-.search-input{
+/* Search */
+.searchs {
+    display: flex;
+    justify-content: center; 
     width: 100%;
-    height: 100%;
-    border-radius: 20%;
-    position: relative ;
-    font-size: 18px;
-    font-weight: 600;
-    margin-left: 18px;
+    padding-left: 10px;      
+}
+.search-wrapper {
+    width: 100%;
+}
+.global-tag p {
+    font-size: 0.75em;
+    color: gray;
 }
 
-.form-search i
-{
-    font-size: 18px;
-    margin-left: 10px;
-    color: gray ;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
+.search-box {
+    display: flex;
+    justify-content: center;
 }
 
-.form-search.active
-{
-    background: #fff;
-    border: 1px solid var(--main-color);
+.simple-search-form {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
 }
 
-.form-search.active i
-{
-    color: var(--main-color);
+.simple-search-form input[type="text"] {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #262626;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.simple-search-form input[type="text"]:focus {
+    border-color: #a8a8a8;
+    background-color: #fff;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8e8e8e;
+    pointer-events: none;
+}
+.search-footer {
+    padding-bottom: 20px;
+}
+/* Loader animation */
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  min-height: 100px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}
+
+/* アニメーション定義 */
+@keyframes IGCoreSpinnerSpin12 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spinner SVG の中央配置 */
+#loader svg.custom-style {
+  width: 50px;
+  height: 50px;
+  animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}
+
+/* 下の「これ以上ありません」メッセージ */
+.end-message {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 10px;
 }
 
 /* おすすめアーティクル */
 .favorite-articles
 {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .favorite-title

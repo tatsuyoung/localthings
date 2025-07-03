@@ -9,7 +9,7 @@
                         {{ comment.author }}
                     </a>
                 {% endif %}
-                <span class="comment-time">{{ comment.created_date|timesince }}前</span>
+                <span class="comment-time">{{ comment.created_date | timesince}}前</span>
             </div>
             {% if comment.author != request.user %}
             <div class="avatar">

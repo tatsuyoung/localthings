@@ -1,13 +1,15 @@
+import os
+import re
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from django.core.files import File
+from django.core.exceptions import ValidationError
 
-import re
 from django.utils.text import slugify
 
-import os
 import pillow_heif
 pillow_heif.register_heif_opener()
 
@@ -21,13 +23,17 @@ logger = logging.getLogger(__name__)
 class Article(models.Model):
     title      = models.CharField(max_length=30)
     slug       = models.SlugField(blank=True)
-    body       = models.TextField('Article', blank=False, help_text='')
+    body       = models.TextField('Article', blank=False)
     date       = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     category   = models.ForeignKey('Category', null=True, on_delete=models.SET_NULL, blank=True)
     author     = models.ForeignKey(User, on_delete=models.CASCADE)
     like       = models.ManyToManyField(User, related_name="likes", blank=True)
     book_mark  = models.ManyToManyField(User, related_name='book_mark', blank=True)
+
+    def clean(self):
+        if not self.body.strip():
+            raise ValidationError("本文は空にできません。")
 
     def __str__(self):
         return self.title
@@ -55,6 +61,8 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
          update_fields=None, *args, **kwargs):
+
+        self.full_clean()
 
         # body からタイトル自動生成（未入力時のみ）
         if not self.title:

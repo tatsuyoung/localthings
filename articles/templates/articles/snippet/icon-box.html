@@ -4,9 +4,9 @@
         <li class="articles-icon-item-active {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
             <div class="articles-icon-items-wrapper">
                 <div class="articles-hover heart-circle">
-                    <a class="btn-like" id="like" name="{{ article.title }}">
+                    <button type="button" class="btn-like" data-id="{{ article.id }}" data-title="{{ article.title }}">
                         <i class="far fa-heart liked_heart"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </li>

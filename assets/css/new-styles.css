@@ -34,9 +34,7 @@ body.dark-mode {
 .articles-icon-items-wrapper .fb i {
     color: #000;
 }
-.articles-hover i {
-    color: #000
-}
+
 /* Darkmode用：白くする */
 body.dark-mode .articles-icon-items-wrapper .tw i {
   color: #fff;
@@ -142,6 +140,66 @@ body.dark-mode .following-feed-wrapper {
 body.dark-mode .user_profile_card li {
     color: #f5f5f5;
 }
+/* comment */
+body.dark-mode .comment.author-comment {
+    color: #f5f5f5;
+}
+body.dark-mode .comment.user-comment {
+    color: #f5f5f5;
+}
+body.dark-mode .comment_wrapper p {
+    color:#f5f5f5;
+}
+body.dark-mode .comment-bg {
+        background:#121212;
+    }
+
+body.dark-mode .user-comment-text-box {
+    background: #2a2a2a;
+    }
+
+body.dark-mode .user-comment-text-box:after {
+    border-right: 20px solid #2a2a2a;
+    }
+
+body.dark-mode .author-comment-text-box {
+    background: #355e3b; /* 落ち着いた緑系 */
+    }
+
+body.dark-mode .author-comment-text-box:after {
+    border-left: 20px solid #355e3b;
+    }
+
+body.dark-mode .user-comment-text-box a,
+    .author-comment-text-box a {
+    color: #8ab4f8; /* Googleのdarkモードのリンク色風 */
+    }
+
+body.dark-mode .write-new textarea {
+    background: #1e1e1e;
+    color: #ddd;
+    border-bottom: 0.5px solid #444;
+    }
+
+body.dark-mode .write-new img {
+    background: #444;
+    }
+
+body.dark-mode .fa-lg {
+    color: #ccc;
+    }
+body.dark-mode .comment-delete-btn-2 button i {
+    color: gray;
+    }
+
+body.dark-mode .write-new button {
+    background-color: var(--main-color);
+    color: #fff;
+    }
+
+body.dark-mode .write-new span {
+    color: #aaa;
+    }
 
 /* main */
 body {
@@ -760,6 +818,91 @@ li.logo {
   object-fit: cover;
   display: block;
 }
+/* Swiper */
+.articles-thumb .swiper-container {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+}
+
+.articles-thumb .swiper-wrapper {
+    height: 100%;
+}
+
+.articles-thumb .swiper-slide {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.articles-thumb .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* --- SWiper 矢印ボタンスタイル --- */
+/* ボタンの共通スタイル */
+.custom-swiper-button {
+    width : 23px;
+    height: 23px;
+    background-color: rgba(250, 246, 246, 0.971);
+    opacity: 0.8;
+    border-radius: 50%;
+    color: #666666ab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* Font Awesome アイコンサイズ */
+.custom-swiper-button i {
+    font-size: 14px;
+}
+
+/* 位置調整 */
+.swiper-button-prev {
+    left: 8px;
+}
+
+.swiper-button-next {
+    right: 8px;
+}
+
+/* デフォルトの ::after を非表示にする */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none;
+}
+
+/* --- Swiper pagination スタイル --- */
+/* Swiper pagenation */
+/* スワイパーのページネーションを nav の下に隠す */
+.articles-thumb .swiper-pagination-bullets {
+    bottom: 6px;
+}
+
+.articles-thumb .swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.articles-thumb .swiper-pagination-bullet-active {
+    background-color: #1c507a; /* アクティブ時は少し濃い青 */
+    opacity: 1;
+    z-index: 1;
+}
 
 
 /* articles description */
@@ -795,6 +938,7 @@ li.logo {
   text-decoration: none;
   white-space: nowrap;
 }
+
 /* articles icons */
 .articles-icon
 {
@@ -803,74 +947,12 @@ li.logo {
 
 .icon-items
 {
-    padding-right: 2px;
     color: gray ;
-}
-
-.icon-items a
-{
-    color: gray ;
-}
-
-.icon-items .fa-edit
-{
-    margin-left: 4px;
-}
-
-.icon-items .fa-edit:hover
-{
-    color: rgb(23, 191, 99);
 }
 
 .liked .liked_heart
 {
-    .articles-icon-wrapper {
-  display: flex;
-  align-items: center;   /* 縦方向中央揃え */
-  gap: 2px;              /* アイコンと数字の間隔 */
-  padding-right: 10px;
-}
-
-.articles-hover.heart-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: transparent; /* hover時に色が付くように */
-}
-
-.articles-hover.heart-circle:hover {
-  background-color: rgba(255, 71, 231, 0.12);
-}
-
-.liked_heart {
-  font-size: 20px;
-  color: inherit;
-}
-
-.articles-sum span {
-  font-size: 14px;
-  color: #262626;
-  line-height: 1;
-}
-
-.articles-hover:hover
-{
-    background: var(--hover-color);
-}
-
-.heart-circle:hover
-{
-    background: rgba(71, 157, 255, 0.12)
-}
-}
-
-.liked span
-{
-    color: #262626;
+    color:var(--main-color);
 }
 
 .articles-icon ul li
@@ -878,48 +960,33 @@ li.logo {
     margin: 0;
 }
 
-.articles-icon-wrapper {
-  display: flex;
-  align-items: center;   /* 縦方向中央揃え */
-  gap: 2px;              /* アイコンと数字の間隔 */
-  padding-right: 10px;
+.articles-icon-wrapper
+{
+    display: flex ;
+    width: 80px;
+    height: 50px;
+    justify-content: left;
+    align-items: center ;
+    margin: 0;
+    padding: 0;
 }
-
-.articles-hover.heart-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: transparent; /* hover時に色が付くように */
+.articles-icon-wrapper i {
+    font-size: 23px;
 }
-
-.articles-hover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: transparent; /* hover時に色が付くように */
+.articles-icon-wrapper button i {
+    color: gray;
 }
-
-.articles-hover.heart-circle:hover {
-  background: rgba(71, 157, 255, 0.12);
-}
-
-.liked_heart {
-  font-size: 20px;
-  color: inherit;
-}
-
-.articles-sum span {
-  font-size: 14px;
-  color: #262626;
-  line-height: 1;
+.articles-hover
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+    padding: 7px;
+    cursor: pointer;
 }
 
 .articles-hover:hover
@@ -929,12 +996,7 @@ li.logo {
 
 .heart-circle:hover
 {
-    background: rgba(71, 157, 255, 0.12)
-}
-
-.edit-circle:hover
-{
-    background: rgba(24, 218, 28, 0.14);
+    background: rgba(71, 157, 255, 0.12);
 }
 
 .articles-sum
@@ -946,6 +1008,461 @@ li.logo {
     font-size: 14px;
 }
 
+.edit-circle:hover
+{
+    background: rgba(24, 218, 28, 0.14);
+}
+
+/* comment */
+.comment-section a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.comment-section a:hover {
+  color: inherit;            /* hover時も色を変えない */
+  text-decoration: none;     /* 下線を付けない */
+  background-color: transparent; /* 背景がついていたら消す */
+  cursor: default;           /* ポインター変化させたくなければこれ */
+}
+
+.comment_wrapper{
+    margin:               0;
+    padding:              0;
+    box-sizing:  border-box;
+    }
+
+.comment-bg
+{
+    background:  #E5EDF1;    
+    display: flex;
+    flex-direction: column; /* ← 縦並び */
+    max-height: 300px; /* ← 高さ調整 */
+    overflow-y: auto;  /* ← 縦スクロールを有効にする */
+    padding-right: 5px; /* スクロールバーで内容が隠れないように */
+}
+.comment-bg::-webkit-scrollbar {
+    width: 6px;
+}
+.comment-bg::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.comment-section {
+    border-radius: 16px;
+}
+
+.comment-section li:first-child
+{
+    padding-top: 20px;
+}
+
+.comment-section li:last-child
+{
+    padding-bottom: 20px;
+}
+
+.comment{
+    display:           flex;
+    border-radius:      0px;
+    margin-bottom:     20px;
+    flex-wrap:         wrap;
+    height: auto;
+    justify-items: center ;
+    align-items: center ;
+    width: 100%;
+    }
+
+.comment.user-comment{
+    color:          #333;
+    padding-right: 10px;
+    }
+
+.comment.author-comment{
+    color:             #333;
+    justify-content:  flex-end;
+    }
+
+.comment.user-comment .info{
+    text-align:         right;
+    }
+
+.comment.author-comment .info{
+                     order: 3;
+    }
+.info {
+    padding-bottom: 10px;
+}
+
+.comment .info a {
+    display:               block;
+    text-decoration:        none;
+    color:               #656c71;
+    font-weight:            bold;
+    text-overflow:      ellipsis;
+    overflow:             hidden;
+    white-space:          nowrap;
+    padding:  10px 12px 3px 12px;
+    }
+
+.comment .info span{
+    font-size:              10px;
+    color:               #9ca7af;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+
+.author-icon-wrapper {
+    padding-left: 10px;
+}
+
+.comment.user-comment .avatar {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    }
+
+.comment.author-comment .avatar {
+    order: 2;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.comment .avatar img{
+    display:            block;
+    border-radius:        50%;
+    background:       #eeeeee;
+    width:               50px;
+    height:              50px;
+    overflow:          hidden;
+    text-align:        center;
+    }
+
+.comment.user-comment .avatar img{
+    float:              right;
+
+    }
+
+/* comment box */
+.user-comment-text-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.author-comment-text-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* User */
+.user-comment-text-box
+{
+    line-height:      1.7em;
+    padding-right: 10px;
+    padding-left: 16px;
+    width:               50%;
+    position:       relative;
+    word-wrap:    break-word;
+    border-radius: 16px;
+    display: flex ;
+    justify-content: space-between;
+    justify-items: center ;
+    align-items: center ;
+    background: #f5f5f5;
+    margin-right: 60px;
+}
+.user-comment-text-box:after
+{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -4px;
+  top: 2px;
+  border-right: 20px solid #f5f5f5;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: rotate(35deg); -webkit-transform: rotate(35deg);
+}
+/* Author */
+.author-comment-text-box{
+    line-height:         1.7em;
+    padding-left: 16px;
+    width:               50%;
+    position:       relative;
+    word-wrap:    break-word;
+    border-radius: 16px;
+    display: flex ;
+    justify-content: space-between;
+    justify-items: center ;
+    align-items: center ;
+    background:  #DCF8C6;
+    margin-left: 60px;
+}
+
+.author-comment-text-box:after
+{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  left: -4px;
+  top: 2px;
+  border-left: 20px solid #DCF8C6;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: rotate(-35deg); -webkit-transform: rotate(-35deg);
+}
+
+.user-comment-text-box a,
+.author-comment-text-box a
+{
+    color: var(--main-color);
+}
+
+.user-comment-text-box p {
+    line-height:         1.7;
+    padding:       10px 2px;
+    width:               90%;
+    position:       relative;
+    word-wrap:    break-word;
+    display: flex ;
+    justify-content: left;
+    justify-items: center ;
+    align-items: center ;
+}
+
+.author-comment-text-box p
+{
+   line-height:         1.7;
+    padding:       10px 2px;
+    width:               90%;
+    word-wrap:    break-word;
+}
+
+.comment-delete-btn
+{
+    height: 50px;
+    width: 50px;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+    border-radius: 50%;
+}
+
+.comment-delete-btn-2
+{
+    height: 50px;
+    width: 50px;
+    display: flex ;
+    justify-content: center ;
+    justify-items: center ;
+    align-items: center ;
+    border-radius: 50%;
+}
+
+
+.comment-delete-btn button
+{
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 100%;
+    width: 100%;
+}
+
+.comment-delete-btn-2 button
+{
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 100%;
+    width: 100%;
+}
+
+.comment-delete-btn button i
+{
+    font-size: 18px;
+}
+
+.fa-lg
+{
+    color: gray;
+    cursor: pointer ;
+}
+
+.comment-delete-btn-2 button i
+{
+    font-size: 18px;
+    color: gray;
+    -webkit-font-smoothing: antialiased;
+}
+
+.comment.author-comment p {
+    order: 1;
+    padding-left: 10px;
+    }
+
+
+/* comment text area */
+.write-new {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.write-new textarea {
+    background:                  #fff;
+    border:                        none;
+    border-bottom:    0.5px solid #dbdbdb;
+    color:                         #666;
+    font-family: 'Open Sans' sans-serif;
+    font-size:                      1em;
+    height:                       80px;
+    transition:       border-color 0.3s;
+    width:                         100%;
+    appearance:                    none;
+    -webkit-appearance:            none;
+    -moz-appearance:               none;
+    padding:                  15px 20px;
+    line-height:                   1.75;
+    letter-spacing:              0.05em;
+    box-sizing: border-box;
+    }
+
+.write-new textarea:focus{
+    outline:                       none;
+}
+
+.write-new img {
+    border-radius:        50%;
+    background:       #eeeeee;
+    width:               50px;
+    height:              50px;
+    overflow:          hidden;
+    text-align:        center;
+    }
+
+.comment-btn-wrapper
+{
+    display: flex ;
+    justify-content: space-between;
+    margin:0px auto;
+    justify-items: center ;
+    align-items: center ;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.write-new button
+{
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--main-color);
+    color:               #fff;
+    font-weight:         bold;
+    cursor:           pointer;
+    padding: 13px;
+    font-size: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-left: 10px;
+}
+
+
+.write-new button:hover
+{
+    opacity:0.7;
+}
+
+.write-new label,
+.write-new .errorlist{
+    display: none;
+    }
+
+.write-new span{
+    position:   relative;
+    top:            12px;
+    font-size:      12px;
+    }
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .user-comment-text-box,
+  .author-comment-text-box {
+    max-width: 90%;
+    font-size: 13px;
+  }
+
+  .avatar img {
+    width: 36px;
+    height: 36px;
+  }
+  .write-new,
+  .comment-btn-wrapper,
+  .write-new textarea {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .write-new textarea {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  body {
+    overflow-x: hidden; /* ページ全体の横スクロール防止 */
+    }
+}
+@media (max-width: 600px) {
+  .write-new textarea,
+  .write-new input,
+  .write-new button {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 600px) {
+  .comment-btn-wrapper {
+    display: flex;
+    justify-content: space-between; /* ← 右寄せに */
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 10px;
+  }
+
+  .write-new button {
+    width: auto;              /* ← 広がりすぎ防止 */
+    margin-left: auto;        /* ← 右寄せ */
+    margin-top: 0;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .write-new img {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 /* categories */
 
@@ -1039,7 +1556,126 @@ li.logo {
     }
 }
 
+/* Search */
+.searchs {
+    display: flex;
+    justify-content: center; 
+    width: 100%; 
+    padding-top: 10px;       
+}
+.search-wrapper {
+    border-radius: 20px;
+    border-top: 0.5px solid #efefef;
+    border-bottom: 0.5px solid #efefef;
+    border-left: 0.5px solid #efefef;
+    border-right: 0.5px solid #efefef;
+    width: 60%;
+    background-color: #2b2b2b;
+    display: flex;
+    flex-direction: column; /* ← 縦並び */
+    max-height: 870px; /* ← 高さ調整 */
+    overflow-y: auto;  /* ← 縦スクロールを有効にする */
+    padding-right: 5px;
+}
+.global-tag p {
+    font-size: 0.75em;
+    color: gray;
+}
+.search-box-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: #2b2b2b;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+}
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* 必須: 親幅に応じて中央に */
+}
 
+.simple-search-form {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+
+.simple-search-form input[type="text"] {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #262626;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.simple-search-form input[type="text"]:focus {
+    border-color: #a8a8a8;
+    background-color: #fff;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8e8e8e;
+    pointer-events: none;
+}
+.search-footer {
+    padding-bottom: 20px;
+}
+
+/* Loader animation */
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  min-height: 100px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}
+
+/* アニメーション定義 */
+@keyframes IGCoreSpinnerSpin12 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spinner SVG の中央配置 */
+#loader svg.custom-style {
+  width: 50px;
+  height: 50px;
+  animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}
+
+/* 下の「これ以上ありません」メッセージ */
+.end-message {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 10px;
+}
 
 /* gallery */
     .masonry-grid {
@@ -1050,7 +1686,7 @@ li.logo {
     .masonry-item {
     position: relative;
     overflow: hidden;
-    height: 300px; /* ✅ 固定 or 制限をかける（お好みで調整） */
+    height: 400px; /* ✅ 固定 or 制限をかける（お好みで調整） */
     }
 
     .masonry-item img {
@@ -1118,9 +1754,9 @@ li.logo {
   }
 }
 
-/* swiper */
+/* swiper  bookmark*/
 
-.swiper{
+.swiper-book-mark {
     display:                       flex;
     justify-content:             center;
     align-items:                 center;
@@ -1128,7 +1764,7 @@ li.logo {
     padding-bottom:80px;
     }
 
-.swiper-card{
+.swiper-card-book-mark {
     background:          #fafafa;
     margin:               0 auto;
     padding:                   0;
@@ -1137,7 +1773,7 @@ li.logo {
     height:                463px;
     }
 
-.swiper-card .sliderContent{
+.swiper-card-book-mark .sliderContent {
     width:                  100%;
     padding:                10px;
     box-sizing:       border-box;
@@ -1147,7 +1783,7 @@ li.logo {
     margin-left:             6px;
     }
 
-.swiper-card .sliderContent a{
+.swiper-card-book-mark .sliderContent a {
     display:        inline-block;
     margin:             10px 0 0;
     padding:           10px 20px;
@@ -1159,7 +1795,7 @@ li.logo {
     top:                    20px;
     }
 
-.sliderUsername{
+.sliderUsername-book-mark {
     color:                  #eee;
     text-align:           center;
     position:           relative;
@@ -1169,7 +1805,7 @@ li.logo {
     padding:                   0;
     }
 
-.swiper-card .sliderText{
+.swiper-card-book-mark .sliderText{
     position:           relative;
     width:                  100%;
     height:                200px;
@@ -1179,23 +1815,23 @@ li.logo {
     background:          #32373c;
     }
 
-.swiper-card .sliderText h3{
+.swiper-card-book-mark .sliderText h3{
     color:                  #eee;
     font-size:              23px;
     text-align:           center;
     }
 
-.swiper-slide{
+.swiper-slide-book-mark {
     width:                  100%;
     background:             #eee;
     }
 
-.swiper-container {
+.swiper-container-book-mark {
     width:                  370px;
     height:                 463px;
     }
 
-.swiper-wrapper h4{
+.swiper-wrapper-book-mark h4 {
     margin:                0 auto;
     font-size:               20px;
     }
@@ -1663,9 +2299,6 @@ body.dark-mode .about_box:hover {
     font-size:     12px;
     }
 
-/* #thumb-clear_id{
-    display:          none;
-    } */
 
 #thumb-clear_id {
     display: inline-block;
@@ -2840,13 +3473,6 @@ ul{
     transition: background-color 0.1s ease-in-out ;
 }
 
-/* .mobile-nav-icon
-{
-    font-size: 26px;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
-    color: black;
-} */
 .mobile-nav-icon {
     font-size: 24px; /* 少し小さめに */
     color: #000;
@@ -2899,6 +3525,9 @@ ul{
     -webkit-transform: translateX(67%) translateY(-150%);
     z-index: 1;
 }
+
+/* Search page */
+
 
 /* global footer */
 
@@ -3238,6 +3867,9 @@ ul{
     }
     .category h5 {
         font-size: 8px;
+    }
+    .search-wrapper {
+        width: 100%;
     }
 }
 
@@ -3648,4 +4280,65 @@ ul{
     --form-bg: #1e1e1e;
     --form-text: #f5f5f5;
   }
+}
+
+/* comment box  */
+/* === 🌙 Dark Mode 対応 === */
+@media (prefers-color-scheme: dark) {
+    .comment.author-comment {
+    color: #f5f5f5;
+    }
+        .comment.user-comment {
+    color: #f5f5f5;
+    }
+    .comment-bg {
+        background:#121212;
+    }
+    .user-comment-text-box {
+    background: #2a2a2a;
+    }
+
+    .user-comment-text-box:after {
+    border-right: 20px solid #2a2a2a;
+    }
+
+    .author-comment-text-box {
+    background: #355e3b; /* 落ち着いた緑系 */
+    }
+
+    .author-comment-text-box:after {
+    border-left: 20px solid #355e3b;
+    }
+
+    .user-comment-text-box a,
+    .author-comment-text-box a {
+    color: #8ab4f8; /* Googleのdarkモードのリンク色風 */
+    }
+
+    .write-new textarea {
+    background: #1e1e1e;
+    color: #ddd;
+    border-bottom: 0.5px solid #444;
+    }
+
+    .write-new img {
+    background: #444;
+    }
+
+    .fa-lg {
+    color: #ccc;
+    }
+
+    .comment-delete-btn-2 button i {
+    color: gray;
+    }
+
+    .write-new button {
+    background-color: var(--main-color);
+    color: #fff;
+    }
+
+    .write-new span {
+    color: #aaa;
+    }
 }

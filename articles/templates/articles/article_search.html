@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load dict_extras %}
+{% block title %}Nice Things{% endblock %}
+{% block headerName %}検索{% endblock %}
+{% block mobileCenter %}<p class="mobile-center-name">検索</p>{% endblock %}
+{% block headerA %}
+<a href="{% url 'home' %}">
+    <i class="fas fa-arrow-left"></i>
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="searchs">
+    <div class="search-wrapper">
+        <div class="search-box-wrapper">
+            <div class="search-box">
+                <form class="simple-search-form" method="get" action="{% url 'articles:article_search' %}">
+                    <input type="text" name="q" id="search-input" placeholder="検索..." required>
+                    <i class="fas fa-search search-icon"></i>
+                </form>
+            </div>
+        </div>
+        <div class="articles-container">
+            <div class="article-wrapper">
+                <article class="following-feed">
+                    {% for article in articles %}
+                        {% include "articles/partial_article_card.html" with article=article %}
+                    {% empty %}
+                    <div class="global-tag">
+                        <p>最近の検索はありません。</p>
+                    </div>
+                    {% endfor %}
+                </article>
+            </div>
+        </div>
+        <div class="search-footer"></div>
+    </div>
+</div>
+{% endblock %}

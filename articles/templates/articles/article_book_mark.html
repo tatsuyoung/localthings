@@ -9,34 +9,30 @@
 </a>
 {% endblock %}
 {% block content %}
-<div class="swiper">
-
-    <div class="swiper-container">
-
-        <div class="swiper-wrapper">
-            {% for book_mark in my_book_mark %}
-            <div class="swiper-slide">
-
-                <div class="swiper-card">
-                    <div class="sliderText">
-                        <h3>{{ book_mark.title | truncatechars_html:20 }}</h3>
-                    </div>
-                    <div class="sliderUsername">
-                        <p>{{ book_mark.author }}</p>
-                    </div>
-                    <div class="sliderContent">
-                        <p>{{ book_mark.snippet }}</p>
-                        <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
-                    </div>
-                </div>
-
+<div class="swiper-book-mark">
+  <div class="swiper-container swiper-container-book-mark">
+    <div class="swiper-wrapper swiper-wrapper-book-mark">
+      {% for book_mark in my_book_mark %}
+        <div class="swiper-slide swiper-slide-book-mark">
+          <div class="swiper-card-book-mark">
+            <div class="sliderText">
+              <h3>{{ book_mark.title | truncatechars_html:20 }}</h3>
             </div>
-            {% empty %}
-            <h4>No Book Marks</h4>
-            {% endfor %}
+            <div class="sliderUsername-book-mark">
+              <p>{{ book_mark.author }}</p>
+            </div>
+            <div class="sliderContent">
+              <p>{{ book_mark.snippet }}</p>
+              <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
+            </div>
+          </div>
         </div>
-        <div class="swiper-pagination"></div>
+      {% empty %}
+        <h4>No Book Marks</h4>
+      {% endfor %}
     </div>
+    <div class="swiper-pagination swiper-pagination-book-mark"></div>
+  </div>
 </div>
 {% endblock %}
 {% block script %}

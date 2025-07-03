@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <!--  Load CSS  -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 
 <body>
@@ -55,17 +56,6 @@
             </div>
             {% endif %}
         </div>
-
-        <div class="mobile-nav-top-link">
-            <div class="mobile-nav-top-search">
-                <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
-                    <i class="fas fa-search"></i>
-                    <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
-                    <label for="search"></label>
-                </form>
-            </div>
-        </div>
-
         <div class="mobile-nav-top-link">
             <a href="{% url 'about' %}">
                 <div class="mobile-wrapper_circle">
@@ -78,7 +68,93 @@
     <div class="container">
         <div class="left">
             <div class="left-icons-wrapper">
-                {% include 'articles/snippet/left-nav.html' %}
+                <ul>
+                    <li class="logo">
+                        <div class="wrapper_circle">
+                            <a href="{% url 'about' %}">
+                                <h1 class="logo_1">L</h1><h1 class="logo_2">T</h1>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="icon-item">
+                        <a href="{% url 'home' %}" class="icon-link">
+                            <div class="icon-wrapper">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <span class="icon-label-text">ホーム</span>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="{% url 'articles:article_search' %}" class="icon-link" id="search-btn">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <span class="icon-label-text">検索</span>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="{% url 'articles:gallery' %}" class="icon-link">
+                            <div class="icon-wrapper">
+                                <i class="far fa-compass"></i>
+                            </div>
+                            <span class="icon-label-text">発見</span>
+                        </a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                        <li class="icon-item">
+                            <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
+                                <div class="icon-wrapper">
+                                    <i class="far fa-bookmark"></i>
+                                </div>
+                                <span class="icon-label-text">ブックマーク</span>
+                            </a>
+                        </li>
+                        <li class="icon-item">
+                            <a href="{% url 'accounts:user_following' %}" class="icon-link">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-user-check user-checking"></i>
+                                </div>
+                                <span class="icon-label-text">フォロー中</span>
+                            </a>
+                        </li>
+                        <li class="icon-item">
+                            {% if user.is_authenticated %}
+                            {% notifications_unread as unread_count %}
+                                <a href="{% url 'my_notifications' %}" class="icon-link">
+                                    <div class="icon-wrapper">
+                                        <i class="far fa-bell">
+                                            {% if unread_count %}
+                                                <div class="number">
+                                                    <small class="live_notify_badge">{% if unread_count > 0 %}{{ unread_count }}{% endif %}</small>
+                                                </div>
+                                            {% endif %}
+                                        </i>
+                                    </div>
+                                    <span class="icon-label-text">お知らせ</span>
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="icon-item">
+                            <a href="{% url 'articles:create' %}" class="icon-link">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-feather-alt"></i>
+                                </div>
+                                <span class="icon-label-text">投稿</span>
+                            </a>
+                        </li>
+                        <li class="icon-item">
+                            <a href="{% url 'articles:users_detail' user.pk %}" class="icon-link">
+                                <div class="icon-wrapper">
+                                    <img src="{{ user.profile.image.url }}" class="left-profile-pic" alt="Avatar" loading="lazy">
+                                </div>
+                                <span class="icon-label-text">プロフィール</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            <!-- 👇 検索ボックスを挿入する専用エリア -->
+            <div id="search-container" style="display: none;"></div>
             </div>
         </div>
         <!-- Center -->
@@ -120,163 +196,27 @@
                 </div>
                 {% endif %}
             </div>
-
             <div class="article-wrapper">
                 <article class="following-feed">
+                    <!-- {# templates/articles/partial_article_card_list.html #} -->
                     {% for article in articles %}
-                    <div class="following-feed-wrapper {% if forloop.counter|divisibleby:4 %}large-card{% endif %}">
-                        <ul class="following-articles">
-                            <li class="articles-item">
-                                <a href="{% url 'articles:user-posts' article.author.username %}">
-                                    <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
-                                </a>
-                            </li>
-                            <li class="articles-item">
-                                <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
-                            </li>
-                        </ul>
-                        {% if article.images.all %}
-                        <div class="articles-thumb">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    {% for img in article.images.all %}
-                                        {% if img.image%}
-                                            <div class="swiper-slide">
-                                                <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
-                                            </div>
-                                        {% else %}
-                                            <div class="swiper-slide">
-                                                <img src="/media/No-image.png" loading="lazy" alt="No image"/>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-
-                                <div class="swiper-pagination"></div>
-
-                                {% if article.images.count > 1 %}
-                                    <div class="swiper-button-prev custom-swiper-button">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </div>
-                                    <div class="swiper-button-next custom-swiper-button">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endif %}
-                        <div class="articles-caption-inline">
-                            <span class="username-badge-wrapper">
-                                <span class="username">
-                                    <a href="{% url 'articles:user-posts' article.author.username %}">
-                                        {{ article.author.username }}
-                                    </a>
-                                </span>
-                                {% with author_count=author_count_dict|get_item:article.author.id %}
-                                    {% if author_count >= 10 %}
-                                        <svg class="verified-badge" aria-label="認証バッジ" fill="#0095f6" height="14" viewBox="0 0 40 40" width="14">
-                                            <title>認証済み</title>
-                                            <path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z"></path>
-                                        </svg>
-                                    {% endif %}
-                                {% endwith %}
-                            </span>
-                            <!-- クリックで展開するテキスト部分 -->
-                            <span class="snippet-text expandable"
-                                data-fulltext="{{ article.body|escape }}"
-                                data-snippet="{{ article.snippet|escape }}">
-                            {{ article.snippet }}
-                            </span>
-                            <!-- クリックで detail ページへ遷移 -->
-                            <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
-                        </div>
-                        <div class="articles-icon">
-                            <ul class="articles-icon-box">
-                                <li class="icon-items">
-                                    <div class="articles-icon-wrapper">
-                                        <div class="articles-hover heart-circle">
-                                            <!-- ハートアイコン -->
-                                            <i class="far fa-heart liked_heart"></i>
-                                        </div>
-
-                                        <div class="articles-sum">
-                                            {% if article.total_likes %}
-                                                <span>{{ article.total_likes }}</span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="icon-items">
-                                    <div class="articles-icon-wrapper">
-                                        <div class="articles-hover heart-circle">
-                                            <!-- コメントアイコン -->
-                                            <button type="button" class="toggle-comment-btn" data-article-id="{{ article.id }}">
-                                                <i class="far fa-comment"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="articles-sum">
-                                            {% if article.comments.count %}
-                                                <span>{{ article.comments.count }}</span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- ✅ コメントセクションの追加 -->
-                        <div class="comment-section" id="comment-section-{{ article.id }}">
-                            <!-- コメントエリア -->
-                            <div class="comment-wrapper" id="comment-wrapper-{{ article.id }}" style="display: none;">
-                                <div class="comment-bg">
-                                    {% with comment_data=article_comment_data|get_item:article.id %}
-                                        <div id="comment-list-{{ article.id }}">
-                                            {% include "articles/partial_comment_list.html" with comments=comment_data.comments article=article %}
-                                        </div>
-                                    {% endwith %}
-                                </div>
-                                <!-- ✅ コメントフォーム -->
-                                {% with comment_data=article_comment_data|get_item:article.id %}
-                                    <div class="write-new">
-                                        <form method="POST" action="{% url 'articles:comment_post' article.pk %}" class="comment-form" data-article-id="{{ article.id }}">
-                                            {% csrf_token %}
-                                            {{ comment_data.form.as_p }}
-                                            <div class="comment-btn-wrapper">
-                                                {% if request.user.profile.image %}
-                                                <img src="{{ request.user.profile.image.url }}" alt="Profile Avatar">
-                                                {% endif %}
-                                                <button type="submit" class="comment-submit-btn">
-                                                    ✨ Post away! <i class="far fa-smile"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                {% endwith %}
-                            </div>
-                        </div>
-                    </div>
+                        {% include "articles/partial_article_card.html" with article=article %}
                     {% empty %}
                     <div class="global-tag">
                         <h3>お探しの検索キーワードは見つかりませんでした。</h3>
                     </div>
                     {% endfor %}
                 </article>
+                <div id="loader">
+                    {% include 'articles/snippet/spinner.html' %}
+                    <p class="end-message" style="display: none;">これ以上ありません。</p>
+                </div>
             </div>
-            {% include 'accounts/snippet/pagination.html' %}
-            <div class="global-footer"></div>
+                <div class="global-footer"></div>
         </div>
         <!-- Right -->
         <div class="right">
             <div class="right-wrapper">
-                <div class="right-search">
-                    <form id="right-search" class="form-search" method="GET" action="{% url 'articles:list' %}">
-                        <i class="fas fa-search"></i>
-                        <input class="search-input" type="text" name="q"
-                            placeholder=" キーワード検索" value="{{ request.GET.q }}" required/>
-                    </form>
-                </div>
                 <div class="favorite-articles">
                     <div class="favorite-title">
                         <span>おすすめ</span>
@@ -421,19 +361,46 @@
         });
     });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchBtn = document.querySelector('#search-btn');           // 検索アイコン
+        const searchContainer = document.querySelector('#search-container'); // 検索用div
+        let isSearchVisible = false;
+
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (!isSearchVisible) {
+                fetch("{% url 'articles:article_search_partial' %}")
+                    .then(response => response.text())
+                    .then(html => {
+                        searchContainer.innerHTML = html;
+                        searchContainer.style.display = 'block';
+                        isSearchVisible = true;
+                    })
+                    .catch(error => console.error('検索パネルの読み込みに失敗しました', error));
+            } else {
+                // 検索ボックスを消すだけ（mainの内容はそのまま）
+                searchContainer.innerHTML = '';
+                searchContainer.style.display = 'none';
+                isSearchVisible = false;
+            }
+        });
+    });
+    </script>
     <script src="/static/js/scroll.js"></script>
     <script src="/static/js/mobile-create.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="/static/js/swiper-images.js"></script>
     <script src="/static/js/app.js"></script>
-    <script src="/static/js/search-box.js"></script>
     <script src="/static/js/mobile-hover.js"></script>
-    <script src="/static/js/mobile-search-box.js"></script>
     <script src="/static/js/scroll-top.js"></script>
     <script src="/static/js/ufo.js"></script>
     <script src="/static/js/darkmode.js"></script>
     <script src="/static/js/mobile-nav-scroll.js"></script>
     <script src="/static/js/fulltext.js"></script>
     <script src="/static/js/main_comment_toggle.js"></script>
+    <script src="/static/js/infinite_scroll.js"></script>
+    <script src="/static/js/liked.js"></script>
     </body>
 </html>

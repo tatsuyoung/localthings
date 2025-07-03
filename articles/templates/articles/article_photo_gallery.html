@@ -28,26 +28,16 @@
     </div>
 </div>
 <h1>Nice Things</h1>
-<div class="masonry-grid">
-    {% for article in object_list %}
-        {% if article.images.all %}
-            {% with first_image=article.images.all.first %}
-                {% if first_image and 'No-image.png' not in first_image.image.url %}
-                    <div class="masonry-item">
-                        <a href="{{ first_image.image.url }}" data-lightbox="article-images" data-title="{{ article.title }}">
-                            <img src="{{ first_image.image.url }}" alt="{{ article.title }}" loading="lazy"/>
-                        </a>
-                        <div class="link_box">
-                            <a href="{% url 'articles:detail' pk=article.pk %}">
-                                <i class="fas fa-link icon-size"></i>
-                            </a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endwith %}
-        {% endif %}
-    {% endfor %}
+<div class="masonry-grid" id="gallery-container">
+    {% include "articles/partial_gallery_card_list.html" %}
 </div>
-{% include 'accounts/snippet/Class-pagination.html' %}
+<div id="loader">
+    {% include 'articles/snippet/spinner.html' %}
+    <p class="end-message" style="display: none;">これ以上ありません。</p>
+</div>
+<div id="scroll-trigger" style="height: 1px;"></div>
 <div class="global-footer"></div>
+<script>
+    const galleryBaseURL = "{% url 'articles:gallery' %}";
+</script>
 {% endblock %}

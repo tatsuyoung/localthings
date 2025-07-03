@@ -47,7 +47,7 @@ body.dark-mode .articles-description p small {
     color: #000;
 }
 .articles-hover i {
-    color: #000
+    color: gray;
 }
 
 /* Darkmode用：白くする */
@@ -993,10 +993,12 @@ li.logo {
     width: 100%;
     height: 100%;
 }
-.liked_heart:hover {
-    background: rgba(71, 157, 255, 0.12);
+.liked .liked_heart
+{
+    color:var(--main-color);
 }
 
+/* hover */
 .articles-hover {
     width: 50px;
     height: 50px;
@@ -1004,26 +1006,18 @@ li.logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 7px;
     cursor: pointer;
-    box-sizing: border-box;
-    overflow: hidden; /* ← 四角がはみ出さないように */
+    transition: background 0.2s ease;
 }
 
 
-.articles-hover:hover
-{
-    background-color: var(--hover-color);
-}
-
-.heart-circle:hover
-{
-    background: rgba(71, 157, 255, 0.12);
-}
-
-.articles-icon-item-active.liked .heart-circle
-{
-    background:rgba(71, 157, 255, 0.12);
+.articles-hover i {
+    pointer-events: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    transition: color 0.2s ease;
+    color: gray;
 }
 
 .articles-icon-item-active button
@@ -1585,7 +1579,7 @@ li.logo {
 .favorite-articles
 {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .favorite-title

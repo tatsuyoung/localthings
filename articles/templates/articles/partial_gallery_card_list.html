@@ -1,0 +1,4 @@
+<!DOCTYPE html>
+{% for article in articles %}
+    {% include "articles/partial_gallery_card.html" with article=article %}
+{% endfor %}
