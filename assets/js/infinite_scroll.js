@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
     let isLoading = false;
     const loader = document.getElementById("loader");
+    const scrollContainer = document.querySelector(".center-and-right");  // ← 👈 ここ
 
     function loadMoreArticles() {
         if (isLoading) return;
@@ -26,13 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const endMessage = document.querySelector('#loader .end-message');
 
             if (!data.has_next) {
-                window.removeEventListener("scroll", handleScroll);
+                scrollContainer.removeEventListener("scroll", handleScroll);
 
                 if (spinner) spinner.style.display = 'none';
                 if (endMessage) endMessage.style.display = 'block';
-                // ✅ loaderはそのまま表示
             } else {
-                loader.style.display = 'none';  // ✅ 次があれば非表示
+                loader.style.display = 'none';
             }
 
             isLoading = false;
@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleScroll() {
-        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300)) {
+        if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 300) {
             loadMoreArticles();
         }
     }
 
-    window.addEventListener("scroll", handleScroll);
+    scrollContainer.addEventListener("scroll", handleScroll);
 });

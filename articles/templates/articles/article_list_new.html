@@ -153,139 +153,142 @@
                         </li>
                     {% endif %}
                 </ul>
-            <!-- 👇 検索ボックスを挿入する専用エリア -->
-            <div id="search-container" style="display: none;"></div>
+                <!-- 👇 検索ボックスを挿入する専用エリア -->
+                <div id="search-container" style="display: none;"></div>
             </div>
         </div>
-        <!-- Center -->
-        <div class="center" id="main">
-            <div class="center-header">
-                <div class="header-name">
-                    <h3>ホーム</h3>
-                </div>
-                <div class="header-icon-circle">
-                    <div class="header-icon">
-                        <button id="darkModeToggle">
-                            <i class="fas fa-star-and-crescent"></i>
-                        </button>
+        <!-- Right and Reft -->
+        <div class="center-and-right">
+            <!-- Center -->
+            <div class="center" id="main">
+                <div class="center-header">
+                    <div class="header-name">
+                        <h3>ホーム</h3>
+                    </div>
+                    <div class="header-icon-circle">
+                        <div class="header-icon">
+                            <button id="darkModeToggle">
+                                <i class="fas fa-star-and-crescent"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="hero" id="clouds">
-                <div class="cloud top"></div>
-                <div class="cloud mid_1"></div>
-                <div class="cloud mid_2"></div>
-                <div class="cloud mid_3"></div>
-                <div class="cloud bottom"></div>
-                <div class="bird">..</div>
-                <div id="ufo">🛸</div>
-                <div class="title_wrapper">
-                    <h1>Oita Local things</h1>
-                </div>
-                <div class="sub_title">
-                    What's ordinary to one person 
-                    <br>might be extraordinary to another.
-                </div>
-                {% if user.is_authenticated %}
-                <div class="global-footer"></div>
-                {% else %}
-                <div class="hero-btn">
-                    <div class="hero-btn-word">さぁ、はじめよう</div>
-                    <a href="{% url 'accounts:login' %}">Login</a>
-                </div>
-                {% endif %}
-            </div>
-            <div class="article-wrapper">
-                <article class="following-feed">
-                    <!-- {# templates/articles/partial_article_card_list.html #} -->
-                    {% for article in articles %}
-                        {% include "articles/partial_article_card.html" with article=article %}
-                    {% empty %}
-                    <div class="global-tag">
-                        <h3>お探しの検索キーワードは見つかりませんでした。</h3>
+                <div class="hero" id="clouds">
+                    <div class="cloud top"></div>
+                    <div class="cloud mid_1"></div>
+                    <div class="cloud mid_2"></div>
+                    <div class="cloud mid_3"></div>
+                    <div class="cloud bottom"></div>
+                    <div class="bird">..</div>
+                    <div id="ufo">🛸</div>
+                    <div class="title_wrapper">
+                        <h1>Oita Local things</h1>
                     </div>
-                    {% endfor %}
-                </article>
-                <div id="loader">
-                    {% include 'articles/snippet/spinner.html' %}
-                    <p class="end-message" style="display: none;">これ以上ありません。</p>
-                </div>
-            </div>
-                <div class="global-footer"></div>
-        </div>
-        <!-- Right -->
-        <div class="right">
-            <div class="right-wrapper">
-                <div class="favorite-articles">
-                    <div class="favorite-title">
-                        <span>おすすめ</span>
+                    <div class="sub_title">
+                        What's ordinary to one person 
+                        <br>might be extraordinary to another.
                     </div>
-                    {% for favorite in order_like_articles %}
-                    <div class="favorite-wrapper">
-                        <div class="favorite-items">
-                            {% if favorite.category != None %}
-                            <span class="favorite-category">
-                                {{ favorite.category }}
-                            </span>
-                            {% endif %}
-                            <a href="{% url 'articles:detail' pk=favorite.pk %}">
-                                <span>{{ favorite.title | truncatechars_html:10 }}</span>
-                            </a>
-                        </div>
-                        <div class="favorite-thumb">
-                            {% if favorite.images.all %}
-                                {% with first_image=favorite.images.all.first %}
-                                    {% if first_image %}
-                                        <img src="{{ first_image.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
-                                    {% endif %}
-                                {% endwith %}
-                            {% else %}
-                                <img src="/media/No-image.png" loading="lazy" alt="No image"/>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <div class="favorite-info">
-                        <a href="{% url 'articles:ordered_by_likes' %}">
-                            <h5>さらに見る</h5>
-                        </a>
-                    </div>
-                </div>
-                {% if user.is_authenticated %}
-                <div class="users">
-                    <div class="favorite-title">
-                        <span>Users</span>
-                    </div>
-                    {% for user in users %}
-                    {% if request.user != user.user %}
-                    <div class="users-wrapper">
-                        <ul class="users-box">
-                            <li class="users-items">
-                                <a href="{% url 'accounts:profile_detail' user.user %}">
-                                    <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }}avatar">
-                                </a>
-                            </li>
-                            <li class="users-items">
-                                <span>{{ user.user }}</span>
-                            </li>
-                        </ul>
+                    {% if user.is_authenticated %}
+                    <div class="global-footer"></div>
+                    {% else %}
+                    <div class="hero-btn">
+                        <div class="hero-btn-word">さぁ、はじめよう</div>
+                        <a href="{% url 'accounts:login' %}">Login</a>
                     </div>
                     {% endif %}
-                    {% endfor %}
                 </div>
-                {% endif %}
-                <div class="web-info">
-                    <a href="{% url 'about' %}">
-                        <span>利用規約</span>
-                    </a>
-                    <a href="{% url 'privacy-policy' %}">
-                        <span>プライバシーポリシー</span>
-                    </a>
-                    <div class="copyright">
-                        <p>
-                            <i class="far fa-copyright">2025 Local Things</i>
-                        </p>
+                <div class="article-wrapper">
+                    <article class="following-feed">
+                        <!-- {# templates/articles/partial_article_card_list.html #} -->
+                        {% for article in articles %}
+                            {% include "articles/partial_article_card.html" with article=article %}
+                        {% empty %}
+                        <div class="global-tag">
+                            <h3>お探しの検索キーワードは見つかりませんでした。</h3>
+                        </div>
+                        {% endfor %}
+                    </article>
+                    <div id="loader">
+                        {% include 'articles/snippet/spinner.html' %}
+                        <p class="end-message" style="display: none;">これ以上ありません。</p>
+                    </div>
+                </div>
+                    <div class="global-footer"></div>
+            </div>
+            <!-- Right -->
+            <div class="right">
+                <div class="right-wrapper">
+                    <div class="favorite-articles">
+                        <div class="favorite-title">
+                            <span>おすすめ</span>
+                        </div>
+                        {% for favorite in order_like_articles %}
+                        <div class="favorite-wrapper">
+                            <div class="favorite-items">
+                                {% if favorite.category != None %}
+                                <span class="favorite-category">
+                                    {{ favorite.category }}
+                                </span>
+                                {% endif %}
+                                <a href="{% url 'articles:detail' pk=favorite.pk %}">
+                                    <span>{{ favorite.title | truncatechars_html:10 }}</span>
+                                </a>
+                            </div>
+                            <div class="favorite-thumb">
+                                {% if favorite.images.all %}
+                                    {% with first_image=favorite.images.all.first %}
+                                        {% if first_image %}
+                                            <img src="{{ first_image.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% else %}
+                                    <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="favorite-info">
+                            <a href="{% url 'articles:ordered_by_likes' %}">
+                                <h5>さらに見る</h5>
+                            </a>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="users">
+                        <div class="favorite-title">
+                            <span>Users</span>
+                        </div>
+                        {% for user in users %}
+                        {% if request.user != user.user %}
+                        <div class="users-wrapper">
+                            <ul class="users-box">
+                                <li class="users-items">
+                                    <a href="{% url 'accounts:profile_detail' user.user %}">
+                                        <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }}avatar">
+                                    </a>
+                                </li>
+                                <li class="users-items">
+                                    <span>{{ user.user }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="web-info">
+                        <a href="{% url 'about' %}">
+                            <span>利用規約</span>
+                        </a>
+                        <a href="{% url 'privacy-policy' %}">
+                            <span>プライバシーポリシー</span>
+                        </a>
+                        <div class="copyright">
+                            <p>
+                                <i class="far fa-copyright">2025 Local Things</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

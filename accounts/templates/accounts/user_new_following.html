@@ -54,192 +54,195 @@
             <div class="left">
                 {% include 'articles/snippet/left-nav.html' %}
             </div>
-
-            <div class="center" id="main">
-                <div class="center-header">
-                    <div class="header-return">
-                        <a href="{% url 'home' %}">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                    </div>
-                    <div class="header-icon-text-wrapper">
-                        <div class="header-name">
-                        <h2>フォロー中</h2>
+            <!-- Right and Reft -->
+            <div class="center-and-right">
+                <!-- Center -->
+                <div class="center" id="main">
+                    <div class="center-header">
+                        <div class="header-return">
+                            <a href="{% url 'home' %}">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
                         </div>
-                        <div class="header-icon-circle">
-                            <div class="header-icon">
-                                <button id="darkModeToggle" style="display: none;">
-                                    <i class="fas fa-star-and-crescent"></i>
-                                </button>
+                        <div class="header-icon-text-wrapper">
+                            <div class="header-name">
+                            <h2>フォロー中</h2>
+                            </div>
+                            <div class="header-icon-circle">
+                                <div class="header-icon">
+                                    <button id="darkModeToggle" style="display: none;">
+                                        <i class="fas fa-star-and-crescent"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="article-wrapper">
+
+                        <article class="following-feed">
+                            {% for article in articles %}
+                            <div class="following-feed-wrapper">
+                                <ul class="following-articles">
+                                    <li class="articles-item">
+                                        <a href="{% url 'accounts:profile_detail' article.author.username %}">
+                                            <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
+                                        </a>
+                                    </li>
+                                    <li class="articles-item">
+                                        <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
+                                    </li>
+                                </ul>
+                                {% if article.images.all %}
+                                    <div class="articles-thumb">
+                                        <div class="swiper-container">
+                                            <div class="swiper-wrapper">
+                                                {% for img in article.images.all %}
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            <div class="swiper-pagination"></div>
+
+                                            {% if article.images.count > 1 %}
+                                                <div class="swiper-button-prev custom-swiper-button">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </div>
+                                                <div class="swiper-button-next custom-swiper-button">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="articles-caption-inline">
+                                    <span class="username">
+                                        <a href="{% url 'articles:user-posts' article.author.username %}">
+                                        {{ article.author.username }}
+                                        </a>
+                                    </span>
+                                    <span class="snippet-text">
+                                        {{ article.snippet }}
+                                    </span>
+                                    <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
+                                </div>
+                                <div class="articles-icon">
+                                    <ul class="articles-icon-box">
+                                        <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                                            <div class="articles-icon-wrapper">
+                                                <div class="articles-hover heart-circle">
+                                                    <i class="far fa-heart liked_heart"></i>
+                                                </div>
+                                                <div class="articles-sum">
+                                                    {% if article.total_likes %}
+                                                    <span>{{ article.total_likes }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="icon-items">
+                                            <div class="articles-icon-wrapper">
+                                                <div class="articles-hover">
+                                                    <i class="far fa-comment"></i>
+                                                </div>
+
+                                                <div class="articles-sum">
+                                                    {% if article.comments.count %}
+                                                    <span>{{ article.comments.count }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="global-tag">
+                                <h3>フォローしていません。</h3>
+                            </div>
+                            {% endfor %}
+                        </article>
+                    </div>
+                    {% include 'accounts/snippet/pagination.html' %}
+                    <div class="global-footer"></div>
                 </div>
 
 
-                <div class="article-wrapper">
-
-                    <article class="following-feed">
-                        {% for article in articles %}
-                        <div class="following-feed-wrapper">
-                            <ul class="following-articles">
-                                <li class="articles-item">
-                                    <a href="{% url 'accounts:profile_detail' article.author.username %}">
-                                        <img src="{{ article.author.profile.image.url }}" alt="{{ article.author.username }} Avatar" loading="lazy">
-                                    </a>
-                                </li>
-                                <li class="articles-item">
-                                    <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
-                                </li>
-                            </ul>
-                            {% if article.images.all %}
-                                <div class="articles-thumb">
-                                    <div class="swiper-container">
-                                        <div class="swiper-wrapper">
-                                            {% for img in article.images.all %}
-                                                <div class="swiper-slide">
-                                                    <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-
-                                        <div class="swiper-pagination"></div>
-
-                                        {% if article.images.count > 1 %}
-                                            <div class="swiper-button-prev custom-swiper-button">
-                                                <i class="fas fa-chevron-left"></i>
-                                            </div>
-                                            <div class="swiper-button-next custom-swiper-button">
-                                                <i class="fas fa-chevron-right"></i>
-                                            </div>
+                <div class="right">
+                    <div class="right-wrapper">
+                        <div class="favorite-articles">
+                            <div class="favorite-title">
+                                <span>おすすめ</span>
+                            </div>
+                            {% for favorite in order_like_articles %}
+                                <div class="favorite-wrapper">
+                                    <div class="favorite-items">
+                                        {% if favorite.category != None %}
+                                        <span class="favorite-category">
+                                            {{ favorite.category }}
+                                        </span>
                                         {% endif %}
+                                        <a href="{% url 'articles:detail' pk=favorite.pk %}">
+                                            <span>{{ favorite.title | truncatechars_html:10 }}</span>
+                                        </a>
+                                    </div>
+                                    <div class="favorite-thumb">
+                                    {% if favorite.images.all %}
+                                        {% with first_image=favorite.images.all.first %}
+                                            {% if first_image %}
+                                                <img src="{{ first_image.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
+                                            {% endif %}
+                                        {% endwith %}
+                                    {% else %}
+                                        <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                                    {% endif %}
                                     </div>
                                 </div>
-                            {% endif %}
-                            <div class="articles-caption-inline">
-                                <span class="username">
-                                    <a href="{% url 'articles:user-posts' article.author.username %}">
-                                    {{ article.author.username }}
-                                    </a>
-                                </span>
-                                <span class="snippet-text">
-                                    {{ article.snippet }}
-                                </span>
-                                <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
+                            {% endfor %}
+                            <div class="favorite-info">
+                                <a href="{% url 'articles:ordered_by_likes' %}">
+                                    <h5>さらに見る</h5>
+                                </a>
                             </div>
-                            <div class="articles-icon">
-                                <ul class="articles-icon-box">
-                                    <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
-                                        <div class="articles-icon-wrapper">
-                                            <div class="articles-hover heart-circle">
-                                                <i class="far fa-heart liked_heart"></i>
-                                            </div>
-                                            <div class="articles-sum">
-                                                {% if article.total_likes %}
-                                                <span>{{ article.total_likes }}</span>
-                                                {% endif %}
-                                            </div>
-                                        </div>
+                        </div>
+
+                        <div class="users">
+                            <div class="users-title">
+                                <span>Users</span>
+                            </div>
+                            {% for user in users %}
+                            {% if request.user != user.user %}
+                            <div class="users-wrapper">
+                                <ul class="users-box">
+                                    <li class="users-items">
+                                        <a href="{% url 'accounts:profile_detail' user.user %}">
+                                            <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }} Avatar" loading="lazy">
+                                        </a>
                                     </li>
-
-                                    <li class="icon-items">
-                                        <div class="articles-icon-wrapper">
-                                            <div class="articles-hover">
-                                                <i class="far fa-comment"></i>
-                                            </div>
-
-                                            <div class="articles-sum">
-                                                {% if article.comments.count %}
-                                                <span>{{ article.comments.count }}</span>
-                                                {% endif %}
-                                            </div>
-                                        </div>
+                                    <li class="users-items">
+                                        <span>{{ user.user }}</span>
                                     </li>
                                 </ul>
                             </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
-                        {% empty %}
-                        <div class="global-tag">
-                            <h3>フォローしていません。</h3>
-                        </div>
-                        {% endfor %}
-                    </article>
-                </div>
-                {% include 'accounts/snippet/pagination.html' %}
-                <div class="global-footer"></div>
-            </div>
-
-
-            <div class="right">
-                <div class="right-wrapper">
-                    <div class="favorite-articles">
-                        <div class="favorite-title">
-                            <span>おすすめ</span>
-                        </div>
-                        {% for favorite in order_like_articles %}
-                            <div class="favorite-wrapper">
-                                <div class="favorite-items">
-                                    {% if favorite.category != None %}
-                                    <span class="favorite-category">
-                                        {{ favorite.category }}
-                                    </span>
-                                    {% endif %}
-                                    <a href="{% url 'articles:detail' pk=favorite.pk %}">
-                                        <span>{{ favorite.title | truncatechars_html:10 }}</span>
-                                    </a>
-                                </div>
-                                <div class="favorite-thumb">
-                                {% if favorite.images.all %}
-                                    {% with first_image=favorite.images.all.first %}
-                                        {% if first_image %}
-                                            <img src="{{ first_image.image.url }}" loading="lazy" alt="{{ favorite.title }}"/>
-                                        {% endif %}
-                                    {% endwith %}
-                                {% else %}
-                                    <img src="/media/No-image.png" loading="lazy" alt="No image"/>
-                                {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <div class="favorite-info">
-                            <a href="{% url 'articles:ordered_by_likes' %}">
-                                <h5>さらに見る</h5>
+                        <div class="web-info">
+                            <a href="{% url 'about' %}">
+                                <span>利用規約</span>
                             </a>
-                        </div>
-                    </div>
-
-                    <div class="users">
-                        <div class="users-title">
-                            <span>Users</span>
-                        </div>
-                        {% for user in users %}
-                        {% if request.user != user.user %}
-                        <div class="users-wrapper">
-                            <ul class="users-box">
-                                <li class="users-items">
-                                    <a href="{% url 'accounts:profile_detail' user.user %}">
-                                        <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }} Avatar" loading="lazy">
-                                    </a>
-                                </li>
-                                <li class="users-items">
-                                    <span>{{ user.user }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                    <div class="web-info">
-                        <a href="{% url 'about' %}">
-                            <span>利用規約</span>
-                        </a>
-                        <a href="{% url 'privacy-policy' %}">
-                            <span>プライバシーポリシー</span>
-                        </a>
-                        <div class="copyright">
-                            <p>
-                                <i class="far fa-copyright">2025 Local Things</i>
-                            </p>
+                            <a href="{% url 'privacy-policy' %}">
+                                <span>プライバシーポリシー</span>
+                            </a>
+                            <div class="copyright">
+                                <p>
+                                    <i class="far fa-copyright">2025 Local Things</i>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
