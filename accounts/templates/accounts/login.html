@@ -11,7 +11,6 @@
 {% endblock %}
 {% block content %}
 <div class="form-wrapper">
-    <h1>Login</h1>
     <form class="site-form-new" action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}
         <div class="form-item">

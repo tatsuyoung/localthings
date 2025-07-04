@@ -9,33 +9,24 @@
 </a>
 {% endblock %}
 {% block content %}
-<div class="swiper-book-mark">
-  <div class="swiper-container swiper-container-book-mark">
-    <div class="swiper-wrapper swiper-wrapper-book-mark">
-      {% for book_mark in my_book_mark %}
-        <div class="swiper-slide swiper-slide-book-mark">
-          <div class="swiper-card-book-mark">
-            <div class="sliderText">
-              <h3>{{ book_mark.title | truncatechars_html:20 }}</h3>
-            </div>
-            <div class="sliderUsername-book-mark">
-              <p>{{ book_mark.author }}</p>
-            </div>
-            <div class="sliderContent">
-              <p>{{ book_mark.snippet }}</p>
-              <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
-            </div>
-          </div>
+<div class="masonry-book-mark">
+  {% for book_mark in my_book_mark %}
+    <div class="masonry-item-book-mark">
+      <div class="masonry-card-book-mark">
+        <div class="masonry-title">
+          <h3>{{ book_mark.title|truncatechars_html:20 }}</h3>
         </div>
-      {% empty %}
-        <h4>No Book Marks</h4>
-      {% endfor %}
+        <div class="masonry-username">
+          <p>{{ book_mark.author }}</p>
+        </div>
+        <div class="masonry-snippet">
+          <p>{{ book_mark.snippet }}</p>
+          <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
+        </div>
+      </div>
     </div>
-    <div class="swiper-pagination swiper-pagination-book-mark"></div>
-  </div>
+  {% empty %}
+    <h4>No Book Marks</h4>
+  {% endfor %}
 </div>
-{% endblock %}
-{% block script %}
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<script src="/static/js/swiper.js"></script>
 {% endblock %}

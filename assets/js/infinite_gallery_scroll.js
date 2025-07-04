@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const scrollTrigger = document.getElementById("scroll-trigger");
     const loader = document.getElementById("loader");
     const endMessage = loader.querySelector(".end-message");
+    const spinner = loader.querySelector(".spinner");
 
     let currentPage = 1;
     let loading = false;
@@ -32,14 +33,26 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(data => {
             galleryContainer.insertAdjacentHTML("beforeend", data.html);
-            loading = false;
-            loader.style.display = "none";
 
             if (!data.has_next) {
                 observer.unobserve(scrollTrigger);
-                endMessage.style.display = "block";
+
+                if (spinner) {
+                    spinner.style.display = "none"; // ✅ スピナーだけ消す
+                }
+                if (endMessage) {
+                    endMessage.style.display = "block"; // ✅ end-message を表示
+                }
+
                 scrollTrigger.remove();
+            } else {
+                // 次があるときだけspinnerを消す
+                if (loader) {
+                    loader.style.display = "none";
+                }
             }
+
+            loading = false;
         })
         .catch(error => {
             console.error("読み込み中にエラーが発生しました:", error);
