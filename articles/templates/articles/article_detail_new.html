@@ -61,17 +61,6 @@
                 </div>
             {% endif %}
             </div>
-
-            <!-- <div class="mobile-nav-top-link">
-                <div class="mobile-nav-top-search">
-                   <form id="search" class="mobile-search" method="GET" action="{% url 'articles:list' %}">
-                        <i class="fas fa-search"></i>
-                        <input class="mobile-search-input" type="text" name="q" value="{{ request.GET.q }}" required/>
-                        <label for="search"></label>
-                    </form>
-                </div>
-            </div> -->
-
             <div class="mobile-nav-top-link">
             <a href="{% url 'home' %}">
                 <div class="mobile-wrapper_circle">
@@ -342,6 +331,56 @@
             }
 
             setDeleteHandlers(); // 初期化時も実行
+        });
+        </script>
+        <!-- Book Mark -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 全てのブックマークボタンを取得
+            const bookmarkButtons = document.querySelectorAll(".btn-book_mark");
+
+            bookmarkButtons.forEach(function (button) {
+                button.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const articleId = this.getAttribute("name"); // title ではなく ID を使ったほうが確実
+                const icon = this.querySelector("i");
+
+                fetch(`/articles/book_mark/${articleId}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data.message); // 任意でメッセージをトースト表示などに使える
+                    icon.classList.toggle("fas"); // 塗りつぶし（ON）
+                    icon.classList.toggle("far"); // 枠だけ（OFF）
+                })
+                .catch((error) => {
+                    console.error("ブックマーク処理中にエラー:", error);
+                });
+                });
+            });
+
+            // ✅ CSRFトークン取得関数（Django向け）
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Cookie名が一致しているか確認
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                    }
+                }
+                }
+                return cookieValue;
+            }
         });
         </script>
         <script src="/static/js/app.js"></script>

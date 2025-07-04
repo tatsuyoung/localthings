@@ -24,7 +24,7 @@ urlpatterns = [
     #path('<int:like_id>/like/', views.like_button, name='like_button'),
     path('like/<int:like_id>/', views.like_button, name='like_button'),
     # Book mark
-    path('<int:book_mark_id>/book_mark/', views.book_mark, name='book_mark'),
+    path('book_mark/<int:article_id>/', views.book_mark, name='book_mark'),
     path('my_book_mark_list/', views.book_mark_list, name='book_mark_list'),
     # User
     path('<int:pk>/user_detail', views.users_detail, name='users_detail'),

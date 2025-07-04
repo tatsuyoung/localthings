@@ -9,20 +9,15 @@
 </a>
 {% endblock %}
 {% block content %}
-<div class="masonry-book-mark">
+<div class="bookmark-grid">
   {% for book_mark in my_book_mark %}
-    <div class="masonry-item-book-mark">
-      <div class="masonry-card-book-mark">
-        <div class="masonry-title">
-          <h3>{{ book_mark.title|truncatechars_html:20 }}</h3>
-        </div>
-        <div class="masonry-username">
-          <p>{{ book_mark.author }}</p>
-        </div>
-        <div class="masonry-snippet">
-          <p>{{ book_mark.snippet }}</p>
-          <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
-        </div>
+    <div class="bookmark-card">
+      <div class="bookmark-username">
+        <p>{{ book_mark.author }}</p>
+      </div>
+      <div class="bookmark-snippet">
+        <p>{{ book_mark.snippet }}</p>
+        <a href="{% url 'articles:detail' pk=book_mark.pk %}">Favorite</a>
       </div>
     </div>
   {% empty %}

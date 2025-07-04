@@ -303,23 +303,21 @@ def book_mark_list(request):
 
 
 @require_POST
-def book_mark(request, book_mark_id):
+def book_mark(request, article_id):
     if not request.user.is_authenticated:
         return JsonResponse({'message': 'Please log in.'}, status=403)
 
-    if request.method == 'POST':
-        user         = request.user
-        title        = request.POST.get('title', None)
-        article      = get_object_or_404(Article, title=title, id=book_mark_id)
+    article = get_object_or_404(Article, id=article_id)
+    user = request.user
 
-        if article.book_mark.filter(id=user.id).exists():
-            article.book_mark.remove(user)
-            message = 'Book Markから外しました。'
-        else:
-            article.book_mark.add(user)
-            message = 'Book Markしました。'
-    context = dict(message=message)
-    return HttpResponse(json.dumps(context), content_type='application/json')
+    if article.book_mark.filter(id=user.id).exists():
+        article.book_mark.remove(user)
+        message = 'Book Markから外しました。'
+    else:
+        article.book_mark.add(user)
+        message = 'Book Markしました。'
+
+    return JsonResponse({'message': message})
 
 # Liked
 @require_POST

@@ -198,6 +198,10 @@ body.dark-mode .write-new button {
 body.dark-mode .write-new span {
     color: #aaa;
     }
+/* book mark p */
+body.dark-mode .bookmark-snippet p {
+    color: #1e1e1e;
+}
 
 /* main */
 body {
@@ -1752,42 +1756,49 @@ li.logo {
 }
 
 /* Bookmark*/
-.masonry-book-mark {
-  column-count: 3;
-  column-gap: 1rem;
+.bookmark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   padding: 1rem;
 }
 
-.masonry-item-book-mark {
-  break-inside: avoid;
-  margin-bottom: 1rem;
-}
-
-.masonry-card-book-mark {
+.bookmark-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ✅ 上下に要素を分ける */
+  height: 260px;                   /* ✅ カード高さを固定（お好みで調整） */
+  padding: 1rem;
   background: #fafafa;
   border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.masonry-title h3 {
+.bookmark-username {
   font-size: 1.1rem;
-  margin: 0 0 0.5rem;
-  color: #333;
-}
-
-.masonry-username {
-  font-size: 0.9rem;
-  color: #777;
+  color: #1e1e1e;
   margin-bottom: 0.5rem;
 }
 
-.masonry-snippet p {
+.bookmark-snippet {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* ✅ 余白を埋める */
+}
+
+.bookmark-snippet p {
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* ✅ 最大4行まで表示 */
+  -webkit-box-orient: vertical;
 }
 
-.masonry-snippet a {
+.bookmark-snippet a {
+  margin-top: auto; /* ✅ 下に固定する */
   display: inline-block;
   font-size: 0.85rem;
   padding: 6px 12px;
@@ -1795,17 +1806,7 @@ li.logo {
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
-}
-
-@media (max-width: 1000px) {
-  .masonry-book-mark {
-    column-count: 2;
-  }
-}
-@media (max-width: 600px) {
-  .masonry-book-mark {
-    column-count: 1;
-  }
+  width: 50%;
 }
 
 
@@ -3977,6 +3978,9 @@ ul{
     {
         width: 100%;
     }
+    .bookmark-grid {
+    grid-template-columns: repeat(2, 1fr);
+    }
 }
 /* スマホ（幅600px未満）専用のナビやUIパーツを、
 大きな画面（タブレットやPC）では非表示 */
@@ -4102,6 +4106,9 @@ ul{
     }
     body:not(.dark-mode) .user_profile_card li {
     color: #f5f5f5;
+    }
+    body:not(.dark-mode) .bookmark-snippet p {
+    color: #1e1e1e;
     }
 
 }
