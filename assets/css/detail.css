@@ -8,8 +8,7 @@
      box-sizing: border-box;
 }
 
-*
-{
+* {
     padding: 0;
     margin : 0;
 }
@@ -162,6 +161,7 @@ body.dark-mode .write-new span {
 body {
   background-color: var(--bg-color, #fff);
   color: var(--text-color, #000);
+  overflow-x: hidden;
 }
 
 a {
@@ -347,69 +347,6 @@ body.dark-mode .mobile-logo_2 {
     appearance: none;
 }
 
-.mobile-nav-top-search
-{
-    background: rgba(234, 242, 245, 0.62);
-    width: 100%;
-    height: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 15px;
-    display: flex ;
-    justify-content: center ;
-    align-items: center ;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-.mobile-search input[type="text"]
-{
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    background: none;
-    height: 100%;
-    width: 100%;
-    vertical-align: middle ;
-}
-
-.mobile-search-input{
-    width: 100%;
-    height: 100%;
-    position: relative ;
-    font-size: 16px;
-    margin-left: 3px;
-}
-
-.mobile-search i
-{
-    font-size: 18px;
-    margin-left: 10px;
-    vertical-align: middle ;
-    color: gray ;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
-}
-
-.mobile-search.active
-{
-    background: #fff;
-    border: 1px solid var(--main-color);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    width: 100%;
-    height: 100%;
-}
-
-.mobile-search.active i
-{
-    color: var(--main-color);
-}
 
 /* mobile placeholder */
 
@@ -712,6 +649,7 @@ li.logo {
     width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
     max-width: 100%;
     margin: 0 auto; /* 中央寄せ */
+    transition: transform 0.3s ease;
 }
 .following-articles a:hover {
     text-decoration: none;
@@ -757,11 +695,18 @@ li.logo {
 }
 
 /* articles thumbnail */
-.articles-thumb {
+/* .articles-thumb {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+} */
+/* 通常カードの画像サイズ */
+.articles-thumb img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 2px;
 }
 
 .articles-thumb .swiper-container {
@@ -789,6 +734,10 @@ li.logo {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.swiper-slide img {
+    height: 300px;
 }
 
 /* --- 矢印ボタンスタイル --- */
@@ -1520,15 +1469,13 @@ li.logo {
 /* right style */
 
 .right {
-    width: 30%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
+  width: 30%;
+  padding: 1rem;
+  flex-shrink: 0;
 }
 .right-wrapper {
-    position: fixed;
-    margin: 10px;
+    position: relative;
+    margin-top: 0;
 }
 /* search box */
 
@@ -2006,52 +1953,6 @@ ul{
     }
 
 /* @media */
-@media only screen and (max-width: 768px) {
-    .center {
-    float: none;
-    width: 100%;
-    overflow-x: visible;
-    }
-    .pager .pagination li{
-    display: none;
-    }
-    .pager .pagination li.pre,
-    .pager .pagination li.next{
-    display:            inline-block;
-    width:                      42px;
-    height:                     42px;
-    text-align:               center;
-    margin:                   0 auto;
-    }
-    .pager .pagination li.pre a,
-    .pager .pagination li.next a{
-    width:                      100%;
-    text-align:               center;
-    }
-    /* icons */
-    .articles-icon-box-items {
-    display: flex;
-    gap: 8px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    width: 100%; /* ← 幅を最大に */
-    justify-content: flex-end;
-    }
-
-    @media (max-width: 480px) {
-    .articles-icon-box-items {
-    width: 100%;
-    justify-content: space-between; /* ← スマホでは均等配置が自然 */
-    gap: 6px;
-    }
-
-    .articles-hover i {
-    font-size: 16px; /* 少し小さく */
-    }
-    }
-}
-
 /* ipad 横 */
 /* iPadサイズではラベルを非表示に */
 @media (max-width: 1000px) {
@@ -2088,33 +1989,71 @@ ul{
         margin-left: 0;
     }
     .left-icons-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
     }
     .icon-item {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .icon-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
 
     .icon-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
     .web-info, .web-info a span{
         font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .left {
+        width:15%;
+    }
+    .center-and-right {
+        width: 85%;
+    }
+    .center {
+    width: 100%;
+    }
+    .pager .pagination li{
+    display: none;
+    }
+    .pager .pagination li.pre,
+    .pager .pagination li.next{
+    display:            inline-block;
+    width:                      42px;
+    height:                     42px;
+    text-align:               center;
+    margin:                   0 auto;
+    }
+    .pager .pagination li.pre a,
+    .pager .pagination li.next a{
+    width:                      100%;
+    text-align:               center;
+    }
+    /* icons */
+    .articles-icon-box-items {
+    display: flex;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%; /* ← 幅を最大に */
+    justify-content: flex-end;
     }
 }
 
@@ -2148,24 +2087,33 @@ ul{
     {
         display:none;
     }
-    .center
+    .center-and-right
     {
         width: 100%;
-        padding: 0px;
+        margin-top: 0px;
+    }
+    .center {
+        width: 100%;
+        padding: 0;
     }
     .following-feed-wrapper {
         width:100%;
     }
-    .mobile-nav
-    {
+    .articles-icon-box-items {
+    width: 100%;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    }
+    .following-feed-wrapper {
+        width:100%;
+    }
+    .mobile-nav {
         z-index: 10;
     }
-    .title_wrapper
-    {
+    .title_wrapper {
         font-size: 20px;
     }
-    .sub_title
-    {
+    .sub_title {
         margin-top: 20px;
     }
     .favorite-title span {
@@ -2180,7 +2128,7 @@ ul{
     .articles-time {
         padding-left: 6px;
     }
-    }
+}
 
 
 @media (min-width: 600px)
@@ -2199,6 +2147,17 @@ ul{
         display:none;
     }
 }
+@media (max-width: 480px) {
+    .articles-icon-box-items {
+    width: 100%;
+    justify-content: space-between; /* ← スマホでは均等配置が自然 */
+    gap: 6px;
+    }
+
+    .articles-hover i {
+    font-size: 16px; /* 少し小さく */
+    }
+    }
 
 /* comment responsive */
 
@@ -2266,8 +2225,10 @@ ul{
 
 /* articles icon text box responsive */
 
-@media (max-width: 600px)
-{
+@media (max-width: 600px) {
+    body {
+    overflow-x: hidden; /* ページ全体の横スクロール防止 */
+    }
    .articles-icon-box
     {
         justify-content: space-between ;

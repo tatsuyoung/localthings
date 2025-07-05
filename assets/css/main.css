@@ -353,70 +353,6 @@ body.dark-mode .mobile-logo_2 {
     appearance: none;
 }
 
-.mobile-nav-top-search
-{
-    background: rgba(234, 242, 245, 0.62);
-    width: 100%;
-    height: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 15px;
-    display: flex ;
-    justify-content: center ;
-    align-items: center ;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-.mobile-search input[type="text"]
-{
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    background: none;
-    height: 100%;
-    width: 100%;
-    vertical-align: middle ;
-    line-height: normal ;
-}
-
-
-.mobile-search-input {
-    width: 100%;
-    height: 100%;
-    position: relative ;
-    font-size: 16px;
-    margin-left: 3px;
-}
-
-.mobile-search i
-{
-    font-size: 18px;
-    margin-left: 10px;
-    vertical-align: middle ;
-    color: gray ;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 1px #fff;
-}
-
-.mobile-search-input .active {
-    background: #fff;
-    border: 1px solid var(--main-color);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    width: 100%;
-    height: 100%;
-}
-
-.mobile-search.active i
-{
-    color: var(--main-color);
-}
 
 /* mobile placeholder */
 
@@ -1070,6 +1006,7 @@ li.logo {
     object-fit: cover;
     width: 100%;
     border-radius: 2px;
+    touch-action: manipulation; /* ✅ ズーム可能にする */
 }
 
 .articles-thumb .swiper-container {
@@ -1101,6 +1038,7 @@ li.logo {
 
 .following-feed-wrapper.large-card .swiper-slide img {
     height: 500px;
+    touch-action: manipulation; /* ✅ ズーム可能にする */
 }
 
 .swiper-slide img {
