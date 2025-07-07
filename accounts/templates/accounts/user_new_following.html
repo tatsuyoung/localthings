@@ -5,7 +5,8 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!-- pinch in out -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
         <title>User Following Feed</title>
         <!--  favicon  -->
          <link rel="icon" href="{% static 'favicon.ico' %}">
@@ -249,6 +250,13 @@
             </div>
         </div>
         {% include 'articles/snippet/mobile-nav-footer.html' %}
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof initializeSwipers === 'function') {
+                initializeSwipers();
+            }
+        });
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
         <script src="/static/js/swiper-images.js"></script>
         <script src="/static/js/app.js"></script>

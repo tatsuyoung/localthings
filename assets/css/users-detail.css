@@ -135,10 +135,32 @@ body.dark-mode .snippet-text {
 body.dark-mode .read-more {
     color: #cdcbcb;
 }
-/* main */
+
+/* Debug */
+/* * {
+  outline: 1px solid red;
+} */
+
+/* Main */
 body {
-  background-color: var(--bg-color, #fff);
-  color: var(--text-color, #000);
+    font-family: 
+    "Arial", 
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "Osaka",
+    "メイリオ",
+    "Meiryo",
+    "MS Ｐゴシック",
+    "MS PGothic",
+    sans-serif;
+    background-color: var(--bg-color, #fff);
+    color: var(--text-color, #000);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;    /* 縦スクロールは許可（これが必要） */
+    touch-action: auto;  /* ← これもズーム有効化の鍵 */
 }
 
 a {
@@ -161,20 +183,6 @@ button {
 }
 .fas {
   color: var(--text-color);
-}
-
-/* main */
-body {
-    font-family: 
-    "Arial", 
-    "ヒラギノ角ゴ Pro W3",
-    "Hiragino Kaku Gothic Pro",
-    "Osaka",
-    "メイリオ",
-    "Meiryo",
-    "MS Ｐゴシック",
-    "MS PGothic",
-    sans-serif;
 }
 
 ul
@@ -1046,15 +1054,24 @@ li.logo {
     text-decoration: underline;
 }
 /* atcicles icons */
+.articles-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.edit-icon-item {
+    color: gray;
+    margin-left: auto; /* ← 右端に寄せる */
+     margin-left: auto !important;
+}
+
 .articles-icon
 {
     margin:10px;
-}
-
-.icon-items
-{
-    padding-right: 2px;
-    color: gray ;
 }
 
 .icon-items a
@@ -1067,11 +1084,28 @@ li.logo {
     margin-left: 4px;
 }
 
-.icon-items .fa-edit:hover
-{
-    color: rgb(23, 191, 99);
+/* edit */
+/* アイコン色 */
+.edit-icon-item i {
+    color: gray;
 }
 
+/* 背景を edit-circle に、アイコン色を i に */
+.edit-circle:hover {
+    background-color: rgba(23, 191, 99, 0.12);
+}
+
+.articles-hover.edit-circle a {
+    background-color: transparent;
+    display: flex;           /* iタグが中央に来るように */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+/* liked */
 .liked .liked_heart
 {
     color:var(--main-color);
@@ -1085,12 +1119,17 @@ li.logo {
 
 .articles-icon-wrapper {
   display: flex;
-  align-items: center;   /* 縦方向中央揃え */
-  gap: 2px;              /* アイコンと数字の間隔 */
+  align-items: center;  
+  gap: 2px;              
   padding-right: 10px;
 }
+.articles-icon-wrapper i {
+    font-size: 23px;
+    color: gray;
+}
 
-.articles-hover.heart-circle {
+.articles-hover,
+.heart-circle {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -168,9 +168,14 @@
                             </div>
                         {% endif %}
                         <div class="articles-description">
-                            <a href="{% url 'articles:detail' pk=article.pk %}">
-                                <p>{{ article.snippet }}<small>続きを読む</small></p>
-                            </a>
+                            <!-- クリックで展開するテキスト部分 -->
+                            <span class="snippet-text expandable"
+                                data-fulltext="{{ article.body|escape }}"
+                                data-snippet="{{ article.snippet|escape }}">
+                            {{ article.snippet }}
+                            </span>
+                            <!-- クリックで detail ページへ遷移 -->
+                            <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                         </div>
                         <div class="articles-icon">
                             <ul class="articles-icon-box">
@@ -205,7 +210,6 @@
                                         </div>
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -298,6 +302,13 @@
     </div>
 </div>
 {% include 'articles/snippet/mobile-nav-footer.html' %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (typeof initializeSwipers === 'function') {
+            initializeSwipers();
+        }
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="/static/js/swiper-images.js"></script>
 <script src="/static/js/app.js"></script>
@@ -306,5 +317,6 @@
 <script src="/static/js/mobile-search-box.js"></script>
 <script src="/static/js/darkmode.js"></script>
 <script src="/static/js/mobile-nav-scroll.js"></script>
+<script src="/static/js/fulltext.js"></script>
 </body>
 </html>
