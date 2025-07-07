@@ -1,6 +1,5 @@
 function initializeSwipers() {
     document.querySelectorAll('.swiper-container').forEach(function (container) {
-        // すでに初期化済みならスキップ（data-initialized=true で判定）
         if (container.dataset.initialized === 'true') return;
 
         const swiper = new Swiper(container, {
@@ -28,19 +27,38 @@ function initializeSwipers() {
         function updateNavVisibility(swiperInstance) {
             const prevBtn = swiperInstance.params.navigation.prevEl;
             const nextBtn = swiperInstance.params.navigation.nextEl;
-            const isBeginning = swiperInstance.isBeginning;
-            const isEnd = swiperInstance.isEnd;
 
-            if (prevBtn) prevBtn.style.display = isBeginning ? 'none' : 'flex';
-            if (nextBtn) nextBtn.style.display = isEnd ? 'none' : 'flex';
+            if (prevBtn) prevBtn.style.display = swiperInstance.isBeginning ? 'none' : 'flex';
+            if (nextBtn) nextBtn.style.display = swiperInstance.isEnd ? 'none' : 'flex';
         }
 
-        // ✅ 初期化済みフラグ追加
+        // ✅ ピンチズーム対応：ナビ・ページネーション両方制御
+        let isZooming = false;
+        const prevBtn = container.querySelector('.swiper-button-prev');
+        const nextBtn = container.querySelector('.swiper-button-next');
+        const pagination = container.querySelector('.swiper-pagination');
+
+        container.addEventListener('touchstart', function (e) {
+            if (e.touches.length === 2) {
+                isZooming = true;
+                swiper.allowTouchMove = false;
+
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (pagination) pagination.style.display = 'none';
+            }
+        }, { passive: true });
+
+        container.addEventListener('touchend', function (e) {
+            if (isZooming && e.touches.length < 2) {
+                isZooming = false;
+                swiper.allowTouchMove = true;
+
+                updateNavVisibility(swiper);
+                if (pagination) pagination.style.display = 'block';
+            }
+        }, { passive: true });
+
         container.dataset.initialized = 'true';
     });
 }
-
-// ✅ 初回ロード時に実行
-window.addEventListener('load', function () {
-    initializeSwipers();
-});
