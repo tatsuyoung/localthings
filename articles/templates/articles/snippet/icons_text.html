@@ -7,20 +7,19 @@
             <div class="articles-icon-wrapper">
                 {% if article.total_likes %}
                     <div class="articles-sum">
-                        <span>{{ article.total_likes }}</span>
+                        <span class="like-count" id="like-count-{{ article.id }}">{{ article.total_likes }}</span>
                     </div>
-                    <span class="icon-description">Likes</span>
+                    <span class="icon-description">いいね!</span>
                 {% endif %}
             </div>
         </li>
-
         <li class="icon-items">
            <div class="articles-icon-wrapper">
                {% if article.comments.count %}
                     <div class="articles-sum">
                         <span>{{ article.comments.count }}</span>
                     </div>
-                    <span class="icon-description">Comments</span>
+                    <span class="icon-description">コメント</span>
                {% endif %}
            </div>
         </li>

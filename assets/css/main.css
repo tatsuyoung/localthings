@@ -163,14 +163,32 @@ body.dark-mode .write-new span {
     color: #aaa;
     }
 
-/* main */
+
+/* Debug */
+/* * {
+  outline: 1px solid red;
+} */
+
+/* Main */
 body {
-  background-color: var(--bg-color, #fff);
-  color: var(--text-color, #000);
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* 全体ではなく center+right を scroll させる */
+    font-family: 
+    "Arial", 
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "Osaka",
+    "メイリオ",
+    "Meiryo",
+    "MS Ｐゴシック",
+    "MS PGothic",
+    sans-serif;
+    background-color: var(--bg-color, #fff);
+    color: var(--text-color, #000);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;    /* 縦スクロールは許可（これが必要） */
+    touch-action: auto;  /* ← これもズーム有効化の鍵 */
 }
 
 a {
@@ -193,19 +211,6 @@ button {
 }
 .fas {
   color: var(--text-color);
-}
-
-body {
-    font-family:
-    "Arial", 
-    "ヒラギノ角ゴ Pro W3",
-    "Hiragino Kaku Gothic Pro",
-    "Osaka",
-    "メイリオ",
-    "Meiryo",
-    "MS Ｐゴシック",
-    "MS PGothic",
-    sans-serif;
 }
 
 ul {
@@ -584,7 +589,6 @@ li.logo {
 }
 
 /* center style */
-
 .center {
   width: 70%;
   padding: 3rem;
@@ -942,7 +946,9 @@ li.logo {
 }
 
 /* articles */
-
+.username a {
+    font-size: 16px;
+}
 .following-feed-wrapper {
     width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
     max-width: 100%;
@@ -1007,6 +1013,7 @@ li.logo {
     width: 100%;
     border-radius: 2px;
     touch-action: manipulation; /* ✅ ズーム可能にする */
+    display: block;
 }
 
 .articles-thumb .swiper-container {
@@ -1019,10 +1026,12 @@ li.logo {
 }
 
 .articles-thumb .swiper-wrapper {
+    width: 100%;
     height: 100%;
 }
 
 .articles-thumb .swiper-slide {
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -1043,6 +1052,22 @@ li.logo {
 
 .swiper-slide img {
     height: 300px;
+    touch-action: manipulation; /* ✅ ズーム可能にする */
+}
+
+.swiper-container {
+  width: 100%;
+  overflow: hidden;
+}
+.swiper-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.swiper-slide {
+  flex: 0 0 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* --- SWiper 矢印ボタンスタイル --- */
@@ -1172,44 +1197,48 @@ li.logo {
 }
 
 /* articles icons */
-.articles-icon
-{
-    margin:10px;
+.articles-icon {
+    display: flex;
+    justify-content: space-between;  /* 左右に分ける */
+    align-items: center;
+    margin: 10px;
 }
 
-.icon-items
-{
-    color: gray ;
-}
-
-.liked .liked_heart
-{
-    color:var(--main-color);
-}
-
-.articles-icon ul li
-{
-    margin: 0;
-}
-
-.articles-icon-wrapper
-{
-    display: flex ;
-    width: 80px;
-    height: 50px;
-    justify-content: left;
-    align-items: center ;
+.articles-icon-left ul {
+    display: flex;
+    gap: 8px;
     margin: 0;
     padding: 0;
+    list-style: none;
 }
-.articles-icon-wrapper i {
+
+.articles-icon-wrapper {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.articles-icon-wrapper i,
+.articles-icon-right i {
     font-size: 23px;
-}
-.articles-icon-wrapper button i {
     color: gray;
 }
-.articles-icon-wrapper a {
-    color:gray;
+
+.liked .liked_heart {
+    color: var(--main-color);
+}
+
+.articles-icon-right {
+    margin-right: 10px;
+}
+
+.btn-bookmark {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.btn-book_mark i.fas.fa-bookmark {
+    color: var(--main-color);
 }
 
 /* hover */
@@ -1910,11 +1939,10 @@ li.logo {
     width: 100%;
     height: auto;
     margin-top: 20px;
-    margin-left: 6px;
-    margin-right: 6x;
 }
 .users-wrapper {
-    padding: 8px 10px 8px 10px;
+  box-sizing: border-box;
+  padding: 8px 10px;
 }
 
 .users-box {

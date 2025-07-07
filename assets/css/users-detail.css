@@ -1248,11 +1248,10 @@ right {
     width: 100%;
     height: auto;
     margin-top: 20px;
-    margin-left: 6px;
-    margin-right: 6x;
 }
 .users-wrapper {
-    padding: 8px 10px 8px 10px;
+  box-sizing: border-box;
+  padding: 8px 10px;
 }
 
 .users-box {

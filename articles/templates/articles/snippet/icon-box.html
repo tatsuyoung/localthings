@@ -27,9 +27,12 @@
         <li class="articles-icon-item-active">
             <div class="articles-icon-items-wrapper">
                 <div class="articles-hover">
-                    <a class="btn-book_mark" id="book_mark" name="{{ article.id }}">
-                        <i class="{% if user in article.book_mark.all %}fas{% else %}far{% endif %} fa-bookmark"></i>
-                    </a>
+                    <!-- Bookmark icon -->
+                    <button type="button"
+                            class="btn-book_mark"
+                            data-id="{{ article.id }}">
+                        <i class="{% if request.user in article.book_mark.all %}fas{% else %}far{% endif %} fa-bookmark"></i>
+                    </button>
                 </div>
             </div>
         </li>

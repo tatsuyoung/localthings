@@ -157,11 +157,31 @@ body.dark-mode .write-new span {
     color: #aaa;
     }
 
-/* main */
+/* Debug */
+/* * {
+  outline: 1px solid red;
+} */
+
+/* Main */
 body {
-  background-color: var(--bg-color, #fff);
-  color: var(--text-color, #000);
-  overflow-x: hidden;
+    font-family: 
+    "Arial", 
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "Osaka",
+    "メイリオ",
+    "Meiryo",
+    "MS Ｐゴシック",
+    "MS PGothic",
+    sans-serif;
+    background-color: var(--bg-color, #fff);
+    color: var(--text-color, #000);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;  /* 横スクロールは防ぐ */
+    overflow-y: auto;    /* 縦スクロールは許可（これが必要） */
+    touch-action: auto;  /* ← これもズーム有効化の鍵 */
 }
 
 a {
@@ -184,20 +204,6 @@ button {
 }
 .fas {
   color: var(--text-color);
-}
-
-/* main */
-body {
-    font-family: 
-    "Arial", 
-    "ヒラギノ角ゴ Pro W3",
-    "Hiragino Kaku Gothic Pro",
-    "Osaka",
-    "メイリオ",
-    "Meiryo",
-    "MS Ｐゴシック",
-    "MS PGothic",
-    sans-serif;
 }
 
 ul
@@ -578,7 +584,7 @@ li.logo {
 .center-and-right {
   display: flex;
   height: 100vh;
-  overflow-y: auto; /* ✅ スクロールはここ */
+  overflow-y: auto;
   width: 80%;
   flex-grow: 1;
 }
@@ -657,6 +663,10 @@ li.logo {
     color: inherit;
 }
 
+.article-wrapper {
+    width: 100%;
+}
+
 .article-wrapper ul li
 {
     text-decoration: none ;
@@ -695,18 +705,14 @@ li.logo {
 }
 
 /* articles thumbnail */
-/* .articles-thumb {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-} */
 /* 通常カードの画像サイズ */
 .articles-thumb img {
-    height: 300px;
+    height: auto;
     object-fit: cover;
-    width: 100%;
+    max-width: 100%;
     border-radius: 2px;
+    touch-action: manipulation; /* ✅ ズーム可能にする */
+    display: block;
 }
 
 .articles-thumb .swiper-container {
@@ -719,10 +725,12 @@ li.logo {
 }
 
 .articles-thumb .swiper-wrapper {
+    width: 100%;
     height: 100%;
 }
 
 .articles-thumb .swiper-slide {
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -738,6 +746,22 @@ li.logo {
 
 .swiper-slide img {
     height: 300px;
+    touch-action: manipulation; /* ✅ ズーム可能にする */
+}
+
+.swiper-container {
+  width: 100%;
+  overflow: hidden;
+}
+.swiper-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.swiper-slide {
+  flex: 0 0 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* --- 矢印ボタンスタイル --- */
@@ -798,10 +822,10 @@ li.logo {
 }
 
 /* article description */
-.articles-description
+/* .articles-description
 {
     margin: 14px;
-}
+} */
 
 .articles-description p
 {
@@ -812,6 +836,8 @@ li.logo {
     line-height: 1.8125;
     color: #333;
     letter-spacing:0.05em;
+    overflow-wrap: break-word;
+    padding-left: 10px;
 }
 
 .articles-description a
@@ -837,10 +863,6 @@ li.logo {
 
 .articles-icon-box
 {
-    /* border-top-width: 1px;
-    border-top-style: solid; */
-    /* border-top-color: rgb(230, 236, 240); */
-    /* margin-top: calc(5px); */
     display: flex ;
     padding-top: 10px;
 }
@@ -876,12 +898,11 @@ li.logo {
 
 .articles-icon
 {
-    margin:10px;
+    margin:10px 0;
 }
 
 .icon-items
 {
-    padding-right: 2px;
     color: gray ;
 }
 
@@ -890,22 +911,21 @@ li.logo {
     margin: 0;
 }
 
-.articles-icon-wrapper
-{
-    display: flex ;
-    width: 130px;
+.articles-icon-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
     height: 50px;
-    justify-content: left;
-    align-items: center ;
-    margin: 0;
+    justify-content: flex-start;
+    align-items: center;
     padding: 0;
-    margin-right: -20px;
+    margin: 0;
+    /* widthは指定しないか、min-contentなどで自動に */
 }
 
 .icon-description
 {
     font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .articles-sum
@@ -913,8 +933,8 @@ li.logo {
     display: inline-block;
     justify-content: center ;
     align-items: center ;
-    margin-left: 3px;
     font-size: 16px;
+    padding: 10px;
 }
 
 
@@ -934,7 +954,7 @@ li.logo {
     width: 100%;
     height: 50px;
     display: flex ;
-    justify-content: space-between ;
+    justify-content: space-between;
     justify-items: center ;
     align-items: center ;
     margin-top: calc(5px);
@@ -1425,11 +1445,8 @@ li.logo {
     word-break: break-word;
     overflow-wrap: break-word;
   }
-
-  body {
-    overflow-x: hidden; /* ページ全体の横スクロール防止 */
-    }
 }
+
 @media (max-width: 600px) {
   .write-new textarea,
   .write-new input,
@@ -1548,7 +1565,8 @@ li.logo {
 {
     padding: 10px ;
 }
-.favorite-title span {
+.favorite-title span, 
+.users-title span {
     font-size: 14px;              /* または 13px */
     font-weight: 600;             /* セミボールド */
     color: #262626;               /* Instagramの標準テキスト色 */
@@ -1631,11 +1649,14 @@ li.logo {
     width: 100%;
     height: auto;
     margin-top: 20px;
-    margin-left: 6px;
-    margin-right: 6x;
 }
 .users-wrapper {
-    padding: 8px 10px 8px 10px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+}
+
+.users-title {
+    padding: 10px;
 }
 
 .users-box {
@@ -2097,15 +2118,14 @@ ul{
         padding: 0;
     }
     .following-feed-wrapper {
-        width:100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
     }
     .articles-icon-box-items {
     width: 100%;
     overflow-x: hidden;
     flex-wrap: wrap;
-    }
-    .following-feed-wrapper {
-        width:100%;
     }
     .mobile-nav {
         z-index: 10;
@@ -2128,6 +2148,15 @@ ul{
     .articles-time {
         padding-left: 6px;
     }
+    .swiper-container {
+    width: 100%;
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
 }
 
 

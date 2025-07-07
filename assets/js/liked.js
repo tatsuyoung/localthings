@@ -1,14 +1,17 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+function initializeLikeButtons() {
     document.querySelectorAll('.btn-like').forEach(button => {
+        // ✅ 二重登録防止
+        if (button.dataset.listenerAttached === 'true') return;
+
         button.addEventListener('click', function(e) {
             e.preventDefault();
 
             const articleId = this.dataset.id;
             const title = this.dataset.title;
             const icon = this.querySelector('i');
-            const likeCountElem = this.closest('.heart-circle').querySelector('.like-count');
+            const likeCountElem = document.querySelector(`#like-count-${articleId}`);
 
             fetch(`/articles/like/${articleId}/`, {
                 method: 'POST',
@@ -16,15 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     'X-CSRFToken': csrftoken,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: new URLSearchParams({
-                    'title': title
-                })
+                body: new URLSearchParams({ 'title': title })
             })
             .then(response => {
                 if (response.status === 403) {
                     alert("ログインしてください。");
-                    // ログインページに飛ばしたい場合はこちらも使えます：
-                    // window.location.href = "/accounts/login/?next=" + window.location.pathname;
                     throw new Error("403 Unauthorized");
                 }
                 if (!response.ok) {
@@ -33,28 +32,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.json();
             })
             .then(data => {
-                // アイコン切り替え
                 const iconItem = this.closest('li.icon-items');
 
                 if (icon.classList.contains('fas')) {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-
-                    // ✅ liked クラスも外す
-                    if (iconItem) {
-                        iconItem.classList.remove('liked');
-                    }
+                    icon.classList.replace('fas', 'far');
+                    if (iconItem) iconItem.classList.remove('liked');
                 } else {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-
-                    // ✅ liked クラスを追加
-                    if (iconItem) {
-                        iconItem.classList.add('liked');
-                    }
+                    icon.classList.replace('far', 'fas');
+                    if (iconItem) iconItem.classList.add('liked');
                 }
 
-                // カウント更新
                 if (likeCountElem) {
                     likeCountElem.textContent = data.likes_count;
                 }
@@ -66,5 +53,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         });
+
+        // ✅ フラグをつけて再登録を防ぐ
+        button.dataset.listenerAttached = 'true';
     });
+}
+
+// 初回のみ自動実行
+document.addEventListener("DOMContentLoaded", function () {
+    initializeLikeButtons();
 });

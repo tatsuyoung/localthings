@@ -1,11 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initializeFullText() {
     const snippets = document.querySelectorAll('.snippet-text');
 
     snippets.forEach(snippet => {
+        // すでに初期化されているならスキップ
+        if (snippet.dataset.initialized === 'true') return;
+
         const fullText = snippet.dataset.fulltext;
         const snippetText = snippet.dataset.snippet;
-        const detailUrl = snippet.dataset.detailUrl;
-
         const readMoreLink = snippet.parentElement.querySelector('.read-more');
 
         snippet.addEventListener('click', function () {
@@ -15,16 +16,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 const formattedText = fullText.replace(/\n/g, '<br>');
                 snippet.innerHTML = formattedText;
                 snippet.dataset.expanded = 'true';
-
-                // 「詳細ページへ」にテキスト変更
-                readMoreLink.textContent = '詳細ページへ';
+                if (readMoreLink) readMoreLink.textContent = '詳細ページへ';
             } else {
                 snippet.innerHTML = snippetText;
                 snippet.dataset.expanded = 'false';
-
-                // 元の「続きを読む」に戻す
-                readMoreLink.textContent = '続きを読む';
+                if (readMoreLink) readMoreLink.textContent = '続きを読む';
             }
         });
+
+        // ✅ 初期化済みフラグを付けて、2重登録防止
+        snippet.dataset.initialized = 'true';
     });
+}
+
+// ✅ 初回DOM読み込み時に実行
+document.addEventListener('DOMContentLoaded', function () {
+    initializeFullText();
 });

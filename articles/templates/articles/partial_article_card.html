@@ -68,35 +68,47 @@
         <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
     </div>
     <div class="articles-icon">
-        <ul class="articles-icon-box">
-            <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
-                <div class="articles-icon-wrapper">
-                    <div class="articles-hover heart-circle">
-                        <!-- ハートアイコン -->
-                        <button type="button" class="btn-like" data-id="{{ article.id }}" data-title="{{ article.title }}">
-                            <i class="far fa-heart liked_heart"></i>
-                        </button>
+        <div class="articles-icon-left">
+            <ul class="articles-icon-box">
+                <!-- ❤️ いいね -->
+                <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
+                    <div class="articles-icon-wrapper">
+                        <div class="articles-hover heart-circle">
+                            <button type="button" class="btn-like" data-id="{{ article.id }}" data-title="{{ article.title }}">
+                                <i class="far fa-heart liked_heart"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <li class="icon-items">
-                <div class="articles-icon-wrapper">
-                    <div class="articles-hover heart-circle">
-                        <!-- コメントアイコン -->
-                        <button type="button" class="toggle-comment-btn" data-article-id="{{ article.id }}">
-                            <i class="far fa-comment"></i>
-                        </button>
-                    </div>
+                <!-- 💬 コメント -->
+                <li class="icon-items">
+                    <div class="articles-icon-wrapper">
+                        <div class="articles-hover heart-circle">
+                            <button type="button" class="toggle-comment-btn" data-article-id="{{ article.id }}">
+                                <i class="far fa-comment"></i>
+                            </button>
+                        </div>
 
-                    <div class="articles-sum">
-                        {% if article.comments.count %}
-                            <span>{{ article.comments.count }}</span>
-                        {% endif %}
+                        <div class="articles-sum">
+                            {% if article.comments.count %}
+                                <span>{{ article.comments.count }}</span>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 🔖 ブックマーク -->
+        <div class="articles-icon-right">
+            <!-- Bookmark icon -->
+            <button type="button"
+                    class="btn-book_mark"
+                    data-id="{{ article.id }}">
+                <i class="{% if request.user in article.book_mark.all %}fas{% else %}far{% endif %} fa-bookmark"></i>
+            </button>
+        </div>
     </div>
 
     <!-- ✅ コメントセクションの追加 -->
