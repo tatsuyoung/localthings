@@ -330,43 +330,6 @@
             {% endif %}
         </nav>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll("form.comment-form").forEach(function (form) {
-                form.addEventListener("submit", function (e) {
-                    e.preventDefault();
-
-                    const formData   = new FormData(form);
-                    const action     = form.getAttribute("action");
-                    const articleId  = form.getAttribute("data-article-id");
-                    const commentList = document.querySelector(`#comment-list-${articleId}`);
-
-                    fetch(action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        commentList.innerHTML = data.html;
-                        form.querySelector("textarea").value = "";
-                        scrollToBottom(articleId);
-                    })
-                    .catch(error => {
-                        console.error("Fetch error:", error);
-                        alert("投稿に失敗しました");
-                    });
-                });
-            });
-        });
-        </script>
-        <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchBtn = document.querySelector('#search-btn');           // 検索アイコン
             const searchContainer = document.querySelector('#search-container'); // 検索用div
@@ -408,5 +371,6 @@
         <script src="/static/js/infinite_scroll.js"></script>
         <script src="/static/js/liked.js"></script>
         <script src="/static/js/book_mark.js"></script>
+        <script src="/static/js/comment.js"></script>
     </body>
 </html>

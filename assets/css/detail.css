@@ -2261,15 +2261,11 @@ ul{
    .articles-icon-box
     {
         justify-content: space-between ;
+        padding-left: 10px;
     }
     .articles-icon-box .article_delete .icon-description
     {
         font-size: 10px;
-    }
-    .icon-description
-    {
-        font-size: 10px;
-        margin-left: 8px
     }
     .articles-sum
     {

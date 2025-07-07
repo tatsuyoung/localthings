@@ -27,12 +27,11 @@ function initializeSwipers() {
         function updateNavVisibility(swiperInstance) {
             const prevBtn = swiperInstance.params.navigation.prevEl;
             const nextBtn = swiperInstance.params.navigation.nextEl;
-
             if (prevBtn) prevBtn.style.display = swiperInstance.isBeginning ? 'none' : 'flex';
             if (nextBtn) nextBtn.style.display = swiperInstance.isEnd ? 'none' : 'flex';
         }
 
-        // ✅ ピンチズーム対応：ナビ・ページネーション両方制御
+        // ✅ ピンチズーム制御
         let isZooming = false;
         const prevBtn = container.querySelector('.swiper-button-prev');
         const nextBtn = container.querySelector('.swiper-button-next');
@@ -42,7 +41,6 @@ function initializeSwipers() {
             if (e.touches.length === 2) {
                 isZooming = true;
                 swiper.allowTouchMove = false;
-
                 if (prevBtn) prevBtn.style.display = 'none';
                 if (nextBtn) nextBtn.style.display = 'none';
                 if (pagination) pagination.style.display = 'none';
@@ -53,7 +51,6 @@ function initializeSwipers() {
             if (isZooming && e.touches.length < 2) {
                 isZooming = false;
                 swiper.allowTouchMove = true;
-
                 updateNavVisibility(swiper);
                 if (pagination) pagination.style.display = 'block';
             }
