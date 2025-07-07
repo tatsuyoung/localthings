@@ -1151,7 +1151,7 @@ li.logo {
 
 .articles-sum span {
   font-size: 14px;
-  color: #262626;
+  color: gray;
   line-height: 1;
 }
 
@@ -1179,6 +1179,15 @@ li.logo {
     font-size: 14px;
 }
 
+/* user_post_list  icons box*/
+.articles-icon-box-user_post {
+  display: flex;           /* 横並び */
+  justify-content: flex-start; /* ← 左寄せにする */
+  align-items: center;     /* 縦中央揃え（必要なら） */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 
 /* right style */
 right {

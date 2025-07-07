@@ -178,7 +178,7 @@
                             <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
                         </div>
                         <div class="articles-icon">
-                            <ul class="articles-icon-box">
+                            <ul class="articles-icon-box-user_post">
                                 <li class="icon-items {% for i in article.get_liked_user %}{% if i == request.user %}liked{% endif %}{% endfor %}">
                                     <div class="articles-icon-wrapper">
                                         <div class="articles-hover heart-circle">
