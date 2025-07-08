@@ -1416,10 +1416,6 @@ li.logo {
     font-size: 13px;
   }
 
-  .avatar img {
-    width: 36px;
-    height: 36px;
-  }
   .write-new,
   .comment-btn-wrapper,
   .write-new textarea {
@@ -1810,7 +1806,7 @@ li.logo {
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
-  width: 50%;
+  width: 60%;
   text-align: center;
 }
 
@@ -3259,8 +3255,8 @@ ul{
 
 .article_detail_author_img{
     background:       #eeeeee;
-    width:               60px;
-    height:              60px;
+    width:               50px;
+    height:              50px;
     overflow:          hidden;
     border-radius:        50%;
     border: 2px solid #eeeeee;
@@ -3356,7 +3352,10 @@ ul{
     width: 70%;
     }
 
-.notification_wrapper .drop-down .notify_item .unread a{
+.notification_wrapper .drop-down .notify_item .unread a {
+    color: #333;
+    }
+.notification_wrapper .drop-down .notify_item .unread p {
     color: #333;
     }
 

@@ -254,12 +254,20 @@ body.dark-mode .mobile-nav-wrapper {
 }
 
 /* スクロールイベント */
-.mobile-nav-wrapper.scroll-down {
+/* .mobile-nav-wrapper.scroll-down {
     transform: translateY(-100%);
 }
 
 .mobile-nav-wrapper.scroll-up {
     transform: translateY(0%);
+} */
+#nav.scroll-up {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+#nav.scroll-down {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
 }
 
 /* オプション：アイコンカラー調整 */
@@ -333,7 +341,7 @@ body.dark-mode .mobile-logo_2 {
     color: #fff;
     transform: translateX(30%);
     -webkit-transform: translateX(30%);
-    top: -13px;
+    top: -14px;
 }
 
 .mobile-logo_2 {
@@ -342,7 +350,6 @@ body.dark-mode .mobile-logo_2 {
     color: #fff;
     transform: translateX(110%) ;
     -webkit-transform: translateX(110%);
-    top: 1px;
  }
 
 
@@ -367,6 +374,12 @@ input::-moz-placeholder
 {
   line-height: normal !important;
   vertical-align: middle;
+}
+
+
+/* Bottomボタンにトランジション追加（あれば） */
+.mobile-create-circle {
+  transition: opacity 0.3s ease;
 }
 
 /* left style icon */

@@ -70,6 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof initializeCommentForms === 'function') {
             initializeCommentForms(); 
         }
+        if (typeof initializeScrollNavBehavior === "function") {
+            initializeScrollNavBehavior();  // ✅ navの上下スライド再適用
+        }
+        if (typeof initializeMobileCreateOpacity === "function") {
+            initializeMobileCreateOpacity();  // ✅ ボタン透過度
+        }
     }
 
     // ✅ 初回ロード時にも初期化
