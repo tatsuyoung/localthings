@@ -28,18 +28,23 @@ function initializeSwipers() {
                 slideChange(swiperInstance) {
                     updateNavVisibility(swiperInstance);
 
-                    // ✅ 前のスライドの transform をリセット
+                    // ✅ ズームを完全リセット
+                    if (swiperInstance.zoom && swiperInstance.zoom.out) {
+                        swiperInstance.zoom.out(); // ← これが重要！
+                    }
+
+                    // 前スライドの手動スタイルリセット（保険）
                     const previousIndex = swiperInstance.previousIndex;
                     if (typeof previousIndex === 'number') {
                         const previousSlide = swiperInstance.slides[previousIndex];
                         const previousImg = previousSlide?.querySelector('img');
                         const previousZoomContainer = previousSlide?.querySelector('.swiper-zoom-container');
 
-                        if (previousImg) previousImg.style.transform = 'none';  // ← ズーム解除
-                        if (previousZoomContainer) previousZoomContainer.style.overflow = 'hidden'; // ← スクロール無効に戻す
+                        if (previousImg) previousImg.style.transform = 'none';
+                        if (previousZoomContainer) previousZoomContainer.style.overflow = 'hidden';
                     }
 
-                    // 念のため
+                    // タッチ移動復活＆ナビ表示
                     swiperInstance.allowTouchMove = true;
                     const pagination = swiperInstance.pagination.el;
                     if (pagination) pagination.style.display = 'block';
