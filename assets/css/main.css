@@ -1043,32 +1043,34 @@ li.logo {
 }
 
 /*　Swiper image */
+/* --- Swiper image wrapper --- */
 .swiper-container {
   width: 100%;
   overflow: hidden;
-  position: relative;  /* ✅ これが重要：矢印の配置基準 */
+  position: relative;
 }
-/* 全体を中央に配置 */
+
+/* 中央揃え */
 .articles-thumb .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 100%;               /* ✅ 追加 */
-  position: relative;        /* ✅ 追加：ボタン位置基準にする */
+  width: 100%;
+  position: relative;
 }
 
-/* Swiperズーム機能対応 */
+/* Zoom container は普通のラッパーとして扱う */
 .swiper-zoom-container {
-  width: 100%;               /* ✅ 明示 */
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;  /* ← 初期は hidden にしておく */
+  overflow: auto;  /* ✅ scroll OK */
 }
 
-/* ズーム対象画像 */
+/* 画像（pinch-zoom対応） */
 .swiper-slide img {
   width: auto;
   height: auto;
@@ -1076,7 +1078,7 @@ li.logo {
   max-height: 100%;
   object-fit: contain;
   border-radius: 2px;
-  touch-action: pan-y pinch-zoom;  /* ✅ scroll & zoom 両方OK */
+  touch-action: manipulation;  /* ✅ pinch zoomを許可 */
   display: block;
 }
 
