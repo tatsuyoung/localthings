@@ -19,11 +19,15 @@
                 {% for img in article.images.all %}
                     {% if img.image%}
                         <div class="swiper-slide">
-                            <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                            <div class="swiper-zoom-container">
+                                <img src="{{ img.image.url }}" loading="lazy" alt="{{ article.title }}"/>
+                            </div>
                         </div>
                     {% else %}
                         <div class="swiper-slide">
-                            <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                            <div class="swiper-zoom-container">
+                                <img src="/media/No-image.png" loading="lazy" alt="No image"/>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
