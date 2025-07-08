@@ -261,14 +261,37 @@ body.dark-mode .mobile-nav-wrapper {
 .mobile-nav-wrapper.scroll-up {
     transform: translateY(0%);
 } */
-#nav.scroll-up {
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+/* 完全に非表示 */
+.mobile-nav.nav-hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 半透明（下スクロール中） */
+.mobile-nav.scrolled-down {
+  opacity: 0.5;
   transform: translateY(0);
-  transition: transform 0.3s ease;
+  pointer-events: auto;
 }
-#nav.scroll-down {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
+
+/* 表示（上スクロール中） */
+.mobile-nav.scrolled-up {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
+
 
 /* オプション：アイコンカラー調整 */
 body.dark-mode .mobile-profile-container i,

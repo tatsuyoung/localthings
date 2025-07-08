@@ -202,14 +202,7 @@
                     </div>
                     <div class="article-wrapper">
                         <article class="following-feed">
-                            <!-- {# templates/articles/partial_article_card_list.html #} -->
-                            {% for article in articles %}
-                                {% include "articles/partial_article_card.html" with article=article %}
-                            {% empty %}
-                            <div class="global-tag">
-                                <h3>お探しの検索キーワードは見つかりませんでした。</h3>
-                            </div>
-                            {% endfor %}
+                            {% include "articles/partial_article_card_list.html" with article=article %}
                         </article>
                         <div id="loader">
                             {% include 'articles/snippet/spinner.html' %}
@@ -303,7 +296,7 @@
             </a>
         </div>
         {% endif %}
-        <nav class="mobile-nav">
+        <nav class="mobile-nav" id="top-nav">
             <a href="#clouds" class="mobile-nav-link" id="scroll-top">
                 <i class="fas fa-home mobile-nav-icon"></i>
             </a>
@@ -356,7 +349,7 @@
             });
         });
         </script>
-        <script src="/static/js/scroll.js"></script>
+        <script src="/static/js/initializeScrollNavBehavior.js"></script>
         <script src="/static/js/mobile-create.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
         <script src="/static/js/swiper-images.js"></script>
@@ -365,7 +358,7 @@
         <script src="/static/js/scroll-top.js"></script>
         <script src="/static/js/ufo.js"></script>
         <script src="/static/js/darkmode.js"></script>
-        <script src="/static/js/mobile-nav-scroll.js"></script>
+        <!-- <script src="/static/js/mobile-nav-scroll.js"></script> -->
         <script src="/static/js/fulltext.js"></script>
         <script src="/static/js/main_comment_toggle.js"></script>
         <script src="/static/js/infinite_scroll.js"></script>

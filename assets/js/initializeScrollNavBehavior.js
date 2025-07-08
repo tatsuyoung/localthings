@@ -1,36 +1,40 @@
 // ✅ スクロールに応じたナビゲーション制御
 function initializeScrollNavBehavior() {
-    const nav = document.getElementById("nav");
-    const scrollContainer = document.querySelector(".center-and-right");
+  const nav = document.querySelector(".mobile-nav");
+  const scrollContainer = document.querySelector(".center-and-right");
 
-    if (!nav || !scrollContainer) return;
+  if (!nav || !scrollContainer) return;
 
-    const scrollUp = "scroll-up";
-    const scrollDown = "scroll-down";
-    let lastScroll = scrollContainer.scrollTop;
+  let lastScrollTop = scrollContainer.scrollTop;
 
-    nav.classList.add(scrollUp);
+  const newScrollHandler = () => {
+    const scrollTop = scrollContainer.scrollTop;
+    const delta = scrollTop - lastScrollTop;
 
-    const newScrollHandler = () => {
-        const currentScroll = scrollContainer.scrollTop;
-        const delta = currentScroll - lastScroll;
+    // 一番上：非表示
+    if (scrollTop === 0) {
+      nav.classList.remove("scrolled-up", "scrolled-down");
+      nav.classList.add("nav-hidden");
+    } else {
+      nav.classList.remove("nav-hidden");
 
-        if (currentScroll === 0) {
-            nav.classList.remove(scrollUp, scrollDown);
-        } else if (delta > 10) {
-            nav.classList.remove(scrollUp);
-            nav.classList.add(scrollDown);
-        } else if (delta < -10) {
-            nav.classList.remove(scrollDown);
-            nav.classList.add(scrollUp);
-        }
+      if (delta > 5) {
+        // 下スクロール → 半透明
+        nav.classList.remove("scrolled-up");
+        nav.classList.add("scrolled-down");
+      } else if (delta < -5) {
+        // 上スクロール → 完全表示
+        nav.classList.remove("scrolled-down");
+        nav.classList.add("scrolled-up");
+      }
+    }
 
-        lastScroll = currentScroll;
-    };
+    lastScrollTop = scrollTop;
+  };
 
-    scrollContainer.removeEventListener("scroll", scrollContainer._scrollNavHandler || (() => {}));
-    scrollContainer._scrollNavHandler = newScrollHandler;
-    scrollContainer.addEventListener("scroll", newScrollHandler);
+  scrollContainer.removeEventListener("scroll", scrollContainer._scrollNavHandler || (() => {}));
+  scrollContainer._scrollNavHandler = newScrollHandler;
+  scrollContainer.addEventListener("scroll", newScrollHandler);
 }
 
 // ✅ モバイル用作成ボタンの透過制御
