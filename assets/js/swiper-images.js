@@ -7,7 +7,7 @@ function initializeSwipers() {
             slidesPerView: 1,
             spaceBetween: 0,
 
-            // ✅ Zoom機能を有効化
+            // ✅ ズーム有効化
             zoom: {
                 maxRatio: 3,
             },
@@ -27,12 +27,27 @@ function initializeSwipers() {
                 },
                 slideChange(swiperInstance) {
                     updateNavVisibility(swiperInstance);
+
+                    // ✅ 前のスライドの transform をリセット
+                    const previousIndex = swiperInstance.previousIndex;
+                    if (typeof previousIndex === 'number') {
+                        const previousSlide = swiperInstance.slides[previousIndex];
+                        const previousImg = previousSlide?.querySelector('img');
+                        const previousZoomContainer = previousSlide?.querySelector('.swiper-zoom-container');
+
+                        if (previousImg) previousImg.style.transform = 'none';  // ← ズーム解除
+                        if (previousZoomContainer) previousZoomContainer.style.overflow = 'hidden'; // ← スクロール無効に戻す
+                    }
+
+                    // 念のため
+                    swiperInstance.allowTouchMove = true;
+                    const pagination = swiperInstance.pagination.el;
+                    if (pagination) pagination.style.display = 'block';
                 },
                 zoomChange(swiperInstance, scale) {
                     const prevBtn = swiperInstance.params.navigation.prevEl;
                     const nextBtn = swiperInstance.params.navigation.nextEl;
                     const pagination = swiperInstance.pagination.el;
-                    const img = swiperInstance.slides[swiperInstance.activeIndex].querySelector('img');
 
                     if (scale > 1) {
                         swiperInstance.allowTouchMove = false;
@@ -43,7 +58,6 @@ function initializeSwipers() {
                         swiperInstance.allowTouchMove = true;
                         updateNavVisibility(swiperInstance);
                         if (pagination) pagination.style.display = 'block';
-                        if (img) img.style.transform = 'none';  // ✅ transformリセット
                     }
                 }
             }
@@ -55,21 +69,6 @@ function initializeSwipers() {
             if (prevBtn) prevBtn.style.display = swiperInstance.isBeginning ? 'none' : 'flex';
             if (nextBtn) nextBtn.style.display = swiperInstance.isEnd ? 'none' : 'flex';
         }
-
-        // ✅ pinch zoom 開始・終了時の overflow 制御
-        const zoomContainer = container.querySelector('.swiper-zoom-container');
-
-        container.addEventListener('touchstart', function (e) {
-            if (e.touches.length === 2 && zoomContainer) {
-                zoomContainer.style.overflow = 'auto'; // ✅ zoom中はスクロール可能に
-            }
-        }, { passive: true });
-
-        container.addEventListener('touchend', function (e) {
-            if (zoomContainer && e.touches.length < 2) {
-                zoomContainer.style.overflow = 'auto'; // 必要に応じて 'hidden' に戻すことも可能
-            }
-        }, { passive: true });
 
         container.dataset.initialized = 'true';
     });
