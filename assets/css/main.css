@@ -1065,6 +1065,7 @@ li.logo {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
 
 /* ズーム対象画像 */
@@ -1075,7 +1076,7 @@ li.logo {
   max-height: 100%;
   object-fit: contain;
   border-radius: 2px;
-  touch-action: none;
+  touch-action: pan-y pinch-zoom;  /* ✅ scroll & zoom 両方OK */
   display: block;
 }
 
