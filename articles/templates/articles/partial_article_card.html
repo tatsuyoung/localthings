@@ -9,7 +9,12 @@
             </a>
         </li>
         <li class="articles-item">
-            <p>{{ article.author.username }}<small>・{{ article.display_date }}</small></p>
+            <div class="hover-wrapper">
+                <p>
+                    {% include 'articles/snippet/user_data.html' with article=article %}
+                    <small>・{{ article.display_date }}</small>
+                </p>
+            </div>
         </li>
     </ul>
     {% if article.images.all %}
@@ -146,3 +151,4 @@
         </div>
     </div>
 </div>
+{% include 'accounts/snippet/hover_card.html' with user=article.author is_following=article.is_following followers_count=followers_count following_count=following_count %}

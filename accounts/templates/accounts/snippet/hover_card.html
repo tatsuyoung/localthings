@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load dict_extras %}
+<!-- accounts/snippet/hover_card.html -->
+<div class="hover-profile-card" data-username="{{ user.username }}">
+    <div class="hover-profile-header">
+        <img src="{{ user.profile.image.url }}" class="hover-profile-image" alt="{{ user.username }}">
+        <div class="hover-profile-follow-btn">
+            {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
+        </div>
+    </div>
+
+    <div class="hover-profile-info">
+        <h4 class="hover-profile-username">{{ user.username }}</h4>
+        {% if user.profile.bio %}
+            <p class="hover-profile-bio">{{ user.profile.bio|truncatechars:80 }}</p>
+        {% endif %}
+        <div class="hover-profile-follow">
+            <span>
+                <span class="followers-count" data-username="{{ user.username }}">
+                    {{ followers_count|get_item:user.username|default:0 }}
+                </span> フォロワー
+                </span>
+                <span>
+                <span class="following-count" data-username="{{ user.username }}" {% if request.user.username == user.username %}id="my-following-count"{% endif %}>
+                    {{ following_count|get_item:user.username|default:0 }}
+                </span> フォロー中
+            </span>
+        </div>
+    </div>
+</div>

@@ -66,7 +66,7 @@
                 <div class="header-icon-text-wrapper">
                     <div class="header-name">
                         <h2>{{ User }}</h2>
-                        <span>{{ count }} Create</span>
+                        <span>{{ count }} 件のポスト</span>
                     </div>
                     <div class="header-icon-circle">
                         <div class="header-icon">
@@ -85,10 +85,29 @@
                 </div>
             </div>
             <div class="profile-description">
-                <a href="{% url 'accounts:profile_detail' User %}">
-                    <img src="{{ User.profile.image.url }}" alt="{{ User.username }} Avatar" loading="lazy">
-                </a>
-                <a href="{% url 'accounts:profile_detail' User %}" class="edit">フォローする</a>
+                <div class="profile-header">
+                    <a href="#">
+                        <img src="{{ User.profile.image.url }}" alt="{{ User.username }} Avatar" loading="lazy" class="profile-avatar">
+                    </a>
+                    {% if request.user.is_authenticated and request.user.username != User.username %}
+                    <form class="follow-form" method="POST" action="{% url 'follow' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" value="{{ User.username }}"/>
+                        <button type="submit"
+                                class="follow-button {% if request.user in User.profile.followers.all %}is-following{% endif %}"
+                                data-username="{{ User.username }}"
+                                data-is-following="{% if request.user in User.profile.followers.all %}true{% else %}false{% endif %}">
+                            <span class="follow-text">
+                                {% if request.user in User.profile.followers.all %}
+                                    フォロー中
+                                {% else %}
+                                    フォロー
+                                {% endif %}
+                            </span>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
                 <div class="profile-wrapper">
                     <div class="profile-bio">
                         {% if bio %}
@@ -106,11 +125,11 @@
                     <div class="info-wrapper">
                         <ul class="info-box">
                             <li class="following-info">
-                                <strong>{{ following }}</strong>
+                                <strong id="my-following-count">{{ following }}</strong>
                                 <span>フォロー中</span>
                             </li>
                             <li class="followers-info">
-                                <strong>{{ followers }}</strong>
+                                <strong class="followers-count" data-username="{{ User.username }}">{{ followers }}</strong>
                                 <span>フォロワー</span>
                             </li>
                         </ul>
@@ -291,6 +310,13 @@
     </div>
 </div>
 {% include 'articles/snippet/mobile-nav-footer.html' %}
+<!-- follow -->
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeFollowButtons();
+    });
+</script>
+<!-- swiper -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         if (typeof initializeSwipers === 'function') {
@@ -302,9 +328,9 @@
 <script src="/static/js/swiper-images.js"></script>
 <script src="/static/js/app.js"></script>
 <script src="/static/js/mobile-hover.js"></script>
-<script src="/static/js/mobile-search-box.js"></script>
 <script src="/static/js/darkmode.js"></script>
 <script src="/static/js/mobile-nav-scroll.js"></script>
 <script src="/static/js/fulltext.js"></script>
+<script src="/static/js/follow_toggle.js"></script>
 </body>
 </html>

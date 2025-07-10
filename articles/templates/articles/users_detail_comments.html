@@ -3,37 +3,26 @@
 {% block headerName %}コメントしたユーザー{% endblock %}
 {% block title %}User Who Commented{% endblock %}
 {% block content %}
-<div class="users-wrapper">
+<div class="comment-grid">
     {% for comment in comments %}
-    <div class="users-box">
-        <div class="users-item-pic">
-            <a href="{% url 'articles:user-posts' comment.author.username %}">
-                <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+    <div class="comment-card">
+        <div class="comment-user-top">
+            <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-user-link">
+                <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="comment-avatar" loading="lazy"/>
+                <div class="comment-user-meta">
+                    <small class="comment-time">{{ comment.created_date|timesince }} 前</small>
+                    <span class="comment-username">{{ comment.author.username }}</span>
+                </div>
             </a>
         </div>
-        <div class="users-items-wrapper">
-            <div class="users-items-box">
-                <div class="users-item-username">
-                    <p>{{ comment.author.profile.user }}</p>
-                </div>
-                <div class="users-item-btn">
-                    <a href="{% url 'accounts:profile_detail' comment.author.username %}">
-                        <p>詳細</p>
-                    </a>
-                </div>
-            </div>
-            <div class="users-item-text">
-                <p>{{ comment.text | linebreaks }}</p>
-                <span>
-                    <small>{{ comment.created_date | timesince }} 前</small>
-                </span>
-            </div>
+        <div class="comment-text">
+            <p>{{ comment.text|truncatechars:50 }}</p>
         </div>
     </div>
     {% empty %}
-        <div class="global-tag">
-            <h3>まだコメントはありません。</h3>
-        </div>
+    <div class="global-tag">
+        <h3>まだコメントはありません。</h3>
+    </div>
     {% endfor %}
 </div>
 {% if comments.has_other_pages %}

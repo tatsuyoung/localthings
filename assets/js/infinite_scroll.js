@@ -76,6 +76,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof initializeMobileCreateOpacity === "function") {
             initializeMobileCreateOpacity();  // ✅ ボタン透過度
         }
+        if (typeof initializeHoverCard === "function") {
+            initializeHoverCard();  // ✅ hover card
+            }
+        // follow
+        if (typeof initializeFollowButtons === "function") {
+            initializeFollowButtons(); 
+        }
     }
 
     // ✅ 初回ロード時にも初期化

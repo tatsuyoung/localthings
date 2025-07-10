@@ -11,10 +11,10 @@
     <img src="{{ user.profile.image.url }}" alt="Avatar"/>
     <ul>
         <li>
-            {{ user.is_following.all.count }} <small>Following</small>
+            {{ user.is_following.all.count }} <small>フォロー中</small>
         </li>
         <li>
-            {{ user.profile.followers.all.count }} <small>Followers</small>
+            {{ user.profile.followers.all.count }} <small>フォロワー</small>
         </li>
     </ul>
     <h3>
@@ -29,7 +29,9 @@
     </p>
     <p class="user_profile_website">
         {% if user.profile.website != None %}
-        <a href="{{ user.profile.website }}" style="word-break: break-all; color:#6495ED;"><i class="fas fa-link">{{ user.profile.website }}</i></a>
+        <a href="{{ user.profile.website }}" class="user-website-link">
+            <i class="fas fa-link"></i> {{ user.profile.website }}
+        </a>
         {% endif %}
     </p>
     <p>

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 {% if request.user != user %}
 {% if request.user.is_authenticated %}
-<form class="form" method="POST" action="{% url 'follow' %}">
+<form class="follow-form" method="POST" action="{% url 'follow' %}">
     {% csrf_token %}
-    <input type="hidden" name="username" value="{% if username %}{{ username }}{% else %}Error{% endif %}"/>
-    <button class="user_profile_btn {% if is_following %} user_profile_btn_unfollow {% else %}btn{% endif %}">
-        {% if is_following %} Un follow {% else %} Follow {% endif %}</button>
+    <input type="hidden" name="username" value="{{ user.username }}"/>
+    <button type="submit"
+        class="follow-button {% if is_following %}is-following{% endif %}"
+        data-username="{{ user.username }}"
+        data-is-following="{{ is_following|yesno:'true,false' }}">
+        <span class="follow-text">{% if is_following %}フォロー中{% else %}フォロー{% endif %}</span>
+    </button>
 </form>
 {% endif %}
 {% endif %}
