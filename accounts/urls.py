@@ -1,5 +1,4 @@
 from django.urls import path
-
 from accounts.views import ProfileDetailView, UserFollowingFeedView
 from.import views
 
@@ -22,4 +21,5 @@ urlpatterns = [
     path('user_following/', UserFollowingFeedView.as_view(), name='user_following'),
     path('<str:username>/is_following', views.user_is_following, name='is_following'),
     path('<str:username>/followers', views.user_followers, name='followers'),
+    path('follow/', views.ProfileFollowToggle.as_view(), name='follow'),
     ]

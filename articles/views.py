@@ -115,6 +115,22 @@ def article_list(request):
     for article in page_obj:
         article.display_date = format_custom_date_style(article.date, now)
 
+        if request.user.is_authenticated:
+            following_user_ids = set(request.user.is_following.values_list('user__id', flat=True))
+            for article in page_obj:
+                article.is_following = article.author.id in following_user_ids
+        else:
+            for article in page_obj:
+                article.is_following = False  # 未ログインなら全部False
+        # ✅ 各 author の followers / following 数を dict に格納
+    followers_count = {}
+    following_count = {}
+
+    if request.user.is_authenticated:
+        for article in page_obj:
+            followers_count[article.author.username] = article.author.profile.followers.count()
+            following_count[article.author.username]  = article.author.is_following.count()
+
     # ✅ 各 author の記事数を取得 → {user_id: 投稿数} の dict に
     author_ids = [article.author.id for article in page_obj]
     author_article_counts = Article.objects.filter(author__id__in=author_ids) \
@@ -145,6 +161,10 @@ def article_list(request):
 
     # ✅ Ajaxの場合はJSONで返す
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        context.update({
+        'followers_count': followers_count,
+        'following_count': following_count,
+        })
         html = render_to_string("articles/partial_article_card_list.html", context, request=request)
         return JsonResponse({
             'html'    : html,
@@ -158,6 +178,8 @@ def article_list(request):
         'users'               : users,
         'author_count_dict'   : author_count_dict,
         'article_comment_data': article_comment_data,
+        'followers_count'     : followers_count,
+        'following_count'     : following_count,     
         'view_name'           : 'list',
     })
 
@@ -404,7 +426,7 @@ def users_detail(request, pk):
 def users_detail_comments(request, pk):
     article_com = Article.objects.get(id=pk)
     comments    = Comment.objects.filter(post=article_com).order_by('-created_date')
-    paginator   = Paginator(comments, 10)
+    paginator   = Paginator(comments, 24)
     page        = request.GET.get('page')
     comments    = paginator.get_page(page)
     context = {
@@ -416,7 +438,7 @@ def users_detail_comments(request, pk):
 def users_detail_liked(request, pk):
     article_title = Article.objects.get(id=pk)
     liked_users   = article_title.like.all().order_by('?')
-    paginator     = Paginator(liked_users, 10)
+    paginator     = Paginator(liked_users, 48)
     page          = request.GET.get('page')
     liked_users   = paginator.get_page(page)
     context = {

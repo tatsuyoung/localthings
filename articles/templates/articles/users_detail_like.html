@@ -3,25 +3,13 @@
 {% block headerName %}いいねしたユーザー{% endblock %}
 {% block title %}Liked Users{% endblock %}
 {% block content %}
-<div class="users-wrapper">
+<div class="liked-users-grid">
     {% for liked_user in liked_users %}
-    <div class="users-box">
-        <div class="users-item-pic">
-            <a href="{% url 'articles:user-posts' liked_user %}">
-                <img src="{{ liked_user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+        <div class="liked-user-avatar">
+            <a href="{% url 'articles:user-posts' liked_user.username %}">
+                <img src="{{ liked_user.profile.image.url }}" alt="{{ liked_user.username }}" class="img-circle" loading="lazy"/>
             </a>
         </div>
-        <div class="users-items-box">
-            <div class="users-item-username">
-                <p>{{ liked_user.profile.user }}</p>
-            </div>
-            <div class="users-item-btn">
-                <a href="{% url 'accounts:profile_detail' liked_user %}">
-                    <p>詳細</p>
-                </a>
-            </div>
-        </div>
-    </div>
     {% empty %}
         <div class="global-tag">
             <h3>まだいいねしたユーザーはいません。</h3>

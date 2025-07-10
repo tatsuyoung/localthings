@@ -98,7 +98,7 @@ body.dark-mode .left {
 body.dark-mode .following-feed-wrapper {
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
 }
-/* right おすすめ */
+/* right おすすめ User */
 body.dark-mode .favorite-title span {
     color: #cdcbcb;
 }
@@ -162,8 +162,22 @@ body.dark-mode .write-new button {
 body.dark-mode .write-new span {
     color: #aaa;
     }
-
-
+/* Hover Card */
+body.dark-mode .hover-profile-card {
+    background-color: #2a2a2a;
+}
+body.dark-mode .hover-profile-bio {
+    color: #f5f5f5;
+}
+body.dark-mode .hover-profile-follow {
+    color: #ccc;
+}
+body.dark-mode .follow-count {
+    color: #fff;
+}
+body.dark-mode .hover-user-trigger {
+    color: #f5f5f5;
+}
 /* Debug */
 /* * {
   outline: 1px solid red;
@@ -254,13 +268,6 @@ body.dark-mode .mobile-nav-wrapper {
 }
 
 /* スクロールイベント */
-/* .mobile-nav-wrapper.scroll-down {
-    transform: translateY(-100%);
-}
-
-.mobile-nav-wrapper.scroll-up {
-    transform: translateY(0%);
-} */
 .mobile-nav {
   position: fixed;
   bottom: 0;
@@ -312,7 +319,6 @@ body.dark-mode .mobile-logo_2 {
     color: #e0e0e0;
 }
 
-
 /* end scroll event */
 .mobile-nav-top-link {
     display       : flex;
@@ -356,6 +362,7 @@ body.dark-mode .mobile-logo_2 {
     z-index:1;
     position:relative;
     background:var(--main-color);
+    overflow: hidden;
 }
 
 .mobile-logo_1 {
@@ -979,6 +986,127 @@ li.logo {
 .hero-btn a:hover
 {
     background-color: #e8f5fd;
+}
+
+/* hover user profile */
+.hover-user-trigger {
+    color: #333;
+}
+.hover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-profile-card {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  width: 250px;
+  background: white;
+  border: 0.5px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- 表示制御用クラス（JSで付与）--- */
+.hover-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* --- プロフィール画像 --- */
+.hover-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2px;
+}
+/* フォローボタンを画像の右横に配置 */
+.hover-profile-follow-btn form {
+  margin-left: 8px;
+}
+
+.follow-button {
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 16px;
+  border: 0.5px solid #ccc;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.follow-button .follow-text {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ✅ フォロー中（白背景） */
+.follow-button.is-following {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.follow-button.is-following .follow-text {
+  color: black;
+}
+
+/* --- ユーザー名 --- */
+.hover-profile-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 4px;
+}
+
+/* --- Bio --- */
+.hover-profile-bio {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* --- フォロー／フォロワー --- */
+.hover-profile-follow {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.hover-profile-follow span {
+  white-space: nowrap;
+}
+
+.follow-count {
+  font-weight: 600;
+  color: #222; /* ← 少し濃い黒 */
+  margin-right: 4px;
+}
+
+/* --- フォローボタン --- */
+.hover-profile-card .user_profile_btn {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #1da1f2;
+  background-color: #fff;
+  color: #1da1f2;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-profile-card .user_profile_btn_unfollow {
+  background-color: #e8f5fe;
+  border-color: #ccc;
+  color: #333;
 }
 
 /* articles */
@@ -2371,6 +2499,11 @@ ul{
     color: #262626; 
     margin: 2px 0;
     }
+    .hover-profile-card {
+    display: none !important;
+    pointer-events: none;
+    visibility: hidden;
+  }
 }
 
 /* スマホ */
@@ -2541,6 +2674,21 @@ ul{
     }
     body:not(.dark-mode) .left {
     border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+    body:not(.dark-mode) .hover-profile-card {
+    background-color: #2a2a2a;
+    }
+    body:not(.dark-mode) .hover-profile-bio {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .hover-profile-follow {
+    color: #ccc;
+    }
+    body:not(.dark-mode) .follow-count {
+    color: #fff;
+    }
+    body:not(.dark-mode)  .hover-user-trigger {
+    color: #f5f5f5;
     }
 }
 /* comment box  */

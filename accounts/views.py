@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import Http404
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -24,7 +25,7 @@ from accounts.models import Profile
 from articles.models import Article
 from .forms import UserCreationForms, ContactForm, UserUpdateForm, ProfileUpdateForm
 from django.utils import timezone 
-
+from django.contrib.auth import get_user_model
 
 def signup_view(request):
     if request.method == 'POST':
@@ -137,7 +138,7 @@ def Delete_user(self):
 @login_required
 def user_is_following(request, username):
     current_user = request.user
-    user         = get_object_or_404(User, username=current_user)
+    user         = get_object_or_404(User, username=username)  # ✅ URL引数のusernameで取得
     is_following = user.is_following.all().order_by('id')
     paginator    = Paginator(is_following, 10)
     page         = request.GET.get('page')
@@ -150,15 +151,20 @@ def user_is_following(request, username):
 
 @login_required
 def user_followers(request, username):
-    current_user = request.user
-    user         = get_object_or_404(User, username=current_user)
-    followers    = user.profile.followers.all().order_by('id')
-    paginator    = Paginator(followers, 10)
-    page         = request.GET.get('page')
-    followers    = paginator.get_page(page)
+    # 対象ユーザー（見られている人）を取得
+    target_user = get_object_or_404(User, username=username)
+
+    # followers: このユーザーをフォローしている User の一覧（ManyToMany）
+    follower_users = target_user.profile.followers.all().order_by('id')
+
+    paginator = Paginator(follower_users, 10)
+    page      = request.GET.get('page')
+    followers = paginator.get_page(page)
+
     context = {
-        'followers': followers
-        }
+        'user': target_user,
+        'followers': followers,
+    }
     return render(request, 'accounts/followers.html', context)
 
 
@@ -213,6 +219,16 @@ class ProfileFollowToggle(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         username_to_toggle     = request.POST.get("username")
         profile_, is_following = Profile.objects.toggle_follow(request.user, username_to_toggle)
+
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success'           : True,
+                'is_following'      : is_following,
+                'followers_count'   : profile_.followers.count(),
+                'following_count'   : profile_.user.is_following.all().count(),
+                'my_following_count': request.user.is_following.count(),
+            })
+
         return redirect(f"/accounts/{profile_.user.username}")
 
 
@@ -229,26 +245,33 @@ class UserFollowingFeedView(View):
         if not request.user.is_authenticated:
             return render(request, 'articles/article_list_new.html', {})
 
-        users                 = Profile.objects.all().order_by('?')[:4]
-        post_articles         = Article.objects.all()
-        order_like_articles   = post_articles.annotate(like_count=Count('like')).order_by('-like_count')[:5]
-        user                  = request.user
-        count                 = user.article_set.all().count()
-        is_following_user_ids = [x.user.id for x in user.is_following.all()]
-        qs                    = Article.objects.filter(author__id__in=is_following_user_ids).order_by('-date')
-        paginator             = Paginator(qs, 24)
-        page                  = request.GET.get('page')
-        articles              = paginator.get_page(page)
+        User = get_user_model()
+        user = User.objects.get(id=request.user.id)  # ✅ 最新ユーザーで更新
 
-        # ✅ 各記事に display_date を追加
+        post_articles       = Article.objects.all()
+        order_like_articles = post_articles.annotate(like_count=Count('like')).order_by('-like_count')[:5]
+        count               = user.article_set.count()
+
+        # ✅ フォロー中ユーザーのID取得
+        is_following_user_ids = list(user.is_following.values_list('user__id', flat=True))
+        following_users = set(is_following_user_ids)
+
+        # ✅ 記事取得 & カスタム属性追加
+        qs = list(Article.objects.filter(author__id__in=following_users).order_by('-date'))
         now = timezone.now()
-        for article in articles:
+        for article in qs:
             article.display_date = self.format_custom_date_style(article.date, now)
+            article.is_following = article.author.id in following_users
+
+        # ✅ paginator処理
+        paginator = Paginator(qs, 10)
+        page = request.GET.get('page')
+        articles = paginator.get_page(page)
 
         context = {
             'articles'           : articles,
             'count'              : count,
             'order_like_articles': order_like_articles,
-            'users'              : users
+            'users'              : Profile.objects.all().order_by('?')[:4],
         }
         return render(request, 'accounts/user_new_following.html', context)

@@ -323,6 +323,18 @@
             {% endif %}
         </nav>
         <script>
+        // follow
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFollowButtons();
+        });
+        </script>
+        <script>
+        // hover card 
+        document.addEventListener("DOMContentLoaded", function() {
+            initializeHoverCard();
+        });
+        </script>
+        <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchBtn = document.querySelector('#search-btn');           // 検索アイコン
             const searchContainer = document.querySelector('#search-container'); // 検索用div
@@ -364,5 +376,7 @@
         <script src="/static/js/liked.js"></script>
         <script src="/static/js/book_mark.js"></script>
         <script src="/static/js/comment.js"></script>
+        <script src="/static/js/hover-card.js"></script>
+        <script src="/static/js/follow_toggle.js"></script>
     </body>
 </html>

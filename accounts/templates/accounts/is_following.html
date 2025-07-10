@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% block headerName %}フォロー中{% endblock %}
+{% block headerName %}{{ user.username }} さんがフォロー中{% endblock %}
 {% block title %} Is Following {% endblock %}
 {% block content %}
 <div class="users-wrapper">
     {% for following in is_following %}
     <div class="users-box">
         <div class="users-item-pic">
-             <a href="{% url 'articles:user-posts' following.user %}">
+            <a href="{% url 'articles:user-posts' following.user.username %}">
                 <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-             </a>
-        </div>
-        <div class="users-items-box">
+            </a>
             <div class="users-item-username">
-                <p>{{ following.user }}</p>
+                <p>{{ following.user.username }}</p>
             </div>
+        </div>
+
+        <div class="users-right-section">
+            {% if following.user.profile.bio %}
+            <div class="users-item-bio">
+                <p>{{ following.user.profile.bio|linebreaksbr|truncatechars:80 }}</p>
+            </div>
+            {% endif %}
             <div class="users-item-btn">
-                <a href="{% url 'accounts:profile_detail' following.user %}">
+                <a href="{% url 'articles:user-posts' following.user.username %}" class="round-button">
                     <p>詳細</p>
                 </a>
             </div>
