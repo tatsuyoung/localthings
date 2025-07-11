@@ -231,6 +231,26 @@ body.dark-mode .password_reset {
 body.dark-mode .hover-user-trigger {
     color: #f5f5f5;
 }
+/* privacy p */
+body.dark-mode .privacy p {
+    color: #f5f5f5;
+}
+/* Hover Card */
+body.dark-mode .hover-profile-card {
+    background-color: #2a2a2a;
+}
+body.dark-mode .hover-profile-bio {
+    color: #f5f5f5;
+}
+body.dark-mode .hover-profile-follow {
+    color: #ccc;
+}
+body.dark-mode .follow-count {
+    color: #fff;
+}
+body.dark-mode .hover-user-trigger {
+    color: #f5f5f5;
+}
 
 /* Debug */
 /* * {
@@ -4408,6 +4428,24 @@ ul{
     body:not(.dark-mode) .hover-user-trigger {
     color: #f5f5f5;
     }
+    body:not(.dark-mode) .privacy p {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .hover-profile-card {
+    background-color: #2a2a2a;
+    }
+    body:not(.dark-mode) .hover-profile-bio {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .hover-profile-follow {
+    color: #ccc;
+    }
+    body:not(.dark-mode) .follow-count {
+    color: #fff;
+    }
+    body:not(.dark-mode)  .hover-user-trigger {
+    color: #f5f5f5;
+    }
 }
 
 /* Create form */
@@ -4542,8 +4580,8 @@ ul{
     .form-logout-footer button,
     .profile-account-delete {
     background-color: #2c2c2c;
-    color: #f66;
-    border: 1px solid #f66;
+    color: #f5f5f5;
+    border: 0.5px solid #3333;
     }
 
     .form-logout-footer button:hover,

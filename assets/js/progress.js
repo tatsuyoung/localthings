@@ -15,7 +15,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-const csrftoken = getCookie('csrftoken');
+const myCsrfToken = getCookie('csrftoken');
 
 $("#form").submit(function(e) {
     e.preventDefault();
@@ -42,7 +42,7 @@ $("#form").submit(function(e) {
         data: formData,
         processData: false, // これが重要
         contentType: false, // これが重要
-        headers: {'X-CSRFToken': csrftoken},
+        headers: {'X-CSRFToken': myCsrfToken},
         success: function (data) {
             clearInterval(fakeInterval);
             $("#fake-bar").css("width", "100%");

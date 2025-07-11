@@ -1123,6 +1123,10 @@ li.logo {
 {
     margin-left: 4px;
 }
+/* following feed h3 */
+.following-feed h3 {
+    font-size: 16px;
+}
 
 /* edit */
 /* アイコン色 */

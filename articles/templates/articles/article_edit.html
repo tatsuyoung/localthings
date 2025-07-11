@@ -6,7 +6,6 @@
 <div class="edit-article-wrapper">
     <form method="POST" enctype="multipart/form-data" id="form" class="edit-article-form">
         {% csrf_token %}
-
         <div class="edit-article-item">
             <label for="id_body" class="edit-article-label">Main</label>
             {{ form.body }}
@@ -17,10 +16,9 @@
         </div>
         <div class="edit-article-item">
             <label class="edit-article-label">Max 5 images</label>
-
             {{ formset.management_form }}
             <div class="edit-article-image-formset">
-            {% for image_form in formset %}
+                {% for image_form in formset %}
                 {% if forloop.counter <= 5 %}
                     <div class="article-image-form-block">
                         {{ image_form.id }}
@@ -44,8 +42,8 @@
                         {% endif %}
                     </div>
                 {% endif %}
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="edit-article-item">
             <label for="id_category" class="edit-article-label">Category</label>
@@ -75,14 +73,10 @@
                 </div>
             </div>
         </div>
+    </div>
     <div class="edit-article-footer">
         <a href="{% url 'home' %}" class="edit-article-home-link">Home</a>
     </div>
 </div>
 <div class="global-footer"></div>
-{% endblock %}
-{% block script %}
-<!-- <script src="/static/js/slugify.js"></script> -->
- <script src="/static/js/edit.js"></script>
-<script src="/static/js/progress.js"></script>
 {% endblock %}
