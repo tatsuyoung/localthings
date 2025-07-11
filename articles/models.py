@@ -31,10 +31,6 @@ class Article(models.Model):
     like       = models.ManyToManyField(User, related_name="likes", blank=True)
     book_mark  = models.ManyToManyField(User, related_name='book_mark', blank=True)
 
-    def clean(self):
-        if not self.body.strip():
-            raise ValidationError("本文は空にできません。")
-
     def __str__(self):
         return self.title
 
@@ -46,6 +42,10 @@ class Article(models.Model):
 
     def get_url(self):
         return reverse('articles:detail', kwargs={'pk': self.id})
+
+    def clean(self):
+        if not self.body.strip():
+            raise ValidationError("本文は空にできません。")
 
     @property
     def total_likes(self):
@@ -74,6 +74,8 @@ class Article(models.Model):
 
         if not re.fullmatch(r'[a-zA-Z0-9-]+', self.slug):
             self.slug = '-'
+
+        self.full_clean()
 
         super().save(*args, **kwargs)
 

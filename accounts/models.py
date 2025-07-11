@@ -41,7 +41,8 @@ class Profile(models.Model):
     bg        = models.ImageField(upload_to='user_background', blank=True, null=True, help_text='著作権を確認してください。')
     bio       = models.TextField(max_length=160, blank=True, null=True)
     website   = models.URLField(max_length=250,  blank=True, null=True)
-    followers = models.ManyToManyField(User, related_name='is_following', blank=True)
+    # フォロワー = このユーザーをフォローしているUser
+    followers = models.ManyToManyField(User, related_name='following_users', blank=True)
     objects   = ProfileManager()
 
     def __str__(self):

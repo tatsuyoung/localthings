@@ -73,6 +73,20 @@ def article_search(request):
     for article in page_obj:
         article.display_date = format_custom_date_style(article.date, now)
 
+    # ✅ 各 author の followers / following 数を dict に格納
+    followers_count = {}
+    following_count = {}
+
+    if request.user.is_authenticated:
+        for article in page_obj:
+            followers_count[article.author.username]  = article.author.profile.followers.count()
+            following_count[article.author.username]  = article.author.following_users.count()
+
+    # follow
+    is_following_set = set()
+    if request.user.is_authenticated:
+        is_following_set = set(request.user.following_users.all())
+
     # ✅ author_count_dict を計算
     author_ids = [article.author.id for article in page_obj]
     author_article_counts = Article.objects.filter(author__id__in=author_ids) \
@@ -95,6 +109,9 @@ def article_search(request):
         "query"               : query,
         "article_comment_data": article_comment_data,
         "author_count_dict"   : author_count_dict,
+        'followers_count'     : followers_count,
+        'following_count'     : following_count,
+        "is_following_set"    : is_following_set,
         "view_name"           : "search", 
     }
 
@@ -116,20 +133,25 @@ def article_list(request):
         article.display_date = format_custom_date_style(article.date, now)
 
         if request.user.is_authenticated:
-            following_user_ids = set(request.user.is_following.values_list('user__id', flat=True))
+            following_user_ids = set(request.user.following_users.values_list('id', flat=True))
             for article in page_obj:
                 article.is_following = article.author.id in following_user_ids
         else:
             for article in page_obj:
                 article.is_following = False  # 未ログインなら全部False
-        # ✅ 各 author の followers / following 数を dict に格納
+    # ✅ 各 author の followers / following 数を dict に格納
     followers_count = {}
     following_count = {}
 
     if request.user.is_authenticated:
         for article in page_obj:
-            followers_count[article.author.username] = article.author.profile.followers.count()
-            following_count[article.author.username]  = article.author.is_following.count()
+            followers_count[article.author.username]  = article.author.profile.followers.count()
+            following_count[article.author.username]  = article.author.following_users.count()
+
+    # follow
+    is_following_set = set()
+    if request.user.is_authenticated:
+        is_following_set = set(request.user.following_users.all())
 
     # ✅ 各 author の記事数を取得 → {user_id: 投稿数} の dict に
     author_ids = [article.author.id for article in page_obj]
@@ -162,8 +184,9 @@ def article_list(request):
     # ✅ Ajaxの場合はJSONで返す
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         context.update({
-        'followers_count': followers_count,
-        'following_count': following_count,
+        'followers_count' : followers_count,
+        'following_count' : following_count,
+        'is_following_set': is_following_set,
         })
         html = render_to_string("articles/partial_article_card_list.html", context, request=request)
         return JsonResponse({
@@ -179,7 +202,8 @@ def article_list(request):
         'author_count_dict'   : author_count_dict,
         'article_comment_data': article_comment_data,
         'followers_count'     : followers_count,
-        'following_count'     : following_count,     
+        'following_count'     : following_count,
+        'is_following_set'    : is_following_set,   
         'view_name'           : 'list',
     })
 
@@ -327,7 +351,7 @@ def book_mark_list(request):
 @require_POST
 def book_mark(request, article_id):
     if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Please log in.'}, status=403)
+        return JsonResponse({'message': 'Please Login'}, status=403)
 
     article = get_object_or_404(Article, id=article_id)
     user = request.user
@@ -345,7 +369,7 @@ def book_mark(request, article_id):
 @require_POST
 def like_button(request, like_id):
     if not request.user.is_authenticated:
-        return JsonResponse({'message': 'Please log in.'}, status=403)
+        return JsonResponse({'message': 'Please Login.'}, status=403)
 
     user    = request.user
     title   = request.POST.get('title', None)
@@ -359,7 +383,7 @@ def like_button(request, like_id):
         notify.send(
             user,
             recipient=article.author,
-            verb=f'さんが、あなたの記事にいいねしました。{article.title}',
+            verb=f'さんが、あなたの記事にいいね!しました。{article.title}',
             action_object=article,
             url=url
         )
@@ -404,7 +428,7 @@ def users_detail(request, pk):
     page                = request.GET.get('page')
     articles            = paginator.get_page(page)
     count               = user.article_set.all().count()
-    following           = user.is_following.all().count()
+    following           = user.following_users.all().count()
     followers           = user.profile.followers.all().count()
     # ✅ 各記事に display_date を追加
     now = timezone.now()
@@ -460,11 +484,11 @@ class UserPostListView(ListView):
         order_like_articles = articles_list.annotate(like_count=Count('like')).order_by('?')[:5]
         articles            = Article.objects.filter(author=_user).order_by('-date')
 
-        context             = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         context.update({
             'User'     : _user,
-            'following': _user.is_following.all().count(),
+            'following': _user.following_users.all().count(), 
             'followers': _user.profile.followers.all().count(),
             'bio'      : _user.profile.bio,
             'website'  : _user.profile.website,

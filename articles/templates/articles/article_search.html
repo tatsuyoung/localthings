@@ -37,4 +37,15 @@
         <div class="search-footer"></div>
     </div>
 </div>
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeSwipers();           // Swiper 初期化
+        initializeHoverCard();        // Hover Card
+        initializeFollowButtons();    // Follow Toggle
+        initializeLikeButtons();      // Like Toggle ← これが効くようになる
+        initializeBookmarkButtons();  // Bookmark
+    });
+</script>
+{% endblock %}
 {% endblock %}

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-{% if request.user != user %}
+{% if request.user != target_user %}
 {% if request.user.is_authenticated %}
 <form class="follow-form" method="POST" action="{% url 'follow' %}">
     {% csrf_token %}
-    <input type="hidden" name="username" value="{{ user.username }}"/>
+    <input type="hidden" name="username" value="{{ target_user.username }}"/>
     <button type="submit"
-        class="follow-button {% if is_following %}is-following{% endif %}"
-        data-username="{{ user.username }}"
-        data-is-following="{{ is_following|yesno:'true,false' }}">
-        <span class="follow-text">{% if is_following %}フォロー中{% else %}フォロー{% endif %}</span>
+        class="follow-button {% if request.user in target_user.profile.followers.all %}is-following{% endif %}"
+        data-username="{{ target_user.username }}"
+        data-is-following="{% if request.user in target_user.profile.followers.all %}true{% else %}false{% endif %}">
+        <span class="follow-text">
+            {% if request.user in target_user.profile.followers.all %}
+                フォロー中
+            {% else %}
+                フォロー
+            {% endif %}
+        </span>
     </button>
 </form>
 {% endif %}

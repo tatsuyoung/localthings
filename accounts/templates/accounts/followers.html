@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
+{% load follow_tags %}
 {% block headerName %}{{ user.username }} さんのフォロワー{% endblock %}
 {% block title %} Followers {% endblock %}
 {% block content %}
 <div class="users-wrapper">
     {% for follower in followers %}
-    <div class="users-box">
-        <div class="users-item-pic">
-            <a href="{% url 'articles:user-posts' follower.username %}">
-                <img src="{{ follower.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-            </a>
-            <div class="users-item-username">
-                <p>{{ follower.username }}</p>
-            </div>
-        </div>
-
-        <div class="users-right-section">
-            {% if follower.profile.bio %}
-            <div class="users-item-bio">
-                <p>{{ follower.profile.bio|linebreaksbr|truncatechars:80 }}</p>
-            </div>
-            {% endif %}
-            <div class="users-item-btn">
-                <a href="{% url 'articles:user-posts' follower.username %}" class="round-button">
-                    <p>詳細</p>
+    <div class="users-card">
+        <div class="user-main-row">
+            <div class="user-avatar">
+                <a href="{% url 'articles:user-posts' follower.username %}">
+                    <img src="{{ follower.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </a>
+            </div>
+            <div class="user-info">
+                <div class="user-top-row">
+                    <p class="user-name">{{ follower.username }}</p>
+                    {% include "accounts/snippet/follow_form.html" with target_user=follower %}
+                </div>
+                {% mutual_follow_status request.user follower as follow_status %}
+                {% if follow_status %}
+                    <p class="followed-note">{{ follow_status }}</p>
+                {% endif %}
+                {% if follower.profile.bio %}
+                <p class="user-bio">{{ follower.profile.bio|linebreaksbr|truncatechars:80 }}</p>
+                {% endif %}
             </div>
         </div>
     </div>

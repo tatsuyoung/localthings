@@ -4,199 +4,203 @@
 {% load notifications_tags %}
 <html lang="ja">
 
-<head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2ESMP64HC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2ESMP64HC"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    gtag('config', 'G-Y2ESMP64HC');
-    </script>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- pinch in out -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
-    <title>{% block title %}Local Things{% endblock %}</title>
-    <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
-         ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
-         大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}" />
-    <!--  favicon  -->
-    <link rel="icon" href="{% static 'favicon.ico' %}">
-    <!-- PWA -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="Local Things" />
-    <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
-    <meta name="theme-color" content="white" />
-    <link rel="manifest" href="{% static 'manifest.json' %}">
-    <!--  Google Search Console   -->
-    <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
-    <!--  Font Awesome      -->
-    <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
-    <!--  Google Fonts      -->
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
-    <!--  Load jquery  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Swiper -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    
-    <!-- notifications live -->
-    <!--  <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>  -->
-    <!-- notifications -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js"
-        type="text/javascript"></script>
-    <!--  Load CSS  -->
-    <link rel="stylesheet" href="{% static 'css/new-styles.css' %}">
-</head>
-
-<body>
-    <header id="nav" class="mobile-nav-wrapper">
-        <div class="mobile-nav-top-link">
-            {% if user.is_authenticated %}
-            <a href="{% url 'articles:users_detail' user.pk %}">
-                <div class="mobile-profile-container">
-                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
-                </div>
-            </a>
-            {% else %}
-            <div class="mobile-profile-container">
-                <i class="far fa-user-circle"></i>
-            </div>
-            {% endif %}
-        </div>
-        <div class="mobile-nav-top-link">
-            {% block mobileCenter %}
-            <a href="{% url 'about' %}">
-                <div class="mobile-wrapper_circle">
-                    <h1 class="mobile-logo_1">L</h1>
-                    <h1 class="mobile-logo_2">T</h1>
-                </div>
-            </a>
-            {% endblock %}
-        </div>
-        <div class="mobile-nav-top-link">
-            {% if user.is_authenticated %}
-            <form action="{% url 'accounts:logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
-                    <!-- Lucide: LogOut icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="lucide lucide-log-out" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <polyline points="16 17 21 12 16 7"/>
-                        <line x1="21" x2="9" y1="12" y2="12"/>
-                    </svg>
-                </button>
-            </form>
-            {% else %}
-            <div class="mobile-profile-container">
-                <a href="{% url 'about' %}" id="about">
-                    <i class="fas fa-info-circle"></i>
+        gtag('config', 'G-Y2ESMP64HC');
+        </script>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- pinch in out -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+        <title>{% block title %}Local Things{% endblock %}</title>
+        <meta name="description" content="{% block description %}Local Thingsは、大分県の地域の「何気ないもの」を紹介しています。
+            ローカルフードや、ローカルスポット、ナイスなおススメ情報など。
+            大分のLocalが好きな人、興味がある人とで地域を盛り上げていく地域密着型国産SNS{% endblock %}" />
+        <!--  favicon  -->
+        <link rel="icon" href="{% static 'favicon.ico' %}">
+        <!-- PWA -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Local Things" />
+        <link href="/static/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+        <meta name="theme-color" content="white" />
+        <link rel="manifest" href="{% static 'manifest.json' %}">
+        <!--  Google Search Console   -->
+        <meta name="google-site-verification" content="pzDQnHiXAF6b76qLuGcsnt2Fg9p3PPVooCxmn4QJsKw" />
+        <!--  Font Awesome      -->
+        <script src="https://kit.fontawesome.com/893f850b11.js" crossorigin="anonymous"></script>
+        <!--  Google Fonts      -->
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+        <!--  Load jquery  -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Swiper -->
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+        
+        <!-- notifications live -->
+        <!--  <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>  -->
+        <!-- notifications -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js"
+            type="text/javascript"></script>
+        <!--  Load CSS  -->
+        <link rel="stylesheet" href="{% static 'css/new-styles.css' %}">
+    </head>
+    <body>
+        <header id="nav" class="mobile-nav-wrapper">
+            <div class="mobile-nav-top-link">
+                {% if user.is_authenticated %}
+                <a href="{% url 'articles:users_detail' user.pk %}">
+                    <div class="mobile-profile-container">
+                        <img src="{{ user.profile.image.url }}" class="profile-pic" alt="Avatar" loading="lazy">
+                    </div>
                 </a>
+                {% else %}
+                <div class="mobile-profile-container">
+                    <i class="far fa-user-circle"></i>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-    </header>
-
-    <div class="container">
-
-        <div class="left">
-            <div class="left-icons-wrapper">
-            {% block sideNav %}
-
-            {% endblock %}
+            <div class="mobile-nav-top-link">
+                {% block mobileCenter %}
+                <a href="{% url 'about' %}">
+                    <div class="mobile-wrapper_circle">
+                        <h1 class="mobile-logo_1">L</h1>
+                        <h1 class="mobile-logo_2">T</h1>
+                    </div>
+                </a>
+                {% endblock %}
             </div>
-        </div>
-
-        <div class="center" id="main">
-            <div class="center-header">
-                <div class="header-return">
-                    {% block headerA %}
-                    <a href="{{ request.META.HTTP_REFERER }}">
-                        <i class="fas fa-arrow-left"></i>
+            <div class="mobile-nav-top-link">
+                {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('本当にログアウトしますか？');">
+                        <!-- Lucide: LogOut icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="lucide lucide-log-out" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" x2="9" y1="12" y2="12"/>
+                        </svg>
+                    </button>
+                </form>
+                {% else %}
+                <div class="mobile-profile-container">
+                    <a href="{% url 'about' %}" id="about">
+                        <i class="fas fa-info-circle"></i>
                     </a>
-                    {% endblock %}
                 </div>
-                <div class="header-name">
-                    <h3>{% block headerName %}戻る{% endblock %}</h3>
+                {% endif %}
+            </div>
+        </header>
+        <div class="container">
+            <div class="left">
+                <div class="left-icons-wrapper">
+                {% block sideNav %}
+
+                {% endblock %}
                 </div>
-                <div class="darkmode-wrapper">
-                    <div class="header-icon-circle">
-                        <div class="header-icon">
-                            <button id="darkModeToggle" style="display: none;">
-                                <i class="fas fa-star-and-crescent"></i>
-                            </button>
+            </div>
+            <div class="center" id="main">
+                <div class="center-header">
+                    <div class="header-return">
+                        {% block headerA %}
+                        <a href="{{ request.META.HTTP_REFERER }}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        {% endblock %}
+                    </div>
+                    <div class="header-name">
+                        <h3>{% block headerName %}戻る{% endblock %}</h3>
+                    </div>
+                    <div class="darkmode-wrapper">
+                        <div class="header-icon-circle">
+                            <div class="header-icon">
+                                <button id="darkModeToggle" style="display: none;">
+                                    <i class="fas fa-star-and-crescent"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="center-wrapper">
-                {% block content %}
+                <div class="center-wrapper">
+                    {% block content %}
 
-                {% endblock %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="right">
             </div>
         </div>
+        {% include 'articles/snippet/mobile-nav-footer.html' %}
+        <script>
+        // follow
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFollowButtons();
+        });
+        </script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("form.comment-form").forEach(function (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
 
+                    const formData   = new FormData(form);
+                    const action     = form.getAttribute("action");
+                    const articleId  = form.getAttribute("data-article-id");
+                    const commentList = document.querySelector(`#comment-list-${articleId}`);
 
-        <div class="right">
-
-        </div>
-    </div>
-    {% include 'articles/snippet/mobile-nav-footer.html' %}
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("form.comment-form").forEach(function (form) {
-            form.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                const formData   = new FormData(form);
-                const action     = form.getAttribute("action");
-                const articleId  = form.getAttribute("data-article-id");
-                const commentList = document.querySelector(`#comment-list-${articleId}`);
-
-                fetch(action, {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    commentList.innerHTML = data.html;
-                    form.querySelector("textarea").value = "";
-                    scrollToBottom(articleId);
-                })
-                .catch(error => {
-                    console.error("Fetch error:", error);
-                    alert("投稿に失敗しました");
+                    fetch(action, {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        commentList.innerHTML = data.html;
+                        form.querySelector("textarea").value = "";
+                        scrollToBottom(articleId);
+                    })
+                    .catch(error => {
+                        console.error("Fetch error:", error);
+                        alert("投稿に失敗しました");
+                    });
                 });
             });
         });
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/static/js/swiper-images.js"></script>
-    <script src="/static/js/app.js"></script>
-    <script src="/static/js/mobile-hover.js"></script>
-    <script src="/static/js/fulltext.js"></script>
-    <script src="/static/js/main_comment_toggle.js"></script>
-    <script src="/static/js/infinite_gallery_scroll.js"></script>
-    <!--  <script src="/static/js/notification.js"></script>  -->
-    <!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
-    {% block script %}
-    {% endblock %}
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script src="/static/js/swiper-images.js"></script>
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/mobile-hover.js"></script>
+        <script src="/static/js/fulltext.js"></script>
+        <script src="/static/js/main_comment_toggle.js"></script>
+        <script src="/static/js/infinite_scroll.js"></script>
+        <script src="/static/js/infinite_gallery_scroll.js"></script>
+        <script src="/static/js/follow_toggle.js"></script>
+        <script src="/static/js/hover-card.js"></script>
+        <script src="/static/js/follow_toggle.js"></script>
+        <script src="/static/js/liked.js"></script>
+        <script src="/static/js/book_mark.js"></script>
+        <!--  <script src="/static/js/notification.js"></script>  -->
+        <!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
+        {% block script %}
+        {% endblock %}
 
-<script src="/static/js/thumb.js"></script>
-<script src="/static/js/darkmode.js"></script>
-<script src="/static/js/mobile-nav-scroll.js"></script>
-</body>
-
+        <script src="/static/js/thumb.js"></script>
+        <script src="/static/js/darkmode.js"></script>
+        <script src="/static/js/mobile-nav-scroll.js"></script>
+    </body>
 </html>
