@@ -88,10 +88,6 @@ body.dark-mode .mobile-nav {
 body.dark-mode .following-feed-wrapper p {
         color: #f5f5f5;
     }
-/* h1 */
-body.dark-mode .center-wrapper h1 {
-    color: #f5f5f5;
-}
 
 /* h3 */
 body.dark-mode .header-name h3 {
@@ -214,19 +210,58 @@ body.dark-mode .users-item-bio p {
 body.dark-mode .pager .pagination li a span {
     color:#f5f5f5;
 }
-/* main */
+/* follow is follow page */
+body.dark-mode .users-card:hover {
+  background-color: #444;
+}
+body.dark-mode .followed-note {
+    color: #9c9391;
+}
+body.dark-mode .user-bio {
+    color: #f5f5f5;
+}
+/* password reset p */
+body.dark-mode .password-reset-wrapper p {
+    color:#f5f5f5;
+}
+body.dark-mode .password_reset {
+    color:#f5f5f5;
+}
+/* search username */
+body.dark-mode .hover-user-trigger {
+    color: #f5f5f5;
+}
+
+/* Debug */
+/* * {
+  outline: 1px solid red;
+} */
+
+/* Main */
 body {
-  background-color: var(--bg-color, #fff);
-  color: var(--text-color, #000);
+    font-family: 
+    "Arial", 
+    "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro",
+    "Osaka",
+    "メイリオ",
+    "Meiryo",
+    "MS Ｐゴシック",
+    "MS PGothic",
+    sans-serif;
+    background-color: var(--bg-color, #fff);
+    color: var(--text-color, #000);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;    /* 縦スクロールは許可（これが必要） */
+    touch-action: auto;  /* ← これもズーム有効化の鍵 */
 }
 
 a {
   color: var(--main-color);
 }
-
-/* a:hover {
-  background-color: var(--hover-color);
-} */
 
 /* headerやボタンにも反映 */
 .header-icon-circle {
@@ -240,20 +275,6 @@ button {
 }
 .fas {
   color: var(--text-color);
-}
-
-/* main */
-body {
-    font-family: 
-    "Arial", 
-    "ヒラギノ角ゴ Pro W3",
-    "Hiragino Kaku Gothic Pro",
-    "Osaka",
-    "メイリオ",
-    "Meiryo",
-    "MS Ｐゴシック",
-    "MS PGothic",
-    sans-serif;
 }
 
 ul
@@ -572,6 +593,7 @@ li.logo {
 }
 
 /* profile style */
+
 .profile-pic
 {
     border-radius:50%;
@@ -650,21 +672,18 @@ li.logo {
 
 /* center style */
 
-.center
-{
+.center {
     width: 60%;
     padding: 1rem;
     flex-shrink: 0;
 }
 
-.center-header
-{
+.center-header {
     display: flex ;
     padding-top: 10px;
 }
 
-.header-return
-{
+.header-return {
     padding: 10px;
     margin-left: 20px;
     width: 40px;
@@ -673,13 +692,11 @@ li.logo {
     position: relative ;
 }
 
-.header-return a
-{
+.header-return a {
     color: var(--main-color);
 }
 
-.header-return i
-{
+.header-return i {
     position: absolute ;
     top: 50%;
     left: 50%;
@@ -687,13 +704,11 @@ li.logo {
     -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
-.header-return:hover
-{
+.header-return:hover {
     background:var(--hover-color);
 }
 
-.header-name
-{
+.header-name {
     margin-left: 20px;
     display: flex ;
     justify-content: center ;
@@ -701,15 +716,13 @@ li.logo {
     align-items: center ;
 }
 
-.header-name h3
-{
+.header-name h3 {
     font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 26px;
     color:rgb(20, 23, 26);
 }
 
-.header-icon-circle
-{
+.header-icon-circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -719,14 +732,12 @@ li.logo {
     align-items: center ;
 }
 
-.header-icon-circle:hover
-{
+.header-icon-circle:hover {
     background: var(--hover-color);
     border-radius: 50px;
 }
 
-.header-icon i
-{
+.header-icon i {
     color: var(--main-color) ;
 }
 
@@ -737,20 +748,9 @@ li.logo {
     padding-right: 10px; /* 任意の余白 */
 }
 
-.center-wrapper h1 {
-    text-align:                 center;
-    margin:                  40px auto;
-    font-size:                   2.2em;
-    color: #333;
-    overflow-wrap:          break-word;
-    word-wrap:              break-word;
-    }
-
-
 /* right style */
 
-.right
-{
+.right {
     /*background: ghostwhite;*/
     width: 20%;
     height: auto;
@@ -763,13 +763,11 @@ li.logo {
 
 /* articles */
 
-.articles-container
-{
+.articles-container {
     margin-top: 60px;
 }
 
-.article-wrapper ul li
-{
+.article-wrapper ul li {
     text-decoration: none ;
     display: inline-block ;
     vertical-align: middle;
@@ -951,12 +949,101 @@ li.logo {
   text-decoration: none;
   white-space: nowrap;
 }
+/* search box (main と 同じ) */
+.articles-icon {
+    display: flex;
+    justify-content: space-between;  /* 左右に分ける */
+    align-items: center;
+    margin: 10px;
+}
+.articles-icon-left ul {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.articles-icon-wrapper {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.articles-icon-wrapper i,
+.articles-icon-right i {
+    font-size: 23px;
+    color: gray;
+}
+/* hover user profile */
+.hover-user-trigger {
+    color: #333;
+}
+.hover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-profile-card {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  width: 250px;
+  background: white;
+  border: 0.5px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- 表示制御用クラス（JSで付与）--- */
+.hover-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* --- プロフィール画像 --- */
+.hover-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2px;
+}
+/* フォローボタンを画像の右横に配置 */
+.hover-profile-follow-btn form {
+  margin-left: 8px;
+}
+
+.follow-button {
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 16px;
+  border: 0.5px solid #ccc;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.follow-button .follow-text {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ✅ フォロー中（白背景） */
+.follow-button.is-following {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.follow-button.is-following .follow-text {
+  color: black;
+}
 
 /* articles icons */
-.articles-icon
-{
-    margin:10px;
-}
 
 .icon-items
 {
@@ -1474,7 +1561,6 @@ li.logo {
 }
 
 /* categories */
-
 .categories_wrapper{
     margin:                              0;
     padding:                             0;
@@ -1505,14 +1591,14 @@ li.logo {
     opacity:                           0.4;
     }
 
-.cen{
+.cen {
     width: 100%;
     overflow:                      hidden;
     padding:                         3px;
     }
 
 
-.category{
+.category {
     display:                 inline-block;
     width:                  calc(100% /7);
     margin:             1px -2px 1px -2px;
@@ -1524,6 +1610,9 @@ li.logo {
     border-radius:                   10px;
     margin-left:                     -1px;
     }
+.category_select_label {
+    padding-left: 10px;
+}
 
 .category:hover
 {
@@ -1767,7 +1856,7 @@ li.logo {
 .bookmark-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 1rem;
 }
 
@@ -1882,7 +1971,6 @@ li.logo {
     outline:             0;
     display:  inline-block;
     padding:           8px;
-    background-color: #333;
     cursor:        pointer;
     width:            100%;
     font-size:        18px;
@@ -1912,53 +2000,95 @@ li.logo {
 
 /* users follower following */
 
-.users-wrapper
-{
-    margin-top: 60px;
+.users-wrapper {
+  margin-top: 60px;
 }
-.users-box {
+
+.users-card {
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.users-card:hover {
+  background-color: #f5f8fa;
+}
+
+.user-main-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.user-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  margin-left: 12px;
+  flex: 1;
+}
+
+.user-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 15px;
+  margin: 0;
+}
+
+.followed-note {
+  font-size: 12px;
+  color: #555;
+  margin: 2px 0;
+}
+
+.user-bio {
+  font-size: 14px;
+  color: #333;
+  margin: 4px 0 0 0;
+  word-break: break-word;
+}
+
+/* follow button */
+.follow-form {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+    justify-content: flex-end;
+}
+.follow-button {
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 16px;
+  border: 0.5px solid #ccc;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.users-item-pic {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80px;
+.follow-button .follow-text {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.users-item-pic img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
+/* ✅ フォロー中（白背景） */
+.follow-button.is-following {
+  background-color: white;
+  border: 1px solid #ccc;
 }
 
-.users-item-username p {
-    margin-top: 6px;
-    font-weight: bold;
-    text-align: center;
-    font-size: 14px;
+.follow-button.is-following .follow-text {
+  color: black;
 }
 
-.users-right-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 16px;
-    flex: 1;
-}
-
-.users-item-bio p {
-    margin: 0;
-    font-size: 14px;
-    color: #444;
-    text-align: left;
-}
+/* website */
 .user-website-link {
     word-break: break-all;
     color: #6495ED;
@@ -2195,8 +2325,16 @@ body.dark-mode .about_box:hover {
 }
 
 /* privacy policy */
+.h1-wrapper {
+    display: flex;
+    flex-direction: column;   /* 縦に並べる */
+    align-items: center;      /* 水平方向に中央寄せ */
+    justify-content: center;  /* 垂直方向に中央寄せ（必要に応じて） */
+    text-align: center;       /* テキストを中央揃えに */
+    padding: 20px;
+}
 
-.privacy h2{
+.privacy h2 {
     text-align:             center;
     margin:              30px auto;
     font-weight:900;
@@ -2384,7 +2522,15 @@ body.dark-mode .about_box:hover {
     padding-top: 2px;
 }
 
-
+/* login container */
+.form-container {
+    display: flex;
+    align-items: center;      /* 垂直方向中央 */
+    justify-content: center;  /* 水平方向中央 */
+    height: 100vh;            /* ビューポート全体の高さ */
+    padding: 0;               /* 上下余白不要 */
+    margin: 0;
+}
 
 /* Nwe Form Layout */
 
@@ -2396,11 +2542,11 @@ body.dark-mode .about_box:hover {
     0 41.8px 33.4px rgba(0,0,0,.05),
     0 100px 80px rgba(0,0,0,.07);
     background:          #fff;
-    margin:             10em auto;
-    padding:               0 1em;
-    max-width:             70%;
-    padding-top: 50px;
-    border-radius: 4px;
+    padding: 2em 1.5em;
+    width: 100%;
+    max-width: 400px; /* 適度な最大幅 */
+    border-radius: 8px;
+    box-sizing: border-box;
     }
 
 .form-wrapper h2{
@@ -2449,6 +2595,11 @@ body.dark-mode .about_box:hover {
     -webkit-appearance:            none;
     -moz-appearance:               none;
     }
+
+.custom-textarea {
+    padding-left: 1em;
+}
+
 .form-item textarea:focus{
     border-bottom:    2px solid #c0c0c0;
     outline:                       none;
@@ -2485,10 +2636,39 @@ body.dark-mode .about_box:hover {
 }
 
 /* password input */
+.password-reset-wrapper {
+    display: flex;
+    flex-direction: column;   /* 縦に並べる */
+    align-items: center;      /* 水平方向に中央寄せ */
+    justify-content: center;  /* 垂直方向に中央寄せ（必要に応じて） */
+    text-align: center;       /* テキストを中央揃えに */
+    min-height: 20vh;         /* 高さ調整：必要に応じて */
+}
+/* password reset */
+.password-reset-wrapper h1 {
+    font-size: 1.8em;
+    margin-bottom: 1rem;
+}
+
+.password_reset {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+    line-height: 1.5;
+}
+
 .password-wrapper {
     position: relative;
     width: 100%;
     margin-bottom: 1em;
+}
+.form-container-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    padding: 0;
+    margin: 0;
 }
 
 .password-wrapper input[type="password"],
@@ -2784,6 +2964,26 @@ body.dark-mode .about_box:hover {
 }
 
 /* edit profile */
+.profile-container {
+    display: flex;
+    justify-content: center; /* 横方向中央揃え */
+    padding: 20px;
+}
+
+.profile-wrapper {
+    width: 100%;
+    max-width: 600px;        /* 幅を少し狭くする */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* スマホ対応（小さい画面向け） */
+@media screen and (max-width: 768px) {
+    .profile-wrapper {
+        padding: 10px;
+        max-width: 95%;
+    }
+}
 .site-form-wrapper {
     padding-top: 20px;
 }
@@ -4151,9 +4351,6 @@ ul{
     body:not(.dark-mode) .categories h2 {
     color: #f5f5f5;
     }
-    body:not(.dark-mode) .center-wrapper h1 {
-    color: #f5f5f5;
-}
     body:not(.dark-mode) .categories h1 {
     color: #f5f5f5;
     }
@@ -4190,8 +4387,26 @@ ul{
     body:not(.dark-mode) .users-item-bio p {
     color: #f5f5f5;
     }
-    boby:not(.dark-mode) .pager .pagination li a span {
+    body:not(.dark-mode) .pager .pagination li a span {
         color: #f5f5f5;
+    }
+    body:not(.dark-mode) .users-card:hover {
+    background-color: #444;
+    }
+    body:not(.dark-mode) .followed-note {
+    color: #9c9391;
+    }
+    body:not(.dark-mode) .user-bio {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .password-reset-wrapper p {
+    color:#f5f5f5;
+    }
+    body:not(.dark-mode) .password_reset {
+    color:#f5f5f5;
+    }
+    body:not(.dark-mode) .hover-user-trigger {
+    color: #f5f5f5;
     }
 }
 

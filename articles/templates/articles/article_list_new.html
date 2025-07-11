@@ -41,7 +41,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
         <!--  Load CSS  -->
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
-        <meta name="csrf-token" content="{{ csrf_token }}">
     </head>
     <body>
         <header id="nav" class="mobile-nav-wrapper">
@@ -86,14 +85,16 @@
                                 <span class="icon-label-text">ホーム</span>
                             </a>
                         </li>
-                        <li class="icon-item">
-                            <a href="{% url 'articles:article_search' %}" class="icon-link" id="search-btn">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                                <span class="icon-label-text">検索</span>
-                            </a>
-                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="icon-item">
+                                <a href="{% url 'articles:article_search' %}" class="icon-link" id="search-btn">
+                                    <div class="icon-wrapper">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <span class="icon-label-text">検索</span>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="icon-item">
                             <a href="{% url 'articles:gallery' %}" class="icon-link">
                                 <div class="icon-wrapper">
@@ -102,7 +103,6 @@
                                 <span class="icon-label-text">発見</span>
                             </a>
                         </li>
-
                         {% if user.is_authenticated %}
                             <li class="icon-item">
                                 <a href="{% url 'articles:book_mark_list' %}" class="icon-link">
@@ -254,17 +254,17 @@
                             <div class="favorite-title">
                                 <span>Users</span>
                             </div>
-                            {% for user in users %}
-                            {% if request.user != user.user %}
+                            {% for profile in users %}
+                            {% if request.user != profile.user %}
                             <div class="users-wrapper">
                                 <ul class="users-box">
                                     <li class="users-items">
-                                        <a href="{% url 'accounts:profile_detail' user.user %}">
-                                            <img src="{{ user.user.profile.image.url }}" alt="{{ user.user }}avatar">
+                                        <a href="{% url 'articles:user-posts' profile.user.username %}">
+                                            <img src="{{ profile.user.profile.image.url }}" alt="{{ profile.user }}avatar">
                                         </a>
                                     </li>
                                     <li class="users-items">
-                                        <span>{{ user.user }}</span>
+                                        <span>{{ profile.user }}</span>
                                     </li>
                                 </ul>
                             </div>

@@ -1,5 +1,19 @@
-const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+const csrftoken = getCookie("csrftoken");
+// liked.js csrftoken追加
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.slice(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 function initializeLikeButtons() {
     document.querySelectorAll('.btn-like').forEach(button => {
         // ✅ 二重登録防止

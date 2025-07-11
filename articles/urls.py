@@ -27,9 +27,9 @@ urlpatterns = [
     path('book_mark/<int:article_id>/', views.book_mark, name='book_mark'),
     path('my_book_mark_list/', views.book_mark_list, name='book_mark_list'),
     # User
+    path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     path('<int:pk>/user_detail', views.users_detail, name='users_detail'),
     path('<int:pk>/user_detail_like', views.users_detail_liked, name='users_detail_like'),
-    path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     # Galley
     path('gallery/', views.gallery, name='gallery'),
     # Category

@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
+{% load follow_tags %}
 {% block headerName %}{{ user.username }} さんがフォロー中{% endblock %}
 {% block title %} Is Following {% endblock %}
 {% block content %}
 <div class="users-wrapper">
-    {% for following in is_following %}
-    <div class="users-box">
-        <div class="users-item-pic">
-            <a href="{% url 'articles:user-posts' following.user.username %}">
-                <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
-            </a>
-            <div class="users-item-username">
-                <p>{{ following.user.username }}</p>
-            </div>
-        </div>
-
-        <div class="users-right-section">
-            {% if following.user.profile.bio %}
-            <div class="users-item-bio">
-                <p>{{ following.user.profile.bio|linebreaksbr|truncatechars:80 }}</p>
-            </div>
-            {% endif %}
-            <div class="users-item-btn">
-                <a href="{% url 'articles:user-posts' following.user.username %}" class="round-button">
-                    <p>詳細</p>
+  {% for following in following_page %}
+    <div class="users-card">
+        <div class="user-main-row">
+            <div class="user-avatar">
+                <a href="{% url 'articles:user-posts' following.user.username %}">
+                    <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </a>
             </div>
+            <div class="user-info">
+                <div class="user-top-row">
+                    <p class="user-name">{{ following.user.username }}</p>
+                    {% include "accounts/snippet/follow_form.html" with target_user=following.user %}
+                </div>
+                {% mutual_follow_status request.user following.user as follow_status %}
+                {% if follow_status %}
+                    <p class="followed-note">{{ follow_status }}</p>
+                {% endif %}
+                {% if following.user.profile.bio %}
+                <p class="user-bio">{{ following.user.profile.bio|linebreaksbr|truncatechars:80 }}</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
+  </div>
     {% empty %}
         <div class="global-tag">
             <h3>気になったユーザーをフォローしてみよう。</h3>
@@ -35,10 +35,10 @@
     {% endfor %}
 </div>
 
-{% if is_following.has_other_pages %}
+{% if following_page.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
-    {% if is_following.has_previous %}
+    {% if following_page.has_previous %}
         <li class="pre"><a class="active" href="?page=1"><span>
             <i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
         </a></li>
@@ -47,19 +47,19 @@
         </a></li>
     {% endif %}
 
-    {% for num in is_following.paginator.page_range %}
-        {% if is_following.number == num %}
+    {% for num in following_page.paginator.page_range %}
+        {% if following_page.number == num %}
             <li><a class="active" href="#"><span>{{ num }}</span></a></li>
-        {% elif num > is_following.number|add:'-3' and num < is_following.number|add:'3' %}
+        {% elif num > following_page.number|add:'-3' and num < following_page.number|add:'3' %}
         <li><a href="?page={{ num }}"><span>{{ num }}</span></a></li>
         {% endif %}
     {% endfor %}
 
     {% if liked_users.has_next %}
-        <li class="next"><a href="?page={{ is_following.next_page_number }}"><span>
+        <li class="next"><a href="?page={{ following_page.next_page_number }}"><span>
             <i class="fa fa-angle-right" aria-hidden="true"></i></span>
         </a></li>
-        <li class="next"><a href="?page={{ is_following.paginator.num_pages }}"><span>
+        <li class="next"><a href="?page={{ following_page.paginator.num_pages }}"><span>
             <i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
         </a></li>
     {% endif %}

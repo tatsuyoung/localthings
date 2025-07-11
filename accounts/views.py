@@ -137,15 +137,23 @@ def Delete_user(self):
 
 @login_required
 def user_is_following(request, username):
-    current_user = request.user
-    user         = get_object_or_404(User, username=username)  # ✅ URL引数のusernameで取得
-    is_following = user.is_following.all().order_by('id')
-    paginator    = Paginator(is_following, 10)
-    page         = request.GET.get('page')
-    is_following = paginator.get_page(page)
+    target_user   = get_object_or_404(User, username=username)
+    following_qs  = target_user.following_users.all().order_by('id')
+
+    paginator     = Paginator(following_qs, 20)
+    page          = request.GET.get('page')
+    following_page = paginator.get_page(page)
+
+    # ✅ ログインユーザーがフォローしている人
+    is_following_set = set()
+    if request.user.is_authenticated:
+        is_following_set = set(request.user.following_users.all())
+
     context = {
-        'is_following': is_following
-        }
+        'user'             : target_user,
+        'following_page'   : following_page,
+        'is_following_set' : is_following_set,
+    }
     return render(request, 'accounts/is_following.html', context)
 
 
@@ -157,13 +165,19 @@ def user_followers(request, username):
     # followers: このユーザーをフォローしている User の一覧（ManyToMany）
     follower_users = target_user.profile.followers.all().order_by('id')
 
-    paginator = Paginator(follower_users, 10)
+    paginator = Paginator(follower_users, 20)
     page      = request.GET.get('page')
     followers = paginator.get_page(page)
 
+    # ✅ フォロー中のユーザーセット（自分がフォローしている人）
+    is_following_set = set()
+    if request.user.is_authenticated:
+        is_following_set = set(request.user.following_users.all())
+
     context = {
-        'user': target_user,
-        'followers': followers,
+        'user'            : target_user,
+        'followers'       : followers,
+        'is_following_set': is_following_set,
     }
     return render(request, 'accounts/followers.html', context)
 
@@ -206,7 +220,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
             user         = context['user']
             is_following = False
 
-            if user.profile in self.request.user.is_following.all():
+            if user.profile in self.request.user.following_users.all():
                 is_following = True
 
             context['is_following'] = is_following
@@ -225,8 +239,8 @@ class ProfileFollowToggle(LoginRequiredMixin, View):
                 'success'           : True,
                 'is_following'      : is_following,
                 'followers_count'   : profile_.followers.count(),
-                'following_count'   : profile_.user.is_following.all().count(),
-                'my_following_count': request.user.is_following.count(),
+                'following_count'   : profile_.user.following_users.count(),  
+                'my_following_count': request.user.following_users.count(), 
             })
 
         return redirect(f"/accounts/{profile_.user.username}")
@@ -253,11 +267,11 @@ class UserFollowingFeedView(View):
         count               = user.article_set.count()
 
         # ✅ フォロー中ユーザーのID取得
-        is_following_user_ids = list(user.is_following.values_list('user__id', flat=True))
-        following_users = set(is_following_user_ids)
+        is_following_user_ids = list(user.following_users.values_list('user__id', flat=True))
+        following_users       = set(is_following_user_ids)
 
         # ✅ 記事取得 & カスタム属性追加
-        qs = list(Article.objects.filter(author__id__in=following_users).order_by('-date'))
+        qs  = list(Article.objects.filter(author__id__in=following_users).order_by('-date'))
         now = timezone.now()
         for article in qs:
             article.display_date = self.format_custom_date_style(article.date, now)
@@ -265,8 +279,8 @@ class UserFollowingFeedView(View):
 
         # ✅ paginator処理
         paginator = Paginator(qs, 10)
-        page = request.GET.get('page')
-        articles = paginator.get_page(page)
+        page      = request.GET.get('page')
+        articles  = paginator.get_page(page)
 
         context = {
             'articles'           : articles,

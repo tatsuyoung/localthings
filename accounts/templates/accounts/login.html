@@ -10,49 +10,51 @@
 </a>
 {% endblock %}
 {% block content %}
-<div class="form-wrapper">
-    <form class="site-form-new" action="{% url 'accounts:login' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-item">
-            <label for="id_username"></label>
-            <div class="form-item username-wrapper">
-                <input type="text" name="username" placeholder="Username" required="required" id="id_username">
-                {% for error in form.username.errors %}
-                <span class="form-error">{{ error }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="form-item">
-            <label for="id_password"></label>
-            <div class="password-wrapper">
-                <input type="password" name="password" id="id_password" placeholder="Password">
-                <div class="password-icon-wrapper">
-                    <i class="far fa-eye" onclick="togglePassword(this)"></i>
+<div class="form-container">
+    <div class="form-wrapper">
+        <form class="site-form-new" action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-item">
+                <label for="id_username"></label>
+                <div class="form-item username-wrapper">
+                    <input type="text" name="username" placeholder="Username" required="required" id="id_username">
+                    {% for error in form.username.errors %}
+                    <span class="form-error">{{ error }}</span>
+                    {% endfor %}
                 </div>
-                {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
             </div>
+            <div class="form-item">
+                <label for="id_password"></label>
+                <div class="password-wrapper">
+                    <input type="password" name="password" id="id_password" placeholder="Password">
+                    <div class="password-icon-wrapper">
+                        <i class="far fa-eye" onclick="togglePassword(this)"></i>
+                    </div>
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if request.POST.next %}
+            <input type="hidden" name="next" value="{{request.POST.next}}">
+            {% endif %}
+            <div class="button-panel">
+                <input type="submit" class="button-new" title="Login" value="Login">
+            </div>
+            <div class="social-line">
+                <h4 class="social-line-text">or</h4>
+            </div>
+            <div class="login-social">
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="social google">
+                    <i class="fab fa-google"></i>
+                    <span class="social-text">Login with Google</span>
+                </a>
+            </div>
+        </form>
+        <div class="form-footer">
+            <p><a href="{% url 'accounts:signup' %}">Create an account</a></p>
+            <p><a href="{% url 'accounts:password_reset' %}">Forgot password?</a></p>
         </div>
-        {% if request.POST.next %}
-        <input type="hidden" name="next" value="{{request.POST.next}}">
-        {% endif %}
-        <div class="button-panel">
-            <input type="submit" class="button-new" title="Login" value="Login">
-        </div>
-        <div class="social-line">
-            <h4 class="social-line-text">or</h4>
-        </div>
-        <div class="login-social">
-            <a href="{% url 'social:begin' 'google-oauth2' %}" class="social google">
-                <i class="fab fa-google"></i>
-                <span class="social-text">Login with Google</span>
-            </a>
-        </div>
-    </form>
-    <div class="form-footer">
-        <p><a href="{% url 'accounts:signup' %}">Create an account</a></p>
-        <p><a href="{% url 'accounts:password_reset' %}">Forgot password?</a></p>
     </div>
 </div>
 <script>

@@ -5,79 +5,80 @@
 {% block headerName %}記事を書く{% endblock %}
 {% block mobileCenter %}<p class="mobile-center-name">投稿する</p>{% endblock %}
 {% block content %}
-<h1>Create an Awesome New Article</h1>
-<div class="form-wrapper">
-    <h2>Create</h2>
-    <form id="form" class="site-form-new" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-item">
-            <label for="id_body"></label>
-            <textarea name="body" placeholder="It’s okay to start small — share your story with us!" cols="40" rows="10" required="required" id="id_body"></textarea>
-            <small><p class="helptext">{{ form.body.help_text }}</p></small>
-            {% for error in form.body.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form_group">
-            <div id="input-group">
-                <input type="file" name="images" accept="image/*" id="01" multiple />
-                <label for="01" id="input-label">UpLoad
-                    <i class="fas fa-camera-retro"></i>
-                </label>
-            </div>
-            <div class="note-max-images">Up to 5 images allowed</div>
-            <div id="preview"></div>
-        </div>
-
-         <div class="form-item">
-           <div class="category_wrapper">
-                <select name="category" id="id_category"  class="category_form" required="">
-                    <option value="" hidden disabled selected></option>
-                    {% for id, category_name in form.category.field.choices %}
-                    <option value="{{ id }}">{{ category_name }}</option>
-                    {% endfor %}
-                </select>
-                <span class="category_highlight"></span>
-                <span class="category_select_bar"></span>
-                <label for="id_category" class="category_select_label">Category</label>
-
-
-                <small><p class="helptext">{{ form.category.help_text }}</p></small>
-                {% for error in form.category.errors %}
+<div class="form-container">
+    <div class="form-wrapper">
+        <h2>Create</h2>
+        <form id="form" class="site-form-new" action="{% url 'articles:create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-item">
+                <label for="id_body"></label>
+                <textarea class="custom-textarea" name="body" placeholder="It’s okay to start small — share your story with us!" cols="40" rows="10" required="required" id="id_body"></textarea>
+                <small><p class="helptext">{{ form.body.help_text }}</p></small>
+                {% for error in form.body.errors %}
                 <span>{{ error }}</span>
                 {% endfor %}
-           </div>
-        </div>
+            </div>
 
-        <div class="form-item">
-            <label for="id_slug"></label>
-            <input type="hidden" name="slug" placeholder="Slug Automatic input" maxlength="50" id="id_slug" value="">
-            <p class="helptext">{{ form.slug.help_text }}</p>
-            {% for error in form.slug.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-        </div>
+            <div class="form_group">
+                <div id="input-group">
+                    <input type="file" name="images" accept="image/*" id="01" multiple />
+                    <label for="01" id="input-label">UpLoad
+                        <i class="fas fa-camera-retro"></i>
+                    </label>
+                </div>
+                <div class="note-max-images">Up to 5 images allowed</div>
+                <div id="preview"></div>
+            </div>
 
-        <div class="button-panel">
-            <input type="submit" value="🌱  Grow it! " class="button-new-color">
-        </div>
-    </form>
+            <div class="form-item">
+            <div class="category_wrapper">
+                    <select name="category" id="id_category"  class="category_form" required="">
+                        <option value="" hidden disabled selected></option>
+                        {% for id, category_name in form.category.field.choices %}
+                        <option value="{{ id }}">{{ category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="category_highlight"></span>
+                    <span class="category_select_bar"></span>
+                    <label for="id_category" class="category_select_label">Category</label>
 
-    <div class="form-footer">
-        <div class="site-form-new">
-            <div class="p_container">
-                <div id="fake-upload-animation" style="display:none; text-align:center; margin: 20px 0;">
-                    <div style="width: 100%; background: #eee; border-radius: 8px; overflow: hidden;">
-                        <div id="fake-bar" style="width:0%; height: 24px; background: linear-gradient(90deg, #4caf50, #81c784); transition: width 0.3s;"></div>
+
+                    <small><p class="helptext">{{ form.category.help_text }}</p></small>
+                    {% for error in form.category.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+            </div>
+            </div>
+
+            <div class="form-item">
+                <label for="id_slug"></label>
+                <input type="hidden" name="slug" placeholder="Slug Automatic input" maxlength="50" id="id_slug" value="">
+                <p class="helptext">{{ form.slug.help_text }}</p>
+                {% for error in form.slug.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="button-panel">
+                <input type="submit" value="🌱  Grow it! " class="button-new-color">
+            </div>
+        </form>
+
+        <div class="form-footer">
+            <div class="site-form-new">
+                <div class="p_container">
+                    <div id="fake-upload-animation" style="display:none; text-align:center; margin: 20px 0;">
+                        <div style="width: 100%; background: #eee; border-radius: 8px; overflow: hidden;">
+                            <div id="fake-bar" style="width:0%; height: 24px; background: linear-gradient(90deg, #4caf50, #81c784); transition: width 0.3s;"></div>
+                        </div>
+                        <p id="fake-message" style="margin-top: 10px;">Uploading...please wait!</p>
                     </div>
-                    <p id="fake-message" style="margin-top: 10px;">Uploading...please wait!</p>
                 </div>
             </div>
+            <p>
+                <a href="{% url 'home' %}">Home</a>
+            </p>
         </div>
-        <p>
-            <a href="{% url 'home' %}">Home</a>
-        </p>
     </div>
 </div>
 <div class="global-footer"></div>

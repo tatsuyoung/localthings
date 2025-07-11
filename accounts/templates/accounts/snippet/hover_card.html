@@ -5,7 +5,7 @@
     <div class="hover-profile-header">
         <img src="{{ user.profile.image.url }}" class="hover-profile-image" alt="{{ user.username }}">
         <div class="hover-profile-follow-btn">
-            {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
+            {% include "accounts/snippet/follow_form.html" with target_user=user %}
         </div>
     </div>
 

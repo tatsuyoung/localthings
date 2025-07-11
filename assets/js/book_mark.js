@@ -35,14 +35,23 @@ document.addEventListener("DOMContentLoaded", function () {
                         "X-Requested-With": "XMLHttpRequest",
                     },
                 })
-                .then((res) => res.json())
+                .then((res) => {
+                    // ✅ ステータスがエラーならメッセージ取得を試みる
+                    if (!res.ok) {
+                        return res.json().then((data) => {
+                            throw new Error(data.message || "エラーが発生しました");
+                        });
+                    }
+                    return res.json();  // 正常時
+                })
                 .then((data) => {
                     icon.classList.toggle("fas");
                     icon.classList.toggle("far");
                 })
                 .catch((error) => {
                     console.error("ブックマーク処理中にエラー:", error);
-                });
+                    alert(error.message); 
+                }); 
             });
 
             button.dataset.listenerAttached = 'true';

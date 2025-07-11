@@ -28,8 +28,8 @@
                         </a>
                     </div>
                     <div class="{% if not notification.unread %}read{% else %}unread{% endif %}">
-                        <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
                         <span class="notify_time">{{ notification.timesince }} 前</span>
+                        <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
                     </div>
             </div>
             {% empty %}
