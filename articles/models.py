@@ -62,8 +62,6 @@ class Article(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
          update_fields=None, *args, **kwargs):
 
-        self.full_clean()
-
         # body からタイトル自動生成（未入力時のみ）
         if not self.title:
             self.title = re.split(r'[。！？\n]', self.body)[0][:15] or 'Untitled'
