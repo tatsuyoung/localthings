@@ -1121,13 +1121,6 @@ li.logo {
     transition: transform 0.3s ease;
 }
 
-/* 4つに1つは大きめに */
-.following-feed-wrapper.large-card .articles-thumb img {
-    height: 500px; /* 大きめに */
-    object-fit: cover;
-    width: 100%;
-}
-
 .article-wrapper ul li
 {
     text-decoration: none ;
@@ -1172,10 +1165,17 @@ li.logo {
 
 /*　Swiper image */
 /* --- Swiper image wrapper --- */
+/* Swiper image - 共通設定 */
 .swiper-container {
   width: 100%;
   overflow: hidden;
   position: relative;
+}
+
+.swiper-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 
 /* 中央揃え */
@@ -1188,8 +1188,8 @@ li.logo {
   position: relative;
 }
 
-/* Zoom container は普通のラッパーとして扱う */
-.swiper-zoom-container {
+/* 通常カード用のzoom-container */
+.articles-thumb .swiper-zoom-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -1198,39 +1198,39 @@ li.logo {
   overflow: auto;  /* ✅ scroll OK */
 }
 
-/* 画像（pinch-zoom対応） */
-.swiper-slide img {
+/* 通常カード用の画像（pinch zoom対応） */
+.articles-thumb .swiper-slide img {
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   border-radius: 2px;
-  touch-action: manipulation;  /* ✅ pinch zoomを許可 */
+  touch-action: manipulation;
   display: block;
 }
+/* large-card のスライド全体に高さを指定 */
 
-.swiper-container {
-  width: 100%;
-  overflow: hidden;
-}
-.swiper-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
+.following-feed-wrapper.large-card .swiper-slide {
+  height: 500px;
 }
 
-/* large image */
-/* large-card 用の初期サイズだけ指定（ズームを殺さない） */
+/* large-card 用の zoom-container */
 .following-feed-wrapper.large-card .swiper-zoom-container {
-    max-height: 500px;
+  height: 100%;
+  max-height: 500px;
 }
 
-/* large-cardの img に height を直接指定しない（ズーム対応のため） */
+/* large-card の画像（ズームを保ちつつレイアウト維持） */
 .following-feed-wrapper.large-card .swiper-slide img {
-    height: auto;
-    max-height: 100%;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+  touch-action: manipulation;
 }
+
 
 /* --- SWiper 矢印ボタンスタイル --- */
 /* ボタンの共通スタイル */
