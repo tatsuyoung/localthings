@@ -251,7 +251,18 @@ body.dark-mode .follow-count {
 body.dark-mode .hover-user-trigger {
     color: #f5f5f5;
 }
-
+/* profile edit icon */
+body.dark-mode .column_3 i {
+    color: var(--main-color);
+}
+/* swiper side button */
+body.dark-mode .custom-swiper-button {
+    background-color: gray;
+}
+/* create form icon */
+body.dark-mode .form_group i {
+    color: var(--main-color);
+}
 /* Debug */
 /* * {
   outline: 1px solid red;
@@ -2381,8 +2392,24 @@ body.dark-mode .about_box:hover {
 
 
 
-/* site-form */
-.site-form{
+/* site-form User profile edit */
+label[for="id_email"],
+label[for="id_username"] {
+    display: none;
+}
+.form-group-row {
+    display: flex;
+    gap: 20px; /* スペース調整 */
+    justify-content: space-between;
+    flex-wrap: wrap; /* 画面が狭くなったときに折り返し可 */
+    text-align: center;
+}
+
+.form-group-row .form_group {
+    flex: 1 1 45%; /* 幅を均等にする or 調整可能 */
+    box-sizing: border-box;
+}
+.site-form {
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.02),
     0 6.7px 5.3px rgba(0,0,0,.028),
     0 12.5px 10px rgba(0,0,0,.035),
@@ -2393,11 +2420,11 @@ body.dark-mode .about_box:hover {
     margin:             3em auto;
     padding:               0 1em;
     max-width:             100%;
+    padding-top: 18px;
     }
 
-.site-form input, .site-form textarea, .site-form select{
+.site-form input, .site-form textarea {
     display:              block;
-    margin:          20px 0 0 0;
     padding:               10px;
     background-color:   #fff;
     color:              #383838;
@@ -2406,13 +2433,13 @@ body.dark-mode .about_box:hover {
     font-size:              1em;
     letter-spacing:      0.05em;
     position:          relative;
-    top:                  -13px;
     width:                 100%;
-    max-width:            400px;
+    max-width:            600px;
     box-sizing:      border-box;
     -webkit-transition: all .3s;
     transition:         all .3s;
     outline:               none;
+    margin: 20px auto;
     }
 
 
@@ -2423,8 +2450,7 @@ body.dark-mode .about_box:hover {
 
 
 .site-form label{
-    color:                 #383838;
-    cursor:                pointer;
+    color:                 #333;
     }
 
 
@@ -2437,7 +2463,7 @@ body.dark-mode .about_box:hover {
 
 .form_group label{
     position:        relative;
-    top:                 13px;
+    font-size: 12px;
     }
 
 .form_group small{
@@ -2456,24 +2482,22 @@ body.dark-mode .about_box:hover {
 
 .column_1 label{
     position: relative;
-    top:          -8px;
     }
 
 .column_2 textarea{
     background-color:#fff;
     color:           #383838;
-    border:              2px solid #AEC4E5;
+    border: 1px solid #AEC4E5;
     border-radius:       4px;
     font-size:           1em;
     letter-spacing:   0.05em;
     width:              100%;
-    max-width:         500px;
+    max-width:         600px;
     box-sizing:   border-box;
     }
 
 .column_2 label{
     position: relative;
-    top:          -8px;
     }
 
 .form_group small{
@@ -2489,18 +2513,16 @@ body.dark-mode .about_box:hover {
 
 .icon_helptext{
     position:   relative;
-    top:            10px;
     margin:    10px auto;
-    padding:         1px;
     font-size:      12px;
     }
 
-.site-form a{
+.site-form a {
     color:       #383838;
     }
 
 .site-form span{
-    font-size:     12px;
+    display: none;
     }
 
 
@@ -2514,18 +2536,43 @@ body.dark-mode .about_box:hover {
 .site-form p:nth-of-type(3) label:nth-of-type(2){
     display:         none;
     }
+/* create-form image preview */
+#preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+
+#preview .preview-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
 
 /* clear */
 
-.clear
-{
-    margin-bottom: 60px;
+.clear {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    gap: 8px; /* チェックボックスとラベルの間の余白 */
 }
 
-.clear-input
-{
-    margin-top: 50px;
-    margin-left: 10px;
+.clear-input input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.clear-label p {
+    margin: 0;
+    font-size: 14px; /* 必要に応じて調整 */
 }
 
 .clear-label p
@@ -3005,7 +3052,7 @@ body.dark-mode .about_box:hover {
     }
 }
 .site-form-wrapper {
-    padding-top: 20px;
+    padding-top: 36px;
 }
 .profile {
     text-align: -webkit-right;
@@ -3095,16 +3142,16 @@ body.dark-mode .about_box:hover {
 
 /* profile account delete button */
 
-.profile-account-delete{
+.profile-account-delete {
     display:               block;
     position:           relative;
-    width:                  57px;
-    height:                 57px;
+    width:                  50px;
+    height:                 50px;
     text-decoration:        none;
     color:                  var(--main-color);
     background:          #fff;
     border-radius:          50%;
-    border:                  1px solid var(--main-color);
+    border: 1px solid #333;
     font-size:              16px;
     float:                 right;
     top:                    21px;
@@ -3293,7 +3340,7 @@ body.dark-mode .about_box:hover {
 }
 
 .helptext, .helptext ul{
-    margin    : 0 auto 30px;
+    margin    : 0 auto;
     color     : #ee8d88;
     font-size : 0.9em;
     display   : block;
@@ -3313,17 +3360,22 @@ body.dark-mode .about_box:hover {
 input[type="file"]{
     display:               none;
     }
+.column_3 i {
+    font-size: 20px;
+}
 
-#input-label{
+#input-label {
     margin:            8px auto;
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
     color:    var(--main-color);
-    border: 2px solid   var(--main-color);
+    border: 1px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
+    padding: 10px;
+    font-size: 12px;
     }
 
 #input-label:hover {
@@ -3333,30 +3385,13 @@ input[type="file"]{
     }
 
 #input-label::after{
-    content:         "choice";
+    content:         "Pick";
     font-size:           12px;
     }
 
 #input-label.changed::after{
     content:             "";
     }
-
-/* user upload image preview */
-#preview {
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 8px;
-    max-width: 100%;
-}
-#preview img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
 
 .note-max-images {
     color: orange;
@@ -3367,16 +3402,18 @@ input[type="file"]{
 
 /* user background button animation */
 
-#input-label-bg{
+#input-label-bg {
     margin:            8px auto;
     display:       inline-block;
     padding:          0.3em 1em;
     text-decoration:       none;
     color:    var(--main-color);
-    border: 2px solid   var(--main-color);
+    border: 1px solid   var(--main-color);
     border-radius:          4px;
     transition:             .4s;
     font-weight: 600;
+    padding: 10px;
+    font-size: 12px;
     }
 
 #input-label-bg:hover {
@@ -3386,7 +3423,7 @@ input[type="file"]{
     }
 
 #input-label-bg::after{
-    content:         "choice";
+    content:         "Pick";
     font-size:           12px;
     }
 
@@ -3851,7 +3888,7 @@ ul{
     font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     margin-bottom: 0.2em;
     color: #333;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .edit-article-body-textarea {
@@ -3864,6 +3901,10 @@ ul{
     box-sizing: border-box;
     margin-bottom: 1em;
     line-height: 1.7;
+}
+.edit-article-body-textarea {
+    height: 100px;
+    resize: vertical; /* 必要ならリサイズ許可 */
 }
 
 .edit-article-helptext {
@@ -3916,7 +3957,7 @@ ul{
 
 .edit-article-footer {
     text-align: center;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 .edit-article-home-link {
@@ -3930,69 +3971,120 @@ ul{
     width: 100%;
 }
 
-/* フォーム全体は幅いっぱい使い、内容は中央に */
+/* edit 用の image preview layout */
 .edit-article-image-formset {
-    display: flex;
-    flex-direction: column;   /* 縦並び */
-    align-items: center ;    /* 各画像フォームを中央に */
-    width: 100%;
-    gap: 16px;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-/* 各画像フォーム（幅は少し絞る） */
 .article-image-form-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 100%;
-    max-width: 360px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fafafa;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    box-sizing: border-box;
-    gap: 3px;
+  width: calc(20% - 8px); /* 5列並ぶように */
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  min-height: 130px;
+  display: inline-block;
+  text-align: center;
+  margin: 8px;
 }
 
 /* プレビュー画像 */
+/* .article-image-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+} */
 .article-image-preview {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
-    object-fit: contain;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    width: 100%;               /* ブロック全体に広げる */
+    height: 100px;             /* ✅ 高さを固定 */
+    object-fit: cover;         /* 画像を枠内にフィットさせる */
+    border-radius: 6px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+/* ファイルボタン */
+
+.custom-file-button {
+  margin-top: 6px;
+  font-size: 12px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 6px;
+  cursor: pointer;
 }
 
 /* ラベルやチェックボックス */
-.image-form-label {
-    display: block;
-    font-size: 0.9em;
-    margin-bottom: 6px;
-    text-align: center;
+/* 親ラッパー */
+/* アップロードボタンを中央揃え */
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 実際の input を透明にして上に重ねる */
+.file-upload-label input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+
+/* カスタムボタン */
+.custom-file-button {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #333;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    color: #fff;
+    font-size: 8px;
+}
+.custom-file-button:hover {
+    background-color: rgb(99, 86, 86);
+}
+ /* Delete チェックボックスも中央揃え */
+.delete-checkbox-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.delete-checkbox-wrapper label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.delete-checkbox-wrapper span {
+    color: #888;
 }
 /* image urlをhidden */
 .article-image-form-block a {
     display: none !important;
 }
-/* 画像プレビューのサイズ統一・角丸にする */
-.article-image-form-block img {
-    max-width: 200px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-/* 画像がない場合のプレースホルダー画像 */
-.article-image-preview {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;  /* 塗りつぶすように拡大縮小 */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+
 /* category Bar */
 .edit-article-category-select {
   appearance: none;
@@ -4021,22 +4113,6 @@ ul{
 }
 
 /* Edeit */
-.hidden-input-file {
-    display: none;
-}
-
-.custom-file-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.custom-file-button:hover {
-    background-color: #45a049;
-}
 
 .article-image-form-block p {
     font-size: 0.9em;
@@ -4443,8 +4519,17 @@ ul{
     body:not(.dark-mode) .follow-count {
     color: #fff;
     }
-    body:not(.dark-mode)  .hover-user-trigger {
+    body:not(.dark-mode) .hover-user-trigger {
     color: #f5f5f5;
+    }
+    body:not(.dark-mode) .column_3 i {
+    color: var(--main-color);
+    }
+    body:not(.dark-mode) .form_group i{
+        color: var(--main-color);
+    }
+    body:not(.dark-mode) .custom-swiper-button {
+    background-color: gray;
     }
 }
 

@@ -37,7 +37,7 @@ class Profile(models.Model):
     user  = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png',
                               upload_to='profile_pics',
-                              help_text='著作権があるものはiconにはできません。')
+                              help_text='著作権を確認してください。')
     bg        = models.ImageField(upload_to='user_background', blank=True, null=True, help_text='著作権を確認してください。')
     bio       = models.TextField(max_length=160, blank=True, null=True)
     website   = models.URLField(max_length=250,  blank=True, null=True)

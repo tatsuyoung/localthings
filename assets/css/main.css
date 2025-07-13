@@ -178,6 +178,11 @@ body.dark-mode .follow-count {
 body.dark-mode .hover-user-trigger {
     color: #f5f5f5;
 }
+/* swiper side button */
+body.dark-mode .custom-swiper-button {
+    background-color: gray;
+}
+
 /* Debug */
 /* * {
   outline: 1px solid red;
@@ -2689,6 +2694,9 @@ ul{
     }
     body:not(.dark-mode)  .hover-user-trigger {
     color: #f5f5f5;
+    }
+    body:not(.dark-mode) .custom-swiper-button {
+    background-color: gray;
     }
 }
 /* comment box  */

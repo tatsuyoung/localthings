@@ -139,6 +139,10 @@ body.dark-mode .read-more {
 body.dark-mode .favorite-title span {
     color:#f5f5f5;
 }
+/* swiper side button */
+body.dark-mode .custom-swiper-button {
+    background-color: gray;
+}
 
 /* Debug */
 /* * {
@@ -1903,6 +1907,9 @@ ul{
     }
     body:not(.dark-mode) .favorite-title span {
     color:#f5f5f5;
+    }
+    body:not(.dark-mode) .custom-swiper-button {
+    background-color: gray;
     }
 }
 

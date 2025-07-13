@@ -11,7 +11,7 @@
     <img src="{{ user.profile.image.url }}" alt="Avatar"/>
     <ul>
         <li>
-            {{ user.is_following.all.count }} <small>フォロー中</small>
+            {{ user.following_users.all.count }} <small>フォロー中</small>
         </li>
         <li>
             {{ user.profile.followers.all.count }} <small>フォロワー</small>
@@ -33,9 +33,6 @@
             <i class="fas fa-link"></i> {{ user.profile.website }}
         </a>
         {% endif %}
-    </p>
-    <p>
-        {% include 'accounts/snippet/follow_form.html' with username=user.username is_following=is_following %}
     </p>
 </div>
 <div class="global-footer"></div>

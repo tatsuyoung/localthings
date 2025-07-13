@@ -22,7 +22,7 @@ from .models import Article, ArticleImage
 from. import forms
 from django.forms import inlineformset_factory
 from .forms import CreateArticle, ArticleImageForm
-
+from django.forms.models import modelformset_factory
 
 import logging
 logger = logging.getLogger(__name__)
@@ -254,7 +254,8 @@ ArticleImageFormSet = inlineformset_factory(
         ArticleImage,
         form=ArticleImageForm,
         extra=1,  # 新規に追加できるフォーム数
-        can_delete=True  # 削除チェックボックスを有効化
+        can_delete=True,  # 削除チェックボックスを有効化
+        max_num=5,  # 最大数を制限
     )
 
 @login_required(login_url="/accounts/login/")
@@ -262,15 +263,31 @@ def article_edit(request, pk):
     article = get_object_or_404(Article, pk=pk)
 
     if request.method == 'POST':
-        form = CreateArticle(request.POST, request.FILES, instance=article)
+        form    = CreateArticle(request.POST, request.FILES, instance=article)
         formset = ArticleImageFormSet(request.POST, request.FILES, instance=article)
 
         if form.is_valid() and formset.is_valid():
             article = form.save()
-            formset.save() 
+
+            images = formset.save(commit=False)
+            for image in images:
+                image.article = article
+                image.save()
+
+            for deleted_form in formset.deleted_objects:
+                deleted_form.delete()
+
+            formset.save_m2m()  # 多対多があれば（なければ省略してOK）
+
             return redirect('articles:detail', pk=article.pk)
+
+        else:
+            print("❌ formまたはformsetが無効")
+            print("Form errors:", form.errors)
+            print("Formset errors:", formset.errors)
+
     else:
-        form    = CreateArticle(instance=article)
+        form = CreateArticle(instance=article)
         formset = ArticleImageFormSet(instance=article)
 
     return render(request, 'articles/article_edit.html', {

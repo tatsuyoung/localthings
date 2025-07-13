@@ -7,7 +7,7 @@
     <form method="POST" enctype="multipart/form-data" id="form" class="edit-article-form">
         {% csrf_token %}
         <div class="edit-article-item">
-            <label for="id_body" class="edit-article-label">Main</label>
+            <!-- <label for="id_body" class="edit-article-label">Main</label> -->
             {{ form.body }}
             <p class="edit-article-helptext">{{ form.body.help_text }}</p>
             {% for error in form.body.errors %}
@@ -19,38 +19,45 @@
             {{ formset.management_form }}
             <div class="edit-article-image-formset">
                 {% for image_form in formset %}
-                {% if forloop.counter <= 5 %}
-                    <div class="article-image-form-block">
-                        {{ image_form.id }}
+                    {% if forloop.counter <= 5 %}
+                        <div class="article-image-form-block">
+                            {{ image_form.id }}
+                            {% if image_form.instance.image %}
+                                <img src="{{ image_form.instance.image.url }}" class="article-image-preview">
+                            {% endif %}
 
-                        {% if image_form.instance.image %}
-                            <img src="{{ image_form.instance.image.url }}" class="article-image-preview" >
-                        {% else %}
-                            <img src="/media/No-image.png" loading="lazy" class="article-image-preview" alt="No Image">   
-                        {% endif %}
+                            <!-- input[type=file] を明示的に表示 -->
+                            <div class="input-wrapper">
+                                <label class="file-upload-label">
+                                    {{ image_form.image.as_widget }}
+                                    <span class="custom-file-button">ファイルを選択</span>
+                                </label>
+                            </div>
+                            {% if image_form.instance.pk %}
+                                <div class="delete-checkbox-wrapper">
+                                    <label>
+                                    {{ image_form.DELETE }}
+                                    <span>Delete</span>
+                                    </label>
+                                </div>
+                            {% endif %}
 
-                        <label for="{{ image_form.image.id_for_label }}"></label>
-                        {{ image_form.image.as_widget }}  {# ファイル入力 #}
-
-                        <button type="button" class="custom-file-button">ファイルを選択</button>
-
-                        {% if image_form.instance.pk %}
-                            <label>
-                                <p>Delete</p>
-                                {{ image_form.DELETE }}
-                            </label>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                            {% for error in image_form.errors %}
+                                <span class="edit-article-error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
+        
+            <div id="preview"></div>
         </div>
         <div class="edit-article-item">
-            <label for="id_category" class="edit-article-label">Category</label>
+            <!-- <label for="id_category" class="edit-article-label">Category</label> -->
             {{ form.category }}
             <p class="edit-article-helptext">{{ form.category.help_text }}</p>
             {% for error in form.category.errors %}
-            <span class="edit-article-error">{{ error }}</span>
+                <span class="edit-article-error">{{ error }}</span>
             {% endfor %}
         </div>
 
@@ -79,4 +86,24 @@
     </div>
 </div>
 <div class="global-footer"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 各フォームブロックに対して処理
+        document.querySelectorAll('.article-image-form-block').forEach(block => {
+            const fileInput = block.querySelector('input[type="file"]');
+            const previewImg = block.querySelector('.article-image-preview');
+
+            if (!fileInput || !previewImg) return;
+
+            fileInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const objectURL = URL.createObjectURL(file);
+                    previewImg.src = objectURL;
+                    previewImg.style.display = 'block';
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
