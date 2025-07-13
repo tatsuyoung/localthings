@@ -40,6 +40,8 @@
                                     <span>Delete</span>
                                     </label>
                                 </div>
+                            {% else %}
+                                <div class="delete-checkbox-wrapper"></div>  {# ✅ 空でも配置 #}
                             {% endif %}
 
                             {% for error in image_form.errors %}

@@ -3967,32 +3967,37 @@ ul{
 
 /* edit 用の image preview layout */
 .edit-article-image-formset {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;  /* ✅ 左詰め */
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .article-image-form-block {
-  width: calc(20% - 8px); /* 5列並ぶように */
-  position: relative;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 10px;
-  min-height: 130px;
-  display: inline-block;
-  text-align: center;
-  margin: 2px;
+    width: calc(20% - 4px);  /* ✅ 固定幅に変更 */
+    max-width: calc(20% - 4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-height: 130px;
+    box-sizing: border-box;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
-/* スマホ */
+/* ✅ スマホ対応（横2列 × 縦3列） */
 @media screen and (max-width: 600px) {
     .article-image-form-block {
-        flex: 1 1 calc(50% - 4px);
+        width: calc(50% - 4px);   /* ✅ 固定幅 */
+        max-width: calc(50% - 4px);
     }
 }
 /* preview */
@@ -4062,6 +4067,7 @@ ul{
   justify-content: center;
   align-items: center;
   z-index: 0;
+  min-height: 32px;  /* ✅ Deleteラベルの高さに合わせる */
 }
 
 .delete-checkbox-wrapper label {
@@ -4084,7 +4090,6 @@ ul{
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
   width: 100%;
   padding: 12px 40px 12px 16px;
   font-size: 1rem;
@@ -4266,6 +4271,9 @@ ul{
 /* スマホ */
 
 @media screen and (max-width: 600px) {
+    .edit-article-body-textarea {
+        font-size: 16px;
+    }
     .articles-description h1 {
     font-size: 14px;
     line-height: 1.2;
