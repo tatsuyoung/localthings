@@ -3892,7 +3892,7 @@ ul{
 }
 
 .edit-article-body-textarea {
-    font-size: 1em;
+    font-size: 16px;
     padding: 1em;
     width: 100%;
     min-height: 200px;
@@ -3901,11 +3901,10 @@ ul{
     box-sizing: border-box;
     margin-bottom: 1em;
     line-height: 1.7;
-}
-.edit-article-body-textarea {
     height: 100px;
     resize: vertical; /* 必要ならリサイズ許可 */
 }
+
 
 .edit-article-helptext {
     font-size: 0.95em;
@@ -3966,16 +3965,11 @@ ul{
     font-size: 1em;
 }
 
-/* edit article images */
-.edit-article-item {
-    width: 100%;
-}
-
 /* edit 用の image preview layout */
 .edit-article-image-formset {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 2px;
   margin-top: 10px;
 }
 
@@ -3992,16 +3986,16 @@ ul{
   min-height: 130px;
   display: inline-block;
   text-align: center;
-  margin: 8px;
+  margin: 2px;
 }
 
-/* プレビュー画像 */
-/* .article-image-preview {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 6px;
-} */
+/* スマホ */
+@media screen and (max-width: 600px) {
+    .article-image-form-block {
+        flex: 1 1 calc(50% - 4px);
+    }
+}
+/* preview */
 .article-image-preview {
     width: 100%;               /* ブロック全体に広げる */
     height: 100px;             /* ✅ 高さを固定 */
