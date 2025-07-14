@@ -34,4 +34,6 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'),
     # Category
     path('<int:pk>/category', views.category_detail, name='category_detail'),
+    # Tags
+    path('tags/<str:tag>/', views.article_by_tag, name='article_by_tag'),
 ]

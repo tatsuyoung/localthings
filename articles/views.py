@@ -579,3 +579,10 @@ def gallery(request):
 
     return render(request, "articles/article_photo_gallery.html", context)
 
+# Tags
+def article_by_tag(request, tag):
+    tagged_articles = Article.objects.filter(body__icontains=f'#{tag}')
+    return render(request, 'articles/article_by_tag.html', {
+        'tag'     : tag,
+        'articles': tagged_articles
+    })

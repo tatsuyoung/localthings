@@ -1215,7 +1215,6 @@ li.logo {
   display: block;
 }
 /* large-card のスライド全体に高さを指定 */
-
 .following-feed-wrapper.large-card .swiper-slide {
   height: 500px;
 }
@@ -1224,6 +1223,10 @@ li.logo {
 .following-feed-wrapper.large-card .swiper-zoom-container {
   height: 100%;
   max-height: 500px;
+}
+/* large-card pagenation */
+.following-feed-wrapper.large-card .swiper-pagination-bullets {
+  bottom: 20px; /* 調整 */
 }
 
 /* large-card の画像（ズームを保ちつつレイアウト維持） */
@@ -1900,6 +1903,15 @@ li.logo {
     width: 40px;
     height: 40px;
   }
+}
+/* hashtag */
+.hashtag-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.hashtag-link:hover {
+    text-decoration: underline;
 }
 
 /* right style */

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}#{{ tag }}{% endblock %}
+{% block headerName %}#{{ tag }}{% endblock %}
+{% block mobileCenter %}<p class="mobile-center-name">#{{ tag }}</p>{% endblock %}
+{% block content %}
+
+<!-- ✅ クリック時に使うモーダル枠（初期は非表示） -->
+<div id="hashtagModal" class="hashtag-modal">
+  <div class="hashtag-modal-content">
+        <span id="hashtagModalClose" class="hashtag-modal-close">&times;</span>
+
+        <!-- 🔹 左カラム -->
+        <div class="left-info">
+            <div class="swiper-container modal-swiper">
+                <div class="swiper-wrapper" id="modalSwiperWrapper"></div>
+                <div class="swiper-button-prev modal-swiper-button">
+                    <span><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="swiper-button-next modal-swiper-button">
+                    <span><i class="fas fa-chevron-right"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔹 右カラム -->
+        <div class="right-info">
+            <!-- モーダル内のユーザー情報 -->
+            <div class="user-info">
+                <a id="modalUserLink" href="#">
+                    <img id="modalUserIcon" class="user-icon" alt="User Icon" />
+                </a>
+                <span id="modalUserName" class="user-name"></span>
+            </div>
+            <div id="modalArticleBody" class="article-body-scrollable"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 初期設定 -->
+<div class="hashtag-grid">
+    {% for article in articles %}
+        {% if article.images.first %}
+        <div class="hashtag-thumbnail" data-article-id="{{ article.id }}">
+            <img src="{{ article.images.first.image.url }}" alt="article" class="tag-thumb-img">
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const thumbnails = document.querySelectorAll(".hashtag-thumbnail");
+    const modal = document.getElementById("hashtagModal");
+    const modalUserIcon = document.getElementById("modalUserIcon");
+    const modalUserName = document.getElementById("modalUserName");
+    const modalArticleBody = document.getElementById("modalArticleBody");
+    const modalClose = document.getElementById("hashtagModalClose");
+    const swiperWrapper = document.getElementById("modalSwiperWrapper");
+
+    const articleData = {
+        {% for article in articles %}
+            "{{ article.id }}": {
+                images: [
+                    {% for img in article.images.all %}
+                        "{{ img.image.url|escapejs }}",
+                    {% endfor %}
+                ],
+                userIcon: "{{ article.author.profile.image.url|escapejs }}",
+                userName: "{{ article.author.username|escapejs }}",
+                body: `{{ article.body|linebreaksbr|escapejs }}`,
+                userProfileUrl: "{% url 'articles:user-posts' article.author.username %}"
+            },
+        {% endfor %}
+    };
+
+    let swiperInstance = null;
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener("click", () => {
+            const articleId = thumb.dataset.articleId;
+            const data = articleData[articleId];
+            if (!data) return;
+
+            // スライド挿入
+            swiperWrapper.innerHTML = "";
+            data.images.forEach(url => {
+                const slide = document.createElement("div");
+                slide.className = "swiper-slide";
+                slide.innerHTML = `<img src="${url}" class="tag-slide-img">`;
+                swiperWrapper.appendChild(slide);
+            });
+
+            // モーダル表示
+            modal.style.display = "flex";
+            document.querySelector(".modal-swiper").style.height = "300px";
+
+            // Swiper 初期化
+            setTimeout(() => {
+                if (swiperInstance) swiperInstance.destroy(true, true);
+                swiperInstance = new Swiper(".modal-swiper", {
+                    loop: false,
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: ".swiper-button-next.modal-swiper-button",
+                        prevEl: ".swiper-button-prev.modal-swiper-button"
+                    }
+                });
+                swiperInstance.update();
+            }, 100);
+
+            // ナビゲーション表示制御
+            const prevButton = document.querySelector(".swiper-button-prev.modal-swiper-button");
+            const nextButton = document.querySelector(".swiper-button-next.modal-swiper-button");
+            if (data.images.length <= 1) {
+                prevButton.style.display = "none";
+                nextButton.style.display = "none";
+            } else {
+                prevButton.style.display = "flex";
+                nextButton.style.display = "flex";
+            }
+
+            // ユーザー情報
+            modalUserIcon.src = data.userIcon;
+            modalUserIcon.parentElement.href = data.userProfileUrl;  // ← ここ追加
+            modalUserName.textContent = data.userName;
+            modalArticleBody.innerHTML = data.body;
+        });
+    });
+
+    modalClose.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+    });
+});
+</script>
+{% endblock %}

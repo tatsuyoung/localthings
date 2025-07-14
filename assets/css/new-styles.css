@@ -263,6 +263,21 @@ body.dark-mode .custom-swiper-button {
 body.dark-mode .form_group i {
     color: var(--main-color);
 }
+/* edit article */
+body.dark-mode .site-form,
+body.dark-mode .site-form input[type="text"],
+body.dark-mode .site-form input[type="email"],
+body.dark-mode .site-form input[type="url"],
+body.dark-mode .site-form textarea,
+body.dark-mode .site-form select {
+    background-color: #2c2c2c;
+    color: #f5f5f5;
+}
+/* Tag  */
+.dark-mode .hashtag-modal-content {
+  background: #1e1e1e;
+  color: #eee;
+}
 /* Debug */
 /* * {
   outline: 1px solid red;
@@ -712,6 +727,7 @@ li.logo {
 .center-header {
     display: flex ;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .header-return {
@@ -2061,6 +2077,7 @@ li.logo {
 .user-info {
   margin-left: 12px;
   flex: 1;
+  padding-bottom: 10px;
 }
 
 .user-top-row {
@@ -3072,7 +3089,6 @@ label[for="id_username"] {
     height: 100%;
     object-fit: cover;
     display: block;
-    border-bottom: 1px solid #ccc;  /* 任意で区切り線 */
 }
 
 .profile-circle {
@@ -4165,6 +4181,187 @@ ul{
     border: 1px solid #eee;
 }
 
+/* Tag */
+.hashtag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 6px;
+    padding: 6px;
+}
+
+.tag-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* avater & article body */
+
+.user-info-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.user-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.article-body-scrollable {
+    max-height: 260px;
+    overflow-y: auto;
+    line-height: 1.6;
+    padding-right: 8px;
+}
+/* modal */
+/* モーダル外枠 */
+.hashtag-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+/* 中身 */
+.hashtag-modal-content {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    gap: 10px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: auto;  /* 内容が多くてもはみ出さない */
+    box-sizing: border-box;
+    position: relative; /* 相対位置にして閉じるボタンを配置 */
+}
+
+.left-info {
+  width: 30%;
+  min-width: 270px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* アイコンと名前の間隔 */
+  margin-bottom: 10px;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.hashtag-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+/* swiper */
+.modal-swiper {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;         /* ✅ 高さを明示的に指定 */
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background: #000;      /* ✅ 背景を指定すると高さ確認しやすい */
+}
+
+.modal-swiper .swiper-wrapper {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  width: 100%;
+  height: 100%;          /* ✅ wrapperも親に合わせる */
+  box-sizing: content-box;
+}
+
+.modal-swiper .swiper-slide {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  height: 100%;          /* ✅ 各スライドも高さ確保 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;          /* ✅ 画像もピッタリに揃える */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.modal-swiper .swiper-wrapper {
+  flex-wrap: nowrap !important;     /* 横並び維持 */
+  box-sizing: content-box !important;  /* ✅ Swiperのデフォルトに戻す */
+}
+
+/* ✅ ボタンは swiper-container (.modal-swiper) 内で絶対配置 */
+
+.modal-swiper-button {
+  width: 23px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(250, 246, 246, 0.971);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  color: #666666ab;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+
+  /* ✅ 縦方向に影響を与えるプロパティは削除 */
+  line-height: normal;
+}
+.modal-swiper-button span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.modal-swiper-button i {
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  color: gray;
+}
+
+/* 左ボタン：画像の左端 */
+.swiper-button-prev.modal-swiper-button {
+  left: 10px;
+}
+
+
+/* 右ボタン：画像の右端 */
+.swiper-button-next.modal-swiper-button {
+  right: 10px;
+}
+
 /* @media */
 /* ipad 横 */
 /* iPadサイズではラベルを非表示に */
@@ -4533,6 +4730,10 @@ ul{
     body:not(.dark-mode) .custom-swiper-button {
     background-color: gray;
     }
+    body:not(.dark-mode) .hashtag-modal-content {
+    background: #1e1e1e;
+    color: #eee;
+    } 
 }
 
 /* Create form */
@@ -4610,10 +4811,14 @@ ul{
     .site-form a {
     color: #f1f1f1;
     }
-
+    /* edit */
+    .edit-article-wrapper {
+    background: #2c2c2c;
+    }
     /* テキスト入力・セレクト・テキストエリア */
     .site-form input[type="text"],
     .site-form input[type="url"],
+    .site-form input[type="email"],
     .site-form textarea,
     .site-form select {
     background-color: #2c2c2c;
@@ -4623,6 +4828,7 @@ ul{
 
     .site-form input[type="text"]:focus,
     .site-form input[type="url"]:focus,
+    .site-form input[type="email"]:focus,
     .site-form textarea:focus,
     .site-form select:focus {
     border-color: #888;
@@ -4747,4 +4953,17 @@ ul{
     .write-new span {
     color: #aaa;
     }
+}
+/* edit article */
+@media (prefers-color-scheme: dark) {
+    /* edit article */
+    .site-form,
+    .site-form input[type="text"],
+    .site-form input[type="email"],
+    .site-form input[type="url"],
+    .site-form textarea,
+    .site-form select {
+    background-color: #2c2c2c;
+    color: #f5f5f5;
+}
 }
