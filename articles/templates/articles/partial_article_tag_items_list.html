@@ -1,0 +1,4 @@
+<!DOCTYPE html>
+{% for article in articles %}
+    {% include "articles/partial_article_tag_item.html" with article=article %}
+{% endfor %}

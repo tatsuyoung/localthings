@@ -21,7 +21,6 @@ urlpatterns = [
     path('<int:pk>/edit/', views.article_edit, name='edit'),
     path('ordered_by_likes/', ArticleOrderedByLikes.as_view(), name='ordered_by_likes'),
     # Liked
-    #path('<int:like_id>/like/', views.like_button, name='like_button'),
     path('like/<int:like_id>/', views.like_button, name='like_button'),
     # Book mark
     path('book_mark/<int:article_id>/', views.book_mark, name='book_mark'),
