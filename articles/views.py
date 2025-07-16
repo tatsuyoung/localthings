@@ -6,7 +6,10 @@ from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage
 
+from django.db.models import Subquery
+from django.db.models import OuterRef, Exists
 from django.db.models import Q, Count
+
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.http import HttpResponseServerError
 from django.shortcuts import render, redirect, get_object_or_404
@@ -33,6 +36,8 @@ from .utils import format_custom_date_style  # ← 日付フォーマット関�
 from django.template.loader import render_to_string
 
 from django.http import Http404
+
+
 
 # Articles
 
@@ -288,7 +293,7 @@ def article_edit(request, pk):
             print("Formset errors:", formset.errors)
 
     else:
-        form = CreateArticle(instance=article)
+        form    = CreateArticle(instance=article)
         formset = ArticleImageFormSet(instance=article)
 
     return render(request, 'articles/article_edit.html', {
@@ -580,12 +585,6 @@ def gallery(request):
 
     return render(request, "articles/article_photo_gallery.html", context)
 
-from django.db.models import OuterRef, Exists
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from articles.models import Article, ArticleImage
-
-from django.db.models import Exists, OuterRef, Subquery
 
 def article_by_tag(request, tag):
     page_number = int(request.GET.get("page", 1))
@@ -602,33 +601,33 @@ def article_by_tag(request, tag):
     ).order_by('-date').values('id')
 
     # ✅ それらの ID に一致する Article を順序付きで取得
-    articles = Article.objects.filter(id__in=Subquery(matching_ids_subquery)).order_by('-date')
+    articles  = Article.objects.filter(id__in=Subquery(matching_ids_subquery)).order_by('-date')
 
-    paginator = Paginator(articles, 3)
-    page_obj = paginator.get_page(page_number)
+    paginator = Paginator(articles, 10)
+    page_obj  = paginator.get_page(page_number)
 
-    print("[AJAX]" if request.headers.get("x-requested-with") == "XMLHttpRequest" else "[HTML]", "page_obj IDs:", [a.id for a in page_obj])
+    # print("[AJAX]" if request.headers.get("x-requested-with") == "XMLHttpRequest" else "[HTML]", "page_obj IDs:", [a.id for a in page_obj])
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         html = render_to_string("articles/partial_article_tag_items_list.html", {"articles": page_obj})
         article_data = {
             str(article.id): {
-                "images": [img.image.url for img in article.images.all()],
-                "userIcon": article.author.profile.image.url,
-                "userName": article.author.username,
-                "body": article.body.replace('\n', '<br>'),
+                "images"        : [img.image.url for img in article.images.all()],
+                "userIcon"      : article.author.profile.image.url,
+                "userName"      : article.author.username,
+                "body"          : article.body.replace('\n', '<br>'),
                 "userProfileUrl": reverse('articles:user-posts', args=[article.author.username])
             }
             for article in page_obj
         }
         return JsonResponse({
-            "html": html,
-            "has_next": page_obj.has_next(),
+            "html"        : html,
+            "has_next"    : page_obj.has_next(),
             "article_data": article_data,
         })
 
     return render(request, 'articles/article_by_tag.html', {
-        'tag': tag,
+        'tag'     : tag,
         'articles': page_obj,
         'has_next': page_obj.has_next()
     })
