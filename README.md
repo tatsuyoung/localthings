@@ -48,7 +48,7 @@
 ## 🛠️ 技術スタック
 
 - **言語**: Python 3.11.9, HTML5, CSS3, JavaScript, jQuery, Ajax
-- **フレームワーク**: Django 3.2.25
+- **フレームワーク**: Django 4.2.22
 - **本番環境**: Heroku, AWS S3
 
 ---
@@ -120,7 +120,7 @@ If you want to share the charm of your region or connect with local people, join
 ## 🛠️ Tech Stack
 
 - **Languages**: Python 3.11.9, HTML5, CSS3, JavaScript, jQuery, Ajax
-- **Framework**: Django 3.2.25
+- **Framework**: Django 4.2.22
 - **Production**: Heroku, AWS S3
 
 ---

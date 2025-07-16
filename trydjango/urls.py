@@ -14,7 +14,7 @@ from.import views
 
 sitemaps = {
     'articles': ArticleSitemap,
-    'static': StaticSitemap,
+    'static'  : StaticSitemap,
 }
 
 

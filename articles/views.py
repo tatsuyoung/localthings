@@ -394,15 +394,14 @@ def like_button(request, like_id):
     if not request.user.is_authenticated:
         return JsonResponse({'message': 'Please Login.'}, status=403)
 
-    user    = request.user
-    title   = request.POST.get('title', None)
-    article = get_object_or_404(Article, title=title, id=like_id)
+    user = request.user
+    article = get_object_or_404(Article, id=like_id)
 
     if article.like.filter(id=user.id).exists():
         article.like.remove(user)
     else:
         article.like.add(user)
-        url     = article.get_url()
+        url = article.get_url()
         notify.send(
             user,
             recipient=article.author,
@@ -411,8 +410,7 @@ def like_button(request, like_id):
             url=url
         )
 
-    context = dict(likes_count=article.total_likes)
-    return JsonResponse(context)
+    return JsonResponse({'likes_count': article.total_likes})
 
 
 class ArticleOrderedByLikes(ListView):
