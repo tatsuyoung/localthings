@@ -4365,7 +4365,6 @@ ul{
   transform: translateY(-50%);
   z-index: 10;
   cursor: pointer;
-
   /* ✅ 縦方向に影響を与えるプロパティは削除 */
   line-height: normal;
 }
@@ -4412,6 +4411,33 @@ ul{
     font-size: 14px;
     margin-top: 12px;
     text-align: center;
+}
+/* tagpage left-info の下に right-info */
+@media (max-width: 768px) {
+  .hashtag-modal-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .left-info {
+    width: 100%;
+    min-width: auto; /* 下にスペースを追加 */
+  }
+  .right-info {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .modal-swiper {
+    height: 240px; /* 適宜調整 */
+  }
+  .hashtag-modal-close {
+    display: none !important; /* モバイルでは閉じるボタンを非表示 */
+  }
+  .modal-swiper-button {
+    display: none !important;
+  }
 }
 /* @media */
 /* ipad 横 */

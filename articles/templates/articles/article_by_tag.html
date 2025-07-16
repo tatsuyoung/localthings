@@ -55,9 +55,26 @@
     <p class="end-message" style="display: none;">これ以上ありません。</p>
 </div>
 
-
 <script>
-    function setupModalEventDelegation(articleData) {
+    // ✅ window に入れてグローバルにする
+    window.articleData = {
+        {% for article in articles %}
+            "{{ article.id }}": {
+                images: [
+                    {% for img in article.images.all %}
+                        "{{ img.image.url|escapejs }}",
+                    {% endfor %}
+                ],
+                userIcon: "{{ article.author.profile.image.url|escapejs }}",
+                userName: "{{ article.author.username|escapejs }}",
+                body: `{{ article.body|linebreaksbr|escapejs }}`,
+                userProfileUrl: "{% url 'articles:user-posts' article.author.username %}"
+            },
+        {% endfor %}
+    };
+
+    // ✅ モーダルを開く設定（他からも呼べるようにする）
+    window.setupModalEventDelegation = function (articleData) {
         const modal = document.getElementById("hashtagModal");
         const modalUserIcon = document.getElementById("modalUserIcon");
         const modalUserName = document.getElementById("modalUserName");
@@ -116,32 +133,16 @@
             modal.style.display = "none";
         });
 
+        // モーダル外クリックで閉じる（基本）
         window.addEventListener("click", (e) => {
             if (e.target === modal) modal.style.display = "none";
         });
-    }
-</script>
-
-<script>
-    // 初期データ
-    const articleData = {
-        {% for article in articles %}
-            "{{ article.id }}": {
-                images: [
-                    {% for img in article.images.all %}
-                        "{{ img.image.url|escapejs }}",
-                    {% endfor %}
-                ],
-                userIcon: "{{ article.author.profile.image.url|escapejs }}",
-                userName: "{{ article.author.username|escapejs }}",
-                body: `{{ article.body|linebreaksbr|escapejs }}`,
-                userProfileUrl: "{% url 'articles:user-posts' article.author.username %}"
-            },
-        {% endfor %}
     };
 
-    // 1回だけ呼ぶ（イベント委譲でajax追加分も対応可能）
-    setupModalEventDelegation(articleData);
+    // ✅ DOMが準備できたら1度だけ呼ぶ
+    document.addEventListener("DOMContentLoaded", function () {
+        setupModalEventDelegation(window.articleData);
+    });
 </script>
 <script src="/static/js/tag_infinite_scroll.js" defer></script>
 {% endblock %}
