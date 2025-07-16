@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+{% with first_image=article.images.first %}
+    {% if first_image %}
+        <div class="hashtag-thumbnail" data-article-id="{{ article.id }}">
+            <img src="{{ first_image.image.url }}" alt="article" class="tag-thumb-img">
+        </div>
+    {% endif %}
+{% endwith %}

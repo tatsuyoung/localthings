@@ -11,34 +11,42 @@
 <div class="notification_wrapper_all">
     <div class="notification_wrapper">
         <div class="notification_icon">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-circle-notch"></i>
         </div>
         <div class="drop-down">
             {% if request.user.notifications.all %}
-                <button type="button"><a class="btn-notify-1" href="{% url 'notifications:mark_all_as_read' %}?next={% url 'my_notifications' %}"><i class="fas fa-check"></i> 全て既読にする</a></button>
-                <button type="button"><a class="btn-notify-2" href="{% url 'delete_my_read_notifications' %}"><i class="fas fa-trash-alt"></i> 既読を削除する</a></button>
-            {% endif %}
-
-            <ul>
-            {% for notification in request.user.notifications.all %}
-            <div class="notify_item">
-                    <div class="notify_img article_detail_author_img">
-                        <a href="{% url 'accounts:profile_detail' notification.actor.username %}" class="avatar">
-                            <img src="{{ notification.actor.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                <div class="notify-actions">
+                    <button type="button">
+                        <a class="btn-notify-1" href="{% url 'notifications:mark_all_as_read' %}?next={% url 'my_notifications' %}">
+                            <i class="fas fa-check"></i> 全て既読にする
                         </a>
-                    </div>
-                    <div class="{% if not notification.unread %}read{% else %}unread{% endif %}">
-                        <span class="notify_time">{{ notification.timesince }} 前</span>
-                        <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
-                    </div>
-            </div>
-            {% empty %}
+                    </button>
+                    <button type="button">
+                        <a class="btn-notify-2" href="{% url 'delete_my_read_notifications' %}">
+                            <i class="fas fa-trash-alt"></i> 既読を削除する
+                        </a>
+                    </button>
+                </div>
+                <ul class="notification-list-scrollable">
+                    {% for notification in request.user.notifications.all %}
+                        <li class="notify_item">
+                            <div class="notify_img article_detail_author_img">
+                                <a href="{% url 'accounts:profile_detail' notification.actor.username %}" class="avatar">
+                                    <img src="{{ notification.actor.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
+                                </a>
+                            </div>
+                            <div class="{% if not notification.unread %}read{% else %}unread{% endif %}">
+                                <span class="notify_time">{{ notification.timesince }} 前</span>
+                                <p>{{ notification.actor }} <a href="{% url 'my_notification' notification.pk %}">{{ notification.verb }}</a></p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
                 <h4>お知らせはありません。</h4>
-            {% endfor %}
-            </ul>
-
+            {% endif %}
         </div>
     </div>
-    <div class="global-footer"></div>
 </div>
+<div class="global-footer"></div>
 {% endblock %}

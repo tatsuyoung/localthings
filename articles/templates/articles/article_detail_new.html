@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load article_extras %}
 {% load widget_tweaks %}
 <html lang="ja">
     <head>
@@ -143,7 +144,7 @@
                                 </div>
                                 {% endif %}
                                 <div class="articles-description">
-                                    <p>{{ article.body | urlize | linebreaksbr | safe }}</p>
+                                    <p>{{ article.body | urlize | linebreaksbr | hashtag_links }}</p>
                                 </div>
                                 {% include 'articles/snippet/icons_text.html' %}
                                 <div class="icons-box-wrapper">

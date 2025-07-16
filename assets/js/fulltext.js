@@ -1,3 +1,9 @@
+function convertHashtagsToLinks(text) {
+    return text.replace(/#([^\s#]+)/g, function (match, tag) {
+        return `<a href="/articles/tags/${encodeURIComponent(tag)}/" class="hashtag-link">#${tag}</a>`;
+    });
+}
+
 function initializeFullText() {
     const snippets = document.querySelectorAll('.snippet-text');
 
@@ -13,7 +19,8 @@ function initializeFullText() {
             const isExpanded = snippet.dataset.expanded === 'true';
 
             if (!isExpanded) {
-                const formattedText = fullText.replace(/\n/g, '<br>');
+                // ✅ 改行＋ハッシュタグ処理
+                const formattedText = convertHashtagsToLinks(fullText).replace(/\n/g, '<br>');
                 snippet.innerHTML = formattedText;
                 snippet.dataset.expanded = 'true';
                 if (readMoreLink) readMoreLink.textContent = '詳細ページへ';
@@ -24,12 +31,10 @@ function initializeFullText() {
             }
         });
 
-        // ✅ 初期化済みフラグを付けて、2重登録防止
         snippet.dataset.initialized = 'true';
     });
 }
 
-// ✅ 初回DOM読み込み時に実行
 document.addEventListener('DOMContentLoaded', function () {
     initializeFullText();
 });

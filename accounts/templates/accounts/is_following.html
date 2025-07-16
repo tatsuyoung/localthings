@@ -13,7 +13,7 @@
                     <img src="{{ following.user.profile.image.url }}" alt="Avatar" class="img-cover" loading="lazy"/>
                 </a>
             </div>
-            <div class="user-info">
+            <div class="user-info-follow-following">
                 <div class="user-top-row">
                     <p class="user-name">{{ following.user.username }}</p>
                     {% include "accounts/snippet/follow_form.html" with target_user=following.user %}
