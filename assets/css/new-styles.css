@@ -286,12 +286,27 @@ body.dark-mode .site-form select {
 /* Dark mode 用の色上書き */
 .dark-mode .notification_wrapper .drop-down .notify_item .unread p,
 .dark-mode .notification_wrapper .drop-down .notify_item .unread p a {
-    color: #f5f5f5 !important;
+    color: #f5f5f5;
 }
 .dark-mode .notification_wrapper .drop-down .notify_item .read .notify_time,
 .dark-mode .notification_wrapper .drop-down .notify_item .read p,
 .dark-mode .notification_wrapper .drop-down .notify_item .read p a {
-    color: rgb(86, 84, 84) !important;
+    color: rgb(86, 84, 84);
+}
+/* about */
+body.dark-mode .about_wrapper {
+    background: #121212;
+}
+body.dark-mode .about_content p {
+    color: #e0e0e0;
+}
+body.dark-mode .about_box {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+
+body.dark-mode .about_box:hover {
+    background: rgba(255, 255, 255, 0.05); /* optional override */
 }
 /* Debug */
 /* * {
@@ -2290,10 +2305,6 @@ li.logo {
     margin-top: 20px;
 }
 
-body.dark-mode .about_wrapper {
-    background: #121212;
-}
-
 .about_container {
     position: relative;
     max-width: 100%;
@@ -2320,10 +2331,6 @@ body.dark-mode .about_wrapper {
     color: #14171a;
 }
 
-body.dark-mode .about_content p {
-    color: #e0e0e0;
-}
-
 .about_box {
     background-color: #fff;
     padding: 20px;
@@ -2335,18 +2342,10 @@ body.dark-mode .about_content p {
     border: 1px solid #C0C0C0;
 }
 
-body.dark-mode .about_box {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-}
-
 .about_box:hover {
     background: var(--hover-color);
 }
 
-body.dark-mode .about_box:hover {
-    background: rgba(255, 255, 255, 0.05); /* optional override */
-}
 
 .about_box span {
     position: relative;
@@ -4810,15 +4809,33 @@ ul{
     body:not(.dark-mode) .hashtag-modal-content {
     background: #1e1e1e;
     color: #eee;
-    } 
+    }
+    body:not(.dark-mode) .notification_wrapper .drop-down {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    }
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .unread p,
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .unread p a {
-    color: #f5f5f5 !important;
+    color: #f5f5f5;
     }
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .read .notify_time,
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .read p,
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .read p a {
-    color: rgb(86, 84, 84) !important;
+    color: rgb(86, 84, 84);
+    }
+    body:not(.dark-mode) .about_wrapper {
+    background: #121212;
+    }
+    body:not(.dark-mode) .about_content p {
+    color: #e0e0e0;
+    }
+    body:not(.dark-mode) .about_box {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    }
+
+    body:not(.dark-mode) .about_box:hover {
+    background: rgba(255, 255, 255, 0.05); /* optional override */
     }
 }
 

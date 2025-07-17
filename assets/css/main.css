@@ -2686,7 +2686,7 @@ ul{
     body:not(.dark-mode) .following-feed-wrapper {
         border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
     }
-    body:not(.dark-mode) .dark-mode .favorite-title span {
+    body:not(.dark-mode) .favorite-title span {
     color: #cdcbcb;
     }
     body:not(.dark-mode) .left {
