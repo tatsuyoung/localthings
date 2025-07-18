@@ -283,6 +283,9 @@ body.dark-mode .site-form select {
     background: #1e1e1e;
     border: 1px solid #444;
 }
+.dark-mode .notification_wrapper .drop-down .notify_item {
+    border-bottom: 0.5px solid #a09e9e;
+}
 /* Dark mode 用の色上書き */
 .dark-mode .notification_wrapper .drop-down .notify_item .unread p,
 .dark-mode .notification_wrapper .drop-down .notify_item .unread p a {
@@ -307,6 +310,10 @@ body.dark-mode .about_box {
 
 body.dark-mode .about_box:hover {
     background: rgba(255, 255, 255, 0.05); /* optional override */
+}
+/* end-message circle */
+body.dark-mode .gradient-border-inner {
+    background: var(--bg-color);
 }
 /* Debug */
 /* * {
@@ -1844,7 +1851,42 @@ li.logo {
   height: 50px;
   animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
 }
+/* end-message circle-check */
+.end-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.gradient-border {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-image: linear-gradient(135deg, #FFF720 10%, #3CD500 100%);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gradient-border-inner {
+    width: 98%;
+    height: 98%;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.end-circle-check {
+    display: flex;  /* ← 必須！ */
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
 
+    /* テキストにグラデーション */
+    background: linear-gradient(135deg, #FFF720 10%, #3CD500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 /* 下の「これ以上ありません」メッセージ */
 .end-message {
   font-size: 0.9em;
@@ -4814,6 +4856,9 @@ ul{
     background: #1e1e1e;
     border: 1px solid #444;
     }
+    body:not(.dark-mode) .notification_wrapper .drop-down .notify_item {
+    border-bottom: 0.5px solid #a09e9e;
+    }
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .unread p,
     body:not(.dark-mode) .notification_wrapper .drop-down .notify_item .unread p a {
     color: #f5f5f5;
@@ -4836,6 +4881,9 @@ ul{
 
     body:not(.dark-mode) .about_box:hover {
     background: rgba(255, 255, 255, 0.05); /* optional override */
+    }
+    body:not(.dark-mode) .gradient-border-inner {
+    background: var(--bg-color);
     }
 }
 

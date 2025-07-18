@@ -405,7 +405,7 @@ def like_button(request, like_id):
         notify.send(
             user,
             recipient=article.author,
-            verb=f'さんが、あなたの記事にいいね!しました。{article.title}',
+            verb=f'さんが、あなたのpostにいいね!しました。{article.title}',
             action_object=article,
             url=url
         )

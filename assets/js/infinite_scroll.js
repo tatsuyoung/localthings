@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const spinner = document.querySelector('#loader .spinner');
+            const endMessageCircle = document.querySelector('#loader .end-icon-wrapper');
             const endMessage = document.querySelector('#loader .end-message');
 
             if (!data.has_next) {
                 scrollContainer.removeEventListener("scroll", handleScroll);
                 if (spinner) spinner.style.display = 'none';
+                if (endMessageCircle) endMessageCircle.style.display = 'flex';
                 if (endMessage) endMessage.style.display = 'block';
             } else {
                 loader.style.display = 'none';
