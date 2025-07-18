@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const loader = document.getElementById("loader");
     const endMessage = loader.querySelector(".end-message");
     const spinner = loader.querySelector(".spinner");
+    const endMessageCircle = document.querySelector('#loader .end-icon-wrapper');
 
     let currentPage = 1;
     let loading = false;
@@ -39,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (spinner) {
                     spinner.style.display = "none"; // ✅ スピナーだけ消す
+                }
+                if (endMessageCircle) {
+                    endMessageCircle.style.display = 'flex'; // ✅ end-circle-check を表示
                 }
                 if (endMessage) {
                     endMessage.style.display = "block"; // ✅ end-message を表示
