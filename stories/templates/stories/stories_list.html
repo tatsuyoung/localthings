@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- モーダル -->
+<div id="storyModal" class="stories modal hidden">
+  <div class="stories-modal-content">
+        <span class="close" onclick="closeStoryModal()">&times;</span>
+
+        <form method="POST" enctype="multipart/form-data" action="{% url 'stories:create' %}">
+            {% csrf_token %}
+            
+            <input type="file" name="media" accept="image/*,video/*" onchange="previewStory(this)">
+            
+            <label for="id_caption">キャプション</label>
+            <textarea name="caption" id="id_caption" rows="3" placeholder="キャプションを書く..."></textarea>
+
+            <div id="preview"></div>
+            <button type="submit" class="btn">投稿</button>
+        </form>
+  </div>
+</div>
+
+
+<div class="stories-wrapper">
+  <div class="stories-scroll">
+        <!-- 自分のストーリー追加ボタン -->
+        <div class="story-item add-story" onclick="openStoryModal()">
+            <div class="story-circle-wrapper">
+                <img src="{{ request.user.profile.image.url }}" alt="Avatar" class="story-circle">
+                <span class="add-icon">＋</span>
+            </div>
+            <div class="author-name-wrapper">
+                <p>ストーリーズ</p>
+            </div>
+        </div>
+        <!-- 他ユーザー&自身ののストーリー表示 -->
+        {% for story in story_users %}
+            <!-- ストーリーアイコン -->
+            <div class="story-item">
+                <div class="story-circle-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
+                    <img class="story-circle" src="{{ story.user.profile.image.url }}" alt="story">
+                </div>
+                <div class="author-name-wrapper">
+                    <p>
+                        {% if story.user == request.user %}
+                            <a href="#" class="story-delete-link" data-story-id="{{ story.id }}" data-url="{% url 'stories:story_delete_ajax' story.id %}">storyを削除</a>
+                        {% else %}
+                            {{ story.user.username | truncatechars_html:10 }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.story-delete-link').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (!confirm('このストーリーを削除してもよろしいですか？')) return;
+
+            const storyId = this.dataset.storyId;
+            const deleteUrl = this.dataset.url;
+
+            fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    this.closest('.story-item').remove();
+                } else {
+                    alert(data.message || '削除できませんでした。');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('エラーが発生しました。');
+            });
+        });
+    });
+});
+</script>

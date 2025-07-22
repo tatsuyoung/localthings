@@ -37,6 +37,8 @@ from django.template.loader import render_to_string
 
 from django.http import Http404
 
+from stories.models import Story
+from collections import OrderedDict
 
 
 # Articles
@@ -167,6 +169,36 @@ def article_list(request):
 
     author_count_dict = {item['author']: item['count'] for item in author_article_counts}
 
+    # ✅ Stories（自分 + フォロー中のユーザーのStoryのみ）
+    story_qs    = Story.objects.none()
+    story_users = []
+
+    if request.user.is_authenticated:
+        now = timezone.now()
+
+        # 自分のストーリー（有効期限内）
+        own_story = Story.objects.filter(
+            user=request.user,
+            expires_at__gt=now
+        ).order_by('-created_at').first()
+
+        if own_story:
+            story_users.append(own_story)
+
+        # フォロー中ユーザーのストーリー（有効期限内）
+        following_user_ids = request.user.following_users.values_list('id', flat=True)
+        other_stories_qs = Story.objects.filter(
+            user__id__in=following_user_ids,
+            expires_at__gt=now
+        ).select_related('user').order_by('user_id', '-created_at')
+
+        # ユニークなユーザーごとに最新のストーリーを取得
+        seen_user_ids = {request.user.id}  # 自分はすでに含めた
+        for s in other_stories_qs:
+            if s.user.id not in seen_user_ids:
+                story_users.append(s)
+                seen_user_ids.add(s.user.id)
+
     # ✅ 各記事に全コメントと1つのフォームを付加
     article_comment_data = {}
     for article in page_obj:
@@ -211,6 +243,7 @@ def article_list(request):
         'following_count'     : following_count,
         'is_following_set'    : is_following_set,   
         'view_name'           : 'list',
+        'story_users'         : story_users,
     })
 
 

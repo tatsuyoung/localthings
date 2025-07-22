@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- templates/stories/story_view.html -->
+
+{% for story in stories %}
+    <div class="story-container">
+        <div class="story-header">
+            <div class="story-item">
+                <div class="story-circle-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
+                    <img class="story-circle" src="{{ story.user.profile.image.url }}" alt="story">
+                </div>
+                <div class="author-name-wrapper">
+                    <p>{{ story.user.username | truncatechars_html:10 }}</p>
+                </div>
+            </div>
+            <div class="story-time-wrapper">
+                <span class="story-time">{{ story.created_at }}</span>
+            </div>
+        </div>
+
+        <div class="story-media-wrapper">
+            {% if story.media.url %}
+            {% if ".mp4" in story.media.url|lower %}
+                <video class="story-video" src="{{ story.media.url }}" controls></video>
+            {% else %}
+                <img class="story-image" src="{{ story.media.url }}" alt="story">
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+
+<!-- {% if request.user == story.user %}
+    <form method="POST" action="{% url 'stories:delete' story.id %}" style="margin-top: 5px;">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('このストーリーを削除しますか？')">削除</button>
+    </form>
+{% endif %} -->

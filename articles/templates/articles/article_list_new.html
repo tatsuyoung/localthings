@@ -201,6 +201,26 @@
                         </div>
                         {% endif %}
                     </div>
+                    <!-- Stories -->
+                    <!-- Toast Container -->
+                    <div class="toast-wrapper">
+                        <div id="toast-container" class="toast-message" ></div>
+                    </div>
+                     <!-- ▼ ストーリー閲覧モーダル -->
+                    <div id="storyViewModal" class="story-view-modal hidden">
+                        <div class="modal-overlay" onclick="closeStoryViewModal()"></div>
+                        <div class="modal-content">
+                            <span class="close-btn" onclick="closeStoryViewModal()">&times;</span>
+                            <div id="storyViewModalBody">
+                            <!-- Ajaxで読み込まれたストーリーがここに表示 -->
+                             {% include "stories/story_view.html" %}
+                            </div>
+                        </div>
+                    </div>
+                     {% if user.is_authenticated %}
+                        {% include "stories/stories_list.html" with story_users=story_users %}
+                    {% endif %}
+                     <!-- Articles -->
                     <div class="article-wrapper">
                         <article class="following-feed">
                             {% include "articles/partial_article_card_list.html" with article=article %}
@@ -371,6 +391,16 @@
             });
         });
         </script>
+        <script>
+            const messages = [
+                {% for message in messages %}
+                    {
+                        "message": "{{ message|escapejs }}",
+                        "tags": "{{ message.tags }}"
+                    }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ];
+        </script>
         <script src="/static/js/initializeScrollNavBehavior.js"></script>
         <script src="/static/js/mobile-create.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
@@ -388,5 +418,8 @@
         <script src="/static/js/comment.js"></script>
         <script src="/static/js/hover-card.js"></script>
         <script src="/static/js/follow_toggle.js"></script>
+        <script src="/static/js/story_modal.js"></script>
+        <script src="/static/js/story_view_modal.js"></script>
+        <script src="/static/js/stories_warning_messages.js"></script>
     </body>
 </html>

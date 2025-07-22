@@ -189,9 +189,9 @@ body.dark-mode .gradient-border-inner {
 
 
 /* Debug */
-/* * {
+* {
   outline: 1px solid red;
-} */
+}
 
 /* Main */
 body {
@@ -998,6 +998,213 @@ li.logo {
     background-color: #e8f5fd;
 }
 
+/* Stories */
+
+.stories-wrapper {
+  padding: 10px;
+}
+
+.stories-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    height: 100px;
+    width: 100%;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.stories-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.story-item {
+  text-align: center;
+  width: 80px;
+  flex-shrink: 0;
+}
+.author-name-wrapper {
+  padding-top: 2px;
+  font-weight: 400;
+}
+.story-item p {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #333;
+}
+
+.story-circle-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.story-circle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #dbdbdb;
+}
+
+.add-icon {
+    position: absolute;
+    bottom: 4px;
+    right: -5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+}
+
+/* モーダル Stories */
+.stories.modal.hidden {
+  display: none;
+}
+
+/* モーダル全体のサイズ調整 */
+.stories.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* モーダル内部コンテンツの調整 */
+.stories-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  position: relative;
+}
+/* POST Stories */
+.story-container {
+  max-width: 400px; /* optional: you can change this */
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+.story-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+.story-time-wrapper {
+    width: 100%;
+    justify-content: start;
+    padding-left: 6px;
+    padding-bottom: 18px;
+}
+.story-time {
+  font-size: 12px;
+  color: #999;
+}
+.story-media-wrapper {
+  width: 100%;
+  position: relative;
+  padding-top: 177.78%; /* 1920 / 1080 ≒ 1.7778 = 9:16 aspect ratio */
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.story-media-wrapper video,
+.story-media-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* View modal Story */
+.story-view-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.story-view-modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.story-delete-link {
+    color: #333;
+}
+/* Warning message */
+.toast-wrapper {
+    position: fixed; /* fixedにすべき */
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast-message {
+    text-align: center;
+}
+
+
+
+/* Main プレビューエリアの調整 */
+#preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#preview img,
+#preview video {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 /* hover user profile */
 .hover-user-trigger {
     color: #333;
@@ -1019,6 +1226,7 @@ li.logo {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* Article main */
 /* --- 表示制御用クラス（JSで付与）--- */
 .hover-profile-header {
   display: flex;
