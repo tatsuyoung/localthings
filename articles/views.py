@@ -41,6 +41,8 @@ from stories.models import Story
 from collections import OrderedDict
 
 
+
+
 # Articles
 
 def article_search_partial(request):
@@ -186,7 +188,8 @@ def article_list(request):
             story_users.append(own_story)
 
         # フォロー中ユーザーのストーリー（有効期限内）
-        following_user_ids = request.user.following_users.values_list('id', flat=True)
+        # ✅ 「自分がフォローしているユーザー」
+        following_user_ids = Profile.objects.filter(followers=request.user).values_list('user__id', flat=True)
         other_stories_qs = Story.objects.filter(
             user__id__in=following_user_ids,
             expires_at__gt=now
@@ -198,6 +201,7 @@ def article_list(request):
             if s.user.id not in seen_user_ids:
                 story_users.append(s)
                 seen_user_ids.add(s.user.id)
+    
 
     # ✅ 各記事に全コメントと1つのフォームを付加
     article_comment_data = {}

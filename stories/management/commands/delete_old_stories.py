@@ -6,7 +6,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
 
-HOURS_TO_EXPIRE    = settings.STORY_EXPIRE_HOURS # ストーリーの有効期限（時間）
+HOURS_TO_EXPIRE = settings.STORY_EXPIRE_HOURS # ストーリーの有効期限（時間）
 
 class Command(BaseCommand):
     help = f"Delete stories older than {HOURS_TO_EXPIRE} hours"

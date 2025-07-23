@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 
 <!-- モーダル -->
-<div id="storyModal" class="stories modal hidden">
-  <div class="stories-modal-content">
+<div id="storyModal" class="stories modal">
+    <div class="stories-modal-content modern">
         <span class="close" onclick="closeStoryModal()">&times;</span>
-
-        <form method="POST" enctype="multipart/form-data" action="{% url 'stories:create' %}">
+        <!-- Form -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'stories:create' %}" class="stories-form">
             {% csrf_token %}
-            
-            <input type="file" name="media" accept="image/*,video/*" onchange="previewStory(this)">
-            
-            <label for="id_caption">キャプション</label>
-            <textarea name="caption" id="id_caption" rows="3" placeholder="キャプションを書く..."></textarea>
 
-            <div id="preview"></div>
-            <button type="submit" class="btn">投稿</button>
+            <div class="stories-input-wrapper">
+                <label for="id_media" class="upload-label">
+                    <span>＋ メディアを選択</span>
+                    <input id="id_media" type="file" name="media" accept="video/*" onchange="previewStory(this)">
+                </label>
+            </div>
+
+            <div id="preview" class="media-preview"></div>
+
+            <div class="caption-wrapper">
+                <textarea name="caption" id="id_caption" rows="3" placeholder="キャプションを書く..."></textarea>
+            </div>
+
+            <div class="stories-btn-wrapper">
+                <button type="submit" class="btn-post">投稿</button>
+            </div>
         </form>
-  </div>
+    </div>
 </div>
 
 
 <div class="stories-wrapper">
   <div class="stories-scroll">
-        <!-- 自分のストーリー追加ボタン -->
-        <div class="story-item add-story" onclick="openStoryModal()">
-            <div class="story-circle-wrapper">
-                <img src="{{ request.user.profile.image.url }}" alt="Avatar" class="story-circle">
+        <!-- 自分の追加ボタン -->
+        <div class="story-user-wrapper">
+            <div class="story-ring" onclick="openStoryModal()">
+                <img src="{{ request.user.profile.image.url }}" class="story-user-icon" />
                 <span class="add-icon">＋</span>
             </div>
-            <div class="author-name-wrapper">
-                <p>ストーリーズ</p>
-            </div>
+            <p class="story-username">ストーリーズ</p>
         </div>
         <!-- 他ユーザー&自身ののストーリー表示 -->
-        {% for story in story_users %}
-            <!-- ストーリーアイコン -->
-            <div class="story-item">
-                <div class="story-circle-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
-                    <img class="story-circle" src="{{ story.user.profile.image.url }}" alt="story">
-                </div>
-                <div class="author-name-wrapper">
-                    <p>
-                        {% if story.user == request.user %}
-                            <a href="#" class="story-delete-link" data-story-id="{{ story.id }}" data-url="{% url 'stories:story_delete_ajax' story.id %}">storyを削除</a>
-                        {% else %}
-                            {{ story.user.username | truncatechars_html:10 }}
-                        {% endif %}
+        <div class="story-list">
+            {% for story in story_users %}
+                <div class="story-user-wrapper">
+                <a href="#" onclick="openStoryViewModal({{ story.user.id }})">
+                    <div class="story-ring">
+                        <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
+                    </div>
+                    <p class="story-username">
+                    {% if story.user == request.user %}
+                        <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">Storyを削除</a>
+                    {% else %}
+                        {{ story.user.username|truncatechars_html:10 }}
+                    {% endif %}
                     </p>
+                </a>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
   </div>
 </div>
 

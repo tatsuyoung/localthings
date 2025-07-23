@@ -16,22 +16,20 @@
                 <span class="story-time">{{ story.created_at }}</span>
             </div>
         </div>
+        <div class="story-caption-wrapper">
+            <div class="story-caption">
+                {% if story.caption %}
+                    {{ story.caption }}
+                {% endif %}
+            </div>
+        </div>
 
         <div class="story-media-wrapper">
             {% if story.media.url %}
-            {% if ".mp4" in story.media.url|lower %}
-                <video class="story-video" src="{{ story.media.url }}" controls></video>
-            {% else %}
-                <img class="story-image" src="{{ story.media.url }}" alt="story">
-            {% endif %}
+                {% if ".mp4" in story.media.url|lower %}
+                    <video class="story-video" src="{{ story.media.url }}" controls></video>
+                {% endif %}
             {% endif %}
         </div>
     </div>
 {% endfor %}
-
-<!-- {% if request.user == story.user %}
-    <form method="POST" action="{% url 'stories:delete' story.id %}" style="margin-top: 5px;">
-        {% csrf_token %}
-        <button type="submit" onclick="return confirm('このストーリーを削除しますか？')">削除</button>
-    </form>
-{% endif %} -->

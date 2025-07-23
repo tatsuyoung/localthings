@@ -16,6 +16,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.conf import settings
 
+
 HOURS_TO_EXPIRE    = settings.STORY_EXPIRE_HOURS # ストーリーの有効期限（時間）
 MAX_VIDEO_DURATION = settings.MAX_VIDEO_DURATION  # 最大動画長さ（秒）
 User               = get_user_model()
@@ -68,9 +69,8 @@ def story_create(request):
                 messages.error(request, error)  # エラーメッセージを表示
             return redirect("articles:list")  # リダイレクト
     else:
-        form = StoryForm(user=request.user)
-
-    return render(request, "stories/stories_list.html", {"form": form})
+        # GETリクエストはリダイレクト
+        return redirect("articles:list")
 
 
 def story_view(request, user_id):
@@ -90,3 +90,4 @@ def story_delete_ajax(request, story_id):
 
     story.delete()
     return JsonResponse({"success": True, "message": "ストーリーを削除しました。"})
+

@@ -1,10 +1,15 @@
 function openStoryModal() {
-  document.getElementById("storyModal").classList.remove("hidden");
+  document.getElementById("storyModal").classList.add("show");
 }
 
 function closeStoryModal() {
-  document.getElementById("storyModal").classList.add("hidden");
+  document.getElementById("storyModal").classList.remove("show");
 }
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeStoryModal();
+  }
+});
 
 function previewStory(input) {
   const preview = document.getElementById("preview");
