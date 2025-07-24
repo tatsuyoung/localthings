@@ -186,6 +186,45 @@ body.dark-mode .custom-swiper-button {
 body.dark-mode .gradient-border-inner {
     background: var(--bg-color);
 }
+/* stories */
+body.dark-mode .stories-modal-content.modern {
+  background-color: #222;
+  border: 1px solid #444;
+}
+body.dark-mode .upload-label span {
+    color: #f5f5f5;
+}
+body.dark-mode .upload-label:hover {
+    background-color: #333;
+}
+body.dark-mode .story-input-wrapper {
+  background-color: #000;
+}
+body.dark-mode .caption-wrapper textarea {
+    background-color: #222;
+    color: #f5f5f5;
+    border: 1px solid #444;
+}
+body.dark-mode .story-username,
+body.dark-mode .story-username a {
+    color: #f5f5f5;
+}
+/* stories view */
+body.dark-mode .modal-content {
+    background-color: #222;
+}
+body.dark-mode .story-time-wrapper span {
+    color: gray;
+}
+body.dark-mode .author-name-wrapper p {
+    color: #f5f5f5;
+}
+body.dark-mode .story-time-wrapper span {
+    color: gray;
+}
+body.dark-mode .story-user-wrapper a {
+    background-color: #121212;
+}
 
 
 /* Debug */
@@ -998,6 +1037,413 @@ li.logo {
     background-color: #e8f5fd;
 }
 
+/* Stories */
+
+.stories-wrapper {
+  padding: 10px;
+}
+
+.stories-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    height: 100px;
+    width: 100%;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.stories-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+/* story icon */
+.story-list {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+}
+.story-user-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ここで中央揃えに */
+    margin: 0 2px;
+}
+.story-user-wrapper a {
+    background-color: #fff;
+}
+
+.story-ring {
+  padding: 2px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  width: 66px;
+  height: 66px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #FFF720 10%, #3CD500 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-ring.read {
+  background: gray;
+  opacity: 0.6;
+}
+
+.story-user-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  background-color: #eee;
+  display: block;
+}
+
+.add-icon {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-username, 
+.story-username a {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* モーダル Stories 　Create */
+.stories.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* 背景を暗くする */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.stories.modal.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* モーダル内コンテンツ */
+.stories-modal-content.modern {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 閉じるボタン */
+.stories-modal-content .close {
+    display: inline-block;
+    width: 32px; /* 円のサイズ（適宜調整） */
+    height: 32px;
+    line-height: 32px; /* テキストを上下中央に揃える */
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6); /* 半透明の黒背景など */
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute; /* 必要に応じて右上固定など */
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.stories-modal-content .close:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* モーダル全体のサイズ調整 */
+.stories.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* モーダル内部コンテンツの調整 POST FORM */
+/* モーダルの中央に配置 */
+.stories-modal-content.modern {
+    background-color: #fff;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* アップロード部分 */
+.upload-label {
+    display: block;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+    color: #777;
+}
+
+.upload-label:hover {
+    background-color: #f9f9f9;
+    border-color: #aaa;
+}
+
+.upload-label input[type="file"] {
+    display: none;
+}
+
+/* プレビューエリア */
+.media-preview {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.media-preview video {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  max-height: 250px;
+  object-fit: cover;
+}
+
+/* キャプション入力 */
+.caption-wrapper textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    resize: none;
+    margin-top: 15px;
+}
+
+/* 投稿ボタン */
+.stories-btn-wrapper {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-post {
+    background: #3897f0;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-post:hover {
+    background: var(--main-color);
+}
+/* Story view  user-circle & time Caption*/
+
+.story-header-top {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.story-item {
+    display: flex;
+    align-items: center;
+}
+
+.story-avatar-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.story-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.story-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+.story-time-wrapper {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 2px;
+}
+
+.author-name-wrapper p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.story-caption-wrapper {
+    max-height: 100px; /* お好みで調整 */
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.story-caption {
+    font-size: 14px;
+    line-height: 1.5;
+}
+/*  video view */
+.story-media-wrapper {
+    width: 100%;
+    max-width: 100%;
+    max-height: 600px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000; /* 黒背景があればそれっぽい */
+}
+
+.story-media-wrapper video {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain; /* トリミングしない */
+}
+
+/* caption */
+.story-caption-wrapper {
+    display: flex;
+    margin: 10px;
+}
+.sotry-caption {
+    font-size: 16px;
+    color: #f5f5f5;
+}
+/* View modal Story */
+.story-view-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.story-view-modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.story-delete-link {
+    color: #333;
+}
+/* Warning message */
+.toast-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast-message {
+    text-align: center;
+}
+
+
+
+/* Main プレビューエリアの調整 */
+#preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#preview video {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 /* hover user profile */
 .hover-user-trigger {
     color: #333;
@@ -1019,6 +1465,7 @@ li.logo {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* Article main */
 /* --- 表示制御用クラス（JSで付与）--- */
 .hover-profile-header {
   display: flex;
@@ -2753,6 +3200,44 @@ ul{
     }
     body:not(.dark-mode) .gradient-border-inner {
     background: var(--bg-color);
+    }
+    body:not(.dark-mode) .stories-modal-content.modern {
+    background-color: #222;
+    border: 1px solid #444;
+    }
+    body:not(.dark-mode) .upload-label span {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .upload-label:hover {
+    background-color: #333;
+    }
+    body:not(.dark-mode) .story-input-wrapper {
+    background-color: #000;
+    }
+    body:not(.dark-mode) .caption-wrapper textarea {
+    background-color: #222;
+    color: #f5f5f5;
+    border: 1px solid #444;
+    }
+    body:not(.dark-mode) .story-username,
+    body:not(.dark-mode) .story-username a {
+    color: #f5f5f5;
+    }
+    /* stories view */
+    body:not(.dark-mode) .modal-content {
+    background-color: #222;
+    }
+    body:not(.dark-mode) .story-time-wrapper span {
+    color: gray;
+    }
+    body:not(.dark-mode) .author-name-wrapper p {
+    color: #f5f5f5;
+    }
+    body:not(.dark-mode) .story-time-wrapper span {
+    color: gray;
+    }
+    body:not(.dark-mode) .story-user-wrapper a {
+    background-color: #121212;
     }
 }
 /* comment box  */

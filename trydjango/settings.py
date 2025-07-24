@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'storages',
     'notifications',
     'social_django',
+    'stories',
 ]
 
 MIDDLEWARE = [
@@ -193,8 +194,13 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL       = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# django 3.2.15
+# django
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# 投稿が何時間で削除されるか（e.g.: 1時間）
+STORY_EXPIRE_HOURS = 12
+MAX_VIDEO_DURATION = 10  # 最大動画長さ（秒）
+
 # Security
 
 if ENV == "PRODUCTION":

@@ -19,8 +19,8 @@
                 <span class="followers-count" data-username="{{ user.username }}">
                     {{ followers_count|get_item:user.username|default:0 }}
                 </span> フォロワー
-                </span>
-                <span>
+            </span>
+            <span>
                 <span class="following-count" data-username="{{ user.username }}" {% if request.user.username == user.username %}id="my-following-count"{% endif %}>
                     {{ following_count|get_item:user.username|default:0 }}
                 </span> フォロー中

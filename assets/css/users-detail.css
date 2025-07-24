@@ -810,10 +810,13 @@ li.logo {
     position: absolute ;
     right: 2px;
 }
+.edit:hover {
+    background-color: #e8f5fd;
+}
 
-.edit:hover
+.profile-description a:hover
 {
-  background-color: #e8f5fd;
+    color: gray;
 }
 
 .profile-wrapper {

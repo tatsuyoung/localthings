@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<!-- モーダル -->
+<div id="storyModal" class="stories modal">
+    <div class="stories-modal-content modern">
+        <span class="close" onclick="closeStoryModal()">&times;</span>
+        <!-- Form -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'stories:create' %}" class="stories-form">
+            {% csrf_token %}
+
+            <div class="stories-input-wrapper">
+                <label for="id_media" class="upload-label">
+                    <span>＋ メディアを選択</span>
+                    <input id="id_media" type="file" name="media" accept="video/*" onchange="previewStory(this)">
+                </label>
+            </div>
+
+            <div id="preview" class="media-preview"></div>
+
+            <div class="caption-wrapper">
+                <textarea name="caption" id="id_caption" rows="3" placeholder="キャプションを書く..."></textarea>
+            </div>
+
+            <div class="stories-btn-wrapper">
+                <button type="submit" class="btn-post">投稿</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="stories-wrapper">
+  <div class="stories-scroll">
+        <!-- 自分の追加ボタン -->
+        <div class="story-user-wrapper">
+            <div class="story-ring" onclick="openStoryModal()">
+                <img src="{{ request.user.profile.image.url }}" class="story-user-icon" />
+                <span class="add-icon">＋</span>
+            </div>
+            <p class="story-username">ストーリーズ</p>
+        </div>
+        <!-- 他ユーザー&自身ののストーリー表示 -->
+        <div class="story-list">
+            {% for story in story_users %}
+                <div class="story-user-wrapper">
+                    <a href="#" onclick="openStoryViewModal({{ story.user.id }})">
+                        <div class="story-ring {% if story.is_read %}read{% endif %}" data-story-id="{{ story.id }}">
+                            <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
+                        </div>
+                        <p class="story-username">
+                        {% if story.user == request.user %}
+                            <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">Storyを削除</a>
+                        {% else %}
+                            {{ story.user.username|truncatechars_html:10 }}
+                        {% endif %}
+                        </p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+  </div>
+</div>
+<!-- Story read or unread -->
+ <script>
+    // ストーリーがクリックされたとき、IDをlocalStorageに保存
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".story-ring").forEach(function (ring) {
+            ring.addEventListener("click", function () {
+                const storyId = this.dataset.storyId;  // data-story-id属性から取得
+                if (!storyId) return;
+
+                // 既読リスト取得
+                let readIds = JSON.parse(localStorage.getItem("read_story_ids") || "[]");
+
+                // まだ未読なら追加
+                if (!readIds.includes(storyId)) {
+                    readIds.push(storyId);
+                    localStorage.setItem("read_story_ids", JSON.stringify(readIds));
+                }
+            });
+        });
+    });
+</script>
+<!-- Story Delete -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.story-delete-link').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (!confirm('このストーリーを削除してもよろしいですか？')) return;
+
+            const storyId = this.dataset.storyId;
+            const deleteUrl = this.dataset.url;
+
+            fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    this.closest('.story-user-wrapper').remove();
+                } else {
+                    alert(data.message || '削除できませんでした。');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('エラーが発生しました。');
+            });
+        });
+    });
+});
+</script>

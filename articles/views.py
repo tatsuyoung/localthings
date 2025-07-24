@@ -37,6 +37,11 @@ from django.template.loader import render_to_string
 
 from django.http import Http404
 
+# Story
+from stories.models import Story, StoryRead
+from collections import OrderedDict
+
+
 
 
 # Articles
@@ -167,6 +172,58 @@ def article_list(request):
 
     author_count_dict = {item['author']: item['count'] for item in author_article_counts}
 
+    # ✅ Stories（自分 + フォロー中のユーザーのStoryのみ）
+    story_users    = []
+    read_stories   = []
+    unread_stories = []
+
+    if request.user.is_authenticated:
+        now = timezone.now()
+
+        # 自分のストーリー（有効期限内）
+        own_story = Story.objects.filter(
+            user=request.user,
+            expires_at__gt=now
+        ).order_by('-created_at').first()
+
+        if own_story:
+            own_story.is_read = False  # 自分のストーリーは未読扱い
+            unread_stories.append(own_story)
+
+        # フォロー中のユーザーのID
+        following_user_ids = Profile.objects.filter(
+            followers=request.user
+        ).values_list('user__id', flat=True)
+
+        # フォロー中のユーザーの有効なストーリー
+        other_stories_qs = Story.objects.filter(
+            user__id__in=following_user_ids,
+            expires_at__gt=now
+        ).select_related('user').prefetch_related('reads').order_by('user_id', '-created_at')
+
+        # ✅ 自分が読んだストーリーのIDをまとめて取得
+        read_story_ids = set(
+            StoryRead.objects.filter(user=request.user).values_list('story_id', flat=True)
+        )
+
+        seen_user_ids = {request.user.id}  # 自分の分はスキップ対象
+
+        for s in other_stories_qs:
+            if s.user.id in seen_user_ids:
+                continue
+
+            seen_user_ids.add(s.user.id)
+            s.is_read = s.id in read_story_ids  # ✅ フラグ付け
+
+            if s.is_read:
+                read_stories.append(s)
+            else:
+                unread_stories.append(s)
+
+        # 最終的な表示用リスト
+        story_users = unread_stories + read_stories
+    
+
     # ✅ 各記事に全コメントと1つのフォームを付加
     article_comment_data = {}
     for article in page_obj:
@@ -211,6 +268,7 @@ def article_list(request):
         'following_count'     : following_count,
         'is_following_set'    : is_following_set,   
         'view_name'           : 'list',
+        'story_users'         : story_users,
     })
 
 

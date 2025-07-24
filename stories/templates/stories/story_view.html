@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- templates/stories/story_view.html -->
+
+{% for story in stories %}
+    <div class="story-container" data-story-id="{{ story.id }}">
+        <div class="story-header">
+            <div class="story-header-top">
+                <div class="story-item">
+                    <div class="story-avatar-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
+                        <img src="{{ story.user.profile.image.url }}" alt="story">
+                    </div>
+                    <div class="story-info">
+                        <div class="story-time-wrapper">
+                            <span class="story-time">{{ story.created_at }}</span>
+                        </div>
+                        <div class="author-name-wrapper">
+                            <p>{{ story.user.username}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-caption-wrapper">
+            <div class="story-caption">
+                {% if story.caption %}
+                    {{ story.caption }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="story-media-wrapper">
+            {% if story.media.url %}
+                {% if ".mp4" in story.media.url|lower %}
+                    <video class="story-video" src="{{ story.media.url }}" controls></video>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
