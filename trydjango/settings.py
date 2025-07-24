@@ -197,8 +197,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # django
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-# 投稿が何時間で削除されるか（e.g: 1時間）
-STORY_EXPIRE_HOURS = 1
+# 投稿が何時間で削除されるか（e.g.: 1時間）
+STORY_EXPIRE_HOURS = 12
 MAX_VIDEO_DURATION = 10  # 最大動画長さ（秒）
 
 # Security

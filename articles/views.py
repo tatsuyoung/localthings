@@ -173,7 +173,6 @@ def article_list(request):
     author_count_dict = {item['author']: item['count'] for item in author_article_counts}
 
     # ✅ Stories（自分 + フォロー中のユーザーのStoryのみ）
-    story_qs       = Story.objects.none()
     story_users    = []
     read_stories   = []
     unread_stories = []
@@ -188,33 +187,41 @@ def article_list(request):
         ).order_by('-created_at').first()
 
         if own_story:
-            unread_stories.append(own_story)  # 自分のは未読扱いで先頭へ
+            own_story.is_read = False  # 自分のストーリーは未読扱い
+            unread_stories.append(own_story)
 
-        # フォロー中のユーザーのストーリー（有効期限内）
-        following_user_ids = Profile.objects.filter(followers=request.user).values_list('user__id', flat=True)
+        # フォロー中のユーザーのID
+        following_user_ids = Profile.objects.filter(
+            followers=request.user
+        ).values_list('user__id', flat=True)
+
+        # フォロー中のユーザーの有効なストーリー
         other_stories_qs = Story.objects.filter(
             user__id__in=following_user_ids,
             expires_at__gt=now
-        ).select_related('user').order_by('user_id', '-created_at')
+        ).select_related('user').prefetch_related('reads').order_by('user_id', '-created_at')
 
-        seen_user_ids = {request.user.id}  # 自分の分は追加済
+        # ✅ 自分が読んだストーリーのIDをまとめて取得
+        read_story_ids = set(
+            StoryRead.objects.filter(user=request.user).values_list('story_id', flat=True)
+        )
+
+        seen_user_ids = {request.user.id}  # 自分の分はスキップ対象
+
         for s in other_stories_qs:
             if s.user.id in seen_user_ids:
                 continue
 
             seen_user_ids.add(s.user.id)
+            s.is_read = s.id in read_story_ids  # ✅ フラグ付け
 
-            # ✅ 読み込み状況を確認
-            has_read = StoryRead.objects.filter(story=s, user=request.user).exists()
-
-            if has_read:
+            if s.is_read:
                 read_stories.append(s)
             else:
                 unread_stories.append(s)
 
-    # 最終的なリストを未読→既読の順に結合
-    story_users    = unread_stories + read_stories
-    read_story_ids = [s.id for s in read_stories]
+        # 最終的な表示用リスト
+        story_users = unread_stories + read_stories
     
 
     # ✅ 各記事に全コメントと1つのフォームを付加
@@ -262,7 +269,6 @@ def article_list(request):
         'is_following_set'    : is_following_set,   
         'view_name'           : 'list',
         'story_users'         : story_users,
-        'read_story_ids'      : read_story_ids,
     })
 
 

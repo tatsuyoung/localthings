@@ -44,7 +44,7 @@
             {% for story in story_users %}
                 <div class="story-user-wrapper">
                     <a href="#" onclick="openStoryViewModal({{ story.user.id }})">
-                        <div class="story-ring {% if story.id in read_story_ids %}read{% endif %}" data-story-id="{{ story.id }}">
+                        <div class="story-ring {% if story.is_read %}read{% endif %}" data-story-id="{{ story.id }}">
                             <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
                         </div>
                         <p class="story-username">
