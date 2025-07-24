@@ -32,3 +32,11 @@ class Story(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Story ({self.created_at})"
+
+class StoryRead(models.Model):
+    story   = models.ForeignKey(Story, on_delete=models.CASCADE, related_name='reads')
+    user    = models.ForeignKey(User, on_delete=models.CASCADE, related_name='story_reads')
+    read_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('story', 'user')  # 同じユーザーが同じ Story を何回読んでも1件だけ

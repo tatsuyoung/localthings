@@ -15,3 +15,30 @@ function closeStoryViewModal() {
   document.getElementById('storyViewModal').classList.add('hidden');
   document.getElementById('storyViewModalBody').innerHTML = "";
 }
+
+document.querySelectorAll('.story-ring').forEach(storyRing => {
+    storyRing.addEventListener('click', function () {
+        const storyId = this.dataset.storyId;
+
+        // ✅ここを「既読記録用エンドポイント」に変更
+        fetch(`/stories/mark_read/${storyId}/`, {
+            method: 'GET',
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            const contentType = response.headers.get("content-type");
+            if (response.redirected || !contentType || !contentType.includes("application/json")) {
+                throw new Error("ログインしていないか、JSONレスポンスではありません");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.status === "ok") {
+                this.classList.add("read");
+            }
+        })
+        .catch(error => {
+            console.error("Fetchエラー:", error);
+        });
+    });
+});

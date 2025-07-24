@@ -43,24 +43,45 @@
         <div class="story-list">
             {% for story in story_users %}
                 <div class="story-user-wrapper">
-                <a href="#" onclick="openStoryViewModal({{ story.user.id }})">
-                    <div class="story-ring">
-                        <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
-                    </div>
-                    <p class="story-username">
-                    {% if story.user == request.user %}
-                        <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">Storyを削除</a>
-                    {% else %}
-                        {{ story.user.username|truncatechars_html:10 }}
-                    {% endif %}
-                    </p>
-                </a>
+                    <a href="#" onclick="openStoryViewModal({{ story.user.id }})">
+                        <div class="story-ring {% if story.id in read_story_ids %}read{% endif %}" data-story-id="{{ story.id }}">
+                            <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
+                        </div>
+                        <p class="story-username">
+                        {% if story.user == request.user %}
+                            <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">Storyを削除</a>
+                        {% else %}
+                            {{ story.user.username|truncatechars_html:10 }}
+                        {% endif %}
+                        </p>
+                    </a>
                 </div>
             {% endfor %}
         </div>
   </div>
 </div>
+<!-- Story read or unread -->
+ <script>
+    // ストーリーがクリックされたとき、IDをlocalStorageに保存
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".story-ring").forEach(function (ring) {
+            ring.addEventListener("click", function () {
+                const storyId = this.dataset.storyId;  // data-story-id属性から取得
+                if (!storyId) return;
 
+                // 既読リスト取得
+                let readIds = JSON.parse(localStorage.getItem("read_story_ids") || "[]");
+
+                // まだ未読なら追加
+                if (!readIds.includes(storyId)) {
+                    readIds.push(storyId);
+                    localStorage.setItem("read_story_ids", JSON.stringify(readIds));
+                }
+            });
+        });
+    });
+</script>
+<!-- Story Delete -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.story-delete-link').forEach(function (btn) {
@@ -82,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     alert(data.message);
-                    this.closest('.story-item').remove();
+                    this.closest('.story-user-wrapper').remove();
                 } else {
                     alert(data.message || '削除できませんでした。');
                 }

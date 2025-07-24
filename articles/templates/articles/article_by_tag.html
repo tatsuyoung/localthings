@@ -52,7 +52,16 @@
     <div id="loader">
         {% include 'articles/snippet/spinner.html' %}
     </div>
-    <p class="end-message" style="display: none;">これ以上ありません。</p>
+    <div class="end-icon-wrapper" style="display: none;">
+        <div class="gradient-border">
+            <div class="gradient-border-inner">
+                <div class="end-circle-check">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="end-message" style="display: none;">以上です</p>
 </div>
 
 <script>

@@ -205,8 +205,7 @@ body.dark-mode .caption-wrapper textarea {
     color: #f5f5f5;
     border: 1px solid #444;
 }
-body.dark-mode .author-name-wrapper p, 
-body.dark-mode .author-name-wrapper a {
+body.dark-mode .story-username {
     color: #f5f5f5;
 }
 /* stories view */
@@ -1059,9 +1058,11 @@ li.logo {
     align-items: center; /* ここで中央揃えに */
     margin: 0 2px;
 }
+.story-user-wrapper a {
+    background-color: #fff;
+}
 
 .story-ring {
-  border: 3px solid #ff0050;
   padding: 2px;
   border-radius: 50%;
   display: inline-block;
@@ -1069,10 +1070,14 @@ li.logo {
   width: 66px;
   height: 66px;
   box-sizing: border-box;
-  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  background: linear-gradient(135deg, #FFF720 10%, #3CD500 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.story-ring.read {
+  background: gray;
+  opacity: 0.6;
 }
 
 .story-user-icon {
@@ -1086,24 +1091,24 @@ li.logo {
 }
 
 .add-icon {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  background-color: white;
-  color: #3897f0;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .story-username, 
-.soory-username a {
+.story-username a {
   font-size: 0.8rem;
   margin-top: 6px;
   color: #333;
@@ -1228,7 +1233,6 @@ li.logo {
     text-align: center;
 }
 
-.media-preview img,
 .media-preview video {
   width: 100%;
   height: auto;
@@ -1269,25 +1273,66 @@ li.logo {
 .btn-post:hover {
     background: var(--main-color);
 }
-/* Story view */
+/* Story view  user-circle & time Caption*/
 
-.story-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #555;
+.story-header-top {
+    display: flex;
+    align-items: center;
+    padding: 8px;
 }
-.story-time-wrapper {
+
+.story-item {
+    display: flex;
+    align-items: center;
+}
+
+.story-avatar-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.story-avatar-wrapper img {
     width: 100%;
-    justify-content: start;
-    padding-left: 6px;
-    padding-bottom: 18px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
 }
-.story-time {
-  font-size: 12px;
-  color: #999;
+
+.story-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+.story-time-wrapper {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 2px;
+}
+
+.author-name-wrapper p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.story-caption-wrapper {
+    max-height: 100px; /* お好みで調整 */
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.story-caption {
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
 }
 /*  video view */
 .story-media-wrapper {
@@ -1366,7 +1411,7 @@ li.logo {
 }
 /* Warning message */
 .toast-wrapper {
-    position: fixed; /* fixedにすべき */
+    position: fixed;
     top: 20px;
     right: 20px;
     z-index: 9999;
@@ -1384,7 +1429,6 @@ li.logo {
   text-align: center;
 }
 
-#preview img,
 #preview video {
   max-width: 100%;
   max-height: 300px;
@@ -3167,8 +3211,7 @@ ul{
     color: #f5f5f5;
     border: 1px solid #444;
     }
-    body:not(.dark-mode) .author-name-wrapper p, 
-    body:not(.dark-mode) .author-name-wrapper a {
+    body:not(.dark-mode) .story-username {
     color: #f5f5f5;
     }
     /* stories view */

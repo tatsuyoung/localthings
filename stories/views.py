@@ -3,7 +3,7 @@ import os
 import uuid
 from .utils import trim_video, compress_video
 from django.core.files import File
-from .models import Story
+from .models import Story, StoryRead
 from .forms import StoryForm
 from django.utils import timezone
 from datetime import timedelta
@@ -15,7 +15,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.conf import settings
-
+from functools import wraps
 
 HOURS_TO_EXPIRE    = settings.STORY_EXPIRE_HOURS # ストーリーの有効期限（時間）
 MAX_VIDEO_DURATION = settings.MAX_VIDEO_DURATION  # 最大動画長さ（秒）
@@ -73,13 +73,7 @@ def story_create(request):
         return redirect("articles:list")
 
 
-def story_view(request, user_id):
-    user    = get_object_or_404(User, id=user_id)
-    stories = Story.objects.filter(user=user)
-    return render(request, "stories/story_view.html", {"stories": stories, "user": user})
-
-
-
+# Delete
 @require_POST
 @login_required
 def story_delete_ajax(request, story_id):
@@ -90,4 +84,25 @@ def story_delete_ajax(request, story_id):
 
     story.delete()
     return JsonResponse({"success": True, "message": "ストーリーを削除しました。"})
+
+# 特定ユーザーの有効な（期限切れでない）ストーリー一覧を取得して表示
+@login_required
+def story_view(request, user_id):
+    stories = Story.objects.filter(user_id=user_id, 
+    expires_at__gt=timezone.now()
+    ).order_by('created_at')
+    return render(request, 'stories/story_view.html', {'stories': stories})
+
+# Ajaxなどから呼び出して、「ユーザーがこのストーリーを見た」というログ（ManyToMany的な）を記録
+@login_required
+def mark_story_read(request, story_id):
+    if request.method == "GET":
+        try:
+            story = Story.objects.get(id=story_id)
+            StoryRead.objects.get_or_create(user=request.user, story=story)
+            return JsonResponse({"status": "ok"})
+        except Story.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Story not found"}, status=404)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid method"}, status=400)
 

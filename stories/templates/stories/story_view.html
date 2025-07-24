@@ -2,20 +2,25 @@
 <!-- templates/stories/story_view.html -->
 
 {% for story in stories %}
-    <div class="story-container">
+    <div class="story-container" data-story-id="{{ story.id }}">
         <div class="story-header">
-            <div class="story-item">
-                <div class="story-circle-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
-                    <img class="story-circle" src="{{ story.user.profile.image.url }}" alt="story">
+            <div class="story-header-top">
+                <div class="story-item">
+                    <div class="story-avatar-wrapper" onclick="openStoryViewModal({{ story.user.id }})">
+                        <img src="{{ story.user.profile.image.url }}" alt="story">
+                    </div>
+                    <div class="story-info">
+                        <div class="story-time-wrapper">
+                            <span class="story-time">{{ story.created_at }}</span>
+                        </div>
+                        <div class="author-name-wrapper">
+                            <p>{{ story.user.username}}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="author-name-wrapper">
-                    <p>{{ story.user.username | truncatechars_html:10 }}</p>
-                </div>
-            </div>
-            <div class="story-time-wrapper">
-                <span class="story-time">{{ story.created_at }}</span>
             </div>
         </div>
+
         <div class="story-caption-wrapper">
             <div class="story-caption">
                 {% if story.caption %}
