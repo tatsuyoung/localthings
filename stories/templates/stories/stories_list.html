@@ -33,7 +33,7 @@
   <div class="stories-scroll">
         <!-- 自分の追加ボタン -->
         <div class="story-user-wrapper">
-            <div class="story-ring" onclick="openStoryModal()">
+            <div class="story-ring-myself" onclick="openStoryModal()">
                 <img src="{{ request.user.profile.image.url }}" class="story-user-icon" />
                 <span class="add-icon">＋</span>
             </div>
@@ -47,12 +47,12 @@
                         <div class="story-ring {% if story.is_read %}read{% endif %}" data-story-id="{{ story.id }}">
                             <img src="{{ story.user.profile.image.url }}" class="story-user-icon" />
                         </div>
-                        <p class="story-username">
-                        {% if story.user == request.user %}
-                            <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">Storyを削除</a>
-                        {% else %}
-                            {{ story.user.username|truncatechars_html:10 }}
-                        {% endif %}
+                        <p class="story-username-other">
+                            {% if story.user == request.user %}
+                                <a href="#" class="story-delete-link" data-url="{% url 'stories:story_delete_ajax' story.id %}">削除</a>
+                            {% else %}
+                                {{ story.user.username|truncatechars_html:10 }}
+                            {% endif %}
                         </p>
                     </a>
                 </div>
@@ -60,27 +60,7 @@
         </div>
   </div>
 </div>
-<!-- Story read or unread -->
- <script>
-    // ストーリーがクリックされたとき、IDをlocalStorageに保存
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".story-ring").forEach(function (ring) {
-            ring.addEventListener("click", function () {
-                const storyId = this.dataset.storyId;  // data-story-id属性から取得
-                if (!storyId) return;
 
-                // 既読リスト取得
-                let readIds = JSON.parse(localStorage.getItem("read_story_ids") || "[]");
-
-                // まだ未読なら追加
-                if (!readIds.includes(storyId)) {
-                    readIds.push(storyId);
-                    localStorage.setItem("read_story_ids", JSON.stringify(readIds));
-                }
-            });
-        });
-    });
-</script>
 <!-- Story Delete -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
