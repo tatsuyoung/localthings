@@ -93,6 +93,8 @@ def story_view(request, user_id):
     ).order_by('created_at')
     return render(request, 'stories/story_view.html', {'stories': stories})
 
+
+
 # Ajaxなどから呼び出して、「ユーザーがこのストーリーを見た」というログ（ManyToMany的な）を記録
 @login_required
 def mark_story_read(request, story_id):
