@@ -2,35 +2,48 @@
 
 <ul class="comment-section">
     {% for comment in comments %}
-        <li class="comment {% if article.author.id == comment.author.id %}author-comment{% else %}user-comment{% endif %}">
-            <div class="info">
-                {% if comment.author != request.user %}
-                    <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-username">
-                        {{ comment.author }}
-                    </a>
-                {% endif %}
-                <span class="comment-time">{{ comment.created_date | timesince}}前</span>
-            </div>
+        <li class="comment {% if comment.author == request.user %}my-comment{% else %}other-comment{% endif %}">
             {% if comment.author != request.user %}
-            <div class="avatar">
-                <img src="{{ comment.author.profile.image.url }}" alt="Avatar">
-            </div>
-            {% endif %}
-            <div class="{% if article.author.id == comment.author.id %}author-comment-text-wrapper{% else %}user-comment-text-wrapper{% endif %}">
-                <div class="{% if article.author.id == comment.author.id %}author-comment-text-box{% else %}user-comment-text-box{% endif %}">
-                    <p>{{ comment.text|urlize|linebreaksbr|safe }}</p>
-                    {% if view_name != 'list' and request.user.id == comment.author.id %}
-                        <div class="{% if article.author.id == comment.author.id %}comment-delete-btn-2{% else %}comment-delete-btn{% endif %}">
-                            <form method="POST" action="{% url 'articles:comment_ajax_delete' comment.pk %}" class="comment-delete-form" data-article-id="{{ article.id }}">
-                                {% csrf_token %}
-                                <button type="submit" class="delete-btn">
-                                    <i class="far fa-trash-alt fa-lg"></i>
-                                </button>
-                            </form>
+                <!-- 他人コメント -->
+                <div class="comment-row">
+                    <div class="avatar-box">
+                        <div class="avatar-wrapper">
+                            <a href="{% url 'articles:user-posts' comment.author.username %}">
+                                <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="avatar-img">
+                            </a>
                         </div>
-                    {% endif %}
+                        <div class="meta-row">
+                            <div class="meta-username">{{ comment.author|truncatechars_html:10 }}</div>
+                        </div>
+                        <div class="meta-time">{{ comment.created_date|timesince }}前</div>
+                    </div>
+                    <div class="bubble">
+                        <p>{{ comment.text|urlize|linebreaksbr|safe }}</p>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <!-- ✅ 自分のコメント -->
+                <div class="comment-row self-comment-row">
+                    <div class="bubble">
+                        <p>{{ comment.text|urlize|linebreaksbr|safe }}</p>
+                    </div>
+                </div>
+                <div class="meta-row self-meta">
+                    <div class="meta-time">{{ comment.created_date|timesince }}前</div>
+                </div>
+            {% endif %}
+            {% if view_name != 'list' and request.user.id == comment.author.id %}
+                <div class="comment-delete-btn-wrapper">
+                    <div class="comment-delete-btn">
+                        <form method="POST" action="{% url 'articles:comment_ajax_delete' comment.pk %}" class="comment-delete-form" data-article-id="{{ article.id }}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">
+                                <i class="far fa-trash-alt fa-sm"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

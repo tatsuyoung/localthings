@@ -97,38 +97,15 @@ body.dark-mode .left {
     border-right: 0.5px solid rgba(255, 255, 255, 0.1);
 }
 /* comment */
-body.dark-mode .comment.author-comment {
+body.dark-mode .meta-username {
     color: #f5f5f5;
 }
-body.dark-mode .comment.user-comment {
-    color: #f5f5f5;
+body.dark-mode .bubble p {
+    color: #333;
 }
-body.dark-mode .comment_wrapper p {
-    color:#f5f5f5;
-}
+body.dark-mode .avatar-wrapper a,
 body.dark-mode .comment-bg {
         background:#121212;
-    }
-
-body.dark-mode .user-comment-text-box {
-    background: #2a2a2a;
-    }
-
-body.dark-mode .user-comment-text-box:after {
-    border-right: 20px solid #2a2a2a;
-    }
-
-body.dark-mode .author-comment-text-box {
-    background: #355e3b; /* 落ち着いた緑系 */
-    }
-
-body.dark-mode .author-comment-text-box:after {
-    border-left: 20px solid #355e3b;
-    }
-
-body.dark-mode .user-comment-text-box a,
-    .author-comment-text-box a {
-    color: #8ab4f8; /* Googleのdarkモードのリンク色風 */
     }
 
 body.dark-mode .write-new textarea {
@@ -143,9 +120,6 @@ body.dark-mode .write-new img {
 
 body.dark-mode .fa-lg {
     color: #ccc;
-    }
-body.dark-mode .comment-delete-btn-2 button i {
-    color: gray;
     }
 
 body.dark-mode .write-new button {
@@ -670,7 +644,7 @@ li.logo {
 .article-wrapper ul li
 {
     text-decoration: none ;
-    display: inline-block ;
+    /* display: inline-block ; */
     vertical-align: middle;
     margin: 10px  2px 10px  2px;
 }
@@ -1032,24 +1006,13 @@ li.logo {
 }
 
 /* comment */
-.comment-section a {
-  color: inherit;
-  text-decoration: none;
+.comment-section {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.comment-section a:hover {
-  color: inherit;            /* hover時も色を変えない */
-  text-decoration: none;     /* 下線を付けない */
-  background-color: transparent; /* 背景がついていたら消す */
-  cursor: default;           /* ポインター変化させたくなければこれ */
-}
-
-.comment_wrapper{
-    margin:               0;
-    padding:              0;
-    box-sizing:  border-box;
-    }
-
+/* 全コメント共通 */
 .comment-bg
 {
     background:  #E5EDF1;    
@@ -1066,220 +1029,119 @@ li.logo {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
-.comment-section {
-    border-radius: 16px;
+.comment {
+    margin-bottom: 24px;
 }
 
-.comment-section li:first-child
-{
-    padding-top: 20px;
-}
-
-.comment-section li:last-child
-{
-    padding-bottom: 20px;
-}
-
-.comment{
-    display:           flex;
-    border-radius:      0px;
-    margin-bottom:     20px;
-    flex-wrap:         wrap;
-    height: auto;
-    justify-items: center ;
-    align-items: center ;
-    width: 100%;
-    }
-
-.comment.user-comment{
-    color:          #333;
-    padding-right: 10px;
-    }
-
-.comment.author-comment{
-    color:             #333;
-    justify-content:  flex-end;
-    }
-
-.comment.user-comment .info{
-    text-align:         right;
-    }
-
-.comment.author-comment .info{
-                     order: 3;
-    }
-.info {
-    padding-bottom: 10px;
-}
-
-.comment .info a {
-    display:               block;
-    text-decoration:        none;
-    color:               #656c71;
-    font-weight:            bold;
-    text-overflow:      ellipsis;
-    overflow:             hidden;
-    white-space:          nowrap;
-    padding:  10px 12px 3px 12px;
-    }
-
-.comment .info span{
-    font-size:              10px;
-    color:               #9ca7af;
-    padding-left: 20px;
-    padding-right: 20px;
-    }
-
-.author-icon-wrapper {
-    padding-left: 10px;
-}
-
-.comment.user-comment .avatar {
-    padding-left: 10px;
-    padding-bottom: 10px;
-    }
-
-.comment.author-comment .avatar {
-    order: 2;
-    padding-left: 10px;
-    padding-bottom: 10px;
-}
-
-.comment .avatar img{
-    display:            block;
-    border-radius:        50%;
-    background:       #eeeeee;
-    width:               50px;
-    height:              50px;
-    overflow:          hidden;
-    text-align:        center;
-    }
-
-.comment.user-comment .avatar img{
-    float:              right;
-
-    }
-
-/* comment box */
-.user-comment-text-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-.author-comment-text-wrapper {
+/* 吹き出しとアバターを横並び */
+/* 横並びにする */
+.comment-row {
     display: flex;
-    justify-content: flex-start;
-    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
 }
 
-/* User */
-.user-comment-text-box
-{
-    line-height:      1.7em;
-    padding-right: 10px;
-    padding-left: 16px;
-    width:               50%;
-    position:       relative;
-    word-wrap:    break-word;
-    border-radius: 16px;
-    display: flex ;
-    justify-content: space-between;
-    justify-items: center ;
-    align-items: center ;
-    background: #f5f5f5;
-    margin-right: 60px;
-}
-.user-comment-text-box:after
-{
-  content: '';
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  right: -4px;
-  top: 2px;
-  border-right: 20px solid #f5f5f5;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  transform: rotate(35deg); -webkit-transform: rotate(35deg);
-}
-/* Author */
-.author-comment-text-box{
-    line-height:         1.7em;
-    padding-left: 16px;
-    width:               50%;
-    position:       relative;
-    word-wrap:    break-word;
-    border-radius: 16px;
-    display: flex ;
-    justify-content: space-between;
-    justify-items: center ;
-    align-items: center ;
-    background:  #DCF8C6;
-    margin-left: 60px;
+.self-comment-row {
+    justify-content: flex-end; /* ✅ 右寄せ */
+    margin-right: 6px;
 }
 
-.author-comment-text-box:after
-{
-  content: '';
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  left: -4px;
-  top: 2px;
-  border-left: 20px solid #DCF8C6;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  transform: rotate(-35deg); -webkit-transform: rotate(-35deg);
+.bubble {
+    margin-right: 10px;
+    padding: 6px 12px;
+    border-radius: 18px;
+    position: relative;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 80%;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.user-comment-text-box a,
-.author-comment-text-box a
-{
-    color: var(--main-color);
+/* 色分け */
+.other-comment .bubble {
+    background-color: #fff;
+}
+.my-comment .bubble {
+    background-color: #dcf8c6;
 }
 
-.user-comment-text-box p {
-    line-height:         1.7;
-    padding:       10px 2px;
-    width:               90%;
-    position:       relative;
-    word-wrap:    break-word;
-    display: flex ;
-    justify-content: left;
-    justify-items: center ;
-    align-items: center ;
+/* 吹き出し矢印 */
+.other-comment .bubble::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: -15px;
+    border: 12px solid transparent;
+    border-right-color: #fff;
+}
+.my-comment .bubble::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: -15px;
+    border: 12px solid transparent;
+    border-left-color: #dcf8c6;
 }
 
-.author-comment-text-box p
-{
-   line-height:         1.7;
-    padding:       10px 2px;
-    width:               90%;
-    word-wrap:    break-word;
+/* アバター＋名前＋時刻（縦並び） */
+.avatar-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 10px;
+}
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar-wrapper a {
+    background:  #E5EDF1;
+}
+.meta-row {
+    display: flex;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 4px;
+    margin-left: 10px;
+}
+.meta-username {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+.meta-time {
+    padding-top: 4px;
+    font-size: 0.7rem;
+    color: #aaa;
+}
+.meta-row.self-meta {
+    justify-content: flex-end;
+    margin-right: 10px;
 }
 
+
+/* ごみ箱ボタン */
+.comment-delete-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
 .comment-delete-btn
 {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     display: flex ;
     justify-content: center ;
     justify-items: center ;
     align-items: center ;
     border-radius: 50%;
-}
-
-.comment-delete-btn-2
-{
-    height: 50px;
-    width: 50px;
-    display: flex ;
-    justify-content: center ;
-    justify-items: center ;
-    align-items: center ;
-    border-radius: 50%;
+    background-color: #fff;
+    margin-top: 10px;
 }
 
 
@@ -1295,17 +1157,6 @@ li.logo {
     width: 100%;
 }
 
-.comment-delete-btn-2 button
-{
-    background: none;
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    height: 100%;
-    width: 100%;
-}
 
 .comment-delete-btn button i
 {
@@ -1318,12 +1169,6 @@ li.logo {
     cursor: pointer ;
 }
 
-.comment-delete-btn-2 button i
-{
-    font-size: 18px;
-    color: gray;
-    -webkit-font-smoothing: antialiased;
-}
 
 .comment.author-comment p {
     order: 1;
@@ -2364,34 +2209,18 @@ ul{
 /* comment box  */
 /* === 🌙 Dark Mode 対応 === */
 @media (prefers-color-scheme: dark) {
-    .comment.author-comment {
-    color: #f5f5f5;
-    }
-        .comment.user-comment {
-    color: #f5f5f5;
-    }
     .comment-bg {
         background:#121212;
     }
-    .user-comment-text-box {
-    background: #2a2a2a;
+    .meta-username {
+        color: #f5f5f5;
     }
-
-    .user-comment-text-box:after {
-    border-right: 20px solid #2a2a2a;
-    }
-
-    .author-comment-text-box {
-    background: #355e3b; /* 落ち着いた緑系 */
-    }
-
-    .author-comment-text-box:after {
-    border-left: 20px solid #355e3b;
-    }
-
-    .user-comment-text-box a,
-    .author-comment-text-box a {
-    color: #8ab4f8; /* Googleのdarkモードのリンク色風 */
+     .bubble p {
+        color: #333;
+     }
+    .avatar-wrapper a,
+    .comment-bg {
+        background:#121212;
     }
 
     .write-new textarea {
@@ -2406,10 +2235,6 @@ ul{
 
     .fa-lg {
     color: #ccc;
-    }
-
-    .comment-delete-btn-2 button i {
-    color: gray;
     }
 
     .write-new button {
