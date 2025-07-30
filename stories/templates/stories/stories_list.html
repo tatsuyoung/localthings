@@ -2,6 +2,10 @@
 
 <!-- モーダル -->
 <div id="storyModal" class="stories modal">
+    <!-- Toast Container -->
+    <div class="toast-wrapper">
+        <div id="toast-container" class="toast-message" ></div>
+    </div>
     <div class="stories-modal-content modern">
         <span class="close" onclick="closeStoryModal()">&times;</span>
         <!-- Form -->
@@ -19,6 +23,10 @@
 
             <div class="caption-wrapper">
                 <textarea name="caption" id="id_caption" rows="3" placeholder="キャプションを追加..."></textarea>
+            </div>
+            <!-- ✅ プログレスバー追加 ダミー -->
+            <div class="progress-wrapper">
+                <progress id="uploadProgress" value="0" max="100" style="width: 100%; display: none;"></progress>
             </div>
 
             <div class="stories-btn-wrapper">
@@ -60,6 +68,97 @@
         </div>
   </div>
 </div>
+<!-- form submit & progress bar-->
+<script>
+function showToast(message, type = "error") {
+  const toast = document.getElementById("toast-container");
+
+  toast.textContent = message;
+  toast.classList.remove("toast-success", "toast-error");
+
+  if (type === "success") {
+    toast.classList.add("toast-success");
+  } else {
+    toast.classList.add("toast-error");
+  }
+
+  toast.style.display = "block";
+
+  setTimeout(() => {
+    toast.style.display = "none";
+    toast.textContent = "";
+    toast.classList.remove("toast-success", "toast-error");
+  }, 3000);
+}
+
+let fakeProgressInterval = null;
+let currentFakeProgress = 0;
+
+function startFakeProgress(progressBar) {
+  currentFakeProgress = 0;
+  fakeProgressInterval = setInterval(() => {
+    if (currentFakeProgress < 95) {  // 最大95%まで
+      currentFakeProgress += 1;
+      progressBar.value = currentFakeProgress;
+    }
+  }, 50);  // 50msごとに+1（= 約5秒で95%）
+}
+
+function stopFakeProgress(progressBar) {
+  clearInterval(fakeProgressInterval);
+  progressBar.value = 100;
+}
+
+document.querySelector(".stories-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const progressBar = document.getElementById("uploadProgress");
+
+  progressBar.value = 0;
+  progressBar.style.display = "block";
+
+  startFakeProgress(progressBar);  // ⬅️ ダミープログレス開始
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", form.action, true);
+
+  // 本物の進捗が使えれば上書き
+  xhr.upload.onprogress = function (event) {
+    if (event.lengthComputable) {
+      const percent = (event.loaded / event.total) * 100;
+      progressBar.value = percent;
+    }
+  };
+
+  xhr.onload = function () {
+    stopFakeProgress(progressBar);  // ⬅️ ダミープログレス停止
+    progressBar.style.display = "none";
+
+    try {
+      const res = JSON.parse(xhr.responseText);
+      if ((xhr.status === 200 || xhr.status === 302) && !res.error) {
+        showToast("アップロード完了！", "success");
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        showToast(res.error || "アップロードに失敗しました", "error");
+      }
+    } catch (e) {
+      showToast("不明なエラーが発生しました", "error");
+    }
+  };
+
+  xhr.onerror = function () {
+    stopFakeProgress(progressBar);
+    progressBar.style.display = "none";
+    showToast("通信エラーが発生しました", "error");
+  };
+
+  xhr.send(formData);
+});
+</script>
+
 
 <!-- Story Delete -->
 <script>

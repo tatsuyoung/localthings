@@ -1178,6 +1178,39 @@ li.logo {
   opacity: 1;
   pointer-events: all;
 }
+/* progress bar */
+/* wrapperの調整 */
+.progress-wrapper {
+  margin-top: 10px;
+}
+
+/* progress全体 */
+#uploadProgress {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: white; /* 非進捗部分（fallback） */
+}
+
+/* Chrome / Safari */
+#uploadProgress::-webkit-progress-bar {
+  background-color: white; /* 背景（非進捗） */
+  border-radius: 5px;
+}
+
+#uploadProgress::-webkit-progress-value {
+  background-color: #4caf50; /* 緑色の進捗バー */
+  border-radius: 5px;
+}
+
+/* Firefox */
+#uploadProgress::-moz-progress-bar {
+  background-color: #4caf50; /* 緑色の進捗バー */
+  border-radius: 5px;
+}
 
 /* モーダル内コンテンツ */
 .stories-modal-content.modern {
@@ -1365,7 +1398,7 @@ li.logo {
 }
 
 .story-caption-wrapper {
-    max-height: 100px; /* お好みで調整 */
+    max-height: 100px;
     overflow-y: auto;
     padding-right: 4px;
 }
@@ -1449,19 +1482,41 @@ li.logo {
 .story-delete-link {
     color: #333;
 }
-/* Warning message */
+/* Toast message */
 .toast-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
 }
 
 .toast-message {
-    text-align: center;
+  display: none;
+  background-color: #ff4d4f;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  max-width: 400px;
+  min-width: 200px;
+  text-align: center;
+
+  /* ✅ 改行設定 */
+  white-space: normal;         /* 折り返し許可 */
+  word-break: break-word;      /* 単語単位で折り返す（長いURLもOK） */
+  overflow-wrap: anywhere;     /* 特に強制的に改行したいとき */
+}
+.toast-success {
+  background-color: #46df6c; /* 薄い緑 */
+  color: #fff; 
 }
 
-
+.toast-error {
+  background-color: #e24d50; /* 薄い赤 */
+  color: #fff;
+}
 
 /* Main プレビューエリアの調整 */
 #preview {

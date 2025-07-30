@@ -1,7 +1,7 @@
 # stories/views.py
 import os
 import uuid
-from .utils import trim_video, compress_video
+from .utils import compress_and_trim_video  # utilsの関数を使う
 from django.core.files import File
 from .models import Story, StoryRead
 from .forms import StoryForm
@@ -21,6 +21,7 @@ HOURS_TO_EXPIRE    = settings.STORY_EXPIRE_HOURS # ストーリーの有効期�
 MAX_VIDEO_DURATION = settings.MAX_VIDEO_DURATION  # 最大動画長さ（秒）
 User               = get_user_model()
 
+
 @login_required
 def story_create(request):
     if request.method == "POST":
@@ -39,38 +40,34 @@ def story_create(request):
                     for chunk in media_file.chunks():
                         f.write(chunk)
 
-                # ✅ トリミング
-                success_trim = trim_video(temp_input_path, temp_trimmed_path, max_duration=MAX_VIDEO_DURATION)
+                success = compress_and_trim_video(temp_input_path, temp_compressed_path)
 
-                if success_trim:
-                    # ✅ 圧縮
-                    success_compress = compress_video(temp_trimmed_path, temp_compressed_path)
-
-                    if success_compress:
-                        with open(temp_compressed_path, "rb") as f:
-                            django_file = File(f)
-                            story = Story(
-                                user=request.user,
-                                media=django_file,
-                                caption=caption,
-                                expires_at=timezone.now() + timedelta(hours=HOURS_TO_EXPIRE),
-                            )
-                            story.save()
+                if success:
+                    with open(temp_compressed_path, "rb") as f:
+                        django_file = File(f)
+                        story = Story(
+                            user=request.user,
+                            media=django_file,
+                            caption=caption,
+                            expires_at=timezone.now() + timedelta(hours=HOURS_TO_EXPIRE),
+                        )
+                        story.save()
+                        # ✅ 成功：JSONで返す
+                        return JsonResponse({"message": "アップロード完了！"})
 
                 # 一時ファイル削除
                 for path in [temp_input_path, temp_trimmed_path, temp_compressed_path]:
                     if os.path.exists(path):
                         os.remove(path)
 
-            return redirect("articles:list")
+                return JsonResponse({"error": "動画の処理に失敗しました"}, status=500)
+
         else:
-            # フォームが無効な場合（有効なストーリーが存在など）
-            for error in form.non_field_errors():
-                messages.error(request, error)  # エラーメッセージを表示
-            return redirect("articles:list")  # リダイレクト
-    else:
-        # GETリクエストはリダイレクト
-        return redirect("articles:list")
+            # ✅ バリデーションエラー（有効ストーリーが既にある等）
+            error_message = form.non_field_errors()[0] if form.non_field_errors() else "不明なエラーです"
+            return JsonResponse({"error": error_message}, status=400)
+
+    return JsonResponse({"error": "無効なリクエストです"}, status=405)
 
 
 # Delete

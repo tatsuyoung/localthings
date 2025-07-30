@@ -18,18 +18,31 @@ function previewStory(input) {
   const file = input.files[0];
   if (!file) return;
 
+  const maxSizeMB = 50;
+  if (file.size > maxSizeMB * 1024 * 1024) {
+    alert(`ファイルサイズが大きすぎます（最大 ${maxSizeMB}MB まで）`);
+    input.value = '';
+    return;
+  }
+
+  const fileName = file.name.toLowerCase();
+  const mimeType = file.type;
+  const isMp4 = fileName.endsWith(".mp4") || mimeType === "video/mp4" || mimeType === "video/quicktime"; // iPhone MOV = quicktime
+
+  if (!isMp4) {
+    alert("MP4またはMOV形式の動画のみアップロードできます。");
+    input.value = "";
+    return;
+  }
+
   const reader = new FileReader();
   reader.onload = function (e) {
-    if (file.type.startsWith("image/")) {
-      preview.innerHTML = `<img src="${e.target.result}" class="preview-img" />`;
-    } else if (file.type.startsWith("video/")) {
-      preview.innerHTML = `
-        <video controls class="preview-video">
-          <source src="${e.target.result}" type="${file.type}">
-          Your browser does not support the video tag.
-        </video>
-      `;
-    }
+    preview.innerHTML = `
+      <video controls class="preview-video">
+        <source src="${e.target.result}" type="${file.type}">
+        お使いのブラウザはvideoタグに対応していません。
+      </video>
+    `;
   };
   reader.readAsDataURL(file);
 }
