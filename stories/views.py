@@ -1,7 +1,7 @@
 # stories/views.py
 import os
 import uuid
-from .utils import compress_and_trim_video  # utilsの関数を使う
+
 from django.core.files import File
 from .models import Story, StoryRead
 from .forms import StoryForm
@@ -17,10 +17,12 @@ from django.views.decorators.http import require_POST
 from django.conf import settings
 from functools import wraps
 
+from .utils import convert_mov_to_mp4, compress_and_trim_video
+
+
 HOURS_TO_EXPIRE    = settings.STORY_EXPIRE_HOURS # ストーリーの有効期限（時間）
 MAX_VIDEO_DURATION = settings.MAX_VIDEO_DURATION  # 最大動画長さ（秒）
 User               = get_user_model()
-
 
 @login_required
 def story_create(request):
@@ -31,8 +33,9 @@ def story_create(request):
             caption    = form.cleaned_data.get("caption", "")
 
             if media_file:
+                # 一時ファイル名生成
                 temp_input_path      = f"/tmp/{uuid.uuid4()}_{media_file.name}"
-                temp_trimmed_path    = f"/tmp/trimmed_{uuid.uuid4()}.mp4"
+                temp_converted_path  = f"/tmp/converted_{uuid.uuid4()}.mp4"
                 temp_compressed_path = f"/tmp/compressed_{uuid.uuid4()}.mp4"
 
                 # 一時保存
@@ -40,30 +43,34 @@ def story_create(request):
                     for chunk in media_file.chunks():
                         f.write(chunk)
 
-                success = compress_and_trim_video(temp_input_path, temp_compressed_path)
+                # MOV → MP4 変換（拡張子ではなく中身で判断してもよい）
+                if media_file.name.lower().endswith(".mov"):
+                    convert_success = convert_mov_to_mp4(temp_input_path, temp_converted_path)
+                    if not convert_success:
+                        return JsonResponse({"error": "MOV変換に失敗しました"}, status=500)
+                    source_path = temp_converted_path
+                else:
+                    source_path = temp_input_path
 
+                # トリミング＋圧縮
+                success = compress_and_trim_video(source_path, temp_compressed_path)
                 if success:
                     with open(temp_compressed_path, "rb") as f:
-                        django_file = File(f)
                         story = Story(
                             user=request.user,
-                            media=django_file,
+                            media=File(f),
                             caption=caption,
                             expires_at=timezone.now() + timedelta(hours=HOURS_TO_EXPIRE),
                         )
                         story.save()
-                        # ✅ 成功：JSONで返す
                         return JsonResponse({"message": "アップロード完了！"})
 
-                # 一時ファイル削除
-                for path in [temp_input_path, temp_trimmed_path, temp_compressed_path]:
-                    if os.path.exists(path):
-                        os.remove(path)
+                # 失敗時
+                return JsonResponse({"error": "動画の圧縮に失敗しました"}, status=500)
 
-                return JsonResponse({"error": "動画の処理に失敗しました"}, status=500)
+            return JsonResponse({"error": "メディアファイルがありません"}, status=400)
 
         else:
-            # ✅ バリデーションエラー（有効ストーリーが既にある等）
             error_message = form.non_field_errors()[0] if form.non_field_errors() else "不明なエラーです"
             return JsonResponse({"error": error_message}, status=400)
 
