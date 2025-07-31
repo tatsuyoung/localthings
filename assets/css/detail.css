@@ -2197,6 +2197,9 @@ ul{
     body:not(.dark-mode) .following-feed-wrapper p {
         color: #333;
     }
+    body:not(.dark-mode) .articles-description p {
+        color: #f5f5f5;
+    }
     body:not(.dark-mode) .comment_wrapper p {
     color:#f5f5f5;
     }
