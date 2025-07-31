@@ -1883,7 +1883,7 @@ ul{
         border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
     }
     body:not(.dark-mode) .following-feed-wrapper p {
-        color: #f5f5f5;
+        color: #333;
     }
     body:not(.dark-mode) .username a {
         color: #f5f5f5;
