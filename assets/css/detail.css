@@ -1090,7 +1090,8 @@ li.logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 4px;
+    max-width: 70px;
 }
 .avatar-img {
     width: 50px;
@@ -1104,10 +1105,9 @@ li.logo {
 .meta-row {
     display: flex;
     gap: 6px;
-    font-size: 0.75rem;
     color: #888;
     margin-top: 4px;
-    margin-left: 10px;
+    margin-left: 2px;
 }
 .meta-username {
     font-size: 14px;
@@ -1312,6 +1312,7 @@ li.logo {
   .write-new button {
     width: auto;              /* ← 広がりすぎ防止 */
     margin-left: auto;        /* ← 右寄せ */
+    margin-right: 10px;
     margin-top: 0;
     padding: 10px 16px;
     font-size: 14px;
@@ -2035,7 +2036,7 @@ ul{
 
 /* comment responsive */
 
-@media(max-width: 768px){
+/* @media(max-width: 768px){
      .user-comment-text-box {
         order: 1;
         width: 80%;
@@ -2089,13 +2090,13 @@ ul{
         padding-right: 20px;
     }
     .following-feed-wrapper p {
-    font-size: 14px; /* 12〜14px */
+    font-size: 14px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     color: #262626; 
     margin: 2px 0;
     }
-}
+} */
 
 /* articles icon text box responsive */
 

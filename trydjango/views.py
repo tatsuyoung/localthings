@@ -16,7 +16,8 @@ def privacy_policy(request):
 
 
 def my_notifications(request):
-    context = {}
+    notifications = request.user.notifications.all()
+    context = {'notifications': notifications}
     return render(request, 'my_notifications.html', context)
 
 
@@ -24,10 +25,12 @@ def my_notification(request, my_notification_pk):
     my_notify = get_object_or_404(Notification, pk=my_notification_pk)
     my_notify.unread = False
     my_notify.save()
-    return redirect(my_notify.data['url'])
+
+    # 安全にURLを取得（dataがNoneの可能性がある）
+    url = my_notify.data.get('url') if my_notify.data else None
+    return redirect(url or '/')
 
 
 def delete_my_read_notifications(request):
-    notifications = request.user.notifications.read()
-    notifications.delete()
-    return redirect(reverse('my_notifications'))
+    request.user.notifications.read().delete()
+    return redirect('my_notifications')

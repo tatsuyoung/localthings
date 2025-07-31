@@ -1665,12 +1665,11 @@ li.logo {
     transition: transform 0.3s ease;
 }
 
-.article-wrapper ul li
-{
-    text-decoration: none ;
-    /* display: inline-block ; */
+.article-wrapper .following-feed-wrapper .following-articles > li {
+    display: inline-block;
     vertical-align: middle;
-    margin: 10px  2px 10px  2px;
+    margin: 10px 2px;
+    text-decoration: none;
 }
 
 
@@ -1703,8 +1702,8 @@ li.logo {
 
 .following-articles
 {
-    margin: 2px;
     padding-left: 8px;
+    padding-top: 2px;
 }
 
 /*　Swiper image */
@@ -2009,7 +2008,13 @@ li.logo {
     max-height: 300px; /* ← 高さ調整 */
     overflow-y: auto;  /* ← 縦スクロールを有効にする */
     padding-right: 5px; /* スクロールバーで内容が隠れないように */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
 }
+.comment-bg::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
 .comment-bg::-webkit-scrollbar {
     width: 6px;
 }
@@ -2021,6 +2026,7 @@ li.logo {
 
 .comment {
     margin-bottom: 24px;
+    margin-top: 10px;
 }
 
 /* 吹き出しとアバターを横並び */
@@ -2080,7 +2086,8 @@ li.logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 4px;
+    width: 70px;
 }
 .avatar-img {
     width: 50px;
@@ -2094,10 +2101,9 @@ li.logo {
 .meta-row {
     display: flex;
     gap: 6px;
-    font-size: 0.75rem;
     color: #888;
     margin-top: 4px;
-    margin-left: 10px;
+    margin-left: 2px;
 }
 .meta-username {
     font-size: 14px;
@@ -2163,6 +2169,7 @@ li.logo {
     align-items: center ;
     vertical-align: middle;
     padding-left: 10px;
+    padding-right: 5px;
     padding-top: 10px;
     padding-bottom: 20px;
 }

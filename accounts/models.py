@@ -13,7 +13,9 @@ from io import BytesIO
 import logging
 logger = logging.getLogger(__name__)
 
-
+from django.urls import reverse
+          
+ 
 class ProfileManager(models.Manager):
     def toggle_follow(self, request_user, username_to_toggle):
         profile_ = Profile.objects.get(user__username__iexact=username_to_toggle)
@@ -29,6 +31,7 @@ class ProfileManager(models.Manager):
                 recipient=profile_.user,
                 verb='さんが、あなたをフォローしました。',
                 action_object=profile_,
+                data={'url': reverse('accounts:profile_detail', kwargs={'username': user.username})}
             )
         return profile_, is_following
 
