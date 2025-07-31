@@ -1736,10 +1736,10 @@ li.logo {
         width: 40%;
     }
 }
-
-@media screen and (max-width: 500px){
-    .category{
-        width: 50%;
+/* スマホ用（画面幅が768px以下） */
+@media screen and (max-width: 768px) {
+    .category {
+        width: calc(50% - 10px);  /* 2列にする */
     }
 }
 
