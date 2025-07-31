@@ -27,6 +27,7 @@ from .forms import UserCreationForms, ContactForm, UserUpdateForm, ProfileUpdate
 from django.utils import timezone 
 from django.contrib.auth import get_user_model
 
+
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForms(request.POST)

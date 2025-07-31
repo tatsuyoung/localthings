@@ -219,7 +219,7 @@
                      <!-- Articles -->
                     <div class="article-wrapper">
                         <article class="following-feed">
-                            {% include "articles/partial_article_card_list.html" with article=article %}
+                            {% include "articles/partial_article_card_list.html" with featured_articles=articles %}
                         </article>
                         <div id="loader">
                             {% include 'articles/snippet/spinner.html' %}
@@ -235,6 +235,7 @@
                             <p class="end-message" style="display: none;">以上です</p>
                         </div>
                     </div>
+                    <div class="global-footer"></div>
                 </div>
                 <!-- Right -->
                 <div class="right">

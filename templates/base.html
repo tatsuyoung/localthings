@@ -138,6 +138,22 @@
             </div>
         </div>
         {% include 'articles/snippet/mobile-nav-footer.html' %}
+        <!-- Notification -->
+         <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const icon = document.querySelector(".notification_icon");
+                const list = document.querySelector(".notification-list-scrollable");
+
+                if (icon && list) {
+                    icon.addEventListener("click", function () {
+                    list.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                    });
+                }
+                });
+        </script>
         <script>
         // follow
         document.addEventListener('DOMContentLoaded', () => {

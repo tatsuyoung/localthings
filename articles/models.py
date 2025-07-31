@@ -164,14 +164,18 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
-    post   = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    name   = models.CharField(max_length=200)
-    text   = models.TextField()
+    post         = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    author       = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    name         = models.CharField(max_length=200)
+    text         = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
+    parent       = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-created_date']
 
     def __str__(self):
-        return "{} - {}".format(str(self.author.username), str(self.post.title))
+        return f"{self.author.username} - {self.post.title}"
+
+    def is_reply(self):
+        return self.parent is not None

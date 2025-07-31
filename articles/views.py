@@ -58,7 +58,9 @@ def get_article_context(article):
     comments             = Comment.objects.filter(post=article).order_by('created_date')
     form                 = forms.CommentForm()
     current_user         = article.author  # または request.user（後で上書き）
-
+    now = timezone.now()
+    for comment in comments:
+        comment.display_date = format_custom_date_style(comment.created_date, now)
     return {
         'article'            : article,
         'order_like_articles': order_like_articles,
@@ -225,9 +227,14 @@ def article_list(request):
     
 
     # ✅ 各記事に全コメントと1つのフォームを付加
+    now = timezone.now()
     article_comment_data = {}
     for article in page_obj:
         all_comments = Comment.objects.filter(post=article).order_by('created_date')
+        # 各コメントに display_date を追加
+        for comment in all_comments:
+            comment.display_date = format_custom_date_style(comment.created_date, now)
+            
         article_comment_data[article.id] = {
             'comments': all_comments,
             'form'    : forms.CommentForm(),
@@ -383,7 +390,11 @@ def article_comment(request, pk):
             comment.save()
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 comments = Comment.objects.filter(post=article).order_by('created_date')
-                html     = render_to_string('articles/partial_comment_list.html', {
+                now = timezone.now()
+                for comment in comments:
+                    comment.display_date = format_custom_date_style(comment.created_date, now)
+
+                html = render_to_string('articles/partial_comment_list.html', {
                     'comments' : comments,
                     'article'  : article,
                     'request'  : request,
@@ -465,7 +476,7 @@ def like_button(request, like_id):
             recipient=article.author,
             verb=f'さんが、あなたのpostにいいね!しました。{article.title}',
             action_object=article,
-            url=url
+            data={'url': url} 
         )
 
     return JsonResponse({'likes_count': article.total_likes})

@@ -10,7 +10,7 @@
             <a href="{% url 'articles:user-posts' comment.author.username %}" class="comment-user-link">
                 <img src="{{ comment.author.profile.image.url }}" alt="Avatar" class="comment-avatar" loading="lazy"/>
                 <div class="comment-user-meta">
-                    <small class="comment-time">{{ comment.created_date|timesince }} 前</small>
+                    <small class="comment-time">{{ comment.display_date }}</small>
                     <span class="comment-username">{{ comment.author.username }}</span>
                 </div>
             </a>

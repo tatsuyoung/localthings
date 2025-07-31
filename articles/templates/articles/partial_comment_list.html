@@ -13,9 +13,9 @@
                             </a>
                         </div>
                         <div class="meta-row">
-                            <div class="meta-username">{{ comment.author|truncatechars_html:10 }}</div>
+                            <div class="meta-username">{{ comment.author|truncatechars_html:7 }}</div>
                         </div>
-                        <div class="meta-time">{{ comment.created_date|timesince }}前</div>
+                        <div class="meta-time">{{ comment.display_date }}</div>
                     </div>
                     <div class="bubble">
                         <p>{{ comment.text|urlize|linebreaksbr|safe }}</p>
