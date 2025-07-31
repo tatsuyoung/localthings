@@ -1689,7 +1689,7 @@ li.logo {
 
 .category {
     display:                 inline-block;
-    width:                  calc(100% /7);
+    width:                  calc(100% /6);
     margin:             1px -2px 1px -2px;
     padding:                         20px;
     box-sizing:                border-box;
@@ -1697,7 +1697,7 @@ li.logo {
     transition:                      0.4s;
     background: var(--main-color);
     border-radius:                   10px;
-    margin-left:                     -1px;
+    margin-left:                     4px;
     }
 .category_select_label {
     padding-left: 10px;
@@ -1719,7 +1719,7 @@ li.logo {
 
 .category_description{
     display:   flex;
-    height:    30px;
+    height:    60px;
     }
 
 .category_description p {
@@ -1733,7 +1733,7 @@ li.logo {
 
 @media screen and (max-width: 800px){
     .category{
-        width: 30%;
+        width: 40%;
     }
 }
 
