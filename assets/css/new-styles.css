@@ -1689,7 +1689,7 @@ li.logo {
 
 .category {
     display:                 inline-block;
-    width:                  calc(100% /6);
+    width:                  calc(100% /5);
     margin:             1px -2px 1px -2px;
     padding:                         20px;
     box-sizing:                border-box;
@@ -1730,18 +1730,6 @@ li.logo {
     letter-spacing:       1.7;
     word-break:      keep-all;
     }
-
-@media screen and (max-width: 800px){
-    .category{
-        width: 40%;
-    }
-}
-/* スマホ用（画面幅が768px以下） */
-@media screen and (max-width: 768px) {
-    .category {
-        width: calc(50% - 10px);  /* 2列にする */
-    }
-}
 
 /* Search */
 .searchs {
@@ -4591,11 +4579,15 @@ ul{
     .edit-article-category-select {
         font-size:0.75em;
     }
-    .category h5 {
-        font-size: 8px;
-    }
     .search-wrapper {
         width: 100%;
+    }
+}
+/* gallery */
+/* スマホ用（画面幅が768px以下） */
+@media screen and (max-width: 768px) {
+    .category {
+        width: calc(50% - 10px);  /* 2列にする */
     }
 }
 
