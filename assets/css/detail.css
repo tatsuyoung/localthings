@@ -631,6 +631,12 @@ li.logo {
     margin: 0 auto; /* 中央寄せ */
     transition: transform 0.3s ease;
 }
+.article-wrapper .following-feed-wrapper .following-articles > li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 2px;
+    text-decoration: none;
+}
 .following-articles a:hover {
     text-decoration: none;
     background: none;

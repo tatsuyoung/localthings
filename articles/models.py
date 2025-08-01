@@ -34,8 +34,12 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    # def snippet(self):
+    #     return self.body[:80].rsplit(' ', 1)[0] + '...'
+
     def snippet(self):
-        return self.body[:80].rsplit(' ', 1)[0] + '...'
+        plain_text = self.body.replace('\n', ' ')  # 改行→スペース
+        return plain_text[:80].rsplit(' ', 1)[0] + '...'
 
     def get_user(self):
         return self.author

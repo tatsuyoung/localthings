@@ -5,34 +5,47 @@ function convertHashtagsToLinks(text) {
 }
 
 function initializeFullText() {
-    const snippets = document.querySelectorAll('.snippet-text');
+  const wrappers = document.querySelectorAll('.snippet-wrapper');
 
-    snippets.forEach(snippet => {
-        // すでに初期化されているならスキップ
-        if (snippet.dataset.initialized === 'true') return;
+  wrappers.forEach(wrapper => {
+    const snippet = wrapper.querySelector('.snippet-text');
 
-        const fullText = snippet.dataset.fulltext;
-        const snippetText = snippet.dataset.snippet;
-        const readMoreLink = snippet.parentElement.querySelector('.read-more');
+    if (snippet.dataset.initialized === 'true') return;
 
-        snippet.addEventListener('click', function () {
-            const isExpanded = snippet.dataset.expanded === 'true';
+    const fullText = snippet.dataset.fulltext;
+    const snippetText = snippet.dataset.snippet;
+    const readMoreLink = wrapper.parentElement.querySelector('.read-more');
 
-            if (!isExpanded) {
-                // ✅ 改行＋ハッシュタグ処理
-                const formattedText = convertHashtagsToLinks(fullText).replace(/\n/g, '<br>');
-                snippet.innerHTML = formattedText;
-                snippet.dataset.expanded = 'true';
-                if (readMoreLink) readMoreLink.textContent = '詳細ページへ';
-            } else {
-                snippet.innerHTML = snippetText;
-                snippet.dataset.expanded = 'false';
-                if (readMoreLink) readMoreLink.textContent = '続きを読む';
-            }
+    wrapper.style.maxHeight = '80px';
+
+    snippet.addEventListener('click', () => {
+      const isExpanded = snippet.dataset.expanded === 'true';
+
+      if (!isExpanded) {
+        const formattedText = convertHashtagsToLinks(fullText).replace(/\n/g, '<br>');
+        snippet.innerHTML = formattedText;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const scrollHeight = snippet.scrollHeight;
+            wrapper.style.maxHeight = scrollHeight + 'px';
+            snippet.dataset.expanded = 'true';
+            if (readMoreLink) readMoreLink.textContent = '詳細ページへ';
+          });
         });
+      } else {
+        wrapper.style.maxHeight = '80px';
+        snippet.dataset.expanded = 'false';
 
-        snippet.dataset.initialized = 'true';
+        setTimeout(() => {
+          snippet.innerHTML = snippetText;
+          if (readMoreLink) readMoreLink.textContent = '続きを読む';
+        }, 100); // トランジション時間に合わせる
+      }
     });
+
+    snippet.dataset.initialized = 'true';
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
