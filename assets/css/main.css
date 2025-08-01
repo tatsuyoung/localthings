@@ -1533,7 +1533,7 @@ li.logo {
 
 /* hover user profile */
 .hover-user-trigger {
-    color: #333;
+    color: #444;
 }
 .hover-wrapper {
   position: relative;
@@ -1656,6 +1656,7 @@ li.logo {
 /* articles */
 .username a {
     font-size: 16px;
+    color: #333;
 }
 .following-feed-wrapper {
     width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
@@ -1837,20 +1838,19 @@ li.logo {
     z-index: 1;
 }
 /* username badge snippet  */
-.snippet-text {
-  white-space: pre-line; /* ← 改行を反映する */
-}
 
+/* 基本レイアウト */
 .articles-caption-inline {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;  /* スマホ対応 */
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 6px;
   font-size: 14px;
   color: #262626;
   padding: 8px 12px 0;
 }
 
+/* ユーザー名部分 */
 .username-badge-wrapper {
   display: inline-flex;
   align-items: center;
@@ -1859,51 +1859,31 @@ li.logo {
   white-space: nowrap;
 }
 
-.username-badge-wrapper a {
-  color: #262626;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.verified-badge {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
+/* テキスト部分の最小高さを確保してUIが崩れないように */
+.snippet-wrapper {
+  overflow: hidden;
+  transition: max-height 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+  max-height: 80px;
+  overflow-anchor: none;
 }
 
 .snippet-text {
-  white-space: normal;
   word-break: break-word;
-  font-size: 14px;
   cursor: pointer;
+  min-height: 30px;
 }
+/* .snippet-text.expanded {
+  max-height は JS が設定する
+} */
 
+/* 「続きを読む」リンク */
 .read-more {
   font-size: 12px;
   color: #8e8e8e;
   text-decoration: none;
   white-space: nowrap;
+  align-self: flex-start;
 }
-/* js */
-.snippet-text {
-    cursor: pointer;
-    display: inline;
-}
-.snippet-text {
-  white-space: normal;   /* ← nowrap を解除 */
-  word-break: break-word;
-}
-
-.read-more-link {
-    color: #999;
-    font-size: 13px;
-    text-decoration: none;
-}
-
-.read-more-link:hover {
-    text-decoration: underline;
-}
-
 /* articles icons */
 .articles-icon {
     display: flex;
