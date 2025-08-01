@@ -2264,11 +2264,11 @@ li.logo {
 
 /* right style */
 
-.right {
+/* .right {
   width: 30%;
   padding: 1rem;
   flex-shrink: 0;
-}
+} */
 .right-wrapper {
   position: relative; /* ✅ stickyやfixedをやめる */
   margin-top: 0;
