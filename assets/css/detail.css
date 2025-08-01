@@ -1927,6 +1927,7 @@ ul{
     margin: 0;
     list-style: none;
     width: 100%; /* ← 幅を最大に */
+    height: 70px;
     justify-content: flex-end;
     }
 }
