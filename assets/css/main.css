@@ -2264,11 +2264,11 @@ li.logo {
 
 /* right style */
 
-.right {
+/* .right {
   width: 30%;
   padding: 1rem;
   flex-shrink: 0;
-}
+} */
 .right-wrapper {
   position: relative; /* ✅ stickyやfixedをやめる */
   margin-top: 0;
@@ -2964,6 +2964,46 @@ ul{
     }
     .favorite-title span {
         font-size: 15px;
+    }
+}
+
+/* scroll bar */
+/* スマホ・タブレット（例: 768px 以下）ではスクロールバーを出さない */
+@media (max-width: 768px) {
+    html, body {
+    height: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    }
+
+    .center-and-right {
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    -webkit-overflow-scrolling: touch; /* iOS対策 */
+    }
+    /* Chrome, Safari */
+    .center-and-right::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .center-and-right {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+    /* comment */
+    /* Chrome, Safari */
+    .comment-bg::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .comment-bg {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     }
 }
 

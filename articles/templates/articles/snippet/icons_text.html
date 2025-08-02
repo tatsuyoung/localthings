@@ -30,8 +30,8 @@
                 <form method="POST" action="{% url 'articles:delete' article.pk %}">
                     {% csrf_token %}
                     <button class="article_delete" type="submit"
-                            onclick="return confirm('この記事を削除しますか？');">
-                        <span class="icon-description">記事を削除する</span>
+                            onclick="return confirm('このPOSTを削除しますか？');">
+                        <span class="icon-description">POSTを削除する</span>
                     </button>
 
                 </form>
