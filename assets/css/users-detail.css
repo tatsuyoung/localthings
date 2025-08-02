@@ -1770,10 +1770,9 @@ ul{
     }
 
     .center-and-right {
-    overflow-y: visible !important;
-    height: auto !important;
-    max-height: none !important;
-    -webkit-overflow-scrolling: touch; /* iOS対策 */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     }
     /* Chrome, Safari */
     .center-and-right::-webkit-scrollbar {
