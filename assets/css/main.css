@@ -2967,6 +2967,46 @@ ul{
     }
 }
 
+/* scroll bar */
+/* スマホ・タブレット（例: 768px 以下）ではスクロールバーを出さない */
+@media (max-width: 768px) {
+    html, body {
+    height: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    }
+
+    .center-and-right {
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    -webkit-overflow-scrolling: touch; /* iOS対策 */
+    }
+    /* Chrome, Safari */
+    .center-and-right::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .center-and-right {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+    /* comment */
+    /* Chrome, Safari */
+    .comment-bg::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .comment-bg {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+}
+
 /* スマホ（幅600px未満）専用のナビやUIパーツを、
 大きな画面（タブレットやPC）では非表示 */
 @media (min-width: 600px) {

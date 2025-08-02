@@ -4049,6 +4049,9 @@ ul{
     text-align: center;
     margin-top: 1em;
 }
+.edit-article-footer a {
+    color: #333;
+}
 
 .edit-article-home-link {
     color: #00acee;
@@ -4590,6 +4593,34 @@ ul{
         width: calc(50% - 10px);  /* 2列にする */
     }
 }
+/* scroll bar */
+/* スマホ・タブレット（例: 768px 以下）ではスクロールバーを出さない */
+@media (max-width: 768px) {
+    html, body {
+    height: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    }
+
+    .center-and-right {
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    -webkit-overflow-scrolling: touch; /* iOS対策 */
+    }
+    /* Chrome, Safari */
+    .center-and-right::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .center-and-right {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+}
 
 /* スマホ */
 
@@ -4677,6 +4708,7 @@ ul{
     grid-template-columns: repeat(2, 1fr);
     }
 }
+
 /* スマホ（幅600px未満）専用のナビやUIパーツを、
 大きな画面（タブレットやPC）では非表示 */
 @media (min-width: 600px) {

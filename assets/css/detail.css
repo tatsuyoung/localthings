@@ -192,13 +192,13 @@ a
 
 .container {
     display: flex;
-    height: 100vh; /* 必要に応じて */
+    height: auto;
     max-width: 100%;
 }
 
 .global-tag
 {
-    text-align:center ;
+    text-align: center ;
     margin-bottom: 20px;
 }
 
@@ -561,6 +561,8 @@ li.logo {
   overflow-y: auto;
   width: 80%;
   flex-grow: 1;
+  scrollbar-gutter: stable;
+  overflow-anchor: none;
 }
 /* center style */
 .center {
@@ -845,6 +847,7 @@ li.logo {
 {
     display: flex ;
     padding-top: 10px;
+    padding-left: 10px;
 }
 
 .icon-items:last-child
@@ -939,6 +942,9 @@ li.logo {
     align-items: center ;
     margin-top: calc(5px);
 }
+.articles-icon-box-items > li {
+    flex: 0 0 auto;
+}
 
 .articles-icon-item-active
 {
@@ -954,8 +960,10 @@ li.logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    /* width: 100%; ←これ削除 */
+    /* height: 100%; ←これも一旦外す */
+    width: auto;
+    height: auto;
 }
 .liked .liked_heart
 {
@@ -1010,6 +1018,16 @@ li.logo {
 {
     color: var(--hover-color);
 }
+/* safari用 icon-box */
+.articles-icon-box-items {
+    box-sizing: border-box;
+}
+
+.articles-icon-item-active,
+.articles-hover,
+.articles-hover i {
+    box-sizing: border-box;
+}
 
 /* comment */
 .comment-section {
@@ -1027,6 +1045,8 @@ li.logo {
     max-height: 300px; /* ← 高さ調整 */
     overflow-y: auto;  /* ← 縦スクロールを有効にする */
     padding-right: 5px; /* スクロールバーで内容が隠れないように */
+    scrollbar-gutter: stable;
+    overflow-anchor: none;
 }
 .comment-bg::-webkit-scrollbar {
     width: 6px;
@@ -1306,14 +1326,15 @@ li.logo {
     font-size: 16px !important;
   }
 }
+
 @media (max-width: 600px) {
   .comment-btn-wrapper {
     display: flex;
     justify-content: space-between; /* ← 右寄せに */
     align-items: center;
-    padding-left: 0;
-    padding-right: 0;
     gap: 10px;
+    padding-right: 10px;
+    padding-left: 20px;
   }
 
   .write-new button {
@@ -1329,6 +1350,9 @@ li.logo {
     width: 40px;
     height: 40px;
   }
+  .avatar-wrapper {
+    padding-left: 10px;
+  }
 }
 
 .global-footer{
@@ -1338,11 +1362,11 @@ li.logo {
 
 /* right style */
 
-.right {
+/* .right {
   width: 30%;
   padding: 1rem;
   flex-shrink: 0;
-}
+} */
 .right-wrapper {
     position: relative;
     margin-top: 0;
@@ -1903,7 +1927,7 @@ ul{
     .center {
     width: 100%;
     }
-    .pager .pagination li{
+    .pager .pagination li {
     display: none;
     }
     .pager .pagination li.pre,
@@ -1919,16 +1943,67 @@ ul{
     width:                      100%;
     text-align:               center;
     }
-    /* icons */
+}
+/* icon box */
+@media only screen and (max-width: 768px) {
     .articles-icon-box-items {
-    display: flex;
-    gap: 8px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    width: 100%; /* ← 幅を最大に */
-    height: 70px;
-    justify-content: flex-end;
+        display: flex;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 100%;
+        height: 70px;
+        justify-content: flex-end;
+        box-sizing: border-box;
+    }
+
+    .articles-icon-box-items > li {
+        flex: 0 0 auto;
+    }
+
+    .liked_heart {
+        width: auto;
+        height: auto;
+    }
+}
+/* scroll bar */
+/* スマホ・タブレット（例: 768px 以下）ではスクロールバーを出さない */
+@media (max-width: 768px) {
+    html, body {
+    height: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    }
+
+    .center-and-right {
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    -webkit-overflow-scrolling: touch; /* iOS対策 */
+    }
+    /* Chrome, Safari */
+    .center-and-right::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .center-and-right {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    }
+    /* comment */
+    /* Chrome, Safari */
+    .comment-bg::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Firefox */
+    .comment-bg {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     }
 }
 
@@ -1941,7 +2016,7 @@ ul{
     }
 
     .articles-description p {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.3;
     margin-bottom: 2px;
     }
@@ -2004,16 +2079,15 @@ ul{
     }
     .swiper-container {
     width: 100%;
-  }
+    }
 
-  .swiper-slide img {
+    .swiper-slide img {
     width: 100%;
     max-width: 100%;
     display: block;
-  }
+    }
 }
-
-
+/* mobile nav */
 @media (min-width: 600px)
 {
     .mobil-nav-wrapper
@@ -2030,81 +2104,7 @@ ul{
         display:none;
     }
 }
-@media (max-width: 480px) {
-    .articles-icon-box-items {
-    width: 100%;
-    justify-content: space-between; /* ← スマホでは均等配置が自然 */
-    gap: 6px;
-    }
 
-    .articles-hover i {
-    font-size: 16px; /* 少し小さく */
-    }
-    }
-
-/* comment responsive */
-
-/* @media(max-width: 768px){
-     .user-comment-text-box {
-        order: 1;
-        width: 80%;
-     }
-     .author-comment-text-box{
-        width: 80%;
-    }
-    .comment.user-comment .info
-    {
-        order:         3;
-    }
-    .comment.user-comment .avatar
-    {
-        order:         2;
-    }
-
-    .comment.author-comment
-    {
-        justify-content: flex-start;
-    }
-    .author-comment-text-box p
-    {
-        text-align: left ;
-    }
-    .comment .info
-    {
-        width:              auto;
-    }
-    .comment .info a
-    {
-        padding-top:        15px;
-    }
-    .comment.user-comment .avatar,
-    .comment.author-comment .avatar
-    {
-        padding: 15px 10px 0 18px;
-        width:               auto;
-        position:        relative;
-    }
-    .user-comment-text-box:after {
-        width: 12px;
-    }
-    .author-comment-text-box:after {
-        width: 12px;
-    }
-    .write-new{
-        width:               100%;
-    }
-    .comment-btn-wrapper{
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .following-feed-wrapper p {
-    font-size: 14px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    color: #262626; 
-    margin: 2px 0;
-    }
-} */
 
 /* articles icon text box responsive */
 
@@ -2112,14 +2112,9 @@ ul{
     body {
     overflow-x: hidden; /* ページ全体の横スクロール防止 */
     }
-   .articles-icon-box
-    {
-        justify-content: space-between ;
-        padding-left: 10px;
-    }
     .articles-icon-box .article_delete .icon-description
     {
-        font-size: 10px;
+        font-size: 12px;
     }
     .articles-sum
     {
