@@ -1264,7 +1264,9 @@ li.logo {
 {
     padding: 10px ;
 }
-.favorite-title span {
+
+.favorite-title span, 
+.users-title span {
     font-size: 14px;              /* または 13px */
     font-weight: 600;             /* セミボールド */
     color: #262626;               /* Instagramの標準テキスト色 */
@@ -1311,7 +1313,7 @@ li.logo {
 
 .favorite-items span {
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;

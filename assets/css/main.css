@@ -1534,6 +1534,8 @@ li.logo {
 /* hover user profile */
 .hover-user-trigger {
     color: #444;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 .hover-wrapper {
   position: relative;
@@ -1602,10 +1604,11 @@ li.logo {
 
 /* --- ユーザー名 --- */
 .hover-profile-username {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 4px;
-}
+    color: #444;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0 0 4px;
+    }
 
 /* --- Bio --- */
 .hover-profile-bio {
@@ -1657,6 +1660,7 @@ li.logo {
 .username a {
     font-size: 16px;
     color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 .following-feed-wrapper {
     width: min(470px, 100vw); /* ← vw（画面幅）にするのが一般的 */
@@ -1688,7 +1692,7 @@ li.logo {
 .articles-item p {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 18px;
-    font-weight: 600; /* Usernameを少し太く */
+    font-weight: 550; /* Usernameを少し太く */
     line-height: 1.4;
     color: #262626;
     margin: 0;
@@ -1696,7 +1700,7 @@ li.logo {
 
 .articles-item p small {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 12px;
     color: #8e8e8e; 
     margin-left: 4px;
 }
@@ -1848,6 +1852,7 @@ li.logo {
   font-size: 14px;
   color: #262626;
   padding: 8px 12px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ユーザー名部分 */
@@ -1857,6 +1862,7 @@ li.logo {
   gap: 4px;
   font-size: 16px;
   white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* テキスト部分の最小高さを確保してUIが崩れないように */
@@ -2466,7 +2472,7 @@ li.logo {
 
 .favorite-items span {
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -2964,6 +2970,12 @@ ul{
     }
     .favorite-title span {
         font-size: 15px;
+    }
+    .username-badge-wrapper {
+        font-size: 14px;
+    }
+    .username a {
+        font-size: 14px;
     }
 }
 
