@@ -1849,7 +1849,7 @@ li.logo {
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 6px;
-  font-size: 14px;
+  font-size: 16px;
   color: #262626;
   padding: 8px 12px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -1890,6 +1890,7 @@ li.logo {
   white-space: nowrap;
   align-self: flex-start;
 }
+
 /* articles icons */
 .articles-icon {
     display: flex;
@@ -2472,7 +2473,7 @@ li.logo {
 
 .favorite-items span {
     margin-left: 10px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -2975,6 +2976,9 @@ ul{
         font-size: 14px;
     }
     .username a {
+        font-size: 14px;
+    }
+    .articles-caption-inline {
         font-size: 14px;
     }
 }
