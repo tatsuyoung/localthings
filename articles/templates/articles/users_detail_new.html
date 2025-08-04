@@ -165,15 +165,21 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="articles-description">
+                                <div class="articles-caption-inline">
                                     <!-- クリックで展開するテキスト部分 -->
-                                    <span class="snippet-text expandable"
-                                        data-fulltext="{{ article.body|escape }}"
-                                        data-snippet="{{ article.snippet|escape }}">
-                                    {{ article.snippet }}
-                                    </span>
+                                    <!-- expandable -->
+                                    <!-- wrapper を追加 -->
+                                    <div class="snippet-wrapper">
+                                        <div class="snippet-text"
+                                            data-fulltext="{{ article.body|escape }}"
+                                            data-snippet="{{ article.snippet|escape }}">
+                                            {{ article.snippet }}
+                                        </div>
+                                    </div>
                                     <!-- クリックで detail ページへ遷移 -->
-                                    <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">続きを読む</a>
+                                    <a href="{% url 'articles:detail' pk=article.pk %}" class="read-more">
+                                    続きを読む
+                                    </a>
                                 </div>
                                 <div class="articles-icon">
                                     <ul class="articles-icon-box">
