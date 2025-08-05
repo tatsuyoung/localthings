@@ -4090,9 +4090,6 @@ ul{
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE, Edge */
 }
-.article-body-scrollable {
-    display: none;
-}
 
 /* modal */
 /* モーダル外枠 */
