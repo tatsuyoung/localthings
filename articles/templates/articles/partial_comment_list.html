@@ -32,7 +32,7 @@
                     <div class="meta-time">{{ comment.created_date|timesince }}前</div>
                 </div>
             {% endif %}
-            {% if view_name != 'list' and request.user.id == comment.author.id %}
+            {% if view_name != 'list' and view_name != 'search' and request.user.id == comment.author.id %}
                 <div class="comment-delete-btn-wrapper">
                     <div class="comment-delete-btn">
                         <form method="POST" action="{% url 'articles:comment_ajax_delete' comment.pk %}" class="comment-delete-form" data-article-id="{{ article.id }}">
