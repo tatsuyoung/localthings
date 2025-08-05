@@ -4086,6 +4086,7 @@ ul{
     overflow-y: auto;
     line-height: 1.6;
     padding-right: 8px;
+    padding-left: 12px;
     margin-bottom: 10px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE, Edge */
