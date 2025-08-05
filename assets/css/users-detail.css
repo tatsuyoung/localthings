@@ -1834,6 +1834,9 @@ ul{
     .profile-bio {
         margin-right: 30px;
     }
+    .following-feed h3 {
+        font-size: 14px;
+    }
 }
 
 /* スマホ（幅600px未満）専用のナビやUIパーツを、

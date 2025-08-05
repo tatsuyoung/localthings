@@ -1436,10 +1436,6 @@ li.logo {
     font-size: 13px;
   }
 
-  .avatar img {
-    width: 36px;
-    height: 36px;
-  }
   .write-new,
   .comment-btn-wrapper,
   .write-new textarea {
@@ -4086,11 +4082,18 @@ ul{
 }
 
 .article-body-scrollable {
-    max-height: 260px;
+    max-height: 230px;
     overflow-y: auto;
     line-height: 1.6;
     padding-right: 8px;
+    margin-bottom: 10px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
 }
+.article-body-scrollable {
+    display: none;
+}
+
 /* modal */
 /* モーダル外枠 */
 .hashtag-modal {
