@@ -1678,9 +1678,9 @@ li.logo {
 }
 
 
-.following-feed-wrapper:hover {
+/* .following-feed-wrapper:hover {
   background: var(--hover-color);
-}
+} */
 
 .articles-item img
 {
