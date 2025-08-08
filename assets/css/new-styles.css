@@ -4650,9 +4650,9 @@ ul{
     body:not(.dark-mode) .mobile-nav {
     background: #1e1e1e;
     }
-    body:not(.dark-mode) .following-feed-wrapper p {
+    /* body:not(.dark-mode) .following-feed-wrapper p {
         color: #f5f5f5;
-    }
+    } */
     body:not(.dark-mode) .user_profile_card h3 a {
     color: #f5f5f5;
     }
@@ -4813,7 +4813,11 @@ ul{
     color: #f1f1f1;
     border-bottom: 2px solid #555;
     }
-
+    .form-item input, 
+    .form-item textarea, 
+    select.category_form {
+    border-bottom: 0.5px solid #555;
+    }
     .form-item input:focus,
     .form-item textarea:focus {
     border-bottom: 2px solid #888;
@@ -4852,7 +4856,6 @@ ul{
     background: #666;
     }
 }
-
 
 /* profile edit */
 @media (prefers-color-scheme: dark) {
@@ -4955,6 +4958,14 @@ ul{
 /* comment box  */
 /* === 🌙 Dark Mode 対応 === */
 @media (prefers-color-scheme: dark) {
+    body:not(.dark-mode) .following-feed-wrapper p {
+        color: #f5f5f5;
+    }
+    body:not(.dark-mode) .bubble p {
+        color: #333;
+    }
+}
+@media (prefers-color-scheme: dark) {
     .comment.author-comment {
     color: #f5f5f5;
     }
@@ -5034,9 +5045,6 @@ ul{
     .meta-username {
         color: #f5f5f5;
     }
-     .bubble p {
-        color: #333;
-     }
     .avatar-wrapper a,
     .comment-bg {
         background:#121212;

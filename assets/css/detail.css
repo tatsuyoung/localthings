@@ -134,6 +134,10 @@ body.dark-mode .write-new span {
 body.dark-mode .custom-swiper-button {
     background-color: gray;
 }
+/* detail article item p = username */
+body.dark-mode .articles-item p {
+    color: #f3f3f3;
+}
 
 /* Debug */
 /* * {
@@ -2218,6 +2222,11 @@ ul{
     }
     body:not(.dark-mode) .custom-swiper-button {
     background-color: gray;
+    }
+    body:not(.dark-mode) .favorite-title span, 
+    body:not(.dark-mode) .users-title span,
+    body:not(.dark-mode) .articles-item p {
+    color: #f3f3f3;
     }
 }
 /* comment box  */

@@ -143,6 +143,14 @@ body.dark-mode .favorite-title span {
 body.dark-mode .custom-swiper-button {
     background-color: gray;
 }
+* left nav right border */
+body.dark-mode .left {
+    border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+/* 下線 */
+body.dark-mode .following-feed-wrapper {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
+}
 
 /* Debug */
 /* * {
@@ -1917,9 +1925,9 @@ ul{
     body:not(.dark-mode) .following-feed-wrapper {
         border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
     }
-    body:not(.dark-mode) .following-feed-wrapper p {
-        color: #333;
-    }
+    /* body:not(.dark-mode) .following-feed-wrapper p {
+        color: #f5f5f5;
+    } */
     body:not(.dark-mode) .username a {
         color: #f5f5f5;
     }
@@ -1949,6 +1957,13 @@ ul{
     }
     body:not(.dark-mode) .custom-swiper-button {
     background-color: gray;
+    }
+    body:not(.dark-mode) .left {
+    border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+    body:not(.dark-mode) .profile-description,
+    body:not(.dark-mode) .following-feed-wrapper {
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* ごく薄い白線 */
     }
 }
 
