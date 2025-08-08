@@ -130,6 +130,10 @@ body.dark-mode .write-new button {
 body.dark-mode .write-new span {
     color: #aaa;
     }
+/* swiper side button */
+body.dark-mode .custom-swiper-button {
+    background-color: gray;
+}
 
 /* Debug */
 /* * {
@@ -2211,6 +2215,9 @@ ul{
     }
     body:not(.dark-mode) .left {
     border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+    body:not(.dark-mode) .custom-swiper-button {
+    background-color: gray;
     }
 }
 /* comment box  */
