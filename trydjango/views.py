@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from notifications.models import Notification
+from django.contrib.auth.decorators import login_required
 
 
 def homepage(request):
@@ -14,7 +15,7 @@ def about(request):
 def privacy_policy(request):
     return render(request, 'privacy-policy.html')
 
-
+@login_required
 def my_notifications(request):
     notifications = request.user.notifications.all()
     context = {'notifications': notifications}
