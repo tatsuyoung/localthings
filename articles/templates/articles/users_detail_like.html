@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% block headerName %}いいねしたユーザー{% endblock %}
+{% block headerName %}いいね!したユーザー{% endblock %}
 {% block title %}Liked Users{% endblock %}
 {% block content %}
+{% if liked_users %}
 <div class="liked-users-grid">
     {% for liked_user in liked_users %}
         <div class="liked-user-avatar">
@@ -10,12 +11,13 @@
                 <img src="{{ liked_user.profile.image.url }}" alt="{{ liked_user.username }}" class="img-circle" loading="lazy"/>
             </a>
         </div>
-    {% empty %}
-        <div class="global-tag">
-            <h3>まだいいねしたユーザーはいません。</h3>
-        </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="empty-message">
+    <h3>まだいいねしたユーザーはいません。</h3>
+</div>
+{% endif %}
 {% if liked_users.has_other_pages %}
 <div class="pager">
     <ul class="pagination">

@@ -392,6 +392,13 @@ a
     margin-bottom: 20px;
     margin-top: 20px;
 }
+.empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    text-align: center;
+}
 
 
 /* mobil header */
