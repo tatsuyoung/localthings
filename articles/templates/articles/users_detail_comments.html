@@ -3,6 +3,7 @@
 {% block headerName %}コメントしたユーザー{% endblock %}
 {% block title %}User Who Commented{% endblock %}
 {% block content %}
+{% if comments %}
 <div class="comment-grid">
     {% for comment in comments %}
     <div class="comment-card">
@@ -19,12 +20,13 @@
             <p>{{ comment.text|truncatechars:50 }}</p>
         </div>
     </div>
-    {% empty %}
-    <div class="global-tag">
-        <h3>まだコメントはありません。</h3>
-    </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="empty-message">
+    <h3>まだコメントはありません。</h3>
+</div>
+{% endif %}
 {% if comments.has_other_pages %}
 <div class="pager">
     <ul class="pagination">
