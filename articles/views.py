@@ -140,6 +140,7 @@ def article_list(request):
     paginator = Paginator(articles_list, 10)
     page_obj  = paginator.get_page(page_number)
 
+
     # ✅ 日付表示を整形して付加
     now = timezone.now()
     for article in page_obj:
@@ -254,9 +255,10 @@ def article_list(request):
     # ✅ Ajaxの場合はJSONで返す
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         context.update({
-        'followers_count' : followers_count,
-        'following_count' : following_count,
-        'is_following_set': is_following_set,
+            'followers_count' : followers_count,
+            'following_count' : following_count,
+            'is_following_set': is_following_set,
+            'featured_articles': page_obj,  # ← 追加
         })
         html = render_to_string("articles/partial_article_card_list.html", context, request=request)
         return JsonResponse({
