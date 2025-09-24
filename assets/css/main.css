@@ -161,6 +161,9 @@ body.dark-mode .write-new span {
     color: #aaa;
     }
 /* Hover Card */
+body.dark-mode .hover-profile-username {
+    color: #fff;
+}
 body.dark-mode .hover-profile-card {
     background-color: #2a2a2a;
 }
@@ -3133,6 +3136,9 @@ ul{
     }
     body:not(.dark-mode) .left {
     border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+    body:not(.dark-mode) .hover-profile-username {
+    color: #fff;
     }
     body:not(.dark-mode) .hover-profile-card {
     background-color: #2a2a2a;
