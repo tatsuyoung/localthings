@@ -168,3 +168,28 @@ Starするだけでも応援になります 🙏<br>
 
 ### 📬 Author
 ### [X](https://x.com/tatsuyoung55)
+
+---
+
+<div align="center">
+
+## 💖 Support Local Things
+
+Local Things は、地域と世界をつなぐオープンソースSNSプロジェクトです。  
+あなたの支援が、より良い地域プラットフォームづくりを後押しします 🌏
+
+[![Sponsor Tatsuyoung](https://img.shields.io/badge/Sponsor-%40tatsuyoung-EA4AAA?style=for-the-badge&logo=github-sponsors)](https://github.com/sponsors/tatsuyoung)
+
+> 💬 *“あなたの応援が、地域の未来を動かします。”*  
+
+---
+
+### 🙏 Ways to Support
+
+⭐️ このリポジトリにスターをつける<br>
+🩷 [GitHub Sponsors](https://github.com/sponsors/tatsuyoung) で支援する  
+🐦 プロジェクトをSNSで紹介する  
+🧑‍💻 Issue や Pull Request に参加する  
+
+---
+</div>
