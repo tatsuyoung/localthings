@@ -39,7 +39,7 @@ document.addEventListener('click', function (e) {
     })
     .catch(err => console.error('Follow toggle failed:', err));
 });
-
+document.addEventListener("DOMContentLoaded", initializeFollowButtons);
 // DjangoのCSRFトークン取得用（Cookieから）
 function getCookie(name) {
     const cookieValue = document.cookie

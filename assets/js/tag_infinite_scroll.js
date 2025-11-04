@@ -10,31 +10,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const endMessageCircle = document.querySelector(".end-icon-wrapper");
     const tagSlug = container.dataset.tag;
 
-    const articleIdsShown = new Set();  // 👈 表示済みIDを記録
+    const articleIdsShown = new Set();
 
-    // 最初に表示されている記事IDも登録
     document.querySelectorAll(".hashtag-thumbnail").forEach(el => {
         const id = el.dataset.articleId;
         if (id) articleIdsShown.add(id);
     });
 
-    const observer = new IntersectionObserver(callback, {
-        root: document.querySelector(".center"),
-        threshold: 1.0
-    });
-
-    if (observerTarget) {
-        observer.observe(observerTarget);
-    }
-
+    // 🔹 callbackを先に定義
     function callback(entries) {
         entries.forEach(entry => {
+            console.log("Observer callback triggered. isIntersecting:", entry.isIntersecting);
+            console.log("isLoading:", isLoading, "hasNextPage:", hasNextPage);
+
             if (entry.isIntersecting && !isLoading && hasNextPage) {
+                console.log("→ loadMore() 呼び出し");
                 loadMore();
             }
         });
     }
 
+    // 🔹 callback定義後にobserver作成
+    const observer = new IntersectionObserver(callback, {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5
+    });
+
+    // 🔹 ターゲットが存在するか確認してからobserve
+    if (observerTarget) {
+        observer.observe(observerTarget);
+        console.log("Observer is now observing:", observerTarget);
+    } else {
+        console.warn("#scrollObserverTarget not found");
+    }
+
+    // --- 以下 loadMore 定義 ---
     function loadMore() {
         if (isLoading || !hasNextPage) return;
 
@@ -46,32 +57,30 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(data => {
+            console.log("Fetched data:", data);
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = data.html;
 
-            // 👇 重複記事を除外して追加
             tempDiv.querySelectorAll(".hashtag-thumbnail").forEach(el => {
                 const id = el.dataset.articleId;
                 if (!articleIdsShown.has(id)) {
                     container.appendChild(el);
-                    articleIdsShown.add(id);  // 👈 表示済みに追加
+                    articleIdsShown.add(id);
                 }
             });
 
-            Object.assign(articleData, data.article_data);
-
             if (data.has_next) {
                 currentPage += 1;
-                isLoading = false;
             } else {
                 hasNextPage = false;
-                loader.style.display = "none";
                 endMessage.style.display = "block";
                 endMessageCircle.style.display = "block";
             }
         })
         .catch(err => {
             console.error("読み込みエラー:", err);
+        })
+        .finally(() => {
             loader.style.display = "none";
             isLoading = false;
         });

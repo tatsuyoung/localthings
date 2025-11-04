@@ -154,12 +154,13 @@
                 }
                 });
         </script>
-        <script>
+        <!-- <script>
         // follow
         document.addEventListener('DOMContentLoaded', () => {
             initializeFollowButtons();
         });
-        </script>
+        </script> -->
+        <!-- initializeFollowButtons のエラーは回避 -->
         <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll("form.comment-form").forEach(function (form) {
@@ -211,7 +212,7 @@
         <script src="/static/js/book_mark.js"></script>
         <script src="/static/js/edit.js"></script>
         <script src="/static/js/progress.js"></script>
-        <!--  <script src="/static/js/notification.js"></script>  -->
+        <script src="/static/js/tag_infinite_scroll.js" defer></script>
         <!--  {% register_notify_callbacks callbacks='my_special_notification_callback' %}  -->
         {% block script %}
         {% endblock %}
