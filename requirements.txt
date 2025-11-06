@@ -9,7 +9,7 @@ cryptography==44.0.1
 decorator==4.4.2
 defusedxml==0.6.0
 dj-database-url==0.5.0
-Django==4.2.25
+Django==4.2.26
 django-ckeditor==5.7.0
 django-cleanup==9.0.0
 django-crispy-forms==1.7.2
