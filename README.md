@@ -4,7 +4,7 @@
 ### “あなたの地元を、世界とつなぐSNS”
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![Django](https://img.shields.io/badge/Django-4.2.22-green?logo=django)
+![Django](https://img.shields.io/badge/Django-4.2.26-green?logo=django)
 ![Heroku](https://img.shields.io/badge/Deployed-Heroku-purple?logo=heroku)
 ![AWS S3](https://img.shields.io/badge/Storage-AWS%20S3-orange?logo=amazon-aws)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
@@ -32,9 +32,9 @@
 | カテゴリ | 機能内容 |
 |-----------|-----------|
 | 👤 **ユーザー管理** | ログイン・新規登録・プロフィール編集 |
-| 📝 **投稿機能** | 記事投稿・画像添付・編集・削除 |
+| 📝 **投稿機能** | 記事投稿・画像添付・編集・削除・ショート動画 |
 | 💬 **交流機能** | コメント・いいね・ブックマーク |
-| 🔔 **通知機能** | コメント・フォロー・いいね時にバッジ通知 |
+| 🔔 **通知機能** | コメント・フォロー・いいね!時にバッジ通知 |
 | 🌈 **UI / UX** | ダークモード、PWA対応、背景変更、進捗バー |
 | 🖼 **メディア対応** | 画像リサイズ、自動サムネイル |
 | 🌍 **SNS連携** | Twitterカード / Facebookシェア対応 |
@@ -48,7 +48,7 @@
 | カテゴリ | 使用技術 |
 |-----------|-----------|
 | **Language** | Python 3.11, HTML5, CSS3, JavaScript, jQuery, Ajax |
-| **Framework** | Django 4.2.22 |
+| **Framework** | Django 4.2.26 |
 | **Hosting** | Heroku |
 | **Storage** | AWS S3 |
 | **Database** | PostgreSQL |
