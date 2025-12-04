@@ -4,7 +4,7 @@
 ### “あなたの地元を、世界とつなぐSNS”
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![Django](https://img.shields.io/badge/Django-4.2.26-green?logo=django)
+![Django](https://img.shields.io/badge/Django-4.2.27-green?logo=django)
 ![Heroku](https://img.shields.io/badge/Deployed-Heroku-purple?logo=heroku)
 ![AWS S3](https://img.shields.io/badge/Storage-AWS%20S3-orange?logo=amazon-aws)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
@@ -48,7 +48,7 @@
 | カテゴリ | 使用技術 |
 |-----------|-----------|
 | **Language** | Python 3.11, HTML5, CSS3, JavaScript, jQuery, Ajax |
-| **Framework** | Django 4.2.26 |
+| **Framework** | Django 4.2.27 |
 | **Hosting** | Heroku |
 | **Storage** | AWS S3 |
 | **Database** | PostgreSQL |
