@@ -128,3 +128,8 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+# --- Local virtualenv ---
+Django4/
+
+# --- Secrets ---
+.env
