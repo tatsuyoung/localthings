@@ -19,7 +19,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['localthings.herokuapp.com']
+#ALLOWED_HOSTS = ['localthings.herokuapp.com']
+if ENV == "PRODUCTION":
+    ALLOWED_HOSTS = ['localthings.herokuapp.com']
+else:
+    ALLOWED_HOSTS = ['*']
 
 #CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -245,4 +249,4 @@ SESSION_COOKIE_SAMESITE = None
 DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
