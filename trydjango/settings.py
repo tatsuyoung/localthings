@@ -1,7 +1,7 @@
 import os
 from typing import List
 from decouple import config
-import django_heroku
+#import django_heroku
 import dj_database_url
 
 
