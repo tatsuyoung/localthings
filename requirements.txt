@@ -53,5 +53,5 @@ sqlparse==0.5.4
 swapper==1.4.0
 tqdm==4.67.1
 typing_extensions==4.7.1
-urllib3==2.6.3
+urllib3==2.7.0
 whitenoise==5.2.0
