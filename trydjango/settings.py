@@ -188,19 +188,15 @@ LOGIN_URL = 'login'
 
 SITE_ID = 2
 
-# page移動だけ
-#EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-# コンソール出力
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# email 送る
-EMAIL_BACKEND   = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS   = True
-EMAIL_HOST      = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
+if ENV == "PRODUCTION":
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 AWS_ACCESS_KEY_ID       = config('AWS_ACCESS_KEY_ID')
