@@ -58,24 +58,26 @@ def signup_view(request):
 from django.contrib.auth.forms import AuthenticationForm
 
 def login_view(request):
-    if request.method == "POST":
+    if request.method == 'POST':
+        print("USERNAME:", repr(request.POST.get("username")))
+        print("PASSWORD LENGTH:", len(request.POST.get("password", "")))
+
         form = AuthenticationForm(data=request.POST)
 
         print(form.errors)
 
         if form.is_valid():
             print("LOGIN SUCCESS")
-
             user = form.get_user()
             login(request, user)
-            return redirect("articles:list")
+            return redirect('articles:list')
 
         print("LOGIN FAILED")
 
     else:
         form = AuthenticationForm()
 
-    return render(request, "accounts/login.html", {"form": form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 def logout_view(request):
