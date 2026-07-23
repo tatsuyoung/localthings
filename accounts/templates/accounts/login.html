@@ -13,6 +13,13 @@
 <div class="form-container">
     <div class="form-wrapper">
         <form class="site-form-new" action="{% url 'accounts:login' %}" method="POST">
+            
+            {% if form.non_field_errors %}
+                <div style="color:red;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
             {% csrf_token %}
             <div class="form-item">
                 <label for="id_username"></label>

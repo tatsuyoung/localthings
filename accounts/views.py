@@ -42,19 +42,40 @@ def signup_view(request):
     return render(request, 'accounts/signup.html', {'form': form})
 
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             if 'next' in request.POST:
+#                 return redirect(request.POST.get('next'))
+#             else:
+#                 return redirect('articles:list')
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'accounts/login.html', {'form': form})
+from django.contrib.auth.forms import AuthenticationForm
+
 def login_view(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
+
+        print(form.errors)
+
         if form.is_valid():
+            print("LOGIN SUCCESS")
+
             user = form.get_user()
             login(request, user)
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect('articles:list')
+            return redirect("articles:list")
+
+        print("LOGIN FAILED")
+
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+
+    return render(request, "accounts/login.html", {"form": form})
 
 
 def logout_view(request):
