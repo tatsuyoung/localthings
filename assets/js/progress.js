@@ -36,6 +36,37 @@ $("#form").submit(function(e) {
 
     // FormDataでフォーム内容を取得
     const formData = new FormData(this);
+    let debugData = [];
+
+    for (const [key, value] of formData.entries()) {
+
+        if (value instanceof File) {
+
+            debugData.push(
+
+                `FILE: ${key} / ${value.name} / ${value.type} / ${value.size}`
+
+            );
+
+        } else {
+
+            debugData.push(
+
+                `${key}: ${value}`
+
+            );
+
+        }
+
+    }
+
+    alert(
+
+        "FORMDATA\n\n" +
+
+        debugData.join("\n")
+
+    );
 
     $.ajax({
         url: $("#form").attr("action"),
