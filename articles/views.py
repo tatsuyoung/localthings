@@ -294,7 +294,10 @@ def article_detail(request, pk):
 def article_create(request, num_images=5):
     try:
         if request.method == 'POST':
-            form = forms.CreateArticle(request.POST)
+            logger.info(f"POST : {request.POST}")
+            logger.info(f"FILES: {[(f.name, f.content_type, f.size) for f in request.FILES.getlist('images')]}")
+
+            form  = forms.CreateArticle(request.POST)
             files = request.FILES.getlist('images')
             logger.info(f"FILES: {[f.name for f in files]}")
             if form.is_valid():
