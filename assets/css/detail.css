@@ -1635,20 +1635,16 @@ li.logo {
 }
 
 .mobile-nav-icon {
-    font-size: 24px; /* 少し小さめに */
-    color: #000;
-    font-weight: 300; /* 効果は限定的（FontAwesomeには反映されないことも） */
-    -webkit-text-stroke: 0 !important; /* 輪郭を除去してスッキリ */
+    font-size: 24px;
+    color: gray;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.mobile-nav-icon:hover
-{
+.mobile-nav-icon:hover {
     color: var(--main-color);
 }
 
-.mobile-nav-icon:active
-{
+.mobile-nav-icon:active {
     color: var(--main-color);
 }
 
