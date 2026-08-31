@@ -19,6 +19,7 @@ const myCsrfToken = getCookie('csrftoken');
 
 $("#form").submit(function(e) {
     e.preventDefault();
+    alert("SUBMIT HANDLER FIRED");
     // const ok = confirm('Are you sure with the content of this article?');
     // if (!ok) return;
 
@@ -34,32 +35,7 @@ $("#form").submit(function(e) {
     }, 200);
 
     // FormDataでフォーム内容を取得
-    // const formData = new FormData(this);
-    // FormDataでフォーム内容を取得
     const formData = new FormData(this);
-
-    console.log("========== FORMDATA ==========");
-
-    for (const [key, value] of formData.entries()) {
-        if (value instanceof File) {
-            console.log(
-                "FORMDATA FILE:",
-                key,
-                value.name,
-                value.type,
-                value.size
-            );
-        } else {
-            console.log(
-                "FORMDATA:",
-                key,
-                value
-            );
-        }
-    }
-
-    console.log("========== END FORMDATA ==========");
-
 
     $.ajax({
         url: $("#form").attr("action"),
