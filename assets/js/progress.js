@@ -19,7 +19,7 @@ const myCsrfToken = getCookie('csrftoken');
 
 $("#form").submit(function(e) {
     e.preventDefault();
-    alert("SUBMIT HANDLER FIRED");
+    // alert("SUBMIT HANDLER FIRED");
     // const ok = confirm('Are you sure with the content of this article?');
     // if (!ok) return;
 
