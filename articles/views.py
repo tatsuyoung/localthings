@@ -290,94 +290,38 @@ def article_detail(request, pk):
     return render(request, 'articles/article_detail_new.html', context)
 
 
-# @login_required(login_url="/accounts/login/")
-# def article_create(request, num_images=5):
-#     try:
-#         if request.method == 'POST':
-#             logger.info(f"POST : {request.POST}")
-#             logger.info(f"FILES: {[(f.name, f.content_type, f.size) for f in request.FILES.getlist('images')]}")
 
-#             form  = forms.CreateArticle(request.POST)
-#             files = request.FILES.getlist('images')
-#             logger.info(f"FILES: {[f.name for f in files]}")
-#             if form.is_valid():
-#                 instance = form.save(commit=False)
-#                 instance.author = request.user
-#                 instance.date   = timezone.now()
-#                 instance.save()
-
-#                 for i, image in enumerate(files):
-#                     if i >= num_images:
-#                         break
-#                     ArticleImage.objects.create(article=instance, image=image)
-
-#                 return redirect('articles:list')
-#             else:
-#                 logger.error(f"Form errors: {form.errors}")
-#                 return render(request, 'articles/article_create.html', {'form': form})
-
-#         else:
-#             form = forms.CreateArticle()
-#             return render(request, 'articles/article_create.html', {'form': form})
-
-#     except Exception as e:
-#         logger.exception("Error during article_create")
-#         return HttpResponseServerError("Internal Server Error")
 @login_required(login_url="/accounts/login/")
 def article_create(request, num_images=5):
     try:
         if request.method == 'POST':
+            logger.info(f"POST : {request.POST}")
+            logger.info(f"FILES: {[(f.name, f.content_type, f.size) for f in request.FILES.getlist('images')]}")
 
-            logger.error("========== ARTICLE CREATE POST ==========")
-            logger.error(f"CONTENT_TYPE: {request.content_type}")
-            logger.error(f"POST: {request.POST}")
-            logger.error(f"POST_KEYS: {list(request.POST.keys())}")
-            logger.error(f"FILES_KEYS: {list(request.FILES.keys())}")
-
+            form  = forms.CreateArticle(request.POST)
             files = request.FILES.getlist('images')
-
-            logger.error(
-                f"FILES: {[(f.name, f.content_type, f.size) for f in files]}"
-            )
-
-            form = forms.CreateArticle(request.POST)
-
+            logger.info(f"FILES: {[f.name for f in files]}")
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.author = request.user
-                instance.date = timezone.now()
+                instance.date   = timezone.now()
                 instance.save()
 
                 for i, image in enumerate(files):
                     if i >= num_images:
                         break
-
-                    ArticleImage.objects.create(
-                        article=instance,
-                        image=image
-                    )
+                    ArticleImage.objects.create(article=instance, image=image)
 
                 return redirect('articles:list')
-
             else:
-                logger.error(f"FORM ERRORS: {form.errors}")
-
-                return render(
-                    request,
-                    'articles/article_create.html',
-                    {'form': form}
-                )
+                logger.error(f"Form errors: {form.errors}")
+                return render(request, 'articles/article_create.html', {'form': form})
 
         else:
             form = forms.CreateArticle()
+            return render(request, 'articles/article_create.html', {'form': form})
 
-            return render(
-                request,
-                'articles/article_create.html',
-                {'form': form}
-            )
-
-    except Exception:
+    except Exception as e:
         logger.exception("Error during article_create")
         return HttpResponseServerError("Internal Server Error")
 

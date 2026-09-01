@@ -74,14 +74,17 @@
     <div class="form-footer">
         <div class="site-form-new">
             <div class="p_container">
-                <div id="fake-upload-animation" style="display:none; text-align:center; margin: 20px 0;">
-                    <div style="width: 100%; background: #eee; border-radius: 8px; overflow: hidden;">
-                        <div id="fake-bar" style="width:0%; height: 24px; background: linear-gradient(90deg, #4caf50, #81c784); transition: width 0.3s;"></div>
+                <div id="fake-upload-animation">
+                    <div class="progress-track">
+                        <div id="fake-bar"></div>
                     </div>
-                    <p id="fake-message" style="margin-top: 10px;">Uploading...please wait!</p>
+                    <p id="fake-message"></p>
                 </div>
             </div>
         </div>
+        <p>
+            <a href="{% url 'home' %}">Home</a>
+        </p>
     </div>
     <div class="edit-article-footer">
         <a href="{% url 'home' %}" class="edit-article-home-link">Home</a>

@@ -1,62 +1,114 @@
-// progress.js
-// DjangoのCSRFトークン取得とAjaxへの設定
 function getCookie(name) {
     let cookieValue = null;
+
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
+
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            // このcookieが目的のものか確認
+
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
                 break;
             }
         }
     }
+
     return cookieValue;
 }
+
 const myCsrfToken = getCookie('csrftoken');
+
 
 $("#form").submit(function(e) {
     e.preventDefault();
-    // alert("SUBMIT HANDLER FIRED");
-    // const ok = confirm('Are you sure with the content of this article?');
-    // if (!ok) return;
 
-    // フェイクアニメーション開始
-    $("#fake-upload-animation").show();
+    const $animation = $("#fake-upload-animation");
+    const $bar = $("#fake-bar");
+    const $message = $("#fake-message");
+
+    // Reset
+    $animation.show();
+    $bar.css({
+        "width": "0%",
+        "background": "linear-gradient(90deg, #4caf50, #81c784)"
+    });
+
+    $message
+        .hide()
+        .removeClass("error")
+        .text("");
+
+    // Fake progress
     let fakePercent = 0;
-    $("#fake-bar").css("width", "0%");
+
     const fakeInterval = setInterval(function() {
-        if (fakePercent < 95) { // 95%までゆっくり進める
+
+        if (fakePercent < 95) {
             fakePercent += Math.random() * 5;
-            $("#fake-bar").css("width", fakePercent + "%");
+            fakePercent = Math.min(fakePercent, 95);
+
+            $bar.css("width", fakePercent + "%");
         }
+
     }, 200);
 
-    // FormDataでフォーム内容を取得
+
+    // FormData
     const formData = new FormData(this);
-    
+
+
     $.ajax({
         url: $("#form").attr("action"),
         type: "POST",
         data: formData,
-        processData: false, // これが重要
-        contentType: false, // これが重要
-        headers: {'X-CSRFToken': myCsrfToken},
-        success: function (data) {
-            clearInterval(fakeInterval);
-            $("#fake-bar").css("width", "100%");
-            $("#fake-message").text("Successfully uploaded!");
-            setTimeout(function() {
-                $("#fake-upload-animation").hide();
-                window.location.href = "/";
-            }, 800);
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-CSRFToken": myCsrfToken
         },
-        error: function (xhr, status, error) {
+
+        success: function(data) {
+
             clearInterval(fakeInterval);
-            $("#fake-upload-animation").hide();
-            alert("Error: " + error);
+
+            // Finish progress
+            $bar.css("width", "100%");
+
+            // Success messageは表示しない
+            setTimeout(function() {
+                $animation.hide();
+                window.location.href = "/";
+
+            }, 300);
+        },
+
+
+        error: function(xhr, status, error) {
+
+            clearInterval(fakeInterval);
+
+            // Barをエラー色に変更
+            $bar.css({
+                "width": "100%",
+                "background": "#dc3545"
+            });
+
+            // Error messageだけ表示
+            let message = "Upload failed.";
+
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                message = xhr.responseJSON.error;
+            } else if (error) {
+                message = "Error: " + error;
+            }
+
+            $message
+                .text(message)
+                .addClass("error")
+                .show();
         }
     });
 });
