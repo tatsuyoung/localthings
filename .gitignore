@@ -129,7 +129,16 @@ GitHub.sublime-settings
 !.vscode/extensions.json
 .history
 # --- Local virtualenv ---
-Django4/
+/Django4/
+/Django5/
 
 # --- Secrets ---
 .env
+
+# --- Local backup and investigation files ---
+/db.sqlite3.backup-before-django52
+/pipdeptree.txt
+/requirements-before.txt
+/requirements-local.txt
+# Django 5.2 migration investigation
+/patches/
