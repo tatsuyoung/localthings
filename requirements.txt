@@ -14,7 +14,7 @@ django-ckeditor==5.7.0
 django-cleanup==9.0.0
 django-crispy-forms==1.7.2
 django-js-asset==1.2.2
-django-model-utils==4.0.0
+django-model-utils==5.0.0
 django-notifications-hq @ git+https://github.com/tatsuyoung/django-notifications.git@4c44bcea2504d9a3fcd26366b232a13732a08f2a
 django-storages==1.14.6
 django-utils-six==2.0
