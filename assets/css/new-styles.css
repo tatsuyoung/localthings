@@ -3171,6 +3171,8 @@ label[for="id_username"] {
     transition: background-color 0.3s ease, box-shadow 0.2s ease;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
+    appearance: none;
 }
 
 .login-social .social.google:hover {
@@ -3187,10 +3189,7 @@ label[for="id_username"] {
 .login-social .social-text {
     display: inline-block;
 }
-.login-social a.social:hover{
-    opacity:            .8;
-    text-decoration:  none;
-    }
+
 
 @media (max-width: 600px){
     .login-social .social span.social-text
