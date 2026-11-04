@@ -33,7 +33,7 @@ oauthlib==4.0.1
 packaging==25.0
 pillow==13.0.0
 pillow_heif==1.3.0
-pipdeptree==2.27.0
+pipdeptree==4.2.13
 proglog==0.1.12
 psycopg2-binary==2.9.9
 pycparser==2.20
