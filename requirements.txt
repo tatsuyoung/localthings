@@ -38,7 +38,7 @@ proglog==0.1.12
 psycopg2-binary==2.9.9
 pycparser==2.20
 PyJWT==2.15.1
-python-dateutil==2.8.0
+python-dateutil==4.0.0
 python-decouple==3.8
 python-dotenv==1.2.4
 python3-openid==3.2.0
